@@ -4,7 +4,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { gsap, Power3 } from 'gsap'
+import { gsap, Power3, Power4 } from 'gsap'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js'
 class SceneInit {
   constructor({ rootEl }) {
@@ -52,7 +52,7 @@ class SceneInit {
 
   initCamera() {
     this.camera = new THREE.PerspectiveCamera(
-      75,
+      60,
       window.innerWidth / window.innerHeight,
       1,
       1000
@@ -68,6 +68,7 @@ class SceneInit {
   initRenderer() {
     this.renderer = new THREE.WebGLRenderer({ antialias: true })
     this.renderer.outputEncoding = THREE.sRGBEncoding
+
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.setSize(window.innerWidth, window.innerHeight)
     this.renderer.setClearColor(this.background, 1)
@@ -80,15 +81,16 @@ class SceneInit {
       this.camera,
       this.renderer.domElement
     )
-    // this.controls.pointerSpeed = 0.005
+    this.controls.pointerSpeed = 0.15
     this.controls.smooth = true
-    this.controls.smoothspeed = 0.95
+    // this.controls.smoothspeed = 0.95
     // const blocker = document.getElementById('blocker')
     const instructions = document.getElementById('instructions')
 
     instructions.addEventListener('click', () => {
       this.controls.lock()
       this.scene.getObjectByName('Screen').material.map.image.play()
+      this.scene.getObjectByName('ScreenTV2_2').material.map.image.play()
     })
 
     // this.controls.addEventListener('lock', () => {
@@ -200,6 +202,19 @@ class SceneInit {
               onComplete: () => {
                 this.isZoomed = true
               }
+            })
+            document.addEventListener('click', () => {
+              gsap.to(this.controls.getObject().position, {
+                // fov: 30,
+                x: this.scene.getObjectByName('TV2').parent.camPosition.x,
+                y: this.scene.getObjectByName('TV2').parent.camPosition.y,
+                z: this.scene.getObjectByName('TV2').parent.camPosition.z,
+                duration: 1.2,
+                ease: Power4,
+                onComplete: () => {
+                  this.isZoomed = true
+                }
+              })
             })
           } else if (event.deltaY > 0 && this.isZoomed) {
             gsap.to(this.controls.getObject().position, {
