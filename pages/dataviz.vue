@@ -2,31 +2,55 @@
 	<section class="question">
 		<h2>Pensez-vous qu’Omar Raddad est le meutrier inspecteur ?</h2>
 		<div>
-			<button ref="yes" @click='updateDocument()'>OUI</button>
-			<button ref="no">NON</button>
-			<button ref="jsp">NE SAIS PAS</button>
+			<button ref="yes" @click='updateDocument(yes)'>OUI</button>
+			<button ref="no" @click='updateDocument(no)'>NON</button>
+			<button ref="jsp" @click='updateDocument(jsp)'>NE SAIS PAS</button>
 		</div>
 	</section>
 </template>
 
 <script>
-import { getFirestore, updateDoc, doc, increment } from "firebase/firestore";
-import { app } from '../js/firebase-config';
+// import { getFirestore, updateDoc, doc, increment } from "firebase/firestore";
+// import { app } from '../js/firebase-config';
 
-const db = getFirestore(app);
-const docRef = doc(db, "murder", "nbz24O9VmlyMaxGnRQuc");
+// const db = getFirestore(app);
+// const docRef = doc(db, "murder", "nbz24O9VmlyMaxGnRQuc");
 
 export default {
 	// mounted() {
 	// 	console.log('$nuxt.$route.path:', this.$nuxt.$route.path)
 	// },
+	data() {
+		return {
+			// param : 'field of firebase doc'
+			yes: 'yes',
+			no: 'no',
+			jsp: 'jsp'
+		}
+	},
 	methods: {
-		updateDocument() {
-			updateDoc(docRef, {
-				yes: increment(1)
-			}).then(function() {
-				window.location.href = '/chart';
-			});
+		// updateDocument() {
+		// 	updateDoc(docRef, {
+		// 		yes: increment(1)
+		// 	}).then(function() {
+		// 		window.location.href = '/chart';
+		// 	});
+		// }
+
+		async updateDocument(documentField) {
+			const ref = this.$fire.firestore.collection('murder').doc('nbz24O9VmlyMaxGnRQuc')
+			const increment = this.$fireModule.firestore.FieldValue.increment(1)
+			try {
+			await ref.update({
+				[`${documentField}`]: increment
+				})
+				.then(function() {
+					// window.location.href = '/chart';
+					this.$router.push({path: '/chart'})
+				})
+			} catch (e) {
+				return Promise.reject(e)
+			}
 		}
 	}
 }

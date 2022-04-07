@@ -37,6 +37,22 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+	[
+		'@nuxtjs/firebase',
+		{
+		  config: {
+			apiKey: "AIzaSyD2BNXbnVwyYa-ccxgUI6QRE4aRihJZX-k",
+			authDomain: "omar-2b0e7.firebaseapp.com",
+			projectId: "omar-2b0e7",
+			storageBucket: "omar-2b0e7.appspot.com",
+			messagingSenderId: "675335574331",
+			appId: "1:675335574331:web:7c3d54284e8328c615dd1e"
+		  },
+		  services: {
+			firestore: true // enable firebase 
+		  }
+		}
+	]
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
