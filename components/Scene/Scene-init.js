@@ -234,6 +234,28 @@ class SceneInit {
       false
     )
   }
+
+	applySpacialSound(videoSound, model, playStatue) {
+		// create an AudioListener and add it to the camera
+		const listener = new THREE.AudioListener();
+		this.camera.add( listener );
+		console.log('sapcial sound')
+
+		// create the PositionalAudio object (passing in the listener)
+		const sound = new THREE.PositionalAudio( listener );
+
+		// load a sound and set it as the PositionalAudio object's buffer
+		const audioLoader = new THREE.AudioLoader();
+		audioLoader.load( videoSound, function( buffer ) {
+			sound.setBuffer( buffer );
+			sound.setVolume(1)
+			sound.setRefDistance(1);
+			sound.loop = true
+			if (playStatue === true) sound.play();
+		});
+
+		model.add( sound );
+	}
 }
 
 // To call our class as a function

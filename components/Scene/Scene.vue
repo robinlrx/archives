@@ -38,6 +38,7 @@ export default {
       const video = document.createElement('video')
       video.src = src
       video.setAttribute('loop', '')
+      video.muted = true;
       video.load() // must call after setting/changing source
       const texture = new THREE.VideoTexture(video)
       // texture.minFilter = THREE.LinearFilter
@@ -77,6 +78,7 @@ export default {
               model.getObjectByName('Screen'),
               'videos/france2-lucet.mp4'
             )
+			// this.scene.applySpacialSound('videos/france2-lucet.mp4', model, true )
           }
           if (this.models[i] === 'TV2') {
             model.camPosition = new THREE.Vector3(12.2, 16.8, 6)
@@ -87,6 +89,7 @@ export default {
               model.getObjectByName('ScreenTV2_2'),
               'videos/france2-proces.mp4'
             )
+			this.scene.applySpacialSound('videos/france2-proces.mp4', model.getObjectByName('ScreenTV2_2'), true)
           }
           this.scene.add(model)
         })
