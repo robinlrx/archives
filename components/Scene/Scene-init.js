@@ -1,11 +1,10 @@
 import * as THREE from 'three'
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { gsap, Power3, Power4 } from 'gsap'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js'
+import Model from './Model'
+
 class SceneInit {
   constructor({ rootEl }) {
     this.canvas = document.createElement('canvas')
@@ -26,18 +25,56 @@ class SceneInit {
 
   init() {
     this.initScene()
+    this.initManager()
     this.initLights()
     this.initCamera()
     this.initRenderer()
     this.setControls()
-    this.setRaycast()
-    this.setBloom()
-
+    this.initAudio()
+    this.initModels()
+    // this.setRaycast()
     this.root.appendChild(this.canvas)
+  }
+
+  initAudio() {
+    this.listener = new THREE.AudioListener()
+    this.camera.add(this.listener)
+  }
+
+  initModels() {
+    console.log(this.listener)
+    this.tasse = new Model({
+      src: 'tasse',
+      audioSrc: 'vine-boom.mp3',
+      listener: this.listener,
+      loadingManager: this.manager
+    })
+    this.scene.add(this.tasse.container)
+    this.office = new Model({
+      src: 'office',
+      loadingManager: this.manager,
+      material: new THREE.MeshDepthMaterial({ color: 0xffffff })
+    })
+    this.scene.add(this.office.container)
   }
 
   initScene() {
     this.scene = new THREE.Scene()
+  }
+
+  initManager() {
+    this.manager = new THREE.LoadingManager()
+    this.manager.onProgress = function (url, itemsLoaded, itemsTotal) {
+      console.log(
+        'Loading file: ' +
+          url +
+          '.\nLoaded ' +
+          itemsLoaded +
+          ' of ' +
+          itemsTotal +
+          ' files.'
+      )
+    }
   }
 
   initLights() {
@@ -52,7 +89,7 @@ class SceneInit {
 
   initCamera() {
     this.camera = new THREE.PerspectiveCamera(
-      60,
+      65,
       window.innerWidth / window.innerHeight,
       1,
       1000
@@ -111,41 +148,14 @@ class SceneInit {
     this.renderer.render(this.scene, this.camera)
   }
 
-  setBloom() {
-    const renderScene = new RenderPass(this.scene, this.camera)
-
-    const bloomPass = new UnrealBloomPass(
-      new THREE.Vector2(window.innerWidth, window.innerHeight),
-      1.5,
-      0.4,
-      0.85
-    )
-    bloomPass.threshold = this.params.bloomThreshold
-    bloomPass.strength = this.params.bloomStrength
-    bloomPass.radius = this.params.bloomRadius
-
-    this.composer = new EffectComposer(this.renderer)
-    this.composer.addPass(renderScene)
-    this.composer.addPass(bloomPass)
-  }
-
   update() {
     requestAnimationFrame(() => this.update())
 
     this.renderer.render(this.scene, this.camera)
-
-    // if (this.isZoomed) {
-    //   this.camera.lookAt(this.scene.getObjectByName('TV1').position)
-    //   this.camera.updateProjectionMatrix()
-    // }
-
-    // this.controls.update()
-
-    // this.render()
   }
 
   loadModel(model, callback) {
-    this.loader = new GLTFLoader()
+    this.loader = new GLTFLoader(this.manager)
 
     this.loader.load(model, (gltf) => {
       if (typeof callback === 'function') {
