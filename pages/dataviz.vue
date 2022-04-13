@@ -44,9 +44,8 @@ export default {
 			await ref.update({
 				[`${documentField}`]: increment
 				})
-				.then(function() {
-					// window.location.href = '/chart';
-					this.$router.push({path: '/chart'})
+				.then(() => {
+					this.$nuxt.$router.push('/chart') 
 				})
 			} catch (e) {
 				return Promise.reject(e)
