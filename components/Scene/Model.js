@@ -16,7 +16,7 @@ export default class Model {
 
   init() {
     this.loadModel()
-    // this.initSound()
+    if (this.audioSrc) this.initSound()
 
     // this.initSound()
   }
@@ -24,12 +24,13 @@ export default class Model {
   initSound() {
     const sound = new THREE.PositionalAudio(this.listener)
     const audioLoader = new THREE.AudioLoader()
-    audioLoader.load(`sounds/${this.audioSrc}`, (buffer) => {
+    this.container.add(sound)
+    audioLoader.load(`${this.audioSrc}`, (buffer) => {
       sound.setBuffer(buffer)
       sound.setVolume(1)
+      sound.setRefDistance(1)
       sound.play()
     })
-    this.container.add(sound)
   }
 
   loadModel(callback) {

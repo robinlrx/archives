@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { gsap, Power3, Power4 } from 'gsap'
+import { gsap, Power3 } from 'gsap'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js'
 import Model from './Model'
 
@@ -32,7 +31,7 @@ class SceneInit {
     this.setControls()
     this.initAudio()
     this.initModels()
-    // this.setRaycast()
+    this.setRaycast()
     this.root.appendChild(this.canvas)
   }
 
@@ -44,7 +43,7 @@ class SceneInit {
   initModels() {
     this.tasse = new Model({
       src: 'tasse',
-      audioSrc: 'vine-boom.mp3',
+      audioSrc: 'videos/france2-proces.mp4',
       listener: this.listener,
       loadingManager: this.manager
     })
@@ -165,18 +164,6 @@ class SceneInit {
     this.renderer.render(this.scene, this.camera)
   }
 
-  loadModel(model, callback) {
-    this.loader = new GLTFLoader(this.manager)
-
-    this.loader.load(model, (gltf) => {
-      if (typeof callback === 'function') {
-        callback(gltf.scene)
-      }
-
-      this.scene.add(gltf.scene)
-    })
-  }
-
   add(model) {
     this.scene.add(model)
   }
@@ -204,9 +191,7 @@ class SceneInit {
       'wheel',
       (event) => {
         this.raycaster.setFromCamera(new THREE.Vector2(), this.camera)
-        const intersects = this.raycaster.intersectObject(
-          this.scene.getObjectByName('TV1')
-        )
+        const intersects = this.raycaster.intersectObject(this.tasse.container)
 
         if (intersects.length > 0) {
           document
@@ -214,28 +199,14 @@ class SceneInit {
             .classList.add('cursor-circle-focus')
           if (event.deltaY < 0 && !this.isZoomed) {
             gsap.to(this.controls.getObject().position, {
-              // fov: 30,
-              x: intersects[0].object.parent.parent.camPosition.x,
-              y: intersects[0].object.parent.parent.camPosition.y,
-              z: intersects[0].object.parent.parent.camPosition.z,
+              x: 11,
+              y: 11,
+              z: -0.5,
               duration: 1.5,
               ease: Power3,
               onComplete: () => {
                 this.isZoomed = true
               }
-            })
-            document.addEventListener('click', () => {
-              gsap.to(this.controls.getObject().position, {
-                // fov: 30,
-                x: this.scene.getObjectByName('TV2').parent.camPosition.x,
-                y: this.scene.getObjectByName('TV2').parent.camPosition.y,
-                z: this.scene.getObjectByName('TV2').parent.camPosition.z,
-                duration: 1.2,
-                ease: Power4,
-                onComplete: () => {
-                  this.isZoomed = true
-                }
-              })
             })
           } else if (event.deltaY > 0 && this.isZoomed) {
             gsap.to(this.controls.getObject().position, {
