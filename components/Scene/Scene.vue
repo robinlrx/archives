@@ -78,7 +78,7 @@ export default {
               model.getObjectByName('Screen'),
               'videos/france2-lucet.mp4'
             )
-			// this.scene.applySpacialSound('videos/france2-lucet.mp4', model, true )
+			// this.scene.applySpacialSound('videos/france2-lucet.mp4', model )
           }
           if (this.models[i] === 'TV2') {
             model.camPosition = new THREE.Vector3(12.2, 16.8, 6)
@@ -89,7 +89,7 @@ export default {
               model.getObjectByName('ScreenTV2_2'),
               'videos/france2-proces.mp4'
             )
-			this.scene.applySpacialSound('videos/france2-proces.mp4', model.getObjectByName('ScreenTV2_2'), true)
+			this.scene.applySpacialSound('videos/france2-proces.mp4', model.getObjectByName('ScreenTV2_2'))
           }
           this.scene.add(model)
         })

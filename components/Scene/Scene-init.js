@@ -251,7 +251,7 @@ class SceneInit {
 			sound.setVolume(1)
 			sound.setRefDistance(1);
 			sound.loop = true
-			if (playStatue === true) sound.play();
+			sound.play();
 		});
 
 		model.add( sound );
