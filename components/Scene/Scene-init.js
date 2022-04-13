@@ -44,6 +44,7 @@ class SceneInit {
     this.tasse = new Model({
       src: 'tasse',
       audioSrc: 'videos/france2-proces.mp4',
+	  audioVolume:3,
       listener: this.listener,
       loadingManager: this.manager
     })

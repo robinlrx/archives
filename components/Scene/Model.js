@@ -3,9 +3,11 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 export default class Model {
-  constructor({ src, audioSrc, loadingManager, listener, material }) {
+  constructor({ src, audioSrc, audioVolume=1, audioDistance=1, loadingManager, listener, material }) {
     this.src = src
     this.audioSrc = audioSrc
+	this.audioVolume = audioVolume
+	this.audioDistance= audioDistance
     this.material = material
     this.loadingManager = loadingManager
     this.listener = listener
@@ -16,21 +18,19 @@ export default class Model {
 
   init() {
     this.loadModel()
-    if (this.audioSrc) this.initSound()
-
-    // this.initSound()
   }
 
-  initSound() {
+  initSound(target) {
     const sound = new THREE.PositionalAudio(this.listener)
     const audioLoader = new THREE.AudioLoader()
-    this.container.add(sound)
     audioLoader.load(`${this.audioSrc}`, (buffer) => {
-      sound.setBuffer(buffer)
-      sound.setVolume(1)
-      sound.setRefDistance(1)
-      sound.play()
+		sound.setBuffer(buffer)
+		sound.setVolume(this.audioVolume)
+		sound.setRefDistance(this.audioDistance)
+		sound.play()
     })
+	target.add(sound)
+
   }
 
   loadModel(callback) {
@@ -49,7 +49,9 @@ export default class Model {
         })
       }
       //   this.scene.add(gltf.scene)
-      this.container.add(gltf.scene)
+	  if (this.audioSrc) this.initSound(gltf.scene.children[0])
+
+      this.container.add(gltf.scene.children[0])
     })
   }
 }
