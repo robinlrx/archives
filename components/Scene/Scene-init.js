@@ -42,7 +42,6 @@ class SceneInit {
   }
 
   initModels() {
-    console.log(this.listener)
     this.tasse = new Model({
       src: 'tasse',
       audioSrc: 'vine-boom.mp3',
@@ -63,17 +62,29 @@ class SceneInit {
   }
 
   initManager() {
+    const currentPercent = 0
+
+    this.loadDiv = document.querySelector('.loaderScreen')
+    this.loadModels = this.loadDiv.querySelector('.loaderScreen__load')
+    this.progressBar = this.loadDiv.querySelectorAll('.loaderScreen__progress')
     this.manager = new THREE.LoadingManager()
-    this.manager.onProgress = function (url, itemsLoaded, itemsTotal) {
-      console.log(
-        'Loading file: ' +
-          url +
-          '.\nLoaded ' +
-          itemsLoaded +
-          ' of ' +
-          itemsTotal +
-          ' files.'
-      )
+
+    this.manager.onProgress = (url, itemsLoaded, itemsTotal) => {
+      this.progressBar.forEach((el) => {
+        el.style.width = this.loadModels.innerHTML = `${
+          Math.floor((itemsLoaded / itemsTotal) * 100) +
+          Math.floor((1 / itemsTotal) * currentPercent)
+        }%`
+      })
+
+      if (itemsTotal === itemsLoaded) {
+        setTimeout(() => {
+          this.loadDiv.style.opacity = 0
+          setTimeout(() => {
+            this.loadDiv.remove()
+          }, 550)
+        }, 1000)
+      }
     }
   }
 

@@ -1,5 +1,7 @@
 <template>
-  <div ref="container" class="scene coverdiv"></div>
+  <div ref="container" class="scene coverdiv">
+  
+  </div>
 </template>
 
 <script>
