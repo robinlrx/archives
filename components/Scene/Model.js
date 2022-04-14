@@ -49,8 +49,7 @@ export default class Model {
         side: THREE.DoubleSide,
       })
       target.material = videoMaterial
-      target.material.map.image.play()
-    
+	  texture.flipY = false;
   }
 
   loadModel(callback) {
