@@ -41,20 +41,37 @@ class SceneInit {
   }
 
   initModels() {
+	  const matcapTexture = new THREE.TextureLoader().load(
+	 'textures/7A7A7A_D0D0D0_BCBCBC_B4B4B4-512px.png'
+   )
+   matcapTexture.encoding = THREE.sRGBEncoding
+  
+   const previewMaterial = new THREE.MeshMatcapMaterial({
+	 matcap: matcapTexture,
+	 side: THREE.DoubleSide,
+   })
     this.tasse = new Model({
       src: 'tasse',
-      audioSrc: 'videos/france2-proces.mp4',
-	  audioVolume:3,
-      listener: this.listener,
       loadingManager: this.manager
     })
     this.scene.add(this.tasse.container)
     this.office = new Model({
       src: 'office',
       loadingManager: this.manager,
-      material: new THREE.MeshDepthMaterial({ color: 0xffffff })
+      material:previewMaterial
     })
     this.scene.add(this.office.container)
+	this.TV1 = new Model({
+		src: 'TV1',
+		loadingManager: this.manager,
+		audioSrc: 'videos/france2-proces.mp4',
+		audioVolume:3,
+		listener: this.listener,
+		videoSrc: 'videos/france2-proces.mp4',
+		videoContainer:'Screen',
+		material: previewMaterial
+	  })
+	  this.scene.add(this.TV1.container)
   }
 
   initScene() {
@@ -227,6 +244,28 @@ class SceneInit {
       false
     )
   }
+
+	applySpacialSound(videoSound, model, playStatue) {
+		// create an AudioListener and add it to the camera
+		const listener = new THREE.AudioListener();
+		this.camera.add( listener );
+		console.log('sapcial sound')
+
+		// create the PositionalAudio object (passing in the listener)
+		const sound = new THREE.PositionalAudio( listener );
+
+		// load a sound and set it as the PositionalAudio object's buffer
+		const audioLoader = new THREE.AudioLoader();
+		audioLoader.load( videoSound, function( buffer ) {
+			sound.setBuffer( buffer );
+			sound.setVolume(1)
+			sound.setRefDistance(1);
+			sound.loop = true
+			sound.play();
+		});
+
+		model.add( sound );
+	}
 }
 
 // To call our class as a function
