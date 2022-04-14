@@ -1,11 +1,9 @@
 import * as THREE from 'three'
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { gsap, Power3, Power4 } from 'gsap'
+import { gsap, Power3 } from 'gsap'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js'
+import Model from './Model'
+
 class SceneInit {
   constructor({ rootEl }) {
     this.canvas = document.createElement('canvas')
@@ -26,18 +24,68 @@ class SceneInit {
 
   init() {
     this.initScene()
+    this.initManager()
     this.initLights()
     this.initCamera()
     this.initRenderer()
     this.setControls()
+    this.initAudio()
+    this.initModels()
     this.setRaycast()
-    this.setBloom()
-
     this.root.appendChild(this.canvas)
+  }
+
+  initAudio() {
+    this.listener = new THREE.AudioListener()
+    this.camera.add(this.listener)
+  }
+
+  initModels() {
+    this.tasse = new Model({
+      src: 'tasse',
+      audioSrc: 'videos/france2-proces.mp4',
+	  audioVolume:3,
+      listener: this.listener,
+      loadingManager: this.manager
+    })
+    this.scene.add(this.tasse.container)
+    this.office = new Model({
+      src: 'office',
+      loadingManager: this.manager,
+      material: new THREE.MeshDepthMaterial({ color: 0xffffff })
+    })
+    this.scene.add(this.office.container)
   }
 
   initScene() {
     this.scene = new THREE.Scene()
+  }
+
+  initManager() {
+    const currentPercent = 0
+
+    this.loadDiv = document.querySelector('.loaderScreen')
+    this.loadModels = this.loadDiv.querySelector('.loaderScreen__load')
+    this.progressBar = this.loadDiv.querySelectorAll('.loaderScreen__progress')
+    this.manager = new THREE.LoadingManager()
+
+    this.manager.onProgress = (url, itemsLoaded, itemsTotal) => {
+      this.progressBar.forEach((el) => {
+        el.style.width = this.loadModels.innerHTML = `${
+          Math.floor((itemsLoaded / itemsTotal) * 100) +
+          Math.floor((1 / itemsTotal) * currentPercent)
+        }%`
+      })
+
+      if (itemsTotal === itemsLoaded) {
+        setTimeout(() => {
+          this.loadDiv.style.opacity = 0
+          setTimeout(() => {
+            this.loadDiv.remove()
+          }, 550)
+        }, 1000)
+      }
+    }
   }
 
   initLights() {
@@ -52,7 +100,7 @@ class SceneInit {
 
   initCamera() {
     this.camera = new THREE.PerspectiveCamera(
-      60,
+      65,
       window.innerWidth / window.innerHeight,
       1,
       1000
@@ -111,49 +159,10 @@ class SceneInit {
     this.renderer.render(this.scene, this.camera)
   }
 
-  setBloom() {
-    const renderScene = new RenderPass(this.scene, this.camera)
-
-    const bloomPass = new UnrealBloomPass(
-      new THREE.Vector2(window.innerWidth, window.innerHeight),
-      1.5,
-      0.4,
-      0.85
-    )
-    bloomPass.threshold = this.params.bloomThreshold
-    bloomPass.strength = this.params.bloomStrength
-    bloomPass.radius = this.params.bloomRadius
-
-    this.composer = new EffectComposer(this.renderer)
-    this.composer.addPass(renderScene)
-    this.composer.addPass(bloomPass)
-  }
-
   update() {
     requestAnimationFrame(() => this.update())
 
     this.renderer.render(this.scene, this.camera)
-
-    // if (this.isZoomed) {
-    //   this.camera.lookAt(this.scene.getObjectByName('TV1').position)
-    //   this.camera.updateProjectionMatrix()
-    // }
-
-    // this.controls.update()
-
-    // this.render()
-  }
-
-  loadModel(model, callback) {
-    this.loader = new GLTFLoader()
-
-    this.loader.load(model, (gltf) => {
-      if (typeof callback === 'function') {
-        callback(gltf.scene)
-      }
-
-      this.scene.add(gltf.scene)
-    })
   }
 
   add(model) {
@@ -183,9 +192,7 @@ class SceneInit {
       'wheel',
       (event) => {
         this.raycaster.setFromCamera(new THREE.Vector2(), this.camera)
-        const intersects = this.raycaster.intersectObject(
-          this.scene.getObjectByName('TV1')
-        )
+        const intersects = this.raycaster.intersectObject(this.tasse.container)
 
         if (intersects.length > 0) {
           document
@@ -193,28 +200,14 @@ class SceneInit {
             .classList.add('cursor-circle-focus')
           if (event.deltaY < 0 && !this.isZoomed) {
             gsap.to(this.controls.getObject().position, {
-              // fov: 30,
-              x: intersects[0].object.parent.parent.camPosition.x,
-              y: intersects[0].object.parent.parent.camPosition.y,
-              z: intersects[0].object.parent.parent.camPosition.z,
+              x: 11,
+              y: 11,
+              z: -0.5,
               duration: 1.5,
               ease: Power3,
               onComplete: () => {
                 this.isZoomed = true
               }
-            })
-            document.addEventListener('click', () => {
-              gsap.to(this.controls.getObject().position, {
-                // fov: 30,
-                x: this.scene.getObjectByName('TV2').parent.camPosition.x,
-                y: this.scene.getObjectByName('TV2').parent.camPosition.y,
-                z: this.scene.getObjectByName('TV2').parent.camPosition.z,
-                duration: 1.2,
-                ease: Power4,
-                onComplete: () => {
-                  this.isZoomed = true
-                }
-              })
             })
           } else if (event.deltaY > 0 && this.isZoomed) {
             gsap.to(this.controls.getObject().position, {

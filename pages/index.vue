@@ -1,5 +1,6 @@
 <template>
   <div>
+    <LoadingScreen />
     <Cross />
     <GUI />
     <Scene />
@@ -10,12 +11,14 @@
 import Scene from '@/components/Scene/Scene'
 import GUI from '@/components/Scene/GUI'
 import Cross from '@/components/Scene/Cursor'
+import LoadingScreen from '@/components/Scene/LoadingScreen'
 
 export default {
   components: {
     Scene,
     GUI,
     Cross,
+    LoadingScreen
   },
 }
 </script>
