@@ -1,20 +1,33 @@
 import * as THREE from 'three'
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 
 export default class Model {
-  constructor({ src, audioSrc, audioVolume=1, audioDistance=1, loadingManager, listener, material,videoContainer,videoSrc }) {
+  constructor({
+    src,
+    audioSrc,
+    audioVolume = 1,
+    audioDistance = 1,
+    loadingManager,
+    listener,
+    material,
+    videoContainer,
+    videoSrc,
+    action
+  }) {
     this.src = src
     this.audioSrc = audioSrc
-	this.audioVolume = audioVolume
-	this.audioDistance= audioDistance
+    this.audioVolume = audioVolume
+    this.audioDistance = audioDistance
     this.material = material
     this.loadingManager = loadingManager
     this.listener = listener
-	this.videoContainer=videoContainer
-	this.videoSrc =videoSrc
+    this.videoContainer = videoContainer
+    this.videoSrc = videoSrc
     this.container = new THREE.Object3D()
     this.container.name = this.src
+    this.action = action
     this.init()
   }
 
@@ -26,34 +39,40 @@ export default class Model {
     const sound = new THREE.PositionalAudio(this.listener)
     const audioLoader = new THREE.AudioLoader()
     audioLoader.load(`${this.audioSrc}`, (buffer) => {
-		sound.setBuffer(buffer)
-		sound.setVolume(this.audioVolume)
-		sound.setRefDistance(this.audioDistance)
-		sound.play()
+      sound.setBuffer(buffer)
+      sound.setVolume(this.audioVolume)
+      sound.setRefDistance(this.audioDistance)
+      sound.play()
     })
-	target.add(sound)
-
+    target.add(sound)
   }
 
-  initVideoTexture(target){
-      const video = document.createElement('video')
-      video.src = this.videoSrc
-      video.setAttribute('loop', '')
-	  video.muted = true
-      video.load() // must call after setting/changing source
-      const texture = new THREE.VideoTexture(video)
+  initVideoTexture(target) {
+    const video = document.createElement('video')
+    video.src = this.videoSrc
+    video.setAttribute('loop', '')
+    video.muted = true
+    video.load() // must call after setting/changing source
+    const texture = new THREE.VideoTexture(video)
 
-      texture.format = THREE.RGBAFormat
-      const videoMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-      })
-      target.material = videoMaterial
-	  texture.flipY = false;
+    texture.format = THREE.RGBAFormat
+    const videoMaterial = new THREE.MeshStandardMaterial({
+      map: texture,
+      side: THREE.DoubleSide
+    })
+    target.material = videoMaterial
+    texture.flipY = false
   }
 
   loadModel(callback) {
+    const dracoLoader = new DRACOLoader()
+
+    dracoLoader.setDecoderPath('draco/')
+
+    dracoLoader.preload()
     const loader = new GLTFLoader(this.loadingManager)
+    loader.setDRACOLoader(dracoLoader)
+
 
     loader.load(`models/${this.src}.gltf`, (gltf) => {
       if (typeof callback === 'function') {
@@ -62,16 +81,17 @@ export default class Model {
 
       if (this.material) {
         gltf.scene.traverse((child) => {
+          if (this.videoSrc && child.name === this.videoContainer) {
+            this.initVideoTexture(child)
+          }
           if (child.isMesh) {
             child.material = this.material
+            child.name = this.src
           }
-		  if (this.videoSrc && child.name===this.videoContainer) {
-			this.initVideoTexture(child)
-		}
         })
       }
       //   this.scene.add(gltf.scene)
-	  if (this.audioSrc) this.initSound(gltf.scene.children[0])
+      if (this.audioSrc) this.initSound(gltf.scene.children[0])
       this.container.add(gltf.scene)
     })
   }
