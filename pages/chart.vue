@@ -42,8 +42,8 @@ export default {
 		// see https://github.com/nuxt-community/firebase-module/issues/89
 		async fetchDocument() {
 			const ref = this.$fire.firestore
-				.collection('murder')
-				.doc('nbz24O9VmlyMaxGnRQuc')
+				.collection('dataviz')
+				.doc('meurtrier')
 			try {
 				await ref.get().then((doc) => {
 					const yesValue = doc.data().yes

@@ -38,7 +38,7 @@ export default {
 		// }
 
 		async updateDocument(documentField) {
-			const ref = this.$fire.firestore.collection('murder').doc('nbz24O9VmlyMaxGnRQuc')
+			const ref = this.$fire.firestore.collection('dataviz').doc('meurtrier')
 			const increment = this.$fireModule.firestore.FieldValue.increment(1)
 			try {
 			await ref.update({
