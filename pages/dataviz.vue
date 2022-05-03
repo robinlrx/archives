@@ -17,9 +17,6 @@
 // const docRef = doc(db, "murder", "nbz24O9VmlyMaxGnRQuc");
 
 export default {
-	// mounted() {
-	// 	console.log('$nuxt.$route.path:', this.$nuxt.$route.path)
-	// },
 	data() {
 		return {
 			// param : 'field of firebase doc'
@@ -29,13 +26,6 @@ export default {
 		}
 	},
 	methods: {
-		// updateDocument() {
-		// 	updateDoc(docRef, {
-		// 		yes: increment(1)
-		// 	}).then(function() {
-		// 		window.location.href = '/chart';
-		// 	});
-		// }
 
 		async updateDocument(documentField) {
 			const ref = this.$fire.firestore.collection('dataviz').doc('meurtrier')
@@ -57,10 +47,11 @@ export default {
 
 </script>
 
+<style>
+	@import '../css/general.css';
+</style>
+
 <style scoped>
-body {
-	margin: 0;
-}
 
 section {
 	display: flex;
@@ -69,16 +60,28 @@ section {
 	flex-direction: column;
 	width: 100%;
 	height: 100vh;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: 'Georgia-regular';
+}
+
+h2 {
+	font-size: 2rem;
+}
+
+section div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 button {
 	outline: none;
-	width: 150px;
-	height: 80px;
-	border: solid black;
-	background-color: #fff;
+	width: 200px;
+	height: 100px;
+	border: solid var(--black) 3px;
+	background-color: var(--cream);
 	cursor: pointer;
 	margin: 10px;
+	font-family: 'Strong-concrete';
+	font-size: 2rem;
 }
 </style>

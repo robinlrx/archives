@@ -57,30 +57,24 @@
 										<p>Je ne sais pas</p>
 									</div>
 								</div>
-								<div class="big-data">
 
+								<div class="big-data">
+									<p class="number">{{yesPourcentage}}%</p>
+									<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet</p>
 								</div>
 							</div>
 
 						</div>
 					</div>
 				</div>
-				<!-- <div class="dataviz dataviz-jsp">
-					<div ref='jspChart' class="chart chart-jsp" :style="{ width: `${jspPourcentage}%` }"></div>
-					<p ref='jspText' class="jsp-text">Comme {{ jspPourcentage }}% de la pop, <br> vous avez répondu NE SAIS PAS</p>
-				</div> -->
+
 			</div>
 		</section>
 	</div>
 </template>
 
 <script>
-// import { getFirestore, doc, getDoc} from "firebase/firestore";
-// import { app } from '../js/firebase-config.js';
-
-// constants
-// const db = getFirestore(app);
-// const docRef = doc(db, "murder", "nbz24O9VmlyMaxGnRQuc");
+import gsap, {Power1} from 'gsap';
 
 export default {
 	data() {
@@ -92,6 +86,7 @@ export default {
 	},
 	mounted() {
 		this.fetchDocument()
+		// this.showElements()
 	},
 	methods: {
 		// see https://github.com/nuxt-community/firebase-module/issues/89
@@ -108,59 +103,41 @@ export default {
 					this.yesPourcentage = ((yesValue / (noValue + yesValue + jspValue)) * 100).toFixed()
 					this.noPourcentage = ((noValue / (noValue + yesValue + jspValue)) * 100).toFixed()
 					this.jspPourcentage = ((jspValue / (noValue + yesValue + jspValue)) * 100).toFixed()
+					this.showElements()
 				})
 			} catch (e) {
 				console.error(e)
 			}
 		},
+		showElements() {
+			const showTL = gsap.timeline()
+			showTL.fromTo('header', { opacity: 0 }, { opacity: 1, duration: 1, delay: 1 })
+			showTL.fromTo('section', { opacity: 0, y: 400}, { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: Power1.easeIn} )
+			// showTL.to('.logo-big', { rotate: 720, scale: 2, duration: 0.5} )
+			// showTL.fromTo('.case', { opacity: 0, }, { opacity: 1, duration: 1} )
+			// showTL.fromTo('.stats', { opacity: 0, }, { opacity: 1, duration: 1} )
+			// showTL.fromTo('.dataviz', { width: 0, opacity: 0 }, { width: 'auto', opacity: 1, duration: 1, ease: Power1.easeIn} )
+
+			// if showElements() is in fetchDocument()
+			showTL.fromTo('.chart-yes', { width: 0, opacity: 0 }, { width: `${this.yesPourcentage}%`, opacity: 1, duration: 0.5, ease: Power1.easeInOut} )
+			showTL.fromTo('.chart-no', { width: 0, opacity: 0 }, { width: `${this.noPourcentage}%`, opacity: 1, duration: 0.5, ease: Power1.easeInOut} )
+			showTL.fromTo('.chart-jsp', { width: 0, opacity: 0 }, { width: `${this.jspPourcentage}%`, opacity: 1, duration: 0.5, ease: Power1.easeInOut} )
+
+			return showTL
+		}
 	},
 }
 </script>
 
 <style>
+	@import '../css/general.css';
+</style>
 
-@font-face {
-	font-family: 'Strong-concrete';
-	src: url('../static/fonts/StrongConcrete-Bold.woff2') format('woff2'),
-		url('../static/fonts/StrongConcrete-Bold.woff') format('woff');
-	font-weight: bold;
-	font-style: normal;
-
-}
-@font-face {
-	font-family: 'Georgia-regular';
-	src: url('../static/fonts/Georgia.woff2') format('woff2'),
-		url('../static/fonts/Georgia.woff') format('woff');
-	font-weight: normal;
-	font-style: normal;
-
-}
-@font-face {
-	font-family: 'Georgia-bold';
-	src: url('../static/fonts/Georgia-Bold.woff2') format('woff2'),
-		url('../static/fonts/Georgia-Bold.woff') format('woff');
-	font-weight: bold;
-	font-style: normal;
-
-}
-
-@font-face {
-	font-family: 'Akira';
-	src: url('../static/fonts/akira_expanded.woff2') format('woff2'),
-		url('../static/fonts/akira_expanded.woff') format('woff');
-	font-weight: bold;
-	font-style: normal;
-
-}
-
-body {
-	margin: 0;
-	background-color: #FCFCF5;
-}
+<style scoped>
 
 header {
 	height: 70px;
-	border-bottom: solid 1px black;
+	border-bottom: solid 1px var(--black);
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
@@ -209,6 +186,11 @@ section {
 	align-items: flex-start;
 	/* border: solid yellow; */
 	width: 100%;
+	height: 600px;
+}
+
+.case, .stats {
+	height: 100%;
 }
 
 
@@ -218,7 +200,7 @@ section {
 	justify-content: center;
 	align-items: center;
 	width: 20%;
-	border-bottom: solid 2.5px black;
+	border-bottom: solid 2.5px var(--black);
 }
 
 .case img {
@@ -229,18 +211,19 @@ section {
 .date {
 	font-size: 6rem;
 	margin: 0;
+	justify-self: baseline;
 }
 
 .separator {
 	width: 100%;
 	height: 2px;
-	background-color: black;
-	margin: 20px 0;
+	background-color: var(--black);
+	margin: 10px 0;
 }
 
 .stats {
 	width: 70%;
-	border: solid black;
+	border: solid var(--black);
 	/* padding: 30px; */
 }
 
@@ -248,24 +231,25 @@ section {
 	display: flex;
 	/* justify-content: center; */
 	align-items: center;
-	border-bottom: solid black;
+	border-bottom: solid var(--black);
 	font-family: 'Georgia-bold';
 	height: 25px;
 }
 
-.stats .onglet p:first-of-type {
-	background-color: #649F8E;
+.onglet p:first-of-type {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 25px;
 	height: 100%;
 	text-align: center;
-	border-right: solid black;
 }
 
-.stats .onglet p:last-of-type {
-	margin-left: 30px;
-	/* margin-top: 5px;
-	margin-bottom: 5px; */
+.stats .onglet p:first-of-type {
+	background-color: var(--green);
+	border-right: solid var(--black);
 }
+
 .stats-container {
 	padding: 50px;
 }
@@ -275,7 +259,7 @@ section {
 }
 
 .stats-container h2 span {
-	font-size: 6rem;
+	font-size: 7rem;
 }
 
 .dataviz {
@@ -286,7 +270,7 @@ section {
 
 .chart {
 	height: 50px;
-	border: solid black;
+	border: solid var(--black);
 	position: relative;
 }
 
@@ -296,6 +280,8 @@ section {
 	right: 0;
 	font-family: 'Akira';
 	padding: 3px;
+	font-size: 1.125rem;
+	letter-spacing: 1px;
 }
 
 .chart-yes {
@@ -303,29 +289,29 @@ section {
 }
 
 .chart-yes p {
-	color: black;
+	color: var(--black);
 }
 
 .chart-no {
-	background-color: black;
+	background-color: var(--black);
 	border-left: none;
 	border-right: none;
 }
 
 .chart-no p {
-	color: #FCFCF5;
+	color: var(--cream);
 }
 
 .chart-jsp {
-	background-image: repeating-linear-gradient( -45deg, transparent, transparent 7px, black 8px, black 10px );
+	background-image: repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px );
 }
 
 .chart-jsp p {
-	color: black;
-	background-color: #FCFCF5;
+	color: var(--black);
+	background-color: var(--cream);
 	padding: 3px;
-	border-top: solid black;
-	border-left: solid black;
+	border-top: solid var(--black);
+	border-left: solid var(--black);
 }
 
 .bottom-content {
@@ -334,7 +320,7 @@ section {
 }
 
 .legend-container {
-	border: solid black;
+	border: solid var(--black);
 	height: 150px;
 	width: 50%;
 	display: flex;
@@ -346,22 +332,19 @@ section {
 	display: flex;
 	/* justify-content: center; */
 	align-items: center;
-	border-bottom: solid black;
+	border-bottom: solid var(--black);
 	font-family: 'Georgia-bold';
 	height: 25px;
 }
 
 .legend-container .onglet p:first-of-type {
-	background-color: #000000;
-	width: 25px;
-	height: 100%;
-	text-align: center;
-	border-right: solid black;
-	color: #FCFCF5;
+	background-color: var(--black);
+	border-right: solid var(--black);
+	color: var(--cream);
 }
 
-.legend-container .onglet p:last-of-type {
-	margin-left: 30px;
+.onglet p:last-of-type {
+	margin-left: 20px;
 	/* margin-top: 5px;
 	margin-bottom: 5px; */
 }
@@ -374,7 +357,7 @@ section {
 }
 
 .picto {
-	border: solid black;
+	border: solid var(--black);
 	width: 50px;
 	height: 20px;
 	margin-right: 20px;
@@ -382,16 +365,18 @@ section {
 
 .big-data {
 	width: 50%;
-	border: solid blue;
+	height: 150px;
+	margin-left: 30px;
+	/* border: solid blue; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
+.big-data .number {
+	font-family: 'Akira';
+	font-size: 6rem;
+}
 
-
-/* .dataviz {
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	align-items: center;
-} */
 </style>
