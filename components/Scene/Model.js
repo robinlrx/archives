@@ -39,6 +39,7 @@ export default class Model {
     this.sound = new THREE.PositionalAudio(this.listener)
     const audioLoader = new THREE.AudioLoader()
     audioLoader.load(`${this.audioSrc}`, (buffer) => {
+      this.sound.setLoop(true)
       this.sound.setBuffer(buffer)
       this.sound.setVolume(this.audioVolume)
       this.sound.setRefDistance(this.audioDistance)
@@ -57,11 +58,11 @@ export default class Model {
     texture.format = THREE.RGBAFormat
     const videoMaterial = new THREE.MeshStandardMaterial({
       map: texture,
-      side: THREE.DoubleSide,
-      needsUpdate: true
+      side: THREE.DoubleSide
     })
     target.material = videoMaterial
     texture.flipY = false
+    this.video = target.material.map.image
   }
 
   loadModel(callback) {
@@ -83,7 +84,7 @@ export default class Model {
           if (this.videoSrc && child.name === this.videoContainer) {
             this.initVideoTexture(child)
           }
-          if (child.isMesh) {
+          if (child.isMesh && child.name !== this.videoContainer) {
             child.material = this.material
             child.name = this.src
           }

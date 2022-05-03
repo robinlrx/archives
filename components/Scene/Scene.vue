@@ -17,6 +17,11 @@ export default {
       objects: [],
     }
   },
+  watch: {
+    isLaunched() {
+      if (this.isLaunched) this.scene.playMedias()
+    },
+  },
   created() {
     this.$nuxt.$on('MESH_UPDATE', this.updateMesh)
   },
@@ -27,11 +32,6 @@ export default {
     this.scene = SceneInit({ rootEl: this.$refs.container })
   },
   methods: {},
-  watch: {
-    isLaunched() {
-      if (this.isLaunched) this.scene.hello()
-    },
-  },
 }
 </script>
 

@@ -191,7 +191,7 @@ class SceneInit {
     this.renderer.render(this.scene, this.camera)
   }
 
-  hello() {
+  playMedias() {
     setTimeout(() => {
       this.loadDiv.style.opacity = 0
       setTimeout(() => {
@@ -201,6 +201,9 @@ class SceneInit {
     this.objectsList.forEach((element) => {
       if (element.sound) {
         element.sound.play()
+      }
+      if (element.video) {
+        element.video.play()
       }
     })
   }
