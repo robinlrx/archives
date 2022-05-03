@@ -107,11 +107,17 @@ class SceneInit {
 
       if (itemsTotal === itemsLoaded) {
         setTimeout(() => {
-          this.loadDiv.style.opacity = 0
-          setTimeout(() => {
-            this.loadDiv.remove()
-          }, 550)
+          this.loadModels.style.opacity = 0
+          // setTimeout(() => {
+          //   this.loadDiv.remove()
+          // }, 550)
         }, 1000)
+        // setTimeout(() => {
+        //   this.loadDiv.style.opacity = 0
+        //   setTimeout(() => {
+        //     this.loadDiv.remove()
+        //   }, 550)
+        // }, 1000)
       }
     }
   }
@@ -185,6 +191,20 @@ class SceneInit {
     this.renderer.render(this.scene, this.camera)
   }
 
+  hello() {
+    setTimeout(() => {
+      this.loadDiv.style.opacity = 0
+      setTimeout(() => {
+        this.loadDiv.remove()
+      }, 550)
+    }, 1000)
+    this.objectsList.forEach((element) => {
+      if (element.sound) {
+        element.sound.play()
+      }
+    })
+  }
+
   update() {
     requestAnimationFrame(() => this.update())
 
@@ -200,7 +220,6 @@ class SceneInit {
 
       if (intersects.length > 0) {
         const intersect = intersects[0].object
-        console.log(intersect)
         this.currentAction = this.objectsList.find(
           (element) => element.src === intersect.name
         ).action
@@ -208,6 +227,7 @@ class SceneInit {
         window.addEventListener('click', this.currentAction)
 
         if (!this.isZoomed) {
+          document.querySelector('.focus').style.opacity = 1
           gsap.to(this.camera, {
             fov: 30,
             duration: 1,
@@ -221,6 +241,7 @@ class SceneInit {
           })
         }
       } else {
+        document.querySelector('.focus').style.opacity = 0
         window.removeEventListener('click', this.currentAction)
         gsap.to(this.camera, {
           fov: 65,

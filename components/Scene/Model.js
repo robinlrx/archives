@@ -36,15 +36,14 @@ export default class Model {
   }
 
   initSound(target) {
-    const sound = new THREE.PositionalAudio(this.listener)
+    this.sound = new THREE.PositionalAudio(this.listener)
     const audioLoader = new THREE.AudioLoader()
     audioLoader.load(`${this.audioSrc}`, (buffer) => {
-      sound.setBuffer(buffer)
-      sound.setVolume(this.audioVolume)
-      sound.setRefDistance(this.audioDistance)
-      sound.play()
+      this.sound.setBuffer(buffer)
+      this.sound.setVolume(this.audioVolume)
+      this.sound.setRefDistance(this.audioDistance)
     })
-    target.add(sound)
+    target.add(this.sound)
   }
 
   initVideoTexture(target) {
@@ -58,7 +57,8 @@ export default class Model {
     texture.format = THREE.RGBAFormat
     const videoMaterial = new THREE.MeshStandardMaterial({
       map: texture,
-      side: THREE.DoubleSide
+      side: THREE.DoubleSide,
+      needsUpdate: true
     })
     target.material = videoMaterial
     texture.flipY = false
@@ -72,7 +72,6 @@ export default class Model {
     dracoLoader.preload()
     const loader = new GLTFLoader(this.loadingManager)
     loader.setDRACOLoader(dracoLoader)
-
 
     loader.load(`models/${this.src}.gltf`, (gltf) => {
       if (typeof callback === 'function') {
