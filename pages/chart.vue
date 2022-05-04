@@ -82,7 +82,8 @@ export default {
 			yesPourcentage: undefined,
 			noPourcentage: undefined,
 			jspPourcentage: undefined,
-			showDataviz: false
+			showDataviz: false,
+			counter: 0
 		}
 	},
 	mounted() {
@@ -96,7 +97,7 @@ export default {
 				.collection('dataviz')
 				.doc('meurtrier')
 			try {
-				await ref.get().then((doc) => {
+				await ref.onSnapshot((doc) => { // old: ref.get().then((doc) - onSnapshot: auto reload fetched values
 					const yesValue = doc.data().yes
 					const noValue = doc.data().no
 					const jspValue = doc.data().jsp
@@ -104,7 +105,12 @@ export default {
 					this.yesPourcentage = ((yesValue / (noValue + yesValue + jspValue)) * 100).toFixed()
 					this.noPourcentage = ((noValue / (noValue + yesValue + jspValue)) * 100).toFixed()
 					this.jspPourcentage = ((jspValue / (noValue + yesValue + jspValue)) * 100).toFixed()
-					this.showElements()
+
+					this.counter = this.counter + 1
+					console.log('this.counter:', this.counter)
+					if (this.counter === 1) { // execute showElements once
+						this.showElements()
+					}
 				})
 			} catch (e) {
 				console.error(e)
@@ -274,6 +280,7 @@ section {
 	height: 50px;
 	border: solid var(--black);
 	position: relative;
+	transition: width 0.2s ease-out;
 }
 
 .chart p {
