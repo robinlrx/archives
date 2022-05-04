@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-show="showDataviz">
 		<header>
 			<img src="/images/logo.svg" alt="">
 		</header>
@@ -25,13 +25,13 @@
 							<p>Lorem ipsum dolor sit amet</p>
 
 							<div class="dataviz">
-								<div class="chart chart-yes" :style="{ width: `${yesPourcentage}%` }">
+								<div v-show="yesPourcentage != 0" class="chart chart-yes" :style="{ width: `${yesPourcentage}%` }">
 									<p>{{yesPourcentage}}%</p>
 								</div>
-								<div class="chart chart-no" :style="{ width: `${noPourcentage}%` }">
+								<div v-show="noPourcentage != 0" class="chart chart-no" :style="{ width: `${noPourcentage}%` }">
 									<p>{{noPourcentage}}%</p>
 								</div>
-								<div class="chart chart-jsp" :style="{ width: `${jspPourcentage}%` }">
+								<div v-show="jspPourcentage != 0" class="chart chart-jsp" :style="{ width: `${jspPourcentage}%` }">
 									<p>{{jspPourcentage}}%</p>
 								</div>
 							</div>
@@ -82,6 +82,7 @@ export default {
 			yesPourcentage: undefined,
 			noPourcentage: undefined,
 			jspPourcentage: undefined,
+			showDataviz: false
 		}
 	},
 	mounted() {
@@ -111,6 +112,7 @@ export default {
 		},
 		showElements() {
 			const showTL = gsap.timeline()
+			this.showDataviz = true
 			showTL.fromTo('header', { opacity: 0 }, { opacity: 1, duration: 1, delay: 1 })
 			showTL.fromTo('section', { opacity: 0, y: 400}, { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: Power1.easeIn} )
 			// showTL.to('.logo-big', { rotate: 720, scale: 2, duration: 0.5} )
