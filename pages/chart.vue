@@ -12,7 +12,7 @@
 						<div class="separator"></div>
 						<img src="/images/omar.png" alt="">
 						<div class="separator"></div>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet</p>
+						<p>L’affaire Omar Raddad commence avec le meurtre de Ghislaine Marshal en 1991, dans sa propre villa. “OMAR M’A TUER” est inscrit en lettres de sang sur 2 surfaces, ce qui mène à l’arrestation d’Omar Raddad.</p>
 					</div>
 					<div class="stats">
 						<div class="onglet">
@@ -59,8 +59,19 @@
 								</div>
 
 								<div class="big-data">
-									<p class="number">{{yesPourcentage}}%</p>
-									<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet</p>
+									<span v-if="data1 === 'yes'" >
+										<p class="number">{{yesPourcentage}}%</p>
+										<p>des utilisateurs pensent comme vous, qu'Omar Raddad à bel et bien tué Ghislaine Marshal.</p>
+									</span>
+									<span v-else-if="data1 === 'no'" >
+										<p class="number">{{noPourcentage}}%</p>
+										<p>des utilisateurs pensent comme vous, qu'Omar Raddad n'a pas tué Ghislaine Marshal.</p>
+									</span>
+									<span v-else >
+										<p class="number">{{jspPourcentage}}%</p>
+										<p>des utilisateurs pensent comme vous, ils ne savent pas. </p>
+									</span>
+									
 								</div>
 							</div>
 
@@ -74,7 +85,7 @@
 </template>
 
 <script>
-import gsap, {Power1} from 'gsap';
+import {gsap, Power1} from 'gsap';
 
 export default {
 	data() {
@@ -83,7 +94,8 @@ export default {
 			noPourcentage: undefined,
 			jspPourcentage: undefined,
 			showDataviz: false,
-			counter: 0
+			counter: 0,
+			data1: localStorage.getItem("data1")
 		}
 	},
 	mounted() {
@@ -185,7 +197,7 @@ section {
 
 .logo-big {
 	width: 50%;
-	margin-bottom: 20px;
+	margin-bottom: 10%;
 }
 
 .content {

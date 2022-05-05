@@ -2,9 +2,9 @@
 	<section class="question">
 		<h2>Pensez-vous qu’Omar Raddad est le meutrier inspecteur ?</h2>
 		<div>
-			<button ref="yes" @click='updateDocument(yes)'>OUI</button>
-			<button ref="no" @click='updateDocument(no)'>NON</button>
-			<button ref="jsp" @click='updateDocument(jsp)'>NE SAIS PAS</button>
+			<button ref="yes" @click='updateDocument(yes), stockValue(yes)'>OUI</button>
+			<button ref="no" @click='updateDocument(no), stockValue(no)'>NON</button>
+			<button ref="jsp" @click='updateDocument(jsp), stockValue(jsp)'>NE SAIS PAS</button>
 		</div>
 	</section>
 </template>
@@ -40,6 +40,11 @@ export default {
 			} catch (e) {
 				return Promise.reject(e)
 			}
+		},
+
+		stockValue(val) {
+			localStorage.setItem('data1', val)
+			console.log(localStorage.getItem('data1'))
 		}
 	}
 }
