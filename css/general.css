@@ -1,0 +1,47 @@
+:root {
+	--black: #000000;
+	--white: #ffffff;
+	--cream: #FCFCF5;
+	--green: #649F8E;
+}
+
+body {
+	margin: 0;
+	background-color: #FCFCF5;
+}
+
+@font-face {
+	font-family: 'Strong-concrete';
+	src: url('../static/fonts/StrongConcrete-Bold.woff2') format('woff2'),
+		url('../static/fonts/StrongConcrete-Bold.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
+
+}
+
+@font-face {
+	font-family: 'Georgia-regular';
+	src: url('../static/fonts/Georgia.woff2') format('woff2'),
+		url('../static/fonts/Georgia.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+
+}
+
+@font-face {
+	font-family: 'Georgia-bold';
+	src: url('../static/fonts/Georgia-Bold.woff2') format('woff2'),
+		url('../static/fonts/Georgia-Bold.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
+
+}
+
+@font-face {
+	font-family: 'Akira';
+	src: url('../static/fonts/akira_expanded.woff2') format('woff2'),
+		url('../static/fonts/akira_expanded.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
+
+}
