@@ -1,0 +1,297 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.7.33",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                2
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "Handle.002"
+        },
+        {
+            "mesh" : 1,
+            "name" : "Liquid"
+        },
+        {
+            "children" : [
+                0,
+                1
+            ],
+            "mesh" : 2,
+            "name" : "Cup",
+            "rotation" : [
+                0.2696499228477478,
+                -0.6536734104156494,
+                0.6536734104156494,
+                0.2696499228477478
+            ],
+            "scale" : [
+                0.43128156661987305,
+                0.43128156661987305,
+                0.43128153681755066
+            ],
+            "translation" : [
+                11.524682998657227,
+                8.874791145324707,
+                -8.553180694580078
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "name" : "Material.012",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 0
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.5
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "Handle",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "Liquid",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 4,
+                        "NORMAL" : 5,
+                        "TEXCOORD_0" : 6
+                    },
+                    "indices" : 7,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "Cup",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 8,
+                        "NORMAL" : 9,
+                        "TEXCOORD_0" : 10
+                    },
+                    "indices" : 11,
+                    "material" : 0
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "sampler" : 0,
+            "source" : 0
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/png",
+            "name" : "TASSEtest2",
+            "uri" : "TASSEtest2.png"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 110,
+            "max" : [
+                0.05762612819671631,
+                0.6549394130706787,
+                1.0159647464752197
+            ],
+            "min" : [
+                -0.5980809926986694,
+                -0.5640009045600891,
+                -1.0806622505187988
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 110,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 110,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 336,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5126,
+            "count" : 29,
+            "max" : [
+                1.0516711473464966,
+                -0.44972455501556396,
+                -0.6747831106185913
+            ],
+            "min" : [
+                -1.8012326955795288,
+                -3.2998971939086914,
+                -0.7121710181236267
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5126,
+            "count" : 29,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5126,
+            "count" : 29,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 7,
+            "componentType" : 5123,
+            "count" : 81,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 8,
+            "componentType" : 5126,
+            "count" : 367,
+            "max" : [
+                1.2031868696212769,
+                -0.2934509515762329,
+                1.6377087831497192
+            ],
+            "min" : [
+                -1.9560281038284302,
+                -3.4564647674560547,
+                -1.5317984819412231
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 9,
+            "componentType" : 5126,
+            "count" : 367,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 10,
+            "componentType" : 5126,
+            "count" : 367,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 11,
+            "componentType" : 5123,
+            "count" : 1593,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 1320,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1320,
+            "byteOffset" : 1320
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 880,
+            "byteOffset" : 2640
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 672,
+            "byteOffset" : 3520
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 348,
+            "byteOffset" : 4192
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 348,
+            "byteOffset" : 4540
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 232,
+            "byteOffset" : 4888
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 162,
+            "byteOffset" : 5120
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 4404,
+            "byteOffset" : 5284
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 4404,
+            "byteOffset" : 9688
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2936,
+            "byteOffset" : 14092
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 3186,
+            "byteOffset" : 17028
+        }
+    ],
+    "samplers" : [
+        {
+            "magFilter" : 9729,
+            "minFilter" : 9987
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 20216,
+            "uri" : "tasse.bin"
+        }
+    ]
+}
