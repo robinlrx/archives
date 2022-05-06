@@ -37,6 +37,7 @@ export default class Model {
 
   initSound(target) {
     this.sound = new THREE.PositionalAudio(this.listener)
+    this.sound.name = 'PositionalAudio'
     const audioLoader = new THREE.AudioLoader()
     audioLoader.load(`${this.audioSrc}`, (buffer) => {
       this.sound.setLoop(true)
@@ -79,17 +80,16 @@ export default class Model {
         callback(gltf.scene)
       }
 
-      if (this.material) {
-        gltf.scene.traverse((child) => {
-          if (this.videoSrc && child.name === this.videoContainer) {
-            this.initVideoTexture(child)
-          }
-          if (child.isMesh && child.name !== this.videoContainer) {
-            child.material = this.material
-            child.name = this.src
-          }
-        })
-      }
+      gltf.scene.traverse((child) => {
+        child.objectName = this.src
+        if (this.videoSrc && child.name === this.videoContainer) {
+          this.initVideoTexture(child)
+        }
+        if (this.material && child.name !== this.videoContainer) {
+          child.material = this.material
+        }
+      })
+
       //   this.scene.add(gltf.scene)
       if (this.audioSrc) this.initSound(gltf.scene.children[0])
       this.container.add(gltf.scene)

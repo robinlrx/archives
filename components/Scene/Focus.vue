@@ -20,6 +20,7 @@ export default { name: 'Focus' }
   transition: 0.55s opacity ease-out;
   opacity: 0;
   pointer-events: none;
+  overflow: hidden;
 }
 
 img {
