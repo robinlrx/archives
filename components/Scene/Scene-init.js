@@ -11,12 +11,9 @@ class SceneInit {
     this.background = 0x000
     this.raycaster = new THREE.Raycaster()
     this.cameraDefaultPosition = new THREE.Vector3(0, 12, -5)
-    this.params = {
-      exposure: 1,
-      bloomStrength: 1.5,
-      bloomThreshold: 2,
-      bloomRadius: 2
-    }
+    this.enabledRaycast = true
+    this.isZoomed = false
+    this.currentAction = undefined
     this.init()
     this.update()
     this.bindEvents()
@@ -29,9 +26,9 @@ class SceneInit {
     this.initCamera()
     this.initRenderer()
     this.setControls()
+    // this.setRaycast()
     this.initAudio()
     this.initModels()
-    this.setRaycast()
     this.root.appendChild(this.canvas)
   }
 
@@ -40,38 +37,54 @@ class SceneInit {
     this.camera.add(this.listener)
   }
 
+  radioAction = () => {
+    console.log(this)
+  }
+
+  TV1Action() {
+    console.log('sale con')
+  }
+
   initModels() {
-	  const matcapTexture = new THREE.TextureLoader().load(
-	 'textures/7A7A7A_D0D0D0_BCBCBC_B4B4B4-512px.png'
-   )
-   matcapTexture.encoding = THREE.sRGBEncoding
-  
-   const previewMaterial = new THREE.MeshMatcapMaterial({
-	 matcap: matcapTexture,
-	 side: THREE.DoubleSide,
-   })
-    this.tasse = new Model({
-      src: 'tasse',
-      loadingManager: this.manager
+    this.targetableObjects = new THREE.Object3D()
+    this.objectsList = []
+    const matcapTexture = new THREE.TextureLoader().load(
+      'textures/7A7A7A_D0D0D0_BCBCBC_B4B4B4-512px.png'
+    )
+    matcapTexture.encoding = THREE.sRGBEncoding
+
+    const previewMaterial = new THREE.MeshMatcapMaterial({
+      matcap: matcapTexture,
+      side: THREE.DoubleSide
     })
-    this.scene.add(this.tasse.container)
+    this.radio = new Model({
+      src: 'radio',
+      loadingManager: this.manager,
+      material: previewMaterial,
+      action: this.radioAction
+    })
+    this.objectsList.push(this.radio)
+    this.targetableObjects.add(this.radio.container)
     this.office = new Model({
       src: 'office',
       loadingManager: this.manager,
-      material:previewMaterial
+      material: previewMaterial
     })
     this.scene.add(this.office.container)
-	this.TV1 = new Model({
-		src: 'TV1',
-		loadingManager: this.manager,
-		audioSrc: 'videos/france2-proces.mp4',
-		audioVolume:3,
-		listener: this.listener,
-		videoSrc: 'videos/france2-proces.mp4',
-		videoContainer:'Screen',
-		material: previewMaterial
-	  })
-	  this.scene.add(this.TV1.container)
+    this.TV1 = new Model({
+      src: 'TV1',
+      loadingManager: this.manager,
+      audioSrc: 'videos/france2-proces.mp4',
+      audioVolume: 3,
+      listener: this.listener,
+      videoSrc: 'videos/france2-proces.mp4',
+      videoContainer: 'Screen',
+      material: previewMaterial,
+      action: this.TV1Action
+    })
+    this.objectsList.push(this.TV1)
+    this.targetableObjects.add(this.TV1.container)
+    this.scene.add(this.targetableObjects)
   }
 
   initScene() {
@@ -93,13 +106,9 @@ class SceneInit {
           Math.floor((1 / itemsTotal) * currentPercent)
         }%`
       })
-
       if (itemsTotal === itemsLoaded) {
         setTimeout(() => {
-          this.loadDiv.style.opacity = 0
-          setTimeout(() => {
-            this.loadDiv.remove()
-          }, 550)
+          this.loadModels.style.opacity = 0
         }, 1000)
       }
     }
@@ -107,12 +116,7 @@ class SceneInit {
 
   initLights() {
     const ambient = new THREE.AmbientLight(0xffffff, 0.9)
-    // const point = new THREE.PointLight(0xcccccc, 0.1, 10)
-    // const directional = new THREE.DirectionalLight(0xffffff, 0.5)
-
     this.scene.add(ambient)
-    // this.scene.add(point)
-    // this.scene.add(directional)
   }
 
   initCamera() {
@@ -122,7 +126,6 @@ class SceneInit {
       1,
       1000
     )
-
     this.camera.position.x = 0
     this.camera.position.y = 12
     this.camera.position.z = -5
@@ -133,11 +136,9 @@ class SceneInit {
   initRenderer() {
     this.renderer = new THREE.WebGLRenderer({ antialias: true })
     this.renderer.outputEncoding = THREE.sRGBEncoding
-
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.setSize(window.innerWidth, window.innerHeight)
     this.renderer.setClearColor(this.background, 1)
-
     this.canvas = this.renderer.domElement
   }
 
@@ -150,13 +151,6 @@ class SceneInit {
     this.controls.smooth = true
     // this.controls.smoothspeed = 0.95
     // const blocker = document.getElementById('blocker')
-    const instructions = document.getElementById('instructions')
-
-    instructions.addEventListener('click', () => {
-      this.controls.lock()
-      this.scene.getObjectByName('Screen').material.map.image.play()
-      this.scene.getObjectByName('ScreenTV2_2').material.map.image.play()
-    })
 
     // this.controls.addEventListener('lock', () => {
     //   instructions.style.display = 'none'
@@ -176,11 +170,150 @@ class SceneInit {
     this.renderer.render(this.scene, this.camera)
   }
 
+  playMedias() {
+    this.controls.lock()
+    setTimeout(() => {
+      this.loadDiv.style.opacity = 0
+      setTimeout(() => {
+        this.loadDiv.remove()
+      }, 550)
+    }, 1000)
+    this.objectsList.forEach((element) => {
+      if (element.sound) {
+        element.sound.play()
+      }
+      if (element.video) {
+        element.video.play()
+      }
+    })
+  }
+
+  zoomCamera = () => {
+    if (event.deltaY < 0 && !this.isZoomed) {
+      document.querySelector('.focus').style.opacity = 1
+
+      gsap.to(this.camera, {
+        fov: 30,
+        duration: 1,
+        ease: Power3,
+        onUpdate: () => {
+          this.controls.getObject().updateProjectionMatrix()
+        },
+        onComplete: () => {
+          this.isZoomed = true
+          window.addEventListener('click', this.currentAction)
+        }
+      })
+    } else if (event.deltaY > 0 && this.isZoomed) {
+      document.querySelector('.focus').style.opacity = 0
+      gsap.to(this.camera, {
+        fov: 65,
+        duration: 1,
+        onUpdate: () => {
+          this.controls.getObject().updateProjectionMatrix()
+        },
+        onComplete: () => {
+          this.isZoomed = false
+          window.removeEventListener('click', this.currentAction)
+        }
+      })
+    }
+  }
+
   update() {
     requestAnimationFrame(() => this.update())
 
     this.renderer.render(this.scene, this.camera)
+
+    if (this.enabledRaycast) {
+      this.raycaster.setFromCamera(new THREE.Vector2(), this.camera)
+
+      // calculate objects intersecting the picking ray
+      const intersects = this.raycaster.intersectObjects(
+        this.targetableObjects.children
+      )
+
+      if (intersects.length > 0) {
+        const intersect = intersects[0].object
+
+        const wholeObject = this.objectsList.find(
+          (element) => element.src === intersect.objectName
+        )
+
+        this.currentAction = wholeObject.action
+
+        // const outlineMaterial = new THREE.MeshBasicMaterial({
+        //   color: 0xff0000,
+        //   side: THREE.FrontSide
+        // })
+        // if (!this.scene.getObjectByName('Outline')) {
+        //   const outline = new THREE.Group()
+        //   outline.name = 'Outline'
+
+        //   wholeObject.children[0].traverse((child) => {
+        //     if (child.isMesh) {
+        //       const mesh = child.clone()
+        //       mesh.material = outlineMaterial
+        //       mesh.scale.multiplyScalar(1.01)
+
+        //       outline.add(mesh)
+        //     }
+        //   })
+        //   console.log(outline)
+        //   this.scene.add(outline)
+
+        // console.log(wholeObject.children[0])
+        // const outlineMesh = wholeObject.children[0].clone()
+        // if (outlineMesh.getObjectByName('PositionalAudio'))
+        //   this.remove(outlineMesh.getObjectByName('PositionalAudio'))
+        // outlineMesh.scale.multiplyScalar(1.05)
+        // outlineMesh.name = 'Outline'
+        // this.scene.add(outlineMesh)
+        document.addEventListener('wheel', this.zoomCamera)
+      }
+
+      // mesh.material = outlineMaterial1
+      // mesh.scale.multiplyScalar(1.05)
+
+      // const outlineMaterial1 = new THREE.MeshBasicMaterial({
+      //   color: 0xff0000,
+      //   side: THREE.BackSide
+      // })
+      // const outlineMesh1 = new THREE.Mesh(
+      //   intersect.geometry.clone().geometry,
+      //   outlineMaterial1
+      // )
+      // outlineMesh1.position.set(
+      //   intersect.position.x,
+      //   intersect.position.y,
+      //   intersect.position.z
+      // )
+      // outlineMesh1.scale.multiplyScalar(1.05)
+      // wholeObject.add(mesh)
+
+      // console.log(outlineMesh1)
+    } else {
+      if (this.scene.getObjectByName('Outline')) {
+        this.scene.remove(this.scene.getObjectByName('Outline'))
+      }
+      document.removeEventListener('wheel', this.zoomCamera)
+    }
   }
+
+  // const outlineMaterial1 = new THREE.MeshBasicMaterial({
+  //   color: 0xff0000,
+  //   side: THREE.BackSide
+  // })
+  // const outlineMesh1 = new THREE.Mesh(
+  //   intersect.geometry,
+  //   outlineMaterial1
+  // )
+  // outlineMesh1.position.set(intersect.position)
+  // outlineMesh1.scale.multiplyScalar(1.05)
+  // this.outlineMesh1.add(outlineMesh1)
+  // console.log(outlineMesh1)
+  // console.log(intersect)
+  // intersects[0].object.parent.material.color.set(0xff0000)
 
   add(model) {
     this.scene.add(model)
@@ -203,69 +336,6 @@ class SceneInit {
   bindEvents() {
     window.addEventListener('resize', () => this.onResize())
   }
-
-  setRaycast() {
-    document.addEventListener(
-      'wheel',
-      (event) => {
-        this.raycaster.setFromCamera(new THREE.Vector2(), this.camera)
-        const intersects = this.raycaster.intersectObject(this.tasse.container)
-
-        if (intersects.length > 0) {
-          document
-            .querySelector('.cursor-circle')
-            .classList.add('cursor-circle-focus')
-          if (event.deltaY < 0 && !this.isZoomed) {
-            gsap.to(this.controls.getObject().position, {
-              x: 11,
-              y: 11,
-              z: -0.5,
-              duration: 1.5,
-              ease: Power3,
-              onComplete: () => {
-                this.isZoomed = true
-              }
-            })
-          } else if (event.deltaY > 0 && this.isZoomed) {
-            gsap.to(this.controls.getObject().position, {
-              // fov: 30,
-              x: this.cameraDefaultPosition.x,
-              y: this.cameraDefaultPosition.y,
-              z: this.cameraDefaultPosition.z,
-              duration: 2,
-              ease: Power3,
-              onComplete: () => {
-                this.isZoomed = false
-              }
-            })
-          }
-        }
-      },
-      false
-    )
-  }
-
-	applySpacialSound(videoSound, model, playStatue) {
-		// create an AudioListener and add it to the camera
-		const listener = new THREE.AudioListener();
-		this.camera.add( listener );
-		console.log('sapcial sound')
-
-		// create the PositionalAudio object (passing in the listener)
-		const sound = new THREE.PositionalAudio( listener );
-
-		// load a sound and set it as the PositionalAudio object's buffer
-		const audioLoader = new THREE.AudioLoader();
-		audioLoader.load( videoSound, function( buffer ) {
-			sound.setBuffer( buffer );
-			sound.setVolume(1)
-			sound.setRefDistance(1);
-			sound.loop = true
-			sound.play();
-		});
-
-		model.add( sound );
-	}
 }
 
 // To call our class as a function

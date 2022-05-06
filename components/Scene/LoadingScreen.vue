@@ -1,8 +1,10 @@
 <template>
   <div class="loaderScreen">
-    <div class="loaderScreen__progressBar">
+    <button class="startButton" @click="start">Se réveiller</button>
+
+    <!-- <div class="loaderScreen__progressBar">
       <div class="loaderScreen__progress"></div>
-    </div>
+    </div> -->
     <h1 class="loaderScreen__load">0%</h1>
     <div class="loaderScreen__progressBar">
       <div class="loaderScreen__progress"></div>
@@ -11,13 +13,20 @@
 </template>
 
 <script>
-export default { name: 'LoadingScreen' }
+export default {
+  name: 'LoadingScreen',
+  methods: {
+    start() {
+      this.$emit('launch')
+    },
+  },
+}
 </script>
 
 <style>
 .loaderScreen {
   position: absolute;
-  z-index:10;
+  z-index: 10;
   top: 0;
   width: 100%;
   height: 100%;
@@ -57,5 +66,13 @@ export default { name: 'LoadingScreen' }
   height: 4px;
   background-color: #fff;
   transition: 0.32s ease-out width;
+}
+
+.startButton {
+  font-weight: bold;
+  font-size: 28px;
+  border: 0;
+  padding: 15px 100px 15px 100px;
+  cursor: pointer;
 }
 </style>
