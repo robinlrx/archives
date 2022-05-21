@@ -2,6 +2,8 @@ import * as THREE from 'three'
 
 import { gsap, Power3 } from 'gsap'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js'
+import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js';
+import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import Model from './Model'
 
 class SceneInit {
@@ -77,10 +79,12 @@ class SceneInit {
       audioSrc: 'videos/france2-proces.mp4',
       audioVolume: 3,
       listener: this.listener,
-      videoSrc: 'videos/france2-proces.mp4',
+    //   videoSrc: 'videos/france2-proces.mp4',
+	scene1: this.scene,
+	scene2: this.scene2,
       videoContainer: 'Screen',
       material: previewMaterial,
-      action: this.TV1Action
+      action: this.TV1Action,
     })
     this.objectsList.push(this.TV1)
     this.targetableObjects.add(this.TV1.container)
@@ -89,6 +93,7 @@ class SceneInit {
 
   initScene() {
     this.scene = new THREE.Scene()
+	this.scene2 = new THREE.Scene();
   }
 
   initManager() {
@@ -140,6 +145,12 @@ class SceneInit {
     this.renderer.setSize(window.innerWidth, window.innerHeight)
     this.renderer.setClearColor(this.background, 1)
     this.canvas = this.renderer.domElement
+
+	this.renderer2 = new CSS3DRenderer();
+	this.renderer2.setSize( window.innerWidth, window.innerHeight );
+	this.renderer2.domElement.style.position = 'absolute';
+	this.renderer2.domElement.style.top = 0;
+	document.body.appendChild( this.renderer2.domElement );
   }
 
   setControls() {
@@ -149,6 +160,8 @@ class SceneInit {
     )
     this.controls.pointerSpeed = 0.15
     this.controls.smooth = true
+
+	this.controls2 = new TrackballControls( this.camera, this.renderer2.domElement );
     // this.controls.smoothspeed = 0.95
     // const blocker = document.getElementById('blocker')
 
@@ -168,6 +181,8 @@ class SceneInit {
     this.camera.lookAt(this.scene.position)
 
     this.renderer.render(this.scene, this.camera)
+	this.renderer2.render( this.scene2, this.camera );
+	
   }
 
   playMedias() {
@@ -224,6 +239,7 @@ class SceneInit {
     requestAnimationFrame(() => this.update())
 
     this.renderer.render(this.scene, this.camera)
+	this.renderer2.render( this.scene2, this.camera );
 
     if (this.enabledRaycast) {
       this.raycaster.setFromCamera(new THREE.Vector2(), this.camera)

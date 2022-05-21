@@ -2,6 +2,7 @@ import * as THREE from 'three'
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
+import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
 export default class Model {
   constructor({
@@ -14,7 +15,10 @@ export default class Model {
     material,
     videoContainer,
     videoSrc,
-    action
+    action,
+	scene2,
+	scene1,
+	iframeId
   }) {
     this.src = src
     this.audioSrc = audioSrc
@@ -28,6 +32,9 @@ export default class Model {
     this.container = new THREE.Object3D()
     this.container.name = this.src
     this.action = action
+	this.scene2 = scene2
+	this.scene1 = scene1
+	this.iframeId = iframeId
     this.init()
   }
 
@@ -64,6 +71,52 @@ export default class Model {
     target.material = videoMaterial
     texture.flipY = false
     this.video = target.material.map.image
+
+	console.log('salut videoTexture');
+  }
+
+  createCssObject() {
+    const html = [
+      '<div>',
+      '<iframe src="https://handivity.robinleroux.fr/" width="50px" height="50px">',
+      '</iframe>',
+      '</div>'
+    ].join('\n');
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    const cssObject = new CSS3DObject(div);
+    // cssObject.position.x = target.x;
+    // cssObject.position.y = target.y;
+    // cssObject.position.z = target.z;
+    cssObject.element.onclick = function() {
+       console.log("element clicked!");
+    }
+    return cssObject;
+  }
+
+  createPlane(target) {
+    const material = new THREE.MeshBasicMaterial({
+      color: 0x000000,
+      opacity: 0.0,
+      side: THREE.DoubleSide
+    });
+    const geometry = new THREE.PlaneGeometry();
+    const mesh = new THREE.Mesh(geometry, material);
+	mesh.position.copy( target.position );
+	mesh.rotation.copy( target.rotation );
+	mesh.scale.copy( target.scale );
+    return mesh;
+  }
+
+  initIframe(target) {
+
+	const plane = this.createPlane(target);
+    this.scene1.add(plane);
+    const cssObject = this.createCssObject();
+    this.scene2.add(cssObject);
+
+	console.log('iframe ta mere')
+
   }
 
   loadModel(callback) {
@@ -84,6 +137,9 @@ export default class Model {
         child.objectName = this.src
         if (this.videoSrc && child.name === this.videoContainer) {
           this.initVideoTexture(child)
+        }
+        if (this.scene1 && child.name === this.videoContainer) {
+          this.initIframe(child)
         }
         if (this.material && child.name !== this.videoContainer) {
           child.material = this.material
