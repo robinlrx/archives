@@ -117,25 +117,29 @@ export default class Model {
 
 	// ESSAI 2
 	// create the plane mesh
-	const material = new THREE.MeshBasicMaterial({side: THREE.DoubleSide});
+	const material = new THREE.MeshBasicMaterial({side: THREE.DoubleSide, color: 0x049ef4});
 	const geometry = new THREE.PlaneGeometry();
 	const planeMesh = new THREE.Mesh( geometry, material );
 	planeMesh.name = 'meshTV';
-	// planeMesh.position.copy( target.position );
-	// planeMesh.rotation.copy( target.rotation );
-	// planeMesh.scale.copy( target.scale );
+	planeMesh.position.copy( target.position );
+	planeMesh.rotation.copy( target.rotation );
+	planeMesh.scale.copy( target.scale );
+	target.material = material
 	// add it to the WebGL scene
 	target.add(planeMesh);
 
 	// create the dom Element
 	const element = document.createElement( 'iframe' );
 	element.src = 'http://handivity.robinleroux.fr/';
+	element.style.width = '40px';
+	element.style.height = '40px';
+	element.style.border = '0px';
 	// create the object3d for this element
 	const cssObject = new CSS3DObject( element );
 	cssObject.name = 'iframeTV'
 	// we reference the same position and rotation 
-	// cssObject.position = planeMesh.position; // marche pas
-	// cssObject.rotation = planeMesh.rotation; // marche pas
+	cssObject.position.copy( planeMesh.position );
+	cssObject.rotation.copy( planeMesh.rotation );
 	// add it to the css scene
 	this.scene2.add(cssObject);
 
