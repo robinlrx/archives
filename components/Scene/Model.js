@@ -75,45 +75,69 @@ export default class Model {
 	console.log('salut videoTexture');
   }
 
-  createCssObject() {
-    const html = [
-      '<div>',
-      '<iframe src="https://handivity.robinleroux.fr/" width="50px" height="50px">',
-      '</iframe>',
-      '</div>'
-    ].join('\n');
-    const div = document.createElement('div');
-    div.innerHTML = html;
-    const cssObject = new CSS3DObject(div);
-    // cssObject.position.x = target.x;
-    // cssObject.position.y = target.y;
-    // cssObject.position.z = target.z;
-    cssObject.element.onclick = function() {
-       console.log("element clicked!");
-    }
-    return cssObject;
-  }
+//   createCssObject() {
+//     const html = [
+//       '<div>',
+//       '<iframe src="https://handivity.robinleroux.fr/" width="50px" height="50px">',
+//       '</iframe>',
+//       '</div>'
+//     ].join('\n');
+//     const div = document.createElement('div');
+//     div.innerHTML = html;
+//     const cssObject = new CSS3DObject(div);
+//     // cssObject.position.x = target.x;
+//     // cssObject.position.y = target.y;
+//     // cssObject.position.z = target.z;
+//     cssObject.element.onclick = function() {
+//        console.log("element clicked!");
+//     }
+//     return cssObject;
+//   }
 
-  createPlane(target) {
-    const material = new THREE.MeshBasicMaterial({
-      color: 0x000000,
-      opacity: 0.0,
-      side: THREE.DoubleSide
-    });
-    const geometry = new THREE.PlaneGeometry();
-    const mesh = new THREE.Mesh(geometry, material);
-	mesh.position.copy( target.position );
-	mesh.rotation.copy( target.rotation );
-	mesh.scale.copy( target.scale );
-    return mesh;
-  }
+//   createPlane(target) {
+//     const material = new THREE.MeshBasicMaterial({
+//       color: 0x000000,
+//       opacity: 0.0,
+//       side: THREE.DoubleSide
+//     });
+//     const geometry = new THREE.PlaneGeometry();
+//     const mesh = new THREE.Mesh(geometry, material);
+// 	mesh.position.copy( target.position );
+// 	mesh.rotation.copy( target.rotation );
+// 	mesh.scale.copy( target.scale );
+//     return mesh;
+//   }
 
   initIframe(target) {
 
-	const plane = this.createPlane(target);
-    this.scene1.add(plane);
-    const cssObject = this.createCssObject();
-    this.scene2.add(cssObject);
+	// const plane = this.createPlane(target);
+    // this.scene1.add(plane);
+    // const cssObject = this.createCssObject();
+    // this.scene2.add(cssObject);
+
+	// ESSAI 2
+	// create the plane mesh
+	const material = new THREE.MeshBasicMaterial({side: THREE.DoubleSide});
+	const geometry = new THREE.PlaneGeometry();
+	const planeMesh = new THREE.Mesh( geometry, material );
+	planeMesh.name = 'meshTV';
+	// planeMesh.position.copy( target.position );
+	// planeMesh.rotation.copy( target.rotation );
+	// planeMesh.scale.copy( target.scale );
+	// add it to the WebGL scene
+	target.add(planeMesh);
+
+	// create the dom Element
+	const element = document.createElement( 'iframe' );
+	element.src = 'http://handivity.robinleroux.fr/';
+	// create the object3d for this element
+	const cssObject = new CSS3DObject( element );
+	cssObject.name = 'iframeTV'
+	// we reference the same position and rotation 
+	// cssObject.position = planeMesh.position; // marche pas
+	// cssObject.rotation = planeMesh.rotation; // marche pas
+	// add it to the css scene
+	this.scene2.add(cssObject);
 
 	console.log('iframe ta mere')
 
@@ -138,7 +162,7 @@ export default class Model {
         if (this.videoSrc && child.name === this.videoContainer) {
           this.initVideoTexture(child)
         }
-        if (this.scene1 && child.name === this.videoContainer) {
+        if (this.scene1 && this.scene2 && child.name === this.videoContainer) {
           this.initIframe(child)
         }
         if (this.material && child.name !== this.videoContainer) {
