@@ -74,16 +74,67 @@ class SceneInit {
     this.TV1 = new Model({
       src: 'TV1',
       loadingManager: this.manager,
-      audioSrc: 'videos/france2-proces.mp4',
-      audioVolume: 3,
+      audioSrc: 'videos/VideoJT.mp4',
+      audioVolume: 2,
       listener: this.listener,
-      videoSrc: 'videos/france2-proces.mp4',
+      videoSrc: 'videos/VideoJT.mp4',
       videoContainer: 'Screen',
       material: previewMaterial,
       action: this.TV1Action
     })
     this.objectsList.push(this.TV1)
     this.targetableObjects.add(this.TV1.container)
+    this.TV2 = new Model({
+      src: 'TV2',
+      loadingManager: this.manager,
+      audioSrc: 'videos/VideoInterview1.mp4',
+      audioVolume: 2,
+      listener: this.listener,
+      videoSrc: 'videos/VideoInterview1.mp4',
+      videoContainer: 'Screen',
+      material: previewMaterial,
+    })
+    this.objectsList.push(this.TV2)
+    this.targetableObjects.add(this.TV2.container)
+    this.TV3 = new Model({
+      src: 'TV3',
+      loadingManager: this.manager,
+      audioSrc: 'videos/VideoInterview2.mp4',
+      audioVolume: 1,
+      listener: this.listener,
+      videoSrc: 'videos/VideoInterview2.mp4',
+      videoContainer: 'Screen3',
+      material: previewMaterial,
+    })
+    this.targetableObjects.add(this.TV3.container)
+
+    // this.objectsList.push(this.TV3)
+    this.TV4 = new Model({
+      src: 'TV4',
+      loadingManager: this.manager,
+      audioSrc: 'videos/Documentaire.mp4',
+      audioVolume: 1,
+      listener: this.listener,
+      videoSrc: 'videos/Documentaire.mp4',
+      videoContainer: 'Screen2',
+      material: previewMaterial,
+    })
+    this.targetableObjects.add(this.TV4.container)
+
+    this.objectsList.push(this.TV4)
+    this.TV5 = new Model({
+      src: 'TV5',
+      loadingManager: this.manager,
+      audioSrc: 'videos/VideoInterview2.mp4',
+      audioVolume: 1,
+      listener: this.listener,
+      videoSrc: 'videos/VideoInterview2.mp4',
+      videoContainer: 'Screen5',
+      material: previewMaterial,
+    })
+    this.targetableObjects.add(this.TV5.container)
+
+    this.objectsList.push(this.TV5)
     this.scene.add(this.targetableObjects)
   }
 
@@ -184,6 +235,17 @@ class SceneInit {
       }
       if (element.video) {
         element.video.play()
+      }
+    })
+  }
+
+  stopMedias() {
+    this.objectsList.forEach((element) => {
+      if (element.sound) {
+        element.sound.stop()
+      }
+      if (element.video) {
+        element.video.pause()
       }
     })
   }
