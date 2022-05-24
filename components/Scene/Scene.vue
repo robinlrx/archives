@@ -19,7 +19,10 @@ export default {
   },
   watch: {
     isLaunched() {
-      if (this.isLaunched) this.scene.playMedias()
+		if (this.isLaunched) {
+			this.scene.playMedias()
+			this.timeUp()
+		}
     },
   },
   created() {
@@ -31,7 +34,14 @@ export default {
   mounted() {
     this.scene = SceneInit({ rootEl: this.$refs.container })
   },
-  methods: {},
+  methods: {
+	timeUp() {
+		setTimeout(() => {
+			console.log('fin du temps')
+			this.$nuxt.$router.push('/dataviz')
+		}, 240000); // 4 min
+	}
+  },
 }
 </script>
 
