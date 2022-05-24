@@ -14,11 +14,7 @@
 						<div class="separator"></div>
 						<p>L’affaire Omar Raddad commence avec le meurtre de Ghislaine Marshal en 1991, dans sa propre villa. “OMAR M’A TUER” est inscrit en lettres de sang sur 2 surfaces, ce qui mène à l’arrestation d’Omar Raddad.</p>
 					</div>
-					<div class="stats">
-						<div class="onglet">
-							<p>?</p>
-							<p>Alors monsieur l'enquêteur ?</p>
-						</div>
+					<Box>
 						<div class='stats-container'>
 							<h2 class="text-bold"><span>Omar</span> est-il <br> le meurtrier ?</h2>
 							<div class="separator"></div>
@@ -37,13 +33,7 @@
 							</div>
 
 							<div class="bottom-content">
-
-								<div class="legend-container">
-									<div class="onglet">
-										<p>i</p>
-										<p>Légendes</p>
-									</div>
-
+								<Box addclass="legend-container" width="50%" icon="i" title="Légendes" icon-background="black" icon-color="#FCFCF5">
 									<div class="legend-item">
 										<div class="picto chart-yes"></div>
 										<p>Oui</p>
@@ -56,7 +46,12 @@
 										<div class="picto chart-jsp"></div>
 										<p>Je ne sais pas</p>
 									</div>
-								</div>
+								</Box>
+								<!-- <div class="legend-container">
+									<div class="onglet">
+										<p>i</p>
+										<p>Légendes</p>
+									</div> -->
 
 								<div class="big-data">
 									<span v-if="data1 === 'yes'" >
@@ -76,7 +71,7 @@
 							</div>
 
 						</div>
-					</div>
+					</Box>
 				</div>
 
 			</div>
@@ -86,8 +81,12 @@
 
 <script>
 import {gsap, Power1} from 'gsap';
+import Box from '../components/dataviz/Box.vue';
 
 export default {
+	components: {
+		Box
+	},
 	data() {
 		return {
 			yesPourcentage: undefined,
@@ -95,7 +94,7 @@ export default {
 			jspPourcentage: undefined,
 			showDataviz: false,
 			counter: 0,
-			data1: localStorage.getItem("data1")
+			// data1: localStorage.getItem("data1")
 		}
 	},
 	mounted() {
@@ -241,35 +240,6 @@ section {
 	margin: 10px 0;
 }
 
-.stats {
-	width: 70%;
-	border: solid var(--black);
-	/* padding: 30px; */
-}
-
-.stats .onglet {
-	display: flex;
-	/* justify-content: center; */
-	align-items: center;
-	border-bottom: solid var(--black);
-	font-family: 'Georgia-bold';
-	height: 25px;
-}
-
-.onglet p:first-of-type {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 25px;
-	height: 100%;
-	text-align: center;
-}
-
-.stats .onglet p:first-of-type {
-	background-color: var(--green);
-	border-right: solid var(--black);
-}
-
 .stats-container {
 	padding: 50px;
 }
@@ -341,33 +311,9 @@ section {
 }
 
 .legend-container {
-	border: solid var(--black);
-	height: 150px;
-	width: 50%;
 	display: flex;
 	justify-content: space-between;
 	flex-direction: column;
-}
-
-.legend-container .onglet {
-	display: flex;
-	/* justify-content: center; */
-	align-items: center;
-	border-bottom: solid var(--black);
-	font-family: 'Georgia-bold';
-	height: 25px;
-}
-
-.legend-container .onglet p:first-of-type {
-	background-color: var(--black);
-	border-right: solid var(--black);
-	color: var(--cream);
-}
-
-.onglet p:last-of-type {
-	margin-left: 20px;
-	/* margin-top: 5px;
-	margin-bottom: 5px; */
 }
 
 .legend-item {
