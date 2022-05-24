@@ -138,8 +138,9 @@ export default class Model {
 	const cssObject = new CSS3DObject( element );
 	cssObject.name = 'iframeTV'
 	// we reference the same position and rotation 
-	cssObject.position.copy( planeMesh.position );
-	cssObject.rotation.copy( planeMesh.rotation );
+	cssObject.position.copy( target.parent.position );
+	cssObject.rotation.copy(  target.parent.rotation );
+	console.log(cssObject.position)
 	// add it to the css scene
 	this.scene2.add(cssObject);
 
