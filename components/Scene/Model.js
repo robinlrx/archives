@@ -131,15 +131,17 @@ export default class Model {
 	// create the dom Element
 	const element = document.createElement( 'iframe' );
 	element.src = 'http://handivity.robinleroux.fr/';
-	element.style.width = '40px';
-	element.style.height = '40px';
+	element.style.width = '100px';
+	element.style.height = '150px';
 	element.style.border = '0px';
 	// create the object3d for this element
 	const cssObject = new CSS3DObject( element );
 	cssObject.name = 'iframeTV'
 	// we reference the same position and rotation 
-	cssObject.position.copy( target.parent.position );
 	cssObject.rotation.copy(  target.parent.rotation );
+	cssObject.quaternion.copy(  target.parent.quaternion );
+	cssObject.position.copy( target.parent.position );
+	cssObject.scale.copy(  target.parent.scale );
 	console.log(cssObject.position)
 	// add it to the css scene
 	this.scene2.add(cssObject);
@@ -169,6 +171,7 @@ export default class Model {
         }
         if (this.scene1 && this.scene2 && child.name === this.videoContainer) {
           this.initIframe(child)
+		  console.log(child);
         }
         if (this.material && child.name !== this.videoContainer) {
           child.material = this.material

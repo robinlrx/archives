@@ -89,6 +89,7 @@ class SceneInit {
     this.objectsList.push(this.TV1)
     this.targetableObjects.add(this.TV1.container)
     this.scene.add(this.targetableObjects)
+	console.log('this.TV', this.TV1)
   }
 
   initScene() {
@@ -346,6 +347,7 @@ class SceneInit {
   onResize() {
     this.camera.aspect = window.innerWidth / window.innerHeight
     this.renderer.setSize(window.innerWidth, window.innerHeight)
+    this.renderer2.setSize(window.innerWidth, window.innerHeight)
     this.camera.updateProjectionMatrix()
   }
 
