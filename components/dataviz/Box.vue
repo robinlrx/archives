@@ -1,11 +1,11 @@
 <template>
-  <div class="stats" :style="{width: width}" :class="addclass">
-	<div class="onglet">
-		<p :style="{backgroundColor: iconBackground, color: iconColor}">{{icon}}</p>
-		<p>{{title}}</p>
+	<div class="stats" :style="{width: width}" :class="addclass">
+		<div class="onglet">
+			<p :style="{backgroundColor: iconBackground, color: iconColor}">{{icon}}</p>
+			<p>{{title}}</p>
+		</div>
+		<slot />
 	</div>
-	<slot />
-  </div>
 </template>
 
 <script>
