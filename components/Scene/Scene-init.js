@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import { gsap, Power3 } from 'gsap'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js'
 import Model from './Model'
+import { changeFrequence } from './actions/radioAction'
 
 class SceneInit {
   constructor({ rootEl }) {
@@ -11,7 +12,8 @@ class SceneInit {
     this.background = 0x000
     this.raycaster = new THREE.Raycaster()
     this.cameraDefaultPosition = new THREE.Vector3(0, 12, -5)
-    this.enabledRaycast = true
+
+    this.enabledRaycast = false
     this.isZoomed = false
     this.currentAction = undefined
     this.init()
@@ -28,7 +30,9 @@ class SceneInit {
     this.setControls()
     // this.setRaycast()
     this.initAudio()
-    this.initModels()
+    setTimeout(() => {
+      this.initModels()
+    }, 5000)
     this.root.appendChild(this.canvas)
   }
 
@@ -38,7 +42,7 @@ class SceneInit {
   }
 
   radioAction = () => {
-    console.log(this)
+    changeFrequence(this.radio)
   }
 
   TV1Action() {
@@ -71,6 +75,14 @@ class SceneInit {
       material: previewMaterial
     })
     this.scene.add(this.office.container)
+
+    this.radio = new Model({
+      src: 'radio',
+      loadingManager: this.manager,
+      material: previewMaterial
+    })
+    this.objectsList.push(this.radio)
+    this.targetableObjects.add(this.radio.container)
     this.TV1 = new Model({
       src: 'TV1',
       loadingManager: this.manager,
@@ -92,7 +104,7 @@ class SceneInit {
       listener: this.listener,
       videoSrc: 'videos/VideoInterview1.mp4',
       videoContainer: 'Screen',
-      material: previewMaterial,
+      material: previewMaterial
     })
     this.objectsList.push(this.TV2)
     this.targetableObjects.add(this.TV2.container)
@@ -104,7 +116,7 @@ class SceneInit {
       listener: this.listener,
       videoSrc: 'videos/VideoInterview2.mp4',
       videoContainer: 'Screen3',
-      material: previewMaterial,
+      material: previewMaterial
     })
     this.targetableObjects.add(this.TV3.container)
 
@@ -117,7 +129,7 @@ class SceneInit {
       listener: this.listener,
       videoSrc: 'videos/Documentaire.mp4',
       videoContainer: 'Screen2',
-      material: previewMaterial,
+      material: previewMaterial
     })
     this.targetableObjects.add(this.TV4.container)
 
@@ -130,7 +142,7 @@ class SceneInit {
       listener: this.listener,
       videoSrc: 'videos/VideoInterview2.mp4',
       videoContainer: 'Screen5',
-      material: previewMaterial,
+      material: previewMaterial
     })
     this.targetableObjects.add(this.TV5.container)
 
@@ -143,23 +155,41 @@ class SceneInit {
   }
 
   initManager() {
-    const currentPercent = 0
+    // const currentPercent = 0
 
     this.loadDiv = document.querySelector('.loaderScreen')
     this.loadModels = this.loadDiv.querySelector('.loaderScreen__load')
-    this.progressBar = this.loadDiv.querySelectorAll('.loaderScreen__progress')
+    this.progressBar = this.loadDiv.querySelector('.loaderScreen__progress')
     this.manager = new THREE.LoadingManager()
 
     this.manager.onProgress = (url, itemsLoaded, itemsTotal) => {
-      this.progressBar.forEach((el) => {
-        el.style.width = this.loadModels.innerHTML = `${
-          Math.floor((itemsLoaded / itemsTotal) * 100) +
-          Math.floor((1 / itemsTotal) * currentPercent)
-        }%`
-      })
+      if (Math.floor(itemsLoaded / itemsTotal) * 100 === 100) {
+        this.progressBar.style.width = '23%'
+        setTimeout(() => {
+          this.progressBar.style.width = '47%'
+          setTimeout(() => {
+            this.progressBar.style.width = '75%'
+            setTimeout(() => {
+              this.progressBar.style.width = '100%'
+              setTimeout(() => {
+                this.loadDiv
+                  .querySelector('.loaderScreen__progressBar')
+                  .classList.add('none-opacity')
+                setTimeout(() => {
+                  this.loadDiv
+                    .querySelector('.loaderScreen__progressBar')
+                    .remove()
+                  document.querySelector('.startButton').style.display = 'block'
+                }, 2000)
+              }, 500)
+            }, 2000)
+          }, 1000)
+        }, 2003)
+      }
+
       if (itemsTotal === itemsLoaded) {
         setTimeout(() => {
-          this.loadModels.style.opacity = 0
+          // this.loadModels.style.opacity = 0
         }, 1000)
       }
     }
@@ -284,6 +314,10 @@ class SceneInit {
 
   update() {
     requestAnimationFrame(() => this.update())
+
+    // const time = this.clock.getElapsedTime()
+
+    // this.camera.position.y += Math.sin(time*100) * 2
 
     this.renderer.render(this.scene, this.camera)
 
