@@ -18,7 +18,8 @@ export default class Model {
     action,
 	scene2,
 	scene1,
-	iframeId
+	iframeId,
+	website
   }) {
     this.src = src
     this.audioSrc = audioSrc
@@ -35,6 +36,7 @@ export default class Model {
 	this.scene2 = scene2
 	this.scene1 = scene1
 	this.iframeId = iframeId
+	this.website = website
     this.init()
   }
 
@@ -74,39 +76,6 @@ export default class Model {
 
 	console.log('salut videoTexture');
   }
-
-//   createCssObject() {
-//     const html = [
-//       '<div>',
-//       '<iframe src="https://handivity.robinleroux.fr/" width="50px" height="50px">',
-//       '</iframe>',
-//       '</div>'
-//     ].join('\n');
-//     const div = document.createElement('div');
-//     div.innerHTML = html;
-//     const cssObject = new CSS3DObject(div);
-//     // cssObject.position.x = target.x;
-//     // cssObject.position.y = target.y;
-//     // cssObject.position.z = target.z;
-//     cssObject.element.onclick = function() {
-//        console.log("element clicked!");
-//     }
-//     return cssObject;
-//   }
-
-//   createPlane(target) {
-//     const material = new THREE.MeshBasicMaterial({
-//       color: 0x000000,
-//       opacity: 0.0,
-//       side: THREE.DoubleSide
-//     });
-//     const geometry = new THREE.PlaneGeometry();
-//     const mesh = new THREE.Mesh(geometry, material);
-// 	mesh.position.copy( target.position );
-// 	mesh.rotation.copy( target.rotation );
-// 	mesh.scale.copy( target.scale );
-//     return mesh;
-//   }
 
   initIframe(target) {
 
@@ -150,6 +119,32 @@ export default class Model {
 
   }
 
+  initImage(target) {
+
+	const texture = new THREE.TextureLoader();
+	const imageTexture = texture.load(this.website);
+	// create the plane mesh
+	const material = new THREE.MeshStandardMaterial({
+		side: THREE.DoubleSide,
+		map: imageTexture
+	});
+	// const geometry = new THREE.PlaneGeometry();
+	// const planeMesh = new THREE.Mesh( geometry, material );
+	// planeMesh.name = 'meshTV';
+	// planeMesh.position.copy( target.position );
+	// planeMesh.rotation.copy( target.rotation );
+	// planeMesh.scale.copy( target.scale );
+	// target.material = imageTexture
+    imageTexture.flipY = false
+    // this.website = target.material.map.image
+	target.material = material
+	// add it to the WebGL scene
+	// target.add(planeMesh);
+
+	console.log('image ta mere')
+
+  }
+
   loadModel(callback) {
     const dracoLoader = new DRACOLoader()
 
@@ -172,6 +167,10 @@ export default class Model {
         if (this.scene1 && this.scene2 && child.name === this.videoContainer) {
           this.initIframe(child)
 		  console.log(child);
+        }
+        if (this.website && child.name === this.videoContainer) {
+          this.initImage(child)
+		//   console.log(child);
         }
         if (this.material && child.name !== this.videoContainer) {
           child.material = this.material
