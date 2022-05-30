@@ -43,14 +43,18 @@ class SceneInit {
     console.log(this)
   }
 
-  TV1Action() {
+  TV1Action = () => {
+	this.controls.unlock();
     console.log('sale con')
-	const iframe = document.getElementById('iframe');
-	console.log('iframe:', iframe)
+	// const iframe = document.getElementById('iframe');
+	// console.log('iframe:', iframe)
 	// const a = iframe.contentWindow;
    	// console.log(a);
   	// a.scrollBy(0, 100);
 	// iframe.scrollBy(0, 100);
+	document.addEventListener('dblclick', () => {
+		this.controls.lock();
+	});
 	
   }
 

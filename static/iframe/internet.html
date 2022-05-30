@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="internet.css">
+</head>
+<body>
+	<img src="reddit-toolbar.png" alt="toolbar" class="toolbar" id="toolbar">
+	<div class="wrapper">
+		<iframe src="reddit-omar.html" frameborder="0" id="iframe"></iframe>
+	</div>
+</body>
+<script>
+	const toolbar = document.getElementById('toolbar');
+	const iframe = document.getElementById('iframe');
+	toolbar.addEventListener('click', () => {
+		if (toolbar.src = 'reddit-toolbar.png') {
+			console.log('salut')
+			iframe.src = 'twitter.png';
+			toolbar.src = 'twitter-toolbar.png';
+		}
+		else if (toolbar.src = 'twitter-toolbar.png') {
+			console.log('au revoir')
+			iframe.src = 'reddit-omar.html';
+			toolbar.src = 'reddit-toolbar.png';
+		}
+	});
+</script>
+</html>

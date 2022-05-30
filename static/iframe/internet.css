@@ -1,0 +1,22 @@
+body {
+	margin: 0;
+	overflow: hidden;
+}
+
+.toolbar {
+	width: 100%;
+	position: fixed;
+	padding-bottom: 47px;
+}
+
+.wrapper {
+	width: 100%;
+	height: 100vh;
+	background-color: black;
+}
+
+.wrapper iframe {
+	width: 100%;
+	overflow-x: hidden;
+	height: 100%;
+}

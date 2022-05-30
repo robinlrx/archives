@@ -106,7 +106,7 @@ export default class Model {
 	// element.style.height = '30%';
 	// element.style.border = '0px';
 	const html = [
-		'<iframe id="iframe" src="iframe/reddit-omar.html" width="800px" height=500px">',
+		'<iframe id="iframe" src="iframe/internet.html" width="800px" height=500px">',
 		'</iframe>',
 	  ].join('\n');
 	const div = document.createElement('div');
