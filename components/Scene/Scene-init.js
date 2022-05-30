@@ -45,6 +45,13 @@ class SceneInit {
 
   TV1Action() {
     console.log('sale con')
+	const iframe = document.getElementById('iframe');
+	console.log('iframe:', iframe)
+	// const a = iframe.contentWindow;
+   	// console.log(a);
+  	// a.scrollBy(0, 100);
+	// iframe.scrollBy(0, 100);
+	
   }
 
   initModels() {
@@ -81,8 +88,9 @@ class SceneInit {
       listener: this.listener,
     //   videoSrc: 'videos/france2-proces.mp4',
 	scene1: this.scene,
-	// scene2: this.scene2,
-	website: 'images/omar-reddit.png',
+	scene2: this.scene2,
+	camera: this.camera.position,
+	// website: 'images/omar-reddit.png',
       videoContainer: 'Screen',
       material: previewMaterial,
       action: this.TV1Action,
@@ -151,6 +159,7 @@ class SceneInit {
 	this.renderer2 = new CSS3DRenderer();
 	this.renderer2.setSize( window.innerWidth, window.innerHeight );
 	this.renderer2.domElement.style.position = 'absolute';
+	// this.renderer2.domElement.style.zIndex = 9;
 	this.renderer2.domElement.style.top = 0;
 	document.body.appendChild( this.renderer2.domElement );
   }

@@ -19,7 +19,8 @@ export default class Model {
 	scene2,
 	scene1,
 	iframeId,
-	website
+	website,
+	camera
   }) {
     this.src = src
     this.audioSrc = audioSrc
@@ -37,6 +38,7 @@ export default class Model {
 	this.scene1 = scene1
 	this.iframeId = iframeId
 	this.website = website
+	this.camera = camera
     this.init()
   }
 
@@ -95,25 +97,36 @@ export default class Model {
 	planeMesh.scale.copy( target.scale );
 	target.material = material
 	// add it to the WebGL scene
-	target.add(planeMesh);
+	this.scene1.add(planeMesh);
 
 	// create the dom Element
-	const element = document.createElement( 'iframe' );
-	element.src = 'http://handivity.robinleroux.fr/';
-	element.style.width = '100px';
-	element.style.height = '150px';
-	element.style.border = '0px';
+	// const element = document.createElement( 'iframe' );
+	// element.src = 'http://handivity.robinleroux.fr/';
+	// element.style.width = '50%';
+	// element.style.height = '30%';
+	// element.style.border = '0px';
+	const html = [
+		'<iframe id="iframe" src="iframe/reddit-omar.html" width="800px" height=500px">',
+		'</iframe>',
+	  ].join('\n');
+	const div = document.createElement('div');
+	div.innerHTML = html;
 	// create the object3d for this element
-	const cssObject = new CSS3DObject( element );
-	cssObject.name = 'iframeTV'
+	const cssObject = new CSS3DObject( div );
+	cssObject.name = 'iframeTV';
+	cssObject.flipY = false;
 	// we reference the same position and rotation 
 	cssObject.rotation.copy(  target.parent.rotation );
 	cssObject.quaternion.copy(  target.parent.quaternion );
 	cssObject.position.copy( target.parent.position );
 	cssObject.scale.copy(  target.parent.scale );
+	cssObject.lookAt(this.camera)
 	console.log(cssObject.position)
 	// add it to the css scene
 	this.scene2.add(cssObject);
+	cssObject.element.onclick = function() {
+		console.log("element clicked!");
+	}
 
 	console.log('iframe ta mere')
 
@@ -164,7 +177,7 @@ export default class Model {
         if (this.videoSrc && child.name === this.videoContainer) {
           this.initVideoTexture(child)
         }
-        if (this.scene1 && this.scene2 && child.name === this.videoContainer) {
+        if (this.scene1 && this.scene2 && this.camera && child.name === this.videoContainer) {
           this.initIframe(child)
 		  console.log(child);
         }
