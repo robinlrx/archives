@@ -13,7 +13,8 @@ class SceneInit {
     this.raycaster = new THREE.Raycaster()
     this.cameraDefaultPosition = new THREE.Vector3(0, 12, -5)
 
-    this.enabledRaycast = false
+    this.enabledRaycast = true
+    this.isLoaded = false
     this.isZoomed = false
     this.currentAction = undefined
     this.init()
@@ -61,14 +62,7 @@ class SceneInit {
       matcap: matcapTexture,
       side: THREE.DoubleSide
     })
-    this.radio = new Model({
-      src: 'radio',
-      loadingManager: this.manager,
-      material: previewMaterial,
-      action: this.radioAction
-    })
-    this.objectsList.push(this.radio)
-    this.targetableObjects.add(this.radio.container)
+
     this.office = new Model({
       src: 'office',
       loadingManager: this.manager,
@@ -79,74 +73,77 @@ class SceneInit {
     this.radio = new Model({
       src: 'radio',
       loadingManager: this.manager,
-      material: previewMaterial
-    })
-    this.objectsList.push(this.radio)
-    this.targetableObjects.add(this.radio.container)
-    this.TV1 = new Model({
-      src: 'TV1',
-      loadingManager: this.manager,
+      material: previewMaterial,
       audioSrc: 'videos/VideoJT.mp4',
       audioVolume: 2,
       listener: this.listener,
-      videoSrc: 'videos/VideoJT.mp4',
-      videoContainer: 'Screen',
-      material: previewMaterial,
-      action: this.TV1Action
+      action: this.radioAction
     })
-    this.objectsList.push(this.TV1)
-    this.targetableObjects.add(this.TV1.container)
-    this.TV2 = new Model({
-      src: 'TV2',
-      loadingManager: this.manager,
-      audioSrc: 'videos/VideoInterview1.mp4',
-      audioVolume: 2,
-      listener: this.listener,
-      videoSrc: 'videos/VideoInterview1.mp4',
-      videoContainer: 'Screen',
-      material: previewMaterial
-    })
-    this.objectsList.push(this.TV2)
-    this.targetableObjects.add(this.TV2.container)
-    this.TV3 = new Model({
-      src: 'TV3',
-      loadingManager: this.manager,
-      audioSrc: 'videos/VideoInterview2.mp4',
-      audioVolume: 1,
-      listener: this.listener,
-      videoSrc: 'videos/VideoInterview2.mp4',
-      videoContainer: 'Screen3',
-      material: previewMaterial
-    })
-    this.targetableObjects.add(this.TV3.container)
-
+    this.objectsList.push(this.radio)
+    this.targetableObjects.add(this.radio.container)
+    console.log(this.radio.container)
+    // this.TV1 = new Model({
+    //   src: 'TV1',
+    //   loadingManager: this.manager,
+    //   audioSrc: 'videos/VideoJT.mp4',
+    //   audioVolume: 2,
+    //   listener: this.listener,
+    //   videoSrc: 'videos/VideoJT.mp4',
+    //   videoContainer: 'Screen',
+    //   material: previewMaterial,
+    //   action: this.TV1Action
+    // })
+    // this.objectsList.push(this.TV1)
+    // this.targetableObjects.add(this.TV1.container)
+    // this.TV2 = new Model({
+    //   src: 'TV2',
+    //   loadingManager: this.manager,
+    //   audioSrc: 'videos/VideoInterview1.mp4',
+    //   audioVolume: 2,
+    //   listener: this.listener,
+    //   videoSrc: 'videos/VideoInterview1.mp4',
+    //   videoContainer: 'Screen',
+    //   material: previewMaterial
+    // })
+    // this.objectsList.push(this.TV2)
+    // this.targetableObjects.add(this.TV2.container)
+    // this.TV3 = new Model({
+    //   src: 'TV3',
+    //   loadingManager: this.manager,
+    //   audioSrc: 'videos/VideoInterview2.mp4',
+    //   audioVolume: 1,
+    //   listener: this.listener,
+    //   videoSrc: 'videos/VideoInterview2.mp4',
+    //   videoContainer: 'Screen3',
+    //   material: previewMaterial
+    // })
+    // this.targetableObjects.add(this.TV3.container)
     // this.objectsList.push(this.TV3)
-    this.TV4 = new Model({
-      src: 'TV4',
-      loadingManager: this.manager,
-      audioSrc: 'videos/Documentaire.mp4',
-      audioVolume: 1,
-      listener: this.listener,
-      videoSrc: 'videos/Documentaire.mp4',
-      videoContainer: 'Screen2',
-      material: previewMaterial
-    })
-    this.targetableObjects.add(this.TV4.container)
+    // this.TV4 = new Model({
+    //   src: 'TV4',
+    //   loadingManager: this.manager,
+    //   audioSrc: 'videos/Documentaire.mp4',
+    //   audioVolume: 1,
+    //   listener: this.listener,
+    //   videoSrc: 'videos/Documentaire.mp4',
+    //   videoContainer: 'Screen2',
+    //   material: previewMaterial
+    // })
+    // this.targetableObjects.add(this.TV4.container)
+    // this.objectsList.push(this.TV4)
+    // this.TV5 = new Model({
+    //   src: 'TV5',
+    //   loadingManager: this.manager,
+    //   audioSrc: 'videos/VideoInterview2.mp4',
+    //   audioVolume: 1,
+    //   listener: this.listener,
+    //   videoSrc: 'videos/VideoInterview2.mp4',
+    //   videoContainer: 'Screen5',
+    //   material: previewMaterial
+    // })
+    // this.targetableObjects.add(this.TV5.container)
 
-    this.objectsList.push(this.TV4)
-    this.TV5 = new Model({
-      src: 'TV5',
-      loadingManager: this.manager,
-      audioSrc: 'videos/VideoInterview2.mp4',
-      audioVolume: 1,
-      listener: this.listener,
-      videoSrc: 'videos/VideoInterview2.mp4',
-      videoContainer: 'Screen5',
-      material: previewMaterial
-    })
-    this.targetableObjects.add(this.TV5.container)
-
-    this.objectsList.push(this.TV5)
+    // this.objectsList.push(this.TV5)
     this.scene.add(this.targetableObjects)
   }
 
@@ -164,6 +161,7 @@ class SceneInit {
 
     this.manager.onProgress = (url, itemsLoaded, itemsTotal) => {
       if (Math.floor(itemsLoaded / itemsTotal) * 100 === 100) {
+        this.isLoaded = true
         this.progressBar.style.width = '23%'
         setTimeout(() => {
           this.progressBar.style.width = '47%'
@@ -228,7 +226,7 @@ class SceneInit {
       this.camera,
       this.renderer.domElement
     )
-    this.controls.pointerSpeed = 0.15
+    this.controls.pointerSpeed = 0.5
     this.controls.smooth = true
     // this.controls.smoothspeed = 0.95
     // const blocker = document.getElementById('blocker')
@@ -320,21 +318,18 @@ class SceneInit {
     // this.camera.position.y += Math.sin(time*100) * 2
 
     this.renderer.render(this.scene, this.camera)
-
-    if (this.enabledRaycast) {
+    if (this.enabledRaycast && this.isLoaded) {
       this.raycaster.setFromCamera(new THREE.Vector2(), this.camera)
 
       // calculate objects intersecting the picking ray
-      const intersects = this.raycaster.intersectObjects(
-        this.targetableObjects.children
-      )
-
+      const intersects = this.raycaster.intersectObjects(this.targetableObjects.children)
+      
       if (intersects.length > 0) {
         const intersect = intersects[0].object
-
+        
         const wholeObject = this.objectsList.find(
           (element) => element.src === intersect.objectName
-        )
+          )
 
         this.currentAction = wholeObject.action
 

@@ -38,8 +38,8 @@ export default class Model {
   initSound(target) {
     this.sound = new THREE.PositionalAudio(this.listener)
     this.sound.name = 'PositionalAudio'
-    const audioLoader = new THREE.AudioLoader()
-    audioLoader.load(`${this.audioSrc}`, (buffer) => {
+    this.audioLoader = new THREE.AudioLoader()
+    this.audioLoader.load(`${this.audioSrc}`, (buffer) => {
       this.sound.setLoop(true)
       this.sound.setBuffer(buffer)
       this.sound.setVolume(this.audioVolume)
