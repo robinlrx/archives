@@ -14,22 +14,22 @@ export default {
 	props: {
 		width: {
 			type: String,
-			required: true,
+			required: false,
 			default: '70%'
 		},
 		title: {
 			type: String,
-			required: true,
+			required: false,
 			default: "Alors monsieur l'enquêteur ?"
 		},
 		icon: {
 			type: String,
-			required: true,
+			required: false,
 			default: "?"
 		},
 		iconBackground: {
 			type: String,
-			required: true,
+			required: false,
 			default: "#649F8E"
 		},
 		iconColor: {

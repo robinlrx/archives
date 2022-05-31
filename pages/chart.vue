@@ -1,26 +1,28 @@
 <template>
 	<div v-show="showDataviz">
-		<header>
+		<header class="reveal-1">
 			<img src="/images/logo.svg" alt="">
 		</header>
 		<section>
 			<div class="container">
-				<img src="/images/logo.svg" alt="" class="logo-big">
+				<div class="separator reveal-1"></div>
+				<img src="/images/logo.svg" alt="" class="logo-big reveal-1">
+				<div class="separator reveal-1"></div>
 				<div class="content">
 					<div class="case">
-						<p class='text-bold date'>19<br>91</p>
-						<div class="separator"></div>
-						<img src="/images/omar.png" alt="">
-						<div class="separator"></div>
-						<p>L’affaire Omar Raddad commence avec le meurtre de Ghislaine Marshal en 1991, dans sa propre villa. “OMAR M’A TUER” est inscrit en lettres de sang sur 2 surfaces, ce qui mène à l’arrestation d’Omar Raddad.</p>
+						<p class='text-bold date reveal-1'>19<br>91</p>
+						<!-- <div class="separator"></div> -->
+						<img src="/images/omar.png" alt="" class="omar reveal-1">
+						<!-- <div class="separator"></div> -->
+						<p class="resume reveal-1">L’affaire Omar Raddad commence avec le meurtre de Ghislaine Marshal en 1991, dans sa propre villa. “OMAR M’A TUER” est inscrit en lettres de sang sur 2 surfaces, ce qui mène à l’arrestation d’Omar Raddad.</p>
 					</div>
-					<Box>
+					<Box addclass="reveal-1">
 						<div class='stats-container'>
-							<h2 class="text-bold"><span>Omar</span> est-il <br> le meurtrier ?</h2>
-							<div class="separator"></div>
+							<h2 class="text-bold reveal-1"><span>Omar</span> est-il <br> le meurtrier ?</h2>
+							<div class="separator reveal-1"></div>
 							<p>Lorem ipsum dolor sit amet</p>
 
-							<div class="dataviz">
+							<div class="dataviz reveal-1">
 								<div v-show="yesPourcentage != 0" class="chart chart-yes" :style="{ width: `${yesPourcentage}%` }">
 									<p>{{yesPourcentage}}%</p>
 								</div>
@@ -33,7 +35,7 @@
 							</div>
 
 							<div class="bottom-content">
-								<Box addclass="legend-container" width="50%" icon="i" title="Légendes" icon-background="black" icon-color="#FCFCF5">
+								<Box addclass="legend-container reveal-1" width="50%" icon="i" title="Légendes" icon-background="black" icon-color="#FCFCF5">
 									<div class="legend-item">
 										<div class="picto chart-yes"></div>
 										<p>Oui</p>
@@ -54,15 +56,15 @@
 									</div> -->
 
 								<div class="big-data">
-									<span v-if="data1 === 'yes'" >
+									<span v-if="data1 === 'yes'" class="reveal-1">
 										<p class="number">{{yesPourcentage}}%</p>
 										<p>des utilisateurs pensent comme vous, qu'Omar Raddad à bel et bien tué Ghislaine Marshal.</p>
 									</span>
-									<span v-else-if="data1 === 'no'" >
+									<span v-else-if="data1 === 'no'" class="reveal-1">
 										<p class="number">{{noPourcentage}}%</p>
 										<p>des utilisateurs pensent comme vous, qu'Omar Raddad n'a pas tué Ghislaine Marshal.</p>
 									</span>
-									<span v-else >
+									<span v-else class="reveal-1">
 										<p class="number">{{jspPourcentage}}%</p>
 										<p>des utilisateurs pensent comme vous, ils ne savent pas. </p>
 									</span>
@@ -76,11 +78,12 @@
 
 			</div>
 		</section>
+		<section class="test"></section>
 	</div>
 </template>
 
 <script>
-import {gsap, Power1} from 'gsap';
+import {gsap} from 'gsap'; // Power1
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'; // https://greensock.com/forums/topic/29801-getting-error-cannot-use-import-statement-outside-a-module-when-importing-flip/
 import Box from '../components/dataviz/Box.vue';
 gsap.registerPlugin(ScrollTrigger);
@@ -130,21 +133,40 @@ export default {
 			}
 		},
 		showElements() {
-			const showTL = gsap.timeline()
+			// const showTL = gsap.timeline()
 			this.showDataviz = true
-			showTL.fromTo('header', { opacity: 0 }, { opacity: 1, duration: 1, delay: 1 })
-			showTL.fromTo('section', { opacity: 0, y: 400}, { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: Power1.easeIn} )
+			// showTL.fromTo('header', { opacity: 0 }, { opacity: 1, duration: 1, delay: 1 })
+			// showTL.fromTo('section', { opacity: 0, y: 400}, { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: Power1.easeIn} )
 			// showTL.to('.logo-big', { rotate: 720, scale: 2, duration: 0.5} )
 			// showTL.fromTo('.case', { opacity: 0, }, { opacity: 1, duration: 1} )
 			// showTL.fromTo('.stats', { opacity: 0, }, { opacity: 1, duration: 1} )
 			// showTL.fromTo('.dataviz', { width: 0, opacity: 0 }, { width: 'auto', opacity: 1, duration: 1, ease: Power1.easeIn} )
 
 			// if showElements() is in fetchDocument()
-			showTL.fromTo('.dataviz .chart-yes', { width: 0, opacity: 0 }, { width: `${this.yesPourcentage}%`, opacity: 1, duration: 0.5, ease: Power1.easeInOut} )
-			showTL.fromTo('.dataviz .chart-no', { width: 0, opacity: 0 }, { width: `${this.noPourcentage}%`, opacity: 1, duration: 0.5, ease: Power1.easeInOut} )
-			showTL.fromTo('.dataviz .chart-jsp', { width: 0, opacity: 0 }, { width: `${this.jspPourcentage}%`, opacity: 1, duration: 0.5, ease: Power1.easeInOut} )
+			// showTL.fromTo('.dataviz .chart-yes', { width: 0, opacity: 0 }, { width: `${this.yesPourcentage}%`, opacity: 1, duration: 0.5, ease: Power1.easeInOut} )
+			// showTL.fromTo('.dataviz .chart-no', { width: 0, opacity: 0 }, { width: `${this.noPourcentage}%`, opacity: 1, duration: 0.5, ease: Power1.easeInOut} )
+			// showTL.fromTo('.dataviz .chart-jsp', { width: 0, opacity: 0 }, { width: `${this.jspPourcentage}%`, opacity: 1, duration: 0.5, ease: Power1.easeInOut} )
 
-			return showTL
+			// return showTL
+
+			const ratio = 0.1; // 10%
+			const options = {
+				root: null,
+				rootMargin: "0px",
+				threshold: .1
+			};
+			const callback = function (entries, observe) {
+				entries.forEach(function (entrie) {
+					// eslint-disable-next-line no-unused-expressions
+					entrie.intersectionRatio > ratio && (entrie.target.classList.add("reveal-visible"), observe.unobserve(entrie.target))
+				})
+			};
+			const observer = new IntersectionObserver(callback, options);
+			
+			const items = document.querySelectorAll('[class*="reveal-"]')
+			items.forEach(function (item) {
+				observer.observe(item)
+			});
 		}
 	},
 }
@@ -155,6 +177,21 @@ export default {
 </style>
 
 <style scoped>
+
+[class*=reveal-] {
+	opacity: 0;
+	transform: translateY(30px)
+}
+
+.reveal-visible {
+	opacity: 1;
+	transform: translateY(0);
+	transition: 1s cubic-bezier(0.83, 0, 0, 1)
+}
+
+.reveal-1 {
+	transition-delay: 0.5s
+}
 
 header {
 	height: 70px;
@@ -198,7 +235,8 @@ section {
 
 .logo-big {
 	width: 50%;
-	margin-bottom: 10%;
+	margin-bottom: 3%;
+	margin-top: 3%;
 }
 
 .content {
@@ -208,6 +246,7 @@ section {
 	/* border: solid yellow; */
 	width: 100%;
 	height: 600px;
+	margin-top: 50px;
 }
 
 .case, .stats {
@@ -224,9 +263,17 @@ section {
 	border-bottom: solid 2.5px var(--black);
 }
 
-.case img {
+.case .omar {
 	width: 100%;
-	/* height: 80px; */
+	height: 40%;
+	padding: 15px 0;
+	border-bottom: solid 2.5px var(--black);
+	border-top: solid 2.5px var(--black);
+}
+
+.case .resume {
+	padding: 15px 0;
+	text-align: justify;
 }
 
 .date {
@@ -346,6 +393,16 @@ section {
 .big-data .number {
 	font-family: 'Akira';
 	font-size: 6rem;
+}
+
+section:first-of-type {
+	padding-bottom:  10vh;
+}
+
+.test {
+	width: 100%;
+	height: 80vh;
+	background-color: blue;
 }
 
 </style>
