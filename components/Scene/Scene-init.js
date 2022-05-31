@@ -94,7 +94,7 @@ class SceneInit {
 	scene1: this.scene,
 	scene2: this.scene2,
 	camera: this.camera.position,
-	// website: 'images/omar-reddit.png',
+	website: 'iframe/internet.html',
       videoContainer: 'Screen',
       material: previewMaterial,
       action: this.TV1Action,

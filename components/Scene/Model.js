@@ -106,7 +106,7 @@ export default class Model {
 	// element.style.height = '30%';
 	// element.style.border = '0px';
 	const html = [
-		'<iframe id="iframe" src="iframe/internet.html" width="800px" height=500px">',
+		`<iframe id="iframe" src=${this.website} width="1000px" height=500px" frameborder="0">`,
 		'</iframe>',
 	  ].join('\n');
 	const div = document.createElement('div');

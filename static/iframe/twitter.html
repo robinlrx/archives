@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		.wrapper {
+			display: flex;
+		}
+		.nav {
+			position: fixed;
+			height: 100%;
+			z-index: 2;
+		}
+		.nav:first-of-type {
+			left: 0;
+			width: 20%;
+		}
+		.nav:last-of-type {
+			right: 0;
+			width: 25%;
+		}
+		.timeline {
+			width: 100%;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<img src="twitter-nav-left.png" alt="" class="nav">
+		<img src="twitter.png" alt="" class="timeline">
+		<img src="twitter-nav-right.png" alt="" class="nav">
+	</div>
+</body>
+</html>
