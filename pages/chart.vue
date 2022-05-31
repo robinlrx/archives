@@ -19,10 +19,10 @@
 					<Box addclass="reveal-1">
 						<div class='stats-container'>
 							<h2 class="text-bold reveal-1"><span>Omar</span> est-il <br> le meurtrier ?</h2>
-							<div class="separator reveal-1"></div>
+							<div class="separator separator-2 reveal-1"></div>
 							<p>Lorem ipsum dolor sit amet</p>
 
-							<div class="dataviz reveal-1">
+							<div class="dataviz-first reveal-1">
 								<div v-show="yesPourcentage != 0" class="chart chart-yes" :style="{ width: `${yesPourcentage}%` }">
 									<p>{{yesPourcentage}}%</p>
 								</div>
@@ -46,7 +46,7 @@
 									</div>
 									<div class="legend-item">
 										<div class="picto chart-jsp"></div>
-										<p>Je ne sais pas</p>
+										<p>Indécis</p>
 									</div>
 								</Box>
 								<!-- <div class="legend-container">
@@ -83,10 +83,10 @@
 </template>
 
 <script>
-import {gsap} from 'gsap'; // Power1
-import ScrollTrigger from 'gsap/dist/ScrollTrigger'; // https://greensock.com/forums/topic/29801-getting-error-cannot-use-import-statement-outside-a-module-when-importing-flip/
+// import {gsap} from 'gsap'; // Power1
+// import ScrollTrigger from 'gsap/dist/ScrollTrigger'; // https://greensock.com/forums/topic/29801-getting-error-cannot-use-import-statement-outside-a-module-when-importing-flip/
 import Box from '../components/dataviz/Box.vue';
-gsap.registerPlugin(ScrollTrigger);
+// gsap.registerPlugin(ScrollTrigger);
 
 export default {
 	components: {
@@ -289,6 +289,10 @@ section {
 	margin: 10px 0;
 }
 
+.separator-2 {
+	width: 50%;
+}
+
 .stats-container {
 	padding: 50px;
 }
@@ -301,10 +305,11 @@ section {
 	font-size: 7rem;
 }
 
-.dataviz {
+.dataviz-first {
 	display: flex;
 	margin-top: 10px;
 	margin-bottom: 20px;
+	box-shadow: 10px 8px 0px #E3E3DD;
 }
 
 .chart {
@@ -370,6 +375,7 @@ section {
 	justify-content: start;
 	align-items: center;
 	margin: 5px 10px;
+	font-family: 'Georgia-regular';
 }
 
 .picto {
