@@ -16,11 +16,11 @@
 						<!-- <div class="separator"></div> -->
 						<p class="resume reveal-1">L’affaire Omar Raddad commence avec le meurtre de Ghislaine Marshal en 1991, dans sa propre villa. “OMAR M’A TUER” est inscrit en lettres de sang sur 2 surfaces, ce qui mène à l’arrestation d’Omar Raddad.</p>
 					</div>
-					<Box addclass="reveal-1">
+					<Box addclass="reveal-1 stats">
 						<div class='stats-container'>
 							<h2 class="text-bold reveal-1"><span>Omar</span> est-il <br> le meurtrier ?</h2>
 							<div class="separator separator-2 reveal-1"></div>
-							<p>Lorem ipsum dolor sit amet</p>
+							<p class="reveal-1">Lorem ipsum dolor sit amet</p>
 
 							<div class="dataviz-first reveal-1">
 								<div v-show="yesPourcentage != 0" class="chart chart-yes" :style="{ width: `${yesPourcentage}%` }">
@@ -274,6 +274,8 @@ section {
 .case .resume {
 	padding: 15px 0;
 	text-align: justify;
+	font-family: 'Georgia-regular';
+	/* background-color: red; */
 }
 
 .date {
@@ -295,6 +297,7 @@ section {
 
 .stats-container {
 	padding: 50px;
+	justify-content: space-around;
 }
 
 .stats-container h2 {
@@ -394,6 +397,7 @@ section {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	font-family: 'Georgia-regular';
 }
 
 .big-data .number {

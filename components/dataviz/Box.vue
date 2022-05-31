@@ -1,5 +1,5 @@
 <template>
-	<div class="stats" :style="{width: width}" :class="addclass">
+	<div class="box" :style="{width: width}" :class="addclass">
 		<div class="onglet">
 			<p :style="{backgroundColor: iconBackground, color: iconColor}">{{icon}}</p>
 			<p>{{title}}</p>
@@ -49,13 +49,13 @@ export default {
 <style>
 @import '../../css/general.css';
 
-.stats {
+.box {
 	/* width: 70%; */
 	border: solid var(--black);
 	/* padding: 30px; */
 }
 
-.stats .onglet {
+.box .onglet {
 	display: flex;
 	/* justify-content: center; */
 	align-items: center;
@@ -79,7 +79,7 @@ export default {
 	margin-bottom: 5px; */
 }
 
-.stats .onglet p:first-of-type {
+.box .onglet p:first-of-type {
 	/* background-color: var(--green); */
 	border-right: solid var(--black);
 }
