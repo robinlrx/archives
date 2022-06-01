@@ -15,7 +15,7 @@ export default {
 		width: {
 			type: String,
 			required: false,
-			default: '70%'
+			default: '80%'
 		},
 		title: {
 			type: String,

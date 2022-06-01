@@ -9,6 +9,7 @@
 				<img src="/images/logo.svg" alt="" class="logo-big reveal-1">
 				<div class="separator reveal-1"></div>
 				<div class="content">
+					<!-- left side -->
 					<div class="case">
 						<p class='text-bold date reveal-1'>19<br>91</p>
 						<!-- <div class="separator"></div> -->
@@ -16,7 +17,9 @@
 						<!-- <div class="separator"></div> -->
 						<p class="resume reveal-1">L’affaire Omar Raddad commence avec le meurtre de Ghislaine Marshal en 1991, dans sa propre villa. “OMAR M’A TUER” est inscrit en lettres de sang sur 2 surfaces, ce qui mène à l’arrestation d’Omar Raddad.</p>
 					</div>
+					<!-- right side -->
 					<Box addclass="reveal-1 stats">
+
 						<div class='stats-container'>
 							<h2 class="text-bold reveal-1"><span>Omar</span> est-il <br> le meurtrier ?</h2>
 							<div class="separator separator-2 reveal-1"></div>
@@ -35,6 +38,7 @@
 							</div>
 
 							<div class="bottom-content">
+
 								<Box addclass="legend-container reveal-1" width="50%" icon="i" title="Légendes" icon-background="black" icon-color="#FCFCF5">
 									<div class="legend-item">
 										<div class="picto chart-yes"></div>
@@ -49,11 +53,6 @@
 										<p>Indécis</p>
 									</div>
 								</Box>
-								<!-- <div class="legend-container">
-									<div class="onglet">
-										<p>i</p>
-										<p>Légendes</p>
-									</div> -->
 
 								<div class="big-data">
 									<span v-if="data1 === 'yes'" class="reveal-1">
@@ -73,7 +72,21 @@
 							</div>
 
 						</div>
+
 					</Box>
+
+				</div>
+
+				<!-- conclusion 1 -->
+				<div class="dataviz-first-conclusion">
+					<div class="no-box reveal-1">
+						<p>NON</p>
+						<p>De nombreux indices semblent innocenter Omar, ou incriminer d’autres individus. Par exemple des récentes analyses ADN</p>
+					</div>
+					<div class="yes-box reveal-1">
+						<p>OUI</p>
+						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem </p>
+					</div>
 				</div>
 
 			</div>
@@ -241,7 +254,7 @@ section {
 
 .content {
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: flex-start;
 	/* border: solid yellow; */
 	width: 100%;
@@ -251,6 +264,10 @@ section {
 
 .case, .stats {
 	height: 100%;
+}
+
+.stats {
+	margin-left: 50px;
 }
 
 
@@ -415,4 +432,44 @@ section:first-of-type {
 	background-color: blue;
 }
 
-</style>
+.dataviz-first-conclusion {
+	width: 100%;
+	/* border: solid red; */
+	display: flex;
+	margin-top: 40px;
+	font-family: 'Georgia-regular';
+}
+
+.no-box {
+	width: 70%;
+	height: 130px;
+	color: var(--cream);
+	background-color: var(--black);
+	padding: 20px ;
+	border: solid var(--black);
+} 
+
+.no-box p:first-of-type, .yes-box p:first-of-type {
+	font-family: 'Strong-concrete';
+	font-size: 3rem;
+	width: 100%;
+	border-bottom: solid var(--cream);
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+}
+
+.yes-box {
+	/* width: 70%; */
+	height: 130px;
+	/* color: var(--cream); */
+	/* background-color: var(--black); */
+	padding: 20px ;
+	border: solid var(--black);
+	margin-left: 30px;
+}
+
+.yes-box p:first-of-type {
+	border-bottom: solid var(--black);
+}
+
+</style> 
