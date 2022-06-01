@@ -472,4 +472,7 @@ section:first-of-type {
 	border-bottom: solid var(--black);
 }
 
+/* frise */
+
+
 </style> 
