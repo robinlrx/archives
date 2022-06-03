@@ -73,7 +73,6 @@ class SceneInit {
     this.radio = new Model({
       src: 'radio',
       loadingManager: this.manager,
-      material: previewMaterial,
       audioSrc: 'videos/VideoJT.mp4',
       audioVolume: 2,
       listener: this.listener,
@@ -332,61 +331,9 @@ class SceneInit {
           )
 
         this.currentAction = wholeObject.action
-
-        // const outlineMaterial = new THREE.MeshBasicMaterial({
-        //   color: 0xff0000,
-        //   side: THREE.FrontSide
-        // })
-        // if (!this.scene.getObjectByName('Outline')) {
-        //   const outline = new THREE.Group()
-        //   outline.name = 'Outline'
-
-        //   wholeObject.children[0].traverse((child) => {
-        //     if (child.isMesh) {
-        //       const mesh = child.clone()
-        //       mesh.material = outlineMaterial
-        //       mesh.scale.multiplyScalar(1.01)
-
-        //       outline.add(mesh)
-        //     }
-        //   })
-        //   console.log(outline)
-        //   this.scene.add(outline)
-
-        // console.log(wholeObject.children[0])
-        // const outlineMesh = wholeObject.children[0].clone()
-        // if (outlineMesh.getObjectByName('PositionalAudio'))
-        //   this.remove(outlineMesh.getObjectByName('PositionalAudio'))
-        // outlineMesh.scale.multiplyScalar(1.05)
-        // outlineMesh.name = 'Outline'
-        // this.scene.add(outlineMesh)
-        document.addEventListener('wheel', this.zoomCamera)
+        document.addEventListener('wheel', this.zoomCamera(wholeObject))
       }
-
-      // mesh.material = outlineMaterial1
-      // mesh.scale.multiplyScalar(1.05)
-
-      // const outlineMaterial1 = new THREE.MeshBasicMaterial({
-      //   color: 0xff0000,
-      //   side: THREE.BackSide
-      // })
-      // const outlineMesh1 = new THREE.Mesh(
-      //   intersect.geometry.clone().geometry,
-      //   outlineMaterial1
-      // )
-      // outlineMesh1.position.set(
-      //   intersect.position.x,
-      //   intersect.position.y,
-      //   intersect.position.z
-      // )
-      // outlineMesh1.scale.multiplyScalar(1.05)
-      // wholeObject.add(mesh)
-
-      // console.log(outlineMesh1)
     } else {
-      if (this.scene.getObjectByName('Outline')) {
-        this.scene.remove(this.scene.getObjectByName('Outline'))
-      }
       document.removeEventListener('wheel', this.zoomCamera)
     }
   }

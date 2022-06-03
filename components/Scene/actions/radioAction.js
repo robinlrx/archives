@@ -1,15 +1,39 @@
-// import * as THREE from 'three'
+// import { gsap, Power3 } from 'gsap'
 
 export const currentRadioClip = 'sounds/radio/extrait1/1.mp3'
-export function initRadio(){
-
-}
+export function initRadio() {}
 
 export function changeFrequence(radio) {
+  // const aiguille = radio.container.getObjectByName('Aiguille')
+
+  // gsap.to(aiguille.position, {
+  //   z: 30,
+  //   duration: 1,
+  //   ease: Power3,
+  //   onUpdate: () => {
+  //     this.controls.getObject().updateProjectionMatrix()
+  //   },
+  //   onComplete: () => {
+  //     this.isZoomed = true
+  //     window.addEventListener('click', this.currentAction)
+  //   }
+  // })
+
   radio.sound.stop()
-  radio.audioLoader.load(`${currentRadioClip}`, (buffer) => {
+  radio.sound.setLoop(false)
+  console.log(radio.sound)
+
+  radio.audioLoader.load(`sounds/radio/transition-radio.mp3`, (buffer) => {
     radio.sound.setBuffer(buffer)
     radio.sound.play()
+    radio.sound.onEnded = function () {
+      console.log('aaaa')
+      radio.sound.stop()
+      radio.audioLoader.load(`${currentRadioClip}`, (buffer) => {
+        radio.sound.setBuffer(buffer)
+        radio.sound.play()
+      })
+    }
   })
 }
 
