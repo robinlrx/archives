@@ -1,5 +1,5 @@
 <template>
-	<section>
+	<section class="reveal-1">
 		<img src="images/frise2.png" alt="">
 		<div class="date-wrapper">
 

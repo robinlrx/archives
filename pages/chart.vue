@@ -193,21 +193,6 @@ export default {
 
 <style scoped>
 
-[class*=reveal-] {
-	opacity: 0;
-	transform: translateY(30px)
-}
-
-.reveal-visible {
-	opacity: 1;
-	transform: translateY(0);
-	transition: 1s cubic-bezier(0.83, 0, 0, 1)
-}
-
-.reveal-1 {
-	transition-delay: 0.5s
-}
-
 header {
 	height: 70px;
 	border-bottom: solid 1px var(--black);
