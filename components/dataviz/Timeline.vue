@@ -76,17 +76,27 @@
 <script>
 export default {
 	name: "Frise",
-	// data() {
-	// 	return {
-	// 		dot: document.getElementById('dot')
-	// 	}
-	// },
 	mounted() {
-		// const dot = document.getElementsByClassName('dot');
-		// console.log(dot);
-		// dot.forEach(element => {
-		// 	console.log(element)
-		// });
+		const dot = this.$el.getElementsByClassName('point')
+		console.log(dot);
+		Array.from(dot).forEach(element => {
+			const line = element.closest('.date-item').querySelector('.date .line')
+			const textContent = element.closest('.date-item').querySelector('.text-content')
+
+			element.addEventListener('mouseover', () => {
+				// console.log(element)
+				element.style.opacity = 0
+				console.log(line)
+				line.classList.add('active')
+				textContent.classList.add('active')
+			})
+
+			element.addEventListener('mouseleave', () => {
+				element.style.opacity = 1
+				line.classList.remove('active')
+				textContent.classList.remove('active')
+			})
+		});
 	}
 }
 </script>
@@ -99,7 +109,7 @@ section {
 	/* display: flex;
 	justify-content: center;
 	align-items: center; */
-	border: solid red;
+	/* border: solid red; */
 	height: 500px;
 }
 
@@ -107,13 +117,13 @@ section {
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	border: solid blue;
+	/* border: solid blue; */
 }
 
 .date-item {
 	display: flex;
 	flex-direction: column;
-	/* border: solid blue; */
+	/* border: solid pink; */
 	position: absolute;
 }
 
@@ -129,6 +139,11 @@ section {
 
 .text-content {
 	opacity: 0;
+	transition: opacity ease-in-out 0.2s;
+}
+
+.text-content.active {
+	opacity: 1;
 }
 
 .timeline {
@@ -156,6 +171,11 @@ section {
 	height: 6px;
 	margin-right: auto;
 	background-color: var(--orange);
+	transition: all ease-in-out 0.2s;
+}
+
+.line.active {
+	width: 100%;
 }
 
 .explication {
@@ -166,13 +186,13 @@ section {
 
 .date-item-1 {
 	width: 270px;
-	top: 67%;
+	top: 63.5%;
 	left: 26.8%;
 }
 
 .date-item-2 {
 	width: 250px;
-	height: 200px;
+	/* height: 200px; */
 	top: 25.3%;
 	left: 39.5%;
 	/* border: solid pink; */
@@ -180,13 +200,13 @@ section {
 
 .date-item-3 {
 	width: 260px;
-	top: 67%;
+	top: 63.5%;
 	left: 48.25%;
 }
 
 .date-item-4 {
 	width: 250px;
-	height: 200px;
+	/* height: 200px; */
 	top: 22.3%;
 	left: 56.3%;
 	/* border: solid pink; */
@@ -194,7 +214,7 @@ section {
 
 .date-item-5 {
 	width: 260px;
-	top: 67%;
+	top: 63.5%;
 	left: 69.5%;
 }
 

@@ -91,7 +91,7 @@
 
 			</div>
 		</section>
-		<Frise></Frise>
+		<Timeline />
 	</div>
 </template>
 
@@ -99,13 +99,13 @@
 // import {gsap} from 'gsap'; // Power1
 // import ScrollTrigger from 'gsap/dist/ScrollTrigger'; // https://greensock.com/forums/topic/29801-getting-error-cannot-use-import-statement-outside-a-module-when-importing-flip/
 import Box from '../components/dataviz/Box.vue';
-import Frise from '../components/dataviz/Frise.vue';
+import Timeline from '../components/dataviz/Timeline.vue';
 // gsap.registerPlugin(ScrollTrigger);
 
 export default {
 	components: {
 		Box,
-		Frise
+		Timeline
 	},
 	data() {
 		return {
