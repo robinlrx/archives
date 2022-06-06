@@ -13,6 +13,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/firebase": "^8.2.2",
+    "@splidejs/splide": "^4.0.6",
     "core-js": "^3.15.1",
     "firebase": "^9.6.10",
     "gsap": "^3.10.4",

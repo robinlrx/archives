@@ -92,6 +92,7 @@
 			</div>
 		</section>
 		<Timeline />
+		<Slider />
 	</div>
 </template>
 
@@ -100,12 +101,14 @@
 // import ScrollTrigger from 'gsap/dist/ScrollTrigger'; // https://greensock.com/forums/topic/29801-getting-error-cannot-use-import-statement-outside-a-module-when-importing-flip/
 import Box from '../components/dataviz/Box.vue';
 import Timeline from '../components/dataviz/Timeline.vue';
+import Slider from '../components/dataviz/Slider.vue';
 // gsap.registerPlugin(ScrollTrigger);
 
 export default {
 	components: {
 		Box,
-		Timeline
+		Timeline,
+		Slider
 	},
 	data() {
 		return {
