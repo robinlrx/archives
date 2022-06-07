@@ -86,3 +86,7 @@ body {
 	width: 20px;
 	height: 20px;
 }
+
+.splide__pagination--on-left {
+	right: auto;
+}

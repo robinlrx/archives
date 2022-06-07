@@ -91,6 +91,7 @@
 
 			</div>
 		</section>
+		<SliderObject />
 		<Timeline />
 		<SliderPerson />
 	</div>
@@ -102,13 +103,15 @@
 import Box from '../components/dataviz/Box.vue';
 import Timeline from '../components/dataviz/Timeline.vue';
 import SliderPerson from '../components/dataviz/SliderPerson.vue';
+import SliderObject from '../components/dataviz/SliderObject.vue';
 // gsap.registerPlugin(ScrollTrigger);
 
 export default {
 	components: {
 		Box,
 		Timeline,
-		SliderPerson
+		SliderPerson,
+		SliderObject
 	},
 	data() {
 		return {

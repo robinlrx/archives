@@ -1,5 +1,5 @@
 <template>
-	<div id="slider2" class="splide">
+	<div id="slider1" class="splide">
 		<div class="splide__arrows arrow-container">
 			<button class="splide__arrow splide__arrow--prev slide-arrows">
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40" focusable="false"><path d="m15.5 0.932-4.3 4.38 14.5 14.6-14.5 14.5 4.3 4.4 14.6-14.6 4.4-4.3-4.4-4.4-14.6-14.6z"></path></svg>
@@ -14,7 +14,7 @@
 						<img src="images/jacques.png" alt="" class="personnage">
 						<figure class="bio">
 							<blockquote>
-								<p class="citation">Quelqu'un dont j'ai prouvé l'innocence vient d'être <br> condamné à une peine qu'il ne mérite pas. C'est le 100e <br>anniversaire de l'affaire Dreyfus. Il y a 100 ans, on condamnait <br>un jeune officier qui avait le tort d'être juif, <span>aujourd'hui on <br>condamne un jardinier qui a le tort d'être maghrébin</span></p>
+								<p class="citation">A REMPLACER FRERO</p>
 							</blockquote>
 							<figcaption>
 								<p class="nom">Jacques Vergès</p>
@@ -74,12 +74,14 @@ import '@splidejs/splide/dist/css/splide.min.css';
 export default {
 	name: 'Slider',
 	mounted() {
-		const splide = new Splide( '#slider2', {
+		const splide = new Splide( '#slider1', {
 			classes: {
 				page: 'splide__pagination__page page-dot',
+				pagination: 'splide__pagination splide__pagination--on-left',
 			},
 			type: 'loop',
-			direction: 'ttb',
+			direction: 'ttb', // slider direction
+			paginationDirection: 'ttb', // dot placement
 			height: '500px',
 			focus: 'center',
 			autoHeight: true,
@@ -186,11 +188,10 @@ figcaption p {
 
 .arrow-container {
 	position: absolute;
-	right: 1.4%;
+	left: 0.7%;
 	/* margin-left: auto; */
 	/* border: solid red; */
 	height: 45%;
 	top: 27%;
 }
-
 </style>
