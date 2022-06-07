@@ -8,7 +8,7 @@
 
 body {
 	margin: 0;
-	background-color: #FCFCF5;
+	background-color: var(--cream);
 }
 
 @font-face {
@@ -60,4 +60,29 @@ body {
 
 .reveal-1 {
 	transition-delay: 0.5s
+}
+
+.page-dot {
+	background-color: var(--black);
+	opacity: 1;
+	width: 15px;
+	height: 15px;
+	margin: 10px 0
+}
+
+.page-dot.is-active {
+	background-image: url('../static/images/active-dot.svg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.splide__arrow {
+	background-color: transparent;
+}
+
+.slide-arrows svg {
+	fill: var(--black);
+	width: 20px;
+	height: 20px;
 }

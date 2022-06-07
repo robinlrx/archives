@@ -111,6 +111,7 @@ section {
 	align-items: center; */
 	/* border: solid red; */
 	height: 500px;
+	margin-bottom: 15%;
 }
 
 .date-wrapper {
