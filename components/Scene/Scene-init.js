@@ -1,7 +1,14 @@
+/* jshint sub:true */
 import * as THREE from 'three'
+
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
+import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js'
 
 import { gsap, Power3 } from 'gsap'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js'
+import { CustomOutlinePass } from './shaders/CustomOutlinePass.js'
 import Model from './Model'
 import { changeFrequence } from './actions/radioAction'
 
@@ -13,7 +20,7 @@ class SceneInit {
     this.raycaster = new THREE.Raycaster()
     this.cameraDefaultPosition = new THREE.Vector3(0, 12, -5)
 
-    this.enabledRaycast = true
+    this.enabledRaycast = false
     this.isLoaded = false
     this.isZoomed = false
     this.currentAction = undefined
@@ -29,7 +36,6 @@ class SceneInit {
     this.initCamera()
     this.initRenderer()
     this.setControls()
-    // this.setRaycast()
     this.initAudio()
     setTimeout(() => {
       this.initModels()
@@ -58,29 +64,30 @@ class SceneInit {
     )
     matcapTexture.encoding = THREE.sRGBEncoding
 
-    const previewMaterial = new THREE.MeshMatcapMaterial({
-      matcap: matcapTexture,
-      side: THREE.DoubleSide
-    })
+    // const previewMaterial = new THREE.MeshMatcapMaterial({
+    //   matcap: matcapTexture,
+    //   side: THREE.DoubleSide,
+    // })
 
     this.office = new Model({
-      src: 'office',
+      src: 'scene',
       loadingManager: this.manager,
-      material: previewMaterial
     })
+    this.office.container.position.set(0, 6, -30)
+    this.office.container.rotation.y = Math.PI
     this.scene.add(this.office.container)
 
-    this.radio = new Model({
-      src: 'radio',
-      loadingManager: this.manager,
-      audioSrc: 'videos/VideoJT.mp4',
-      audioVolume: 2,
-      listener: this.listener,
-      action: this.radioAction
-    })
-    this.objectsList.push(this.radio)
-    this.targetableObjects.add(this.radio.container)
-    console.log(this.radio.container)
+    // this.radio = new Model({
+    //   src: 'radio',
+    //   loadingManager: this.manager,
+    //   audioSrc: 'videos/VideoJT.mp4',
+    //   audioVolume: 2,
+    //   listener: this.listener,
+    //   action: this.radioAction,
+    // })
+    // this.objectsList.push(this.radio)
+    // this.targetableObjects.add(this.radio.container)
+    // console.log(this.radio.container)
     // this.TV1 = new Model({
     //   src: 'TV1',
     //   loadingManager: this.manager,
@@ -193,8 +200,10 @@ class SceneInit {
   }
 
   initLights() {
-    const ambient = new THREE.AmbientLight(0xffffff, 0.9)
+    const ambient = new THREE.AmbientLight(0xffffff, 1)
     this.scene.add(ambient)
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5)
+    this.scene.add(directionalLight)
   }
 
   initCamera() {
@@ -218,6 +227,41 @@ class SceneInit {
     this.renderer.setSize(window.innerWidth, window.innerHeight)
     this.renderer.setClearColor(this.background, 1)
     this.canvas = this.renderer.domElement
+
+    // Set up post processing
+    // Create a render target that holds a depthTexture so we can use it in the outline pass
+    // See: https://threejs.org/docs/index.html#api/en/renderers/WebGLRenderTarget.depthBuffer
+    const depthTexture = new THREE.DepthTexture()
+    const renderTarget = new THREE.WebGLRenderTarget(
+      window.innerWidth,
+      window.innerHeight,
+      {
+        depthBuffer: true,
+      }
+    )
+    renderTarget.depthTexture = depthTexture
+    console.log(renderTarget)
+
+    // Initial render pass.
+    this.composer = new EffectComposer(this.renderer, renderTarget)
+    const pass = new RenderPass(this.scene, this.camera)
+    this.composer.addPass(pass)
+
+    // Outline pass.
+    const customOutline = new CustomOutlinePass(
+      new THREE.Vector2(window.innerWidth, window.innerHeight),
+      this.scene,
+      this.camera
+    )
+    this.composer.addPass(customOutline)
+
+    // Antialias pass.
+    const effectFXAA = new ShaderPass(FXAAShader)
+    effectFXAA.uniforms.resolution.value.set(
+      1 / window.innerWidth,
+      1 / window.innerHeight
+    )
+    this.composer.addPass(effectFXAA)
   }
 
   setControls() {
@@ -291,7 +335,7 @@ class SceneInit {
         onComplete: () => {
           this.isZoomed = true
           window.addEventListener('click', this.currentAction)
-        }
+        },
       })
     } else if (event.deltaY > 0 && this.isZoomed) {
       document.querySelector('.focus').style.opacity = 0
@@ -304,7 +348,7 @@ class SceneInit {
         onComplete: () => {
           this.isZoomed = false
           window.removeEventListener('click', this.currentAction)
-        }
+        },
       })
     }
   }
@@ -316,19 +360,24 @@ class SceneInit {
 
     // this.camera.position.y += Math.sin(time*100) * 2
 
-    this.renderer.render(this.scene, this.camera)
+    // this.renderer.render(this.scene, this.camera)
+
+    this.composer.render()
+
     if (this.enabledRaycast && this.isLoaded) {
       this.raycaster.setFromCamera(new THREE.Vector2(), this.camera)
 
       // calculate objects intersecting the picking ray
-      const intersects = this.raycaster.intersectObjects(this.targetableObjects.children)
-      
+      const intersects = this.raycaster.intersectObjects(
+        this.targetableObjects.children
+      )
+
       if (intersects.length > 0) {
         const intersect = intersects[0].object
-        
+
         const wholeObject = this.objectsList.find(
           (element) => element.src === intersect.objectName
-          )
+        )
 
         this.currentAction = wholeObject.action
         document.addEventListener('wheel', this.zoomCamera(wholeObject))
