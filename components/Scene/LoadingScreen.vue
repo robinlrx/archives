@@ -1,29 +1,69 @@
 <template>
-  <div class="loaderScreen">
-    <div class="logo-container"><img src="images/logo.svg" /></div>
+  <div>
+    <div class="loaderScreen">
+      <transition name="fade">
+        <div v-if="displayButton" class="start-button" @click="start">
+          <p>COMMENCER</p>
+        </div>
+      </transition>
 
-    <div class="loaderScreen__progressBar">
-      <div class="loaderScreen__progress"></div>
+      <div class="logo-container" ref="logoClick">
+        <img src="images/logo_intro.png" @click="playVideo" />
+      </div>
+
+      <div class="intro-container">
+        <video
+          ref="video"
+          src="videos/intro.mp4"
+          autoplay
+          @click="playVideo"
+        ></video>
+      </div>
     </div>
-    <button class="startButton" @click="start">Se réveiller</button>
   </div>
 </template>
 
 <script>
 export default {
   name: 'LoadingScreen',
+  data() {
+    return { displayButton: false }
+  },
   methods: {
     start() {
       this.$emit('launch')
+    },
+    playVideo() {
+      this.$refs.video.play()
+      this.$refs.logoClick.remove()
+      this.$refs.video.addEventListener('timeupdate', () => {
+        if (this.$refs.video.currentTime >= 10 && !this.displayButton) {
+          this.displayButton = true
+          this.$emit('loadModels')
+        }
+      })
     },
   },
 }
 </script>
 
-<style>
+<style scope>
+@import '../../css/general.css';
+
+* {
+  font-family: 'Strong-concrete';
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 1s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 .loaderScreen {
   position: absolute;
-  z-index: 10;
+  z-index: 5;
   top: 0;
   width: 100%;
   height: 100%;
@@ -34,102 +74,9 @@ export default {
   align-items: center;
   transition: 0.55s opacity ease-out;
 }
-
-.loaderScreen__load {
-  padding: 0;
-  color: #fff;
-  user-select: none;
-  border: 1px solid white;
-}
-
-.loaderScreen__progressBar {
-  width: 50%;
-  height: 10px;
-  background-color: #232323;
-  display: flex;
-  opacity: 0;
-  animation: progressAppareance 1s 4s ease both;
-  pointer-events: none;
-  transition: 1.4s ease-out opacity;
-}
-.loaderScreen__progressBar:first-child {
-  top: 0;
-  height: 100%;
-
-  justify-content: flex-start;
-}
-.loaderScreen__progressBar:last-child {
-  bottom: 0;
-  justify-content: flex-end;
-}
-
-.loaderScreen__progress {
-  width: 0px;
-  height: 100%;
-  background-color: #fff;
-  transition: 1s ease-in width;
-}
-
-.none-opacity {
-  animation: noneOpacity 1.4s 0.4s ease-in-out both;
-}
-
-@keyframes noneOpacity {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes progressAppareance {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
 .logo-container {
   position: absolute;
-  width: 40%;
-  opacity: 0;
-  animation: logoAppearance 4s 1s ease-in-out both;
-  pointer-events: none;
-}
-
-@keyframes logoAppearance {
-  0% {
-    clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
-  }
-
-  20% {
-    clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
-  }
-
-  40% {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-
-  60% {
-    opacity: 0.5;
-
-    transform: translateY(0%);
-  }
-
-  90% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-
-    transform: translateY(-140%);
-  }
+  width: 6%;
 }
 
 .logo-container img {
@@ -137,25 +84,54 @@ export default {
   height: auto;
 }
 
-.startButton {
-  font-weight: bold;
-  font-size: 28px;
-  border: 0;
-  padding: 15px 100px 15px 100px;
-  cursor: pointer;
-  display: none;
-  animation: buttonAppareance 1s ease both;
+.intro-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-@keyframes buttonAppareance {
+@keyframes slide-top {
   0% {
-    opacity: 0;
-    transform: translateY(40%);
+    -webkit-transform: translateY(100px);
+    transform: translateY(100px);
   }
-
   100% {
-    opacity: 1;
-    transform: translateY(0%);
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px);
   }
+}
+.intro-container video {
+  width: 100%;
+  height: auto;
+  /* animation: slide-top 2s  cubic-bezier(0.25, 0.46, 0.45, 0.94) both; */
+}
+.start-button {
+  position: absolute;
+  bottom: 25%;
+  width: 30%;
+  padding: 0;
+  margin: 0;
+  font-size: 32px;
+  color: black;
+  text-align: center;
+  background-color: #e0ecd2;
+  /* border-bottom: solid 3px black;
+  border-right: solid 3px black; */
+  box-shadow: 0px 0px 0px #e0ecd229;
+  border: solid 3px #e0ecd2;
+
+  background-image: linear-gradient(to right, #e0ecd2 50%, #000000 0);
+  background-position: 100% 50%;
+  background-size: 200% 200%;
+  transition: background-position 1s ease, box-shadow 3s ease;
+}
+
+.start-button p {
+  margin: 4% 0% 5% 0;
+  pointer-events: none;
 }
 </style>

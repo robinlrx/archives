@@ -61,6 +61,9 @@ export default {
         }, 2000)
       }, 240000) // 4 min = 240000
     },
+    loadModels() {
+      this.scene.initModels()
+    },
   },
 }
 </script>

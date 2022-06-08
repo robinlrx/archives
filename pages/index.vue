@@ -1,10 +1,10 @@
 <template>
   <div>
+    <LoadingScreen @launch="lauchExperience" @loadModels="loadModels" />
     <Focus />
-    <LoadingScreen @launch="lauchExperience" />
     <Cross />
     <GUI />
-    <Scene :isLaunched="isLaunched" />
+    <Scene :isLaunched="isLaunched" ref="scene" />
   </div>
 </template>
 
@@ -31,6 +31,9 @@ export default {
   methods: {
     lauchExperience() {
       this.isLaunched = true
+    },
+    loadModels() {
+      this.$refs.scene.loadModels()
     },
   },
 }

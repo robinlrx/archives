@@ -37,9 +37,6 @@ class SceneInit {
     this.initRenderer()
     this.setControls()
     this.initAudio()
-    setTimeout(() => {
-      this.initModels()
-    }, 5000)
     this.root.appendChild(this.canvas)
   }
 
@@ -162,41 +159,53 @@ class SceneInit {
 
     this.loadDiv = document.querySelector('.loaderScreen')
     this.loadModels = this.loadDiv.querySelector('.loaderScreen__load')
-    this.progressBar = this.loadDiv.querySelector('.loaderScreen__progress')
     this.manager = new THREE.LoadingManager()
 
     this.manager.onProgress = (url, itemsLoaded, itemsTotal) => {
-      if (Math.floor(itemsLoaded / itemsTotal) * 100 === 100) {
-        this.isLoaded = true
-        this.progressBar.style.width = '23%'
-        setTimeout(() => {
-          this.progressBar.style.width = '47%'
-          setTimeout(() => {
-            this.progressBar.style.width = '75%'
-            setTimeout(() => {
-              this.progressBar.style.width = '100%'
-              setTimeout(() => {
-                this.loadDiv
-                  .querySelector('.loaderScreen__progressBar')
-                  .classList.add('none-opacity')
-                setTimeout(() => {
-                  this.loadDiv
-                    .querySelector('.loaderScreen__progressBar')
-                    .remove()
-                  document.querySelector('.startButton').style.display = 'block'
-                }, 2000)
-              }, 500)
-            }, 2000)
-          }, 1000)
-        }, 2003)
-      }
-
+      this.loadDiv.querySelector('.start-button').style.backgroundPosition = `${
+        100 - (itemsLoaded / itemsTotal) * 100
+      }% 50%`
       if (itemsTotal === itemsLoaded) {
         setTimeout(() => {
-          // this.loadModels.style.opacity = 0
-        }, 1000)
+          this.loadDiv.querySelector('.start-button').style.boxShadow =
+            '10px 8px 0px #e0ecd229'
+          this.loadDiv.querySelector('.start-button').style.borderColor =
+            'black'
+        }, 2000)
       }
     }
+    // this.manager.onProgress = (url, itemsLoaded, itemsTotal) => {
+    // if (Math.floor(itemsLoaded / itemsTotal) * 100 === 100) {
+    //   this.isLoaded = true
+    //   this.progressBar.style.width = '23%'
+    //   setTimeout(() => {
+    //     this.progressBar.style.width = '47%'
+    //     setTimeout(() => {
+    //       this.progressBar.style.width = '75%'
+    //       setTimeout(() => {
+    //         this.progressBar.style.width = '100%'
+    //         setTimeout(() => {
+    //           this.loadDiv
+    //             .querySelector('.loaderScreen__progressBar')
+    //             .classList.add('none-opacity')
+    //           setTimeout(() => {
+    //             this.loadDiv
+    //               .querySelector('.loaderScreen__progressBar')
+    //               .remove()
+    //             document.querySelector('.startButton').style.display = 'block'
+    //           }, 2000)
+    //         }, 500)
+    //       }, 2000)
+    //     }, 1000)
+    //   }, 2003)
+    // }
+
+    // if (itemsTotal === itemsLoaded) {
+    //   setTimeout(() => {
+    //     // this.loadModels.style.opacity = 0
+    //   }, 1000)
+    // }
+    // }
   }
 
   initLights() {
