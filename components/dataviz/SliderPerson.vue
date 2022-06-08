@@ -156,7 +156,7 @@ figure {
 }
 
 .citation span {
-	text-decoration: underline 3px rgba(250, 156, 103, 0.6);
+	text-decoration: underline 3px var(--orange-alpha);
 	text-decoration-skip-ink: none;
 }
 

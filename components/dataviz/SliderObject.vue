@@ -11,56 +11,20 @@
 		<div class="splide__track">
 				<div class="splide__list">
 					<div class="splide__slide">
-						<img src="images/jacques.png" alt="" class="personnage">
-						<figure class="bio">
-							<blockquote>
-								<p class="citation">A REMPLACER FRERO</p>
-							</blockquote>
-							<figcaption>
-								<p class="nom">Jacques Vergès</p>
-								<p class="profession">L'avocat de la terreur</p>
-								<p class="contexte">Avocat de la défense d’Omar Raddad en 1994. La cour d'assises des Alpes-Maritimes a déclaré Omar Raddad coupable du meurtre de Ghislaine Marchal et le condamna à 18 ans de réclusion criminelle.</p>
-							</figcaption>
-						</figure>
+						<img src="images/france.png" alt="" class="object">
+						<p class="fact">Guislaine Marchal partageait son temps entre sa <br>résidence principale, en Suisse, et <span>sa villa La Chamade, <br>qu'elle avait fait construire dans le sud de la France, <br>sur les hauteurs de Mougins.</span> Une villa bien entretenue <br>par des emploiyés de maison dont fait partie <br>Omar Raddad, le jardinier.</p>
 					</div>
 					<div class="splide__slide">
-						<img src="images/omar-2.png" alt="" class="personnage">
-						<figure class="bio">
-							<blockquote>
-								<p class="citation">C’était terrifiant de voir les portes se refermer sur moi, <br>mais je restais encore confiant. La justice française ne <br>pouvait continuer à se tromper indéfiniment. Le juge allait <br>comprendre son erreur, appeler la prison et donner l'ordre de <br>me faire sortir immédiatement. Ce ne fut pas le cas. Je n'ai <br>quitté la prison que 7 ans, 2 mois et 8 jours plus tard...</p>
-							</blockquote>
-							<figcaption>
-								<p class="nom">Omar Raddad</p>
-								<p class="profession">Le jardinier</p>
-								<p class="contexte">Jardinier à la Chamade sur les hauteurs de Mougins dans la villa de Ghilaine Marchal lors du meutre de cette dernière. Il est le principal accusé et condamné malgré ses protestations d'innocence et de nombreux éléments semant le doute.</p>
-							</figcaption>
-						</figure>
+						<img src="images/phone.png" alt="" class="object">
+						<p class="fact">Le dimanche 23 juin 1991 vers 11 h 48, Ghislaine<br> Marchal, sortant juste de la douche, est au téléphone <br>avec son amie Erika S. Son amie vient déjeuner le <br>lendemain lundi. Ghislaine Marchal se dit pressée car <br>elle doit se préparer pour aller déjeuner chez ses amis, <br>M et Mme K. à 13 h. C’est la dernière fois que l’un de <br>ses proches entendra sa voix.</p>
 					</div>
 					<div class="splide__slide">
-						<img src="images/sylvie.png" alt="" class="personnage">
-						<figure class="bio">
-							<blockquote>
-								<p class="citation">Il s'agit d'une des plus grandes erreurs judiciaires du XXe siècle que nous allons rectifier grâce à la Cour de révision</p>
-							</blockquote>
-							<figcaption>
-								<p class="nom">Sylvie Noachovitch</p>
-								<p class="profession">Avocate</p>
-								<p class="contexte">Nouvelle avocate du jardinier Omar Raddad. Elle permet de lancer de nouvelles investigations pour inocenter son client.</p>
-							</figcaption>
-						</figure>
+						<img src="images/billets.png" alt="" class="object">
+						<p class="fact">Le lundi 24 juin, Erika S. arrive vers 11 h 30 comme <br>convenu. Elle sonne, insiste, en vain. Alertée par <br>Mmes Erika S. et Colette K., une troisième amie, Francine P., <br>fait dépêcher sur place un employé de la compagnie de <br>gardiennage en début d’après-midi. <span>La maison, sombre et <br>silencieuse, on retrouve des bijoux, un sac à main<br> ouvert mais nulle trace de la propriétaire.</span></p>
 					</div>
 					<div class="splide__slide">
-						<img src="images/henri.png" alt="" class="personnage">
-						<figure class="bio">
-							<blockquote>
-								<p class="citation">Omar Raddad est coupable. Il faut bien convenir que ce <br>constat est une stricte vérité judiciaire puisque l'accusé <br>désigné en lettres de sang s'il a bénéficié d'une grâce<br> présidentielle partielle, n'a jamais obtenu la révision de son <br>procès. Omar Raddad coupable !</p>
-							</blockquote>
-							<figcaption>
-								<p class="nom">Henri Leclerc</p>
-								<p class="profession">Juriste/Avocat</p>
-								<p class="contexte">Ancien avocat de la famille Marchal et de la partie civile de l’affaire Omar Raddad.</p>
-							</figcaption>
-						</figure>
+						<img src="images/sang.png" alt="" class="object">
+						<p class="fact">Dans la chaufferie, au fond de la cave, Ghislaine <br>Marchal est allongée de tout son long, face contre <br>terre, vêtue de son seul peignoir de bain ensanglanté. <br><span>Sur le côté gauche du couloir, « OMAR M'A TUER » est <br>inscrit en lettres de sang bien formées</span>, à 1 m du sol,<br> sur une porte blanche fermée à clé menant à une cave <br>à vin.</p>
 					</div>
 				</div>
 		</div>
@@ -113,22 +77,12 @@ export default {
 	align-items: center;
 }
 
-.personnage {
-	width: 400px;
-	height: 100%;
+.object {
+	width: 350px;
+	height: 80%;
 }
 
-figure {
-	position: relative;
-	z-index: -1;
-	right: 3%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	height: 100%;
-}
-
-.citation {
+.fact {
 	font-family: 'Georgia-bold';
 	display: block;
 	text-align: center;
@@ -136,29 +90,8 @@ figure {
 	line-height: 1.5em;
 	font-size: 1.0625rem;
 }
-
-.citation::before {
-	content: url('/images/virgule-top.png');
-	position: absolute;
-	z-index: -1;
-	top: -100px;
-	left: -40px;
-}
-
-.citation::after {
-	content: url('/images/virgule-bottom.png');
-	position: absolute;
-	z-index: -1;
-	bottom: -50px;
-	right: -40px;
-}
-
-.citation::first-letter {
-	font-size: 3rem;
-}
-
-.citation span {
-	text-decoration: underline 3px rgba(250, 156, 103, 0.6);
+.fact span {
+	text-decoration: underline 3px var(--orange-alpha);
 	text-decoration-skip-ink: none;
 }
 

@@ -85,7 +85,7 @@
 					</div>
 					<div class="yes-box reveal-1">
 						<p>OUI</p>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem </p>
+						<p>Juger coupable 1994 / L’ecriture en sang / Partiellement gracié mais pas innocenté</p>
 					</div>
 				</div>
 
@@ -430,7 +430,11 @@ section:first-of-type {
 	/* border: solid red; */
 	display: flex;
 	margin-top: 40px;
-	font-family: 'Georgia-regular';
+	font-family: 'Georgia-bold';
+}
+
+.no-box, .yes-box {
+	box-shadow: 10px 8px 0px var(--black);
 }
 
 .no-box {
@@ -439,7 +443,8 @@ section:first-of-type {
 	color: var(--cream);
 	background-color: var(--black);
 	padding: 20px ;
-	border: solid var(--black);
+	border-bottom: solid 3px var(--cream);
+	border-right: solid 3px var(--cream);
 } 
 
 .no-box p:first-of-type, .yes-box p:first-of-type {
