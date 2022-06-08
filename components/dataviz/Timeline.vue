@@ -126,7 +126,7 @@ section {
 	z-index: -1;
 	top: -30%;
 	left: 10%;
-	width: 85%;
+	width: 90%;
 }
 
 .date-wrapper {
