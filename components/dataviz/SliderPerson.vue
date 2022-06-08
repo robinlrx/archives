@@ -100,7 +100,7 @@ export default {
 	/* background-color: red; */
 	width: 80%;
 	margin: auto;
-	border: solid red;
+	/* border: solid red; */
 }
 
 .splide__slide {
