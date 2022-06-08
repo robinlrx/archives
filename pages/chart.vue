@@ -92,7 +92,12 @@
 			</div>
 		</section>
 		<SliderObject />
-		<Timeline />
+		<section class="section-pie">
+			<Box addclass="reveal-1" title="Votre couverture de terrain !" >
+				<h2 class="text-bold reveal-1"><span>Combien</span> de médias<br>avez-vous consulté ?</h2>
+			</Box>
+		</section>
+		<!-- <Timeline /> -->
 		<SliderPerson />
 	</div>
 </template>
@@ -101,7 +106,7 @@
 // import {gsap} from 'gsap'; // Power1
 // import ScrollTrigger from 'gsap/dist/ScrollTrigger'; // https://greensock.com/forums/topic/29801-getting-error-cannot-use-import-statement-outside-a-module-when-importing-flip/
 import Box from '../components/dataviz/Box.vue';
-import Timeline from '../components/dataviz/Timeline.vue';
+// import Timeline from '../components/dataviz/Timeline.vue';
 import SliderPerson from '../components/dataviz/SliderPerson.vue';
 import SliderObject from '../components/dataviz/SliderObject.vue';
 // gsap.registerPlugin(ScrollTrigger);
@@ -109,7 +114,7 @@ import SliderObject from '../components/dataviz/SliderObject.vue';
 export default {
 	components: {
 		Box,
-		Timeline,
+		// Timeline,
 		SliderPerson,
 		SliderObject
 	},
@@ -314,7 +319,11 @@ section {
 	font-size: 4rem;
 }
 
-.stats-container h2 span {
+.text-bold span {
+	font-size: 2rem;
+}
+
+.stats-container .text-bold span {
 	font-size: 7rem;
 }
 

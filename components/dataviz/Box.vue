@@ -3,6 +3,7 @@
 		<div class="onglet">
 			<p :style="{backgroundColor: iconBackground, color: iconColor}">{{icon}}</p>
 			<p>{{title}}</p>
+			<div class="triangle"></div>
 		</div>
 		<slot />
 	</div>
@@ -71,6 +72,7 @@ export default {
 	width: 25px;
 	height: 100%;
 	text-align: center;
+	position: relative;
 }
 
 .onglet p:last-of-type {
@@ -82,5 +84,16 @@ export default {
 .box .onglet p:first-of-type {
 	/* background-color: var(--green); */
 	border-right: solid var(--black);
+}
+
+.triangle {
+	width: 0; 
+	height: 0; 
+	border-top: 25px solid var(--black);
+	border-bottom: 25px solid transparent;
+	border-left: 25px solid transparent;
+	position: absolute;
+	right: 0;
+	top: 0;
 }
 </style>
