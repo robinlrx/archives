@@ -1,11 +1,13 @@
 <template>
 	<section class="reveal-1">
-		<img src="images/frise2.png" alt="">
+		<img src="images/ligne.png" alt="" class="frise">
+		<img src="images/frise-perso.png" alt="" class="frise-perso">
 		<div class="date-wrapper">
 
 			<div class="date-item date-item-1">
 				<div class="dot">
 					<div class="point"></div>
+					<img src="images/active-dot.svg" alt="" class="line-dot">
 					<div class="timeline"></div>
 				</div>
 				<div class="date">
@@ -26,12 +28,14 @@
 				</div>
 				<div class="dot">
 					<div class="timeline"></div>
+					<img src="images/active-dot.svg" alt="" class="line-dot line-dot--bottom">
 					<div class="point"></div>
 				</div>
 			</div>
 			<div class="date-item date-item-3">
 				<div class="dot">
 					<div class="point"></div>
+					<img src="images/active-dot.svg" alt="" class="line-dot">
 					<div class="timeline"></div>
 				</div>
 				<div class="date">
@@ -52,12 +56,14 @@
 				</div>
 				<div class="dot">
 					<div class="timeline"></div>
+					<img src="images/active-dot.svg" alt="" class="line-dot line-dot--bottom">
 					<div class="point"></div>
 				</div>
 			</div>
 			<div class="date-item date-item-5">
 				<div class="dot">
 					<div class="point"></div>
+					<img src="images/active-dot.svg" alt="" class="line-dot">
 					<div class="timeline"></div>
 				</div>
 				<div class="date">
@@ -110,8 +116,17 @@ section {
 	justify-content: center;
 	align-items: center; */
 	/* border: solid red; */
-	height: 500px;
+	/* height: 500px; */
 	margin-bottom: 15%;
+	/* overflow: hidden; */
+}
+
+.frise-perso {
+	position: absolute;
+	z-index: -1;
+	top: -30%;
+	left: 10%;
+	width: 85%;
 }
 
 .date-wrapper {
@@ -128,19 +143,41 @@ section {
 	position: absolute;
 }
 
-.point {
+.point, .line-dot {
 	width: 20px;
 	height: 20px;
+	left: -3.5%;
+	position: absolute;
+	top: -6.5%;
+}
+
+.line-dot--bottom {
+	position: relative;
+	bottom: 1px;
+}
+
+.point {
 	background-color: var(--black);
 	border-radius: 50%;
-	position: relative;
-	left: -3.5%;
-	top: -6%;
+}
+
+.line-dot, .line-dot--bottom {
+	z-index: -1;
+}
+
+.point:nth-of-type(2n) {
+	top: 89%;
 }
 
 .text-content {
 	opacity: 0;
 	transition: opacity ease-in-out 0.2s;
+	/* border: solid; */
+	height: 0px;
+}
+
+.text-content:nth-of-type(2n) {
+	height: 110px;
 }
 
 .text-content.active {
@@ -187,35 +224,35 @@ section {
 
 .date-item-1 {
 	width: 270px;
-	top: 63.5%;
+	top: 60.5%;
 	left: 26.8%;
 }
 
 .date-item-2 {
 	width: 250px;
 	/* height: 200px; */
-	top: 25.3%;
+	top: -2%;
 	left: 39.5%;
 	/* border: solid pink; */
 }
 
 .date-item-3 {
 	width: 260px;
-	top: 63.5%;
+	top: 60.5%;
 	left: 48.25%;
 }
 
 .date-item-4 {
 	width: 250px;
 	/* height: 200px; */
-	top: 22.3%;
-	left: 56.3%;
+	top: -2%;
+	left: 60.3%;
 	/* border: solid pink; */
 }
 
 .date-item-5 {
 	width: 260px;
-	top: 63.5%;
+	top: 60.5%;
 	left: 69.5%;
 }
 
