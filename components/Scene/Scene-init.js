@@ -70,7 +70,7 @@ class SceneInit {
     // })
 
     this.office = new Model({
-      src: 'scene',
+      src: 'scene/scene',
       loadingManager: this.manager,
     })
     this.office.container.position.set(0, 6, -30)
@@ -202,8 +202,13 @@ class SceneInit {
   initLights() {
     const ambient = new THREE.AmbientLight(0xffffff, 1)
     this.scene.add(ambient)
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5)
-    this.scene.add(directionalLight)
+    const pointLight = new THREE.PointLight(0x00ffab, 1, 100)
+    pointLight.position.set(10, 10, 10)
+    this.scene.add(pointLight)
+
+    const sphereSize = 1
+    const pointLightHelper = new THREE.PointLightHelper(pointLight, sphereSize)
+    this.scene.add(pointLightHelper)
   }
 
   initCamera() {

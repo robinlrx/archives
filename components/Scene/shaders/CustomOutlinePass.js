@@ -15,8 +15,6 @@ class CustomOutlinePass extends Pass {
     this.fsQuad = new FullScreenQuad(null)
     this.fsQuad.material = this.createOutlinePostProcessMaterial()
 
-    this.fsQuad.material.uniforms.multiplierParameters.w = 0
-
     // Create a buffer to store the normals of the scene onto
     const normalTarget = new THREE.WebGLRenderTarget(
       this.resolution.x,

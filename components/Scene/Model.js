@@ -14,7 +14,7 @@ export default class Model {
     material,
     videoContainer,
     videoSrc,
-    action
+    action,
   }) {
     this.src = src
     this.audioSrc = audioSrc
@@ -59,7 +59,7 @@ export default class Model {
     texture.format = THREE.RGBAFormat
     const videoMaterial = new THREE.MeshStandardMaterial({
       map: texture,
-      side: THREE.DoubleSide
+      side: THREE.DoubleSide,
     })
     target.material = videoMaterial
     texture.flipY = false
@@ -82,6 +82,12 @@ export default class Model {
 
       gltf.scene.traverse((child) => {
         child.objectName = this.src
+
+        if (child.isMesh) {
+          child.material.side = THREE.DoubleSide
+          child.castShadow = true
+          child.receiveShadow = true
+        }
         if (this.videoSrc && child.name === this.videoContainer) {
           this.initVideoTexture(child)
         }
