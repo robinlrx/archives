@@ -93,10 +93,58 @@
 		</section>
 		<SliderObject />
 		<section class="section-pie">
-			<Box addclass="reveal-1" title="Votre couverture de terrain !" >
-				<h2 class="text-bold reveal-1"><span>Combien</span> de médias<br>avez-vous consulté ?</h2>
-				<canvas id="myChart" class="pie"></canvas>
+			<!-- chart box -->
+			<Box addclass="reveal-1" title="Votre couverture de terrain !" width="calc(100% - 15% - 25%);" >
+				<div class="pie-wrapper">
+					<h2 class="text-bold reveal-1"><span>Combien</span> de médias<br>avez-vous consulté ?</h2>
+					<div class="pie-content">
+						<canvas id="myChart" class="pie"></canvas>
+						<div class="big-data">
+							<p class="number">{{jspPourcentage}}%</p>
+							<p>des utilisateurs pensent comme vous, ils ne savent pas. </p>
+						</div>
+					</div>
+				</div>
 			</Box>
+			<!-- legend box -->
+			<Box addclass="legend-container legend-container--pie reveal-1" width="25%" icon="i" title="Légendes" icon-background="black" icon-color="#FCFCF5">
+			<div class="legend-item">
+				<div class="picto pie-jt"></div>
+				<p>Journal Télévisé</p>
+			</div>
+			<div class="legend-item">
+				<div class="picto pie-photo"></div>
+				<p>Photo</p>
+			</div>
+			<div class="legend-item">
+				<div class="picto pie-press-web"></div>
+				<p>Presse Web</p>
+			</div>
+			<div class="legend-item">
+				<div class="picto pie-doc"></div>
+				<p>Documentaire</p>
+			</div>
+			<div class="legend-item">
+				<div class="picto pie-film"></div>
+				<p>Film</p>
+			</div>
+			<div class="legend-item">
+				<div class="picto pie-radio"></div>
+				<p>Radio</p>
+			</div>
+			<div class="legend-item">
+				<div class="picto pie-rs"></div>
+				<p>Réseau social</p>
+			</div>
+			<div class="legend-item">
+				<div class="picto pie-interview"></div>
+				<p>Interview</p>
+			</div>
+			<div class="legend-item">
+				<div class="picto pie-press-papier"></div>
+				<p>Presse papier</p>
+			</div>
+		</Box>
 		</section>
 		<!-- <Timeline /> -->
 		<SliderPerson />
@@ -199,9 +247,21 @@ export default {
 			});
 		},
 		pieChart() {
+			// shadow
+			// const shadowPlugin = {
+			// 	beforeDraw: (chart, args, options) => {
+			// 		const { ctx } = chart;
+			// 		ctx.shadowColor = '#E3E3DD';
+			// 		// ctx.shadowBlur = 10;
+			// 		ctx.shadowOffsetX = 10;
+			// 		ctx.shadowOffsetY = 5;
+			// 	},
+			// };
+
+			// pie chart
 			const ctx = document.getElementById('myChart').getContext('2d');
 			// eslint-disable-next-line no-unused-vars
-			const myChart = new Chart(ctx, {
+			const pieChart = new Chart(ctx, {
 				type: 'pie',
 				data: {
 					labels: ['Journal Télévisé', 'Photo', 'Presse web', 'Documentaire', 'Film', 'Radio', 'RS', 'Interview', 'Presse papier'],
@@ -225,6 +285,11 @@ export default {
 				},
 				options: {
 					responsive: false,
+					plugins: {
+						legend: {
+							display: false,
+						}
+					},
 					scales: {
 						y: {
 							grid: {
@@ -245,7 +310,8 @@ export default {
 							}
 						}
 					},
-				}
+				},
+				// plugins: [shadowPlugin]
 			});
 		}
 	},
@@ -364,6 +430,7 @@ section {
 	width: 50%;
 }
 
+/* data 1 */
 .stats-container {
 	padding: 50px;
 	justify-content: space-around;
@@ -482,12 +549,6 @@ section:first-of-type {
 	padding-bottom:  10vh;
 }
 
-.test {
-	width: 100%;
-	height: 80vh;
-	background-color: blue;
-}
-
 .dataviz-first-conclusion {
 	width: 100%;
 	/* border: solid red; */
@@ -533,11 +594,85 @@ section:first-of-type {
 	border-bottom: solid var(--black);
 }
 
-/* pie */
-.pie {
-	width: 500px !important;
-	height: 500px !important;
+/* pie data 2 */
+
+.section-pie {
+	flex-direction: row;
+	position: relative;
 }
 
+.pie-wrapper {
+	padding: 50px;
+}
 
+.pie-wrapper h2 {
+	font-size: 3rem;
+}
+
+.pie-wrapper h2 span {
+	font-size: 4rem;
+}
+
+.pie {
+	width: 450px !important;
+	height: 450px !important;
+	position: relative;
+	top: 13vh;
+	right: 5%;
+}
+
+.pie-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pie-content .big-data {
+	padding-right: 20%;
+}
+
+	/* pie legends */
+.legend-container--pie {
+	position: relative;
+	z-index: 2;
+	right: 5%;
+	background-color: var(--cream);
+}
+
+.pie-jt {
+	background-color: transparent;
+}
+
+.pie-photo {
+	background-color: var(--black);
+}
+
+.pie-press-web {
+	background-image: repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px );
+}
+
+.pie-doc {
+	background-color: var(--green);
+}
+
+.pie-film {
+	background-color: #B0B0AC;
+}
+
+.pie-radio {
+	background: #554726;
+}
+
+.pie-rs {
+	background-color: #A8A185;
+}
+
+.pie-interview {
+	background-color: #B8D4BE;
+}
+
+.pie-press-papier {
+	background-image: url('../static/images/pie-dotted.png');
+	background-size: cover;
+}
 </style> 
