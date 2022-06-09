@@ -672,7 +672,7 @@ section:first-of-type {
 }
 
 .pie-press-papier {
-	background-image: url('../static/images/pie-dotted.png');
+	background-image: url('../static/images/pie-cross.png');
 	background-size: cover;
 }
 </style> 
