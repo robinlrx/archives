@@ -95,6 +95,7 @@
 		<section class="section-pie">
 			<Box addclass="reveal-1" title="Votre couverture de terrain !" >
 				<h2 class="text-bold reveal-1"><span>Combien</span> de médias<br>avez-vous consulté ?</h2>
+				<canvas id="myChart" class="pie"></canvas>
 			</Box>
 		</section>
 		<!-- <Timeline /> -->
@@ -105,6 +106,8 @@
 <script>
 // import {gsap} from 'gsap'; // Power1
 // import ScrollTrigger from 'gsap/dist/ScrollTrigger'; // https://greensock.com/forums/topic/29801-getting-error-cannot-use-import-statement-outside-a-module-when-importing-flip/
+import Chart from 'chart.js/auto';
+import * as pattern from 'patternomaly';
 import Box from '../components/dataviz/Box.vue';
 // import Timeline from '../components/dataviz/Timeline.vue';
 import SliderPerson from '../components/dataviz/SliderPerson.vue';
@@ -131,6 +134,7 @@ export default {
 	mounted() {
 		this.fetchDocument()
 		// this.showElements()
+		this.pieChart()
 	},
 	methods: {
 		// see https://github.com/nuxt-community/firebase-module/issues/89
@@ -192,6 +196,56 @@ export default {
 			const items = document.querySelectorAll('[class*="reveal-"]')
 			items.forEach(function (item) {
 				observer.observe(item)
+			});
+		},
+		pieChart() {
+			const ctx = document.getElementById('myChart').getContext('2d');
+			// eslint-disable-next-line no-unused-vars
+			const myChart = new Chart(ctx, {
+				type: 'pie',
+				data: {
+					labels: ['Journal Télévisé', 'Photo', 'Presse web', 'Documentaire', 'Film', 'Radio', 'RS', 'Interview', 'Presse papier'],
+					datasets: [{
+						label: '# of Votes',
+						data: [12, 19, 30, 5, 2, 3, 10, 5, 8],
+						backgroundColor: [
+							'#FCFCF5',
+							'#00000',
+							pattern.draw('diagonal', '#FCFCF5', '#00000'), // (symbol, bgc)
+							'#649F8D',
+							'#B0B0AC',
+							'#554726',
+							'#A8A185',
+							'#B8D4BE',
+							pattern.draw('cross', '#FCFCF5', '#00000')
+						],
+						borderColor: ['#00000'],
+						borderWidth: 2
+					}]
+				},
+				options: {
+					responsive: false,
+					scales: {
+						y: {
+							grid: {
+								display: false,
+								drawBorder: false,
+							},
+							ticks: {
+								display: false
+							}
+						},
+						x: {
+							grid: {
+								display: false,
+								drawBorder: false,
+							},
+							ticks: {
+								display: false
+							}
+						}
+					},
+				}
 			});
 		}
 	},
@@ -331,7 +385,7 @@ section {
 	display: flex;
 	margin-top: 10px;
 	margin-bottom: 20px;
-	box-shadow: 10px 8px 0px #E3E3DD;
+	box-shadow: 10px 8px 0px var(--grey);
 }
 
 .chart {
@@ -479,7 +533,11 @@ section:first-of-type {
 	border-bottom: solid var(--black);
 }
 
-/* frise */
+/* pie */
+.pie {
+	width: 500px !important;
+	height: 500px !important;
+}
 
 
 </style> 
