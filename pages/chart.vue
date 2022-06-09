@@ -40,18 +40,9 @@
 							<div class="bottom-content">
 
 								<Box addclass="legend-container reveal-1" width="50%" icon="i" title="Légendes" icon-background="black" icon-color="#FCFCF5">
-									<div class="legend-item">
-										<div class="picto chart-yes"></div>
-										<p>Oui</p>
-									</div>
-									<div class="legend-item">
-										<div class="picto chart-no"></div>
-										<p>Non</p>
-									</div>
-									<div class="legend-item">
-										<div class="picto chart-jsp"></div>
-										<p>Indécis</p>
-									</div>
+									<LegendItem pictocolor="transparent" name="Oui" />
+									<LegendItem pictocolor="black" name="Non" />
+									<LegendItem pictocolor="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px )" name="Indécis" />
 								</Box>
 
 								<div class="big-data">
@@ -108,45 +99,18 @@
 			</Box>
 			<!-- legend box -->
 			<Box addclass="legend-container legend-container--pie reveal-1" width="25%" icon="i" title="Légendes" icon-background="black" icon-color="#FCFCF5">
-			<div class="legend-item">
-				<div class="picto pie-jt"></div>
-				<p>Journal Télévisé</p>
-			</div>
-			<div class="legend-item">
-				<div class="picto pie-photo"></div>
-				<p>Photo</p>
-			</div>
-			<div class="legend-item">
-				<div class="picto pie-press-web"></div>
-				<p>Presse Web</p>
-			</div>
-			<div class="legend-item">
-				<div class="picto pie-doc"></div>
-				<p>Documentaire</p>
-			</div>
-			<div class="legend-item">
-				<div class="picto pie-film"></div>
-				<p>Film</p>
-			</div>
-			<div class="legend-item">
-				<div class="picto pie-radio"></div>
-				<p>Radio</p>
-			</div>
-			<div class="legend-item">
-				<div class="picto pie-rs"></div>
-				<p>Réseau social</p>
-			</div>
-			<div class="legend-item">
-				<div class="picto pie-interview"></div>
-				<p>Interview</p>
-			</div>
-			<div class="legend-item">
-				<div class="picto pie-press-papier"></div>
-				<p>Presse papier</p>
-			</div>
-		</Box>
+				<LegendItem pictocolor="transparent" name="Journal Télévisé" />
+				<LegendItem pictocolor="var(--black)" name="Photo" />
+				<LegendItem pictocolor="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px );" name="Presse Web" />
+				<LegendItem pictocolor="var(--green)" name="Documentaire" />
+				<LegendItem pictocolor="#B0B0AC" name="Film" />
+				<LegendItem pictocolor="#554726" name="Radio" />
+				<LegendItem pictocolor="#A8A185" name="Réseau social" />
+				<LegendItem pictocolor="#B8D4BE" name="Interview" />
+				<LegendItem pictocolor="url('images/pie-cross.png')" name="Presse papier" />
+			</Box>
 		</section>
-		<!-- <Timeline /> -->
+		<Timeline />
 		<SliderPerson />
 	</div>
 </template>
@@ -157,17 +121,19 @@
 import Chart from 'chart.js/auto';
 import * as pattern from 'patternomaly';
 import Box from '../components/dataviz/Box.vue';
-// import Timeline from '../components/dataviz/Timeline.vue';
+import Timeline from '../components/dataviz/Timeline.vue';
 import SliderPerson from '../components/dataviz/SliderPerson.vue';
 import SliderObject from '../components/dataviz/SliderObject.vue';
+import LegendItem from '../components/dataviz/LegendItem.vue';
 // gsap.registerPlugin(ScrollTrigger);
 
 export default {
 	components: {
 		Box,
-		// Timeline,
+		Timeline,
 		SliderPerson,
-		SliderObject
+		SliderObject,
+		LegendItem
 	},
 	data() {
 		return {
@@ -513,21 +479,6 @@ section {
 	flex-direction: column;
 }
 
-.legend-item {
-	display: flex;
-	justify-content: start;
-	align-items: center;
-	margin: 5px 10px;
-	font-family: 'Georgia-regular';
-}
-
-.picto {
-	border: solid var(--black);
-	width: 50px;
-	height: 20px;
-	margin-right: 20px;
-}
-
 .big-data {
 	width: 50%;
 	height: 150px;
@@ -599,6 +550,7 @@ section:first-of-type {
 .section-pie {
 	flex-direction: row;
 	position: relative;
+	margin-bottom: 20%;
 }
 
 .pie-wrapper {
@@ -631,48 +583,10 @@ section:first-of-type {
 	padding-right: 20%;
 }
 
-	/* pie legends */
 .legend-container--pie {
 	position: relative;
 	z-index: 2;
 	right: 5%;
 	background-color: var(--cream);
-}
-
-.pie-jt {
-	background-color: transparent;
-}
-
-.pie-photo {
-	background-color: var(--black);
-}
-
-.pie-press-web {
-	background-image: repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px );
-}
-
-.pie-doc {
-	background-color: var(--green);
-}
-
-.pie-film {
-	background-color: #B0B0AC;
-}
-
-.pie-radio {
-	background: #554726;
-}
-
-.pie-rs {
-	background-color: #A8A185;
-}
-
-.pie-interview {
-	background-color: #B8D4BE;
-}
-
-.pie-press-papier {
-	background-image: url('../static/images/pie-cross.png');
-	background-size: cover;
 }
 </style> 
