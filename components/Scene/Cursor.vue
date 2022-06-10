@@ -5,7 +5,7 @@
 </template>
 
 <script>
-export default {name: "Cross"}
+export default { name: "Cross" }
 </script>
 
 <style>
@@ -16,9 +16,10 @@ export default {name: "Cross"}
   justify-content: center;
   align-items: center;
   position: fixed;
-  z-index: 4;
+  z-index: 2;
   pointer-events: none;
-  
+  opacity: 0
+
 }
 
 .cursor-circle {
@@ -28,6 +29,7 @@ export default {name: "Cross"}
   border-radius: 50%;
   transition: all 0.4s ease;
 }
+
 .cursor-circle-focus {
   height: 25px;
   width: 25px;

@@ -31,6 +31,7 @@ export default {
   methods: {
     lauchExperience() {
       this.isLaunched = true
+      this.$refs.scene.scene.wakeUpCutscene()
     },
     loadModels() {
       this.$refs.scene.loadModels()
@@ -44,5 +45,6 @@ body {
   height: 100vh;
   margin: 0;
   padding: 0;
+  background-color: #000000
 }
 </style>

@@ -6,7 +6,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js'
 
-import { gsap, Power3 } from 'gsap'
+import { gsap, Power3, Power4 } from 'gsap'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js'
 import { CustomOutlinePass } from './shaders/CustomOutlinePass.js'
 import Model from './Model'
@@ -24,6 +24,8 @@ class SceneInit {
     this.isLoaded = false
     this.isZoomed = false
     this.currentAction = undefined
+
+    this.followTarget = false
     this.init()
     this.update()
     this.bindEvents()
@@ -36,6 +38,7 @@ class SceneInit {
     this.initCamera()
     this.initRenderer()
     this.setControls()
+    this.initModels()
     this.initAudio()
     this.root.appendChild(this.canvas)
   }
@@ -159,19 +162,24 @@ class SceneInit {
 
     this.loadDiv = document.querySelector('.loaderScreen')
     this.loadModels = this.loadDiv.querySelector('.loaderScreen__load')
+    this.progressBar = this.loadDiv.querySelector('.loaderScreen__progressBar')
     this.manager = new THREE.LoadingManager()
 
     this.manager.onProgress = (url, itemsLoaded, itemsTotal) => {
-      this.loadDiv.querySelector('.start-button').style.backgroundPosition = `${
-        100 - (itemsLoaded / itemsTotal) * 100
-      }% 50%`
+      this.progressBar.style.width = Math.floor(itemsLoaded / itemsTotal) * 100
+      // this.loadDiv.querySelector('.start-button').style.backgroundPosition = `${
+      //   100 - (itemsLoaded / itemsTotal) * 100
+      // }% 50%`
+      // if (itemsTotal === itemsLoaded) {
+      //   setTimeout(() => {
+      //     this.loadDiv.querySelector('.start-button').style.boxShadow =
+      //       '10px 8px 0px #e0ecd229'
+      //     this.loadDiv.querySelector('.start-button').style.borderColor =
+      //       'black'
+      //   }, 2000)
+      // }
       if (itemsTotal === itemsLoaded) {
-        setTimeout(() => {
-          this.loadDiv.querySelector('.start-button').style.boxShadow =
-            '10px 8px 0px #e0ecd229'
-          this.loadDiv.querySelector('.start-button').style.borderColor =
-            'black'
-        }, 2000)
+        setTimeout(() => {}, 5000)
       }
     }
     // this.manager.onProgress = (url, itemsLoaded, itemsTotal) => {
@@ -202,7 +210,7 @@ class SceneInit {
 
     // if (itemsTotal === itemsLoaded) {
     //   setTimeout(() => {
-    //     // this.loadModels.style.opacity = 0
+    //     this.wakeUpCutscene()
     //   }, 1000)
     // }
     // }
@@ -228,8 +236,12 @@ class SceneInit {
       1000
     )
     this.camera.position.x = 0
-    this.camera.position.y = 12
-    this.camera.position.z = -5
+    this.camera.position.y = 10
+    this.camera.position.z = -14
+    this.camera.rotation.x = -0.9
+    // this.camera.position.x = 0
+    // this.camera.position.y = 12
+    // this.camera.position.z = -5
 
     this.camera.updateProjectionMatrix()
   }
@@ -254,7 +266,6 @@ class SceneInit {
       }
     )
     renderTarget.depthTexture = depthTexture
-    console.log(renderTarget)
 
     // Initial render pass.
     this.composer = new EffectComposer(this.renderer, renderTarget)
@@ -300,14 +311,70 @@ class SceneInit {
     this.scene.add(this.controls.getObject())
   }
 
-  render() {
-    this.camera.lookAt(this.scene.position)
+  wakeUpCutscene() {
+    // const sphere = new THREE.SphereGeometry()
+    // const object = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial(0xff0000))
+    // this.cameraTarget = new THREE.BoxHelper(object, 0xffff00)
+    // this.scene.add(this.cameraTarget)
+    // const geometry = new THREE.BoxGeometry(1, 1, 1)
+    // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+    // this.cameraTarget = new THREE.Mesh(geometry, material)
+    // this.cameraTarget.name = 'cameraTarget'
+    // this.cameraTarget.position.set(0, 12, -7)
+    // this.followTarget = !this.followTarget
+    // this.scene.add(this.cameraTarget)
 
-    this.renderer.render(this.scene, this.camera)
+    this.wakeUpCutsceneTL = gsap.timeline()
+    this.wakeUpCutsceneTL.to(this.camera.position, {
+      x: 0,
+      y: 11,
+      z: -14,
+      duration: 0.6,
+      delay: 1.8,
+      ease: Power3,
+    })
+    this.wakeUpCutsceneTL.to(
+      this.camera.rotation,
+      {
+        x: 0.16,
+        duration: 0.7,
+        ease: Power3,
+      },
+      '<'
+    )
+    this.wakeUpCutsceneTL.to(
+      this.camera.rotation,
+      {
+        x: 0.18,
+        duration: 0.3,
+        ease: Power3,
+      },
+      '>'
+    )
+    this.wakeUpCutsceneTL.to(
+      this.camera.rotation,
+      {
+        x: 0.16,
+        y: 1.08,
+        duration: 0.6,
+        ease: Power3,
+      },
+      '>-0.1'
+    )
+    this.wakeUpCutsceneTL.to(
+      this.camera.rotation,
+      {
+        x: 0.16,
+        y: -1.42,
+        duration: 0.6,
+        ease: Power4,
+      },
+      '>0.1'
+    )
+    this.wakeUpCutsceneTL.play()
   }
 
   playMedias() {
-    this.controls.lock()
     setTimeout(() => {
       this.loadDiv.style.opacity = 0
       setTimeout(() => {
@@ -369,6 +436,10 @@ class SceneInit {
 
   update() {
     requestAnimationFrame(() => this.update())
+
+    if (this.followTarget) {
+      this.camera.lookAt(this.cameraTarget)
+    }
 
     // const time = this.clock.getElapsedTime()
 
