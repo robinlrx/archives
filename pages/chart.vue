@@ -1,5 +1,6 @@
 <template>
 	<div v-show="showDataviz" class="body-light">
+		<!-- <img src="/images/fond-dataviz.png" alt="" class="fond"> -->
 		<header class="reveal-1">
 			<img src="/images/logo.svg" alt="">
 		</header>
@@ -291,6 +292,19 @@ export default {
 
 <style scoped>
 
+.body-light {
+	background-color: var(--cream);
+	background-image: url('../static/images/fond-dataviz.png');
+	background-size: 240% 100%; /* cover */
+	background-position: center;
+}
+
+.fond {
+	position: absolute;
+	z-index: 2;
+	object-fit: cover;
+}
+
 header {
 	height: 70px;
 	border-bottom: solid 1px var(--black);
@@ -320,6 +334,7 @@ section {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	/* padding: 5%; */
 }
 
 .container {
@@ -551,7 +566,7 @@ section:first-of-type {
 .section-pie {
 	flex-direction: row;
 	position: relative;
-	margin-bottom: 20%;
+	margin-bottom: 100px;
 }
 
 .pie-wrapper {

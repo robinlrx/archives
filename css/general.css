@@ -12,9 +12,12 @@ body {
 	margin: 0
 }
 
-.body-light {
+/* .body-light {
 	background-color: var(--cream);
-}
+	background-image: url('../static/images/fond-dataviz.png');
+	background-size: cover;
+	background-position: -10%;
+} */
 
 @font-face {
 	font-family: 'Strong-concrete';
