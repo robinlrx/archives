@@ -1,6 +1,6 @@
 <template>
 	<section class=""> <!-- reveal-1 -->
-		<img src="images/ligne.png" alt="" class="frise">
+		<img src="images/frise-graph.png" alt="" class="frise">
 		<img src="images/frise-perso.png" alt="" class="frise-perso">
 		<div class="date-wrapper">
 
