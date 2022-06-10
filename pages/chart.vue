@@ -237,16 +237,16 @@ export default {
 						data: [12, 19, 30, 5, 2, 3, 10, 5, 8],
 						backgroundColor: [
 							'#FCFCF5',
-							'#00000',
-							pattern.draw('diagonal', '#FCFCF5', '#00000'), // (symbol, bgc)
+							'#000000',
+							pattern.draw('diagonal', '#FCFCF5', '#000000'), // (symbol, bgc)
 							'#649F8D',
 							'#B0B0AC',
 							'#554726',
 							'#A8A185',
 							'#B8D4BE',
-							pattern.draw('cross', '#FCFCF5', '#00000')
+							pattern.draw('cross', '#FCFCF5', '#000000')
 						],
-						borderColor: ['#00000'],
+						borderColor: ['#000000'],
 						borderWidth: 2
 					}]
 				},
