@@ -1,5 +1,5 @@
 <template>
-	<section class="question">
+	<section class="question body-light">
 		<h2>Pensez-vous qu’Omar Raddad est le meutrier inspecteur ?</h2>
 		<div>
 			<button ref="yes" @click='updateDocument(yes), stockValue(yes)'>OUI</button>

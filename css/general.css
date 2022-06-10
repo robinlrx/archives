@@ -9,7 +9,10 @@
 }
 
 body {
-	margin: 0;
+	margin: 0
+}
+
+.body-light {
 	background-color: var(--cream);
 }
 

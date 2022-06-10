@@ -1,5 +1,5 @@
 <template>
-	<div v-show="showDataviz">
+	<div v-show="showDataviz" class="body-light">
 		<header class="reveal-1">
 			<img src="/images/logo.svg" alt="">
 		</header>
