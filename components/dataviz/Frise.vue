@@ -125,9 +125,14 @@ section {
 	/* overflow: hidden; */
 }
 
+.frise {
+	position: relative;
+	z-index: 1;
+}
+
 .frise-perso {
 	position: absolute;
-	z-index: -1;
+	z-index: 0;
 	top: -30%;
 	left: 10%;
 	width: 90%;
