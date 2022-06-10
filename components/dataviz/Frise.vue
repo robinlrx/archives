@@ -1,5 +1,5 @@
 <template>
-	<section class="reveal-1">
+	<section class=""> <!-- reveal-1 -->
 		<img src="images/ligne.png" alt="" class="frise">
 		<img src="images/frise-perso.png" alt="" class="frise-perso">
 		<div class="date-wrapper">
@@ -18,20 +18,22 @@
 					<p class="explication">Le 24 juin 1991, les gendarmes découvrent le corps sans vie de Ghislaine Marchal dans la cave de son domicile de Mougins. Près du corps, la phrase accusatrice « Omar m'a tuer » est retrouvée, écrite en lettres de sang sur une porte. Elle semble imputer le crime à Omar Raddad, son jardiner.</p>
 				</div>
 			</div>
+
 			<div class="date-item date-item-2">
-				<div class="date">
-					<p>1994</p>
-					<div class="line"></div>
-				</div>
-				<div class="text-content">
+				<div class="text-content text-content--top">
 					<p class="explication">Le 2 février 1994, Omar Raddad alors défendu par Me Jacques Vergès, est déclaré coupable du meurtre de Ghislaine Marchal.</p>
+				</div>
+				<div class="date">
+					<p>1995</p>
+					<div class="line"></div>
 				</div>
 				<div class="dot">
 					<div class="timeline"></div>
+					<div class="point point-bottom"></div>
 					<img src="images/active-dot.svg" alt="" class="line-dot line-dot--bottom">
-					<div class="point"></div>
 				</div>
 			</div>
+
 			<div class="date-item date-item-3">
 				<div class="dot">
 					<div class="point"></div>
@@ -46,20 +48,22 @@
 					<p class="explication">Le 23 mai 1996, le président Jacques Chirac signe un décret pour accorder une grâce partielle. Sa peine est réduite de quatre ans et huit mois. Omar Raddad est libéré le 4 septembre 1998 de la centrale de Muret (Haute-Garonne) après avoir purgé plus de sept ans de prison.</p>
 				</div>
 			</div>
+
 			<div class="date-item date-item-4">
+				<div class="text-content text-content--top">
+					<p class="explication">Le 5 novemenbre 2015, la nouvelle avocate d'Omar Raddad, Mme Sylvie Noachovitch demande de nouveaux travaux sur les pièces du procès.</p>
+				</div>
 				<div class="date">
 					<p>2015</p>
 					<div class="line"></div>
 				</div>
-				<div class="text-content">
-					<p class="explication">Le 5 novemenbre 2015, la nouvelle avocate d'Omar Raddad, Mme Sylvie Noachovitch demande de nouveaux travaux sur les pièces du procès.</p>
-				</div>
 				<div class="dot">
 					<div class="timeline"></div>
+					<div class="point point-bottom"></div>
 					<img src="images/active-dot.svg" alt="" class="line-dot line-dot--bottom">
-					<div class="point"></div>
 				</div>
 			</div>
+
 			<div class="date-item date-item-5">
 				<div class="dot">
 					<div class="point"></div>
@@ -81,7 +85,7 @@
 
 <script>
 export default {
-	name: "Frise",
+	name: "Timeline",
 	mounted() {
 		const dot = this.$el.getElementsByClassName('point')
 		console.log(dot);
@@ -151,9 +155,14 @@ section {
 	top: -6.5%;
 }
 
+.point-bottom {
+	/* border: solid red; */
+	position: relative;
+}
+
 .line-dot--bottom {
 	position: relative;
-	bottom: 1px;
+	bottom: 21.5px;
 }
 
 .point {
@@ -161,13 +170,13 @@ section {
 	border-radius: 50%;
 }
 
-.line-dot, .line-dot--bottom {
+.line-dot, .line-dot--bottom { /*.line-dot--bottom */
 	z-index: -1;
 }
 
-.point:nth-of-type(2n) {
+/* .point:nth-of-type(2n) {
 	top: 89%;
-}
+} */
 
 .text-content {
 	opacity: 0;
@@ -176,8 +185,9 @@ section {
 	height: 0px;
 }
 
-.text-content:nth-of-type(2n) {
-	height: 110px;
+.text-content--top {
+	height: auto;
+	/* border: solid red; */
 }
 
 .text-content.active {
@@ -195,6 +205,10 @@ section {
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 20px;
+}
+
+.date:nth-of-type(2n) {
+	margin-bottom: 0;
 }
 
 .date p {
@@ -231,7 +245,7 @@ section {
 .date-item-2 {
 	width: 250px;
 	/* height: 200px; */
-	top: -2%;
+	bottom: 28%;
 	left: 39.5%;
 	/* border: solid pink; */
 }
@@ -245,8 +259,9 @@ section {
 .date-item-4 {
 	width: 250px;
 	/* height: 200px; */
-	top: -2%;
+	/* top: -2%; */
 	left: 60.3%;
+	bottom: 28%;
 	/* border: solid pink; */
 }
 

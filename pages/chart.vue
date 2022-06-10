@@ -110,7 +110,7 @@
 				<LegendItem pictocolor="url('images/pie-cross.png')" name="Presse papier" />
 			</Box>
 		</section>
-		<!-- <Timeline /> -->
+		<Frise />
 		<SliderPerson />
 	</div>
 </template>
@@ -121,7 +121,7 @@
 import Chart from 'chart.js/auto';
 import * as pattern from 'patternomaly';
 import Box from '../components/dataviz/Box.vue';
-// import Timeline from '../components/dataviz/Timeline.vue';
+import Frise from '../components/dataviz/Frise.vue';
 import SliderPerson from '../components/dataviz/SliderPerson.vue';
 import SliderObject from '../components/dataviz/SliderObject.vue';
 import LegendItem from '../components/dataviz/LegendItem.vue';
@@ -130,7 +130,8 @@ import LegendItem from '../components/dataviz/LegendItem.vue';
 export default {
 	components: {
 		Box,
-		// Timeline,
+		Frise,
+		// eslint-disable-next-line vue/no-unused-components
 		SliderPerson,
 		SliderObject,
 		LegendItem
