@@ -121,7 +121,7 @@ section {
 	align-items: center; */
 	/* border: solid red; */
 	/* height: 500px; */
-	margin-bottom: 15%;
+	margin-bottom: 100px;
 	/* overflow: hidden; */
 }
 
@@ -168,10 +168,11 @@ section {
 .point {
 	background-color: var(--black);
 	border-radius: 50%;
+	z-index: 2
 }
 
 .line-dot, .line-dot--bottom { /*.line-dot--bottom */
-	z-index: -1;
+	/* z-index: -1; */
 }
 
 /* .point:nth-of-type(2n) {

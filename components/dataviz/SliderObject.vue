@@ -67,7 +67,7 @@ export default {
 	width: 80%;
 	margin: auto;
 	/* border: solid red; */
-	margin-bottom: 10%;
+	margin-bottom: 100px;
 }
 
 .splide__slide {
