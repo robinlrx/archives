@@ -1,6 +1,6 @@
 <template>
 	<section>
-		<Box title="Et l’opinion publique dans tout ça :" width="60%">
+		<Box title="Et l’opinion publique dans tout ça :" width="850px">
 
 			<div class='media-container'>
 				<h2 class="text-bold">Avez-vous consulté des<br> <span>médias de confiance ?</span></h2>
@@ -48,6 +48,8 @@ section {
 
 .media-container p {
 	font-family: 'Georgia-bold';
+	width: 50%;
+	text-align: justify;
 }
 
 .media-container p span {

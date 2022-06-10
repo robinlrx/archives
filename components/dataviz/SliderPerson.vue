@@ -14,7 +14,7 @@
 						<img src="images/jacques.png" alt="" class="personnage">
 						<figure class="bio">
 							<blockquote>
-								<p class="citation">Quelqu'un dont j'ai prouvé l'innocence vient d'être <br> condamné à une peine qu'il ne mérite pas. C'est le 100e <br>anniversaire de l'affaire Dreyfus. Il y a 100 ans, on condamnait <br>un jeune officier qui avait le tort d'être juif, <span>aujourd'hui on <br>condamne un jardinier qui a le tort d'être maghrébin</span></p>
+								<p class="citation">Quelqu'un dont j'ai prouvé l'innocence vient d'être condamné à une peine qu'il ne mérite pas. C'est le 100e anniversaire de l'affaire Dreyfus. Il y a 100 ans, on condamnait >un jeune officier qui avait le tort d'être juif, <span>aujourd'hui on condamne un jardinier qui a le tort d'être maghrébin</span></p>
 							</blockquote>
 							<figcaption>
 								<p class="nom">Jacques Vergès</p>
@@ -27,7 +27,7 @@
 						<img src="images/omar-2.png" alt="" class="personnage">
 						<figure class="bio">
 							<blockquote>
-								<p class="citation">C’était terrifiant de voir les portes se refermer sur moi, <br>mais je restais encore confiant. La justice française ne <br>pouvait continuer à se tromper indéfiniment. Le juge allait <br>comprendre son erreur, appeler la prison et donner l'ordre de <br>me faire sortir immédiatement. Ce ne fut pas le cas. Je n'ai <br>quitté la prison que 7 ans, 2 mois et 8 jours plus tard...</p>
+								<p class="citation">C’était terrifiant de voir les portes se refermer sur moi, mais je restais encore confiant. La justice française ne pouvait continuer à se tromper indéfiniment. Le juge allait comprendre son erreur, appeler la prison et donner l'ordre de me faire sortir immédiatement. Ce ne fut pas le cas. Je n'ai quitté la prison que 7 ans, 2 mois et 8 jours plus tard...</p>
 							</blockquote>
 							<figcaption>
 								<p class="nom">Omar Raddad</p>
@@ -53,7 +53,7 @@
 						<img src="images/henri.png" alt="" class="personnage">
 						<figure class="bio">
 							<blockquote>
-								<p class="citation">Omar Raddad est coupable. Il faut bien convenir que ce <br>constat est une stricte vérité judiciaire puisque l'accusé <br>désigné en lettres de sang s'il a bénéficié d'une grâce<br> présidentielle partielle, n'a jamais obtenu la révision de son <br>procès. Omar Raddad coupable !</p>
+								<p class="citation">Omar Raddad est coupable. Il faut bien convenir que ce constat est une stricte vérité judiciaire puisque l'accusé désigné en lettres de sang s'il a bénéficié d'une grâce présidentielle partielle, n'a jamais obtenu la révision de son procès. Omar Raddad coupable !</p>
 							</blockquote>
 							<figcaption>
 								<p class="nom">Henri Leclerc</p>
@@ -98,7 +98,8 @@ export default {
 
 .splide {
 	/* background-color: red; */
-	width: 80%;
+	/* width: 80%; */
+	width: 1000px;
 	margin: auto;
 	/* border: solid red; */
 }
@@ -109,6 +110,7 @@ export default {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+	overflow: hidden;
 }
 
 .personnage {

@@ -86,7 +86,7 @@
 		<SliderObject />
 		<section class="section-pie">
 			<!-- chart box -->
-			<Box addclass="reveal-1" title="Votre couverture de terrain !" width="calc(100% - 15% - 25%);" >
+			<Box addclass="reveal-1" title="Votre couverture de terrain !" width="900px" >
 				<div class="pie-wrapper">
 					<h2 class="text-bold reveal-1"><span>Combien</span> de médias<br>avez-vous consulté ?</h2>
 					<div class="pie-content">
@@ -99,7 +99,7 @@
 				</div>
 			</Box>
 			<!-- legend box -->
-			<Box addclass="legend-container legend-container--pie reveal-1" width="25%" icon="i" title="Légendes" icon-background="black" icon-color="#FCFCF5">
+			<Box addclass="legend-container legend-container--pie reveal-1" width="500px" icon="i" title="Légendes" icon-background="black" icon-color="#FCFCF5">
 				<LegendItem pictocolor="transparent" name="Journal Télévisé" />
 				<LegendItem pictocolor="var(--black)" name="Photo" />
 				<LegendItem pictocolor="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px );" name="Presse Web" />
@@ -112,6 +112,7 @@
 			</Box>
 		</section>
 		<Frise />
+		<Media />
 		<SliderPerson />
 	</div>
 </template>
@@ -126,6 +127,7 @@ import Frise from '../components/dataviz/Frise.vue';
 import SliderPerson from '../components/dataviz/SliderPerson.vue';
 import SliderObject from '../components/dataviz/SliderObject.vue';
 import LegendItem from '../components/dataviz/LegendItem.vue';
+import Media from '../components/dataviz/Media.vue';
 // gsap.registerPlugin(ScrollTrigger);
 
 export default {
@@ -135,7 +137,8 @@ export default {
 		// eslint-disable-next-line vue/no-unused-components
 		SliderPerson,
 		SliderObject,
-		LegendItem
+		LegendItem,
+		Media
 	},
 	data() {
 		return {
@@ -354,8 +357,8 @@ section {
 
 .content {
 	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
+	justify-content: center;
+	align-items: center;
 	/* border: solid yellow; */
 	width: 100%;
 	height: 600px;
@@ -376,7 +379,8 @@ section {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 20%;
+	/* width: 20%; */
+	width: 300px;
 	border-bottom: solid 2.5px var(--black);
 }
 
@@ -401,17 +405,6 @@ section {
 	justify-self: baseline;
 }
 
-.separator {
-	width: 100%;
-	height: 2px;
-	background-color: var(--black);
-	margin: 10px 0;
-}
-
-.separator-2 {
-	width: 50%;
-}
-
 /* data 1 */
 .stats-container {
 	padding: 50px;
@@ -420,10 +413,6 @@ section {
 
 .stats-container h2 {
 	font-size: 4rem;
-}
-
-.text-bold span {
-	font-size: 2rem;
 }
 
 .stats-container .text-bold span {
@@ -520,6 +509,8 @@ section:first-of-type {
 	width: 100%;
 	/* border: solid red; */
 	display: flex;
+	justify-content: center;
+	align-items: center;
 	margin-top: 40px;
 	font-family: 'Georgia-bold';
 }
@@ -529,7 +520,8 @@ section:first-of-type {
 }
 
 .no-box {
-	width: 70%;
+	/* width: 70%; */
+	width: 800px;
 	height: 130px;
 	color: var(--cream);
 	background-color: var(--black);
@@ -549,6 +541,7 @@ section:first-of-type {
 
 .yes-box {
 	/* width: 70%; */
+	width: 400px;
 	height: 130px;
 	/* color: var(--cream); */
 	/* background-color: var(--black); */
@@ -566,7 +559,10 @@ section:first-of-type {
 .section-pie {
 	flex-direction: row;
 	position: relative;
-	margin-bottom: 100px;
+	margin: 0 auto;
+	margin-bottom: 10%;
+	width: 80%;
+	border: solid red;
 }
 
 .pie-wrapper {
@@ -586,7 +582,7 @@ section:first-of-type {
 	height: 450px !important;
 	position: relative;
 	top: 13vh;
-	right: 5%;
+	right: 50px;
 }
 
 .pie-content {

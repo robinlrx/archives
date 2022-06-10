@@ -12,19 +12,19 @@
 				<div class="splide__list">
 					<div class="splide__slide">
 						<img src="images/france.png" alt="" class="object">
-						<p class="fact">Guislaine Marchal partageait son temps entre sa <br>résidence principale, en Suisse, et <span>sa villa La Chamade, <br>qu'elle avait fait construire dans le sud de la France, <br>sur les hauteurs de Mougins.</span> Une villa bien entretenue <br>par des emploiyés de maison dont fait partie <br>Omar Raddad, le jardinier.</p>
+						<p class="fact">Guislaine Marchal partageait son temps entre sa résidence principale, en Suisse, et <span>sa villa La Chamade, qu'elle avait fait construire dans le sud de la France, sur les hauteurs de Mougins.</span> Une villa bien entretenue par des emploiyés de maison dont fait partie Omar Raddad, le jardinier.</p>
 					</div>
 					<div class="splide__slide">
 						<img src="images/phone.png" alt="" class="object">
-						<p class="fact">Le dimanche 23 juin 1991 vers 11 h 48, Ghislaine<br> Marchal, sortant juste de la douche, est au téléphone <br>avec son amie Erika S. Son amie vient déjeuner le <br>lendemain lundi. Ghislaine Marchal se dit pressée car <br>elle doit se préparer pour aller déjeuner chez ses amis, <br>M et Mme K. à 13 h. C’est la dernière fois que l’un de <br>ses proches entendra sa voix.</p>
+						<p class="fact">Le dimanche 23 juin 1991 vers 11 h 48, Ghislaine Marchal, sortant juste de la douche, est au téléphone avec son amie Erika S. Son amie vient déjeuner le lendemain lundi. Ghislaine Marchal se dit pressée car elle doit se préparer pour aller déjeuner chez ses amis, M et Mme K. à 13 h. C’est la dernière fois que l’un de ses proches entendra sa voix.</p>
 					</div>
 					<div class="splide__slide">
 						<img src="images/billets.png" alt="" class="object">
-						<p class="fact">Le lundi 24 juin, Erika S. arrive vers 11 h 30 comme <br>convenu. Elle sonne, insiste, en vain. Alertée par <br>Mmes Erika S. et Colette K., une troisième amie, Francine P., <br>fait dépêcher sur place un employé de la compagnie de <br>gardiennage en début d’après-midi. <span>La maison, sombre et <br>silencieuse, on retrouve des bijoux, un sac à main<br> ouvert mais nulle trace de la propriétaire.</span></p>
+						<p class="fact">Le lundi 24 juin, Erika S. arrive vers 11 h 30 comme convenu. Elle sonne, insiste, en vain. Alertée par Mmes Erika S. et Colette K., une troisième amie, Francine P., fait dépêcher sur place un employé de la compagnie de gardiennage en début d’après-midi. <span>La maison, sombre et silencieuse, on retrouve des bijoux, un sac à main ouvert mais nulle trace de la propriétaire.</span></p>
 					</div>
 					<div class="splide__slide">
 						<img src="images/sang.png" alt="" class="object">
-						<p class="fact">Dans la chaufferie, au fond de la cave, Ghislaine <br>Marchal est allongée de tout son long, face contre <br>terre, vêtue de son seul peignoir de bain ensanglanté. <br><span>Sur le côté gauche du couloir, « OMAR M'A TUER » est <br>inscrit en lettres de sang bien formées</span>, à 1 m du sol,<br> sur une porte blanche fermée à clé menant à une cave <br>à vin.</p>
+						<p class="fact">Dans la chaufferie, au fond de la cave, Ghislaine Marchal est allongée de tout son long, face contre terre, vêtue de son seul peignoir de bain ensanglanté. <span>Sur le côté gauche du couloir, « OMAR M'A TUER » est inscrit en lettres de sang bien formées</span>, à 1 m du sol, sur une porte blanche fermée à clé menant à une cave à vin.</p>
 					</div>
 				</div>
 		</div>
@@ -46,7 +46,7 @@ export default {
 			type: 'loop',
 			direction: 'ttb', // slider direction
 			paginationDirection: 'ttb', // dot placement
-			height: '500px',
+			height: '600px',
 			focus: 'center',
 			autoHeight: true,
 		});
@@ -64,7 +64,8 @@ export default {
 
 .splide {
 	/* background-color: red; */
-	width: 80%;
+	/* width: 80%; */
+	width: 1000px;
 	margin: auto;
 	/* border: solid red; */
 	margin-bottom: 100px;
