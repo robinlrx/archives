@@ -3,8 +3,9 @@
 	--white: #ffffff;
 	--cream: #F1EFE5;
 	--green: #649F8E;
+	--green-lime: rgba(100, 159, 142, 0.6);
 	--orange: #FA9C67;
-	--orange-alpha: rgba(250, 156, 103, 0.6);
+	--orange-lime: rgba(250, 156, 103, 0.6);
 	--grey: #E3E3DD;
 }
 
@@ -97,4 +98,25 @@ body {
 
 .splide__pagination--on-left {
 	right: auto;
+}
+
+.text-bold {
+	font-family: 'Strong-concrete';
+	text-transform: uppercase;
+	margin: 0;
+}
+
+.text-bold span {
+	font-size: 2rem;
+}
+
+.separator {
+	width: 100%;
+	height: 2px;
+	background-color: var(--black);
+	margin: 10px 0;
+}
+
+.separator-2 {
+	width: 50%;
 }

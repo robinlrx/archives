@@ -92,7 +92,7 @@ export default {
 	font-size: 1.0625rem;
 }
 .fact span {
-	text-decoration: underline 3px var(--orange-alpha);
+	text-decoration: underline 3px var(--orange-lime);
 	text-decoration-skip-ink: none;
 }
 

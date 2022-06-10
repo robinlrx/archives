@@ -63,6 +63,7 @@ export default {
 	border-bottom: solid var(--black);
 	font-family: 'Georgia-bold';
 	height: 25px;
+	position: relative;
 }
 
 .onglet p:first-of-type {
