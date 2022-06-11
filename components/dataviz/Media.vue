@@ -29,7 +29,7 @@
 			</div>
 		</Box>
 
-		<Box width="700px" icon-background="var(--black)" icon-color="var(--cream)" icon="☰" title="Voila à qui vous avez fait confiance :" addclass="media-dataviz">
+		<Box width="700px" icon-background="var(--black)" icon-color="var(--cream)" icon="☰" title="Voila à quoi vous avez fait confiance :" addclass="media-dataviz">
 			<div class="chart-wrapper">
 
 				<div class="chart-meida-wrapper">
@@ -169,7 +169,7 @@ section {
 	background-repeat: no-repeat;
 	background-position-x: calc(100px * -1), 0;
 	background-position-y: 100%;
-	transition: background-position-x 0.5s ease;
+	transition: background-position-x 0.8s ease;
 
 }
 

@@ -2,7 +2,8 @@
 	<div v-show="showDataviz" class="body-light">
 		<!-- <img src="/images/fond-dataviz.png" alt="" class="fond"> -->
 		<header class="reveal-1">
-			<img src="/images/logo.svg" alt="">
+			<img src="/images/logo.svg" alt="" class="logo">
+			<img src="/images/icone.svg" alt="" class="icone">
 		</header>
 		<section>
 			<div class="container">
@@ -327,9 +328,17 @@ p {
 	margin: 0;
 }
 
-header img {
-	width: 200px;
+header .logo {
 	margin-left: 20px;
+	width: 200px;
+}
+
+header .icone {
+	/* border: solid red; */
+	padding-top: 5px ;
+	margin-right: 20px;
+	margin-left: auto;
+	width: 50px;
 }
 
 section {
