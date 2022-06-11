@@ -25,17 +25,17 @@
 						<div class='stats-container'>
 							<h2 class="text-bold reveal-1"><span>Omar</span> est-il <br> le meurtrier ?</h2>
 							<div class="separator separator-2 reveal-1"></div>
-							<p class="reveal-1">Lorem ipsum dolor sit amet</p>
+							<p class="reveal-1">Réponse des utilisateurs</p>
 
 							<div class="dataviz-first reveal-1">
 								<div v-show="yesPourcentage != 0" class="chart chart-yes" :style="{ width: `${yesPourcentage}%` }">
-									<p>{{yesPourcentage}}%</p>
+									<p>{{yesPourcentage}}<span>%</span></p>
 								</div>
 								<div v-show="noPourcentage != 0" class="chart chart-no" :style="{ width: `${noPourcentage}%` }">
-									<p>{{noPourcentage}}%</p>
+									<p>{{noPourcentage}}<span>%</span></p>
 								</div>
 								<div v-show="jspPourcentage != 0" class="chart chart-jsp" :style="{ width: `${jspPourcentage}%` }">
-									<p>{{jspPourcentage}}%</p>
+									<p>{{jspPourcentage}}<span>%</span></p>
 								</div>
 							</div>
 
@@ -49,15 +49,15 @@
 
 								<div class="big-data">
 									<span v-if="data1 === 'yes'" class="reveal-1">
-										<p class="number">{{yesPourcentage}}%</p>
+										<p class="number">{{yesPourcentage}}<span>%</span></p>
 										<p>des utilisateurs pensent comme vous, qu'Omar Raddad à bel et bien tué Ghislaine Marshal.</p>
 									</span>
 									<span v-else-if="data1 === 'no'" class="reveal-1">
-										<p class="number">{{noPourcentage}}%</p>
+										<p class="number">{{noPourcentage}}<span>%</span></p>
 										<p>des utilisateurs pensent comme vous, qu'Omar Raddad n'a pas tué Ghislaine Marshal.</p>
 									</span>
 									<span v-else class="reveal-1">
-										<p class="number">{{jspPourcentage}}%</p>
+										<p class="number">{{jspPourcentage}}<span>%</span></p>
 										<p>des utilisateurs pensent comme vous, ils ne savent pas. </p>
 									</span>
 									
@@ -93,7 +93,7 @@
 					<div class="pie-content">
 						<canvas id="myChart" class="pie"></canvas>
 						<div class="big-data">
-							<p class="number">{{jspPourcentage}}%</p>
+							<p class="number">{{jspPourcentage}}<span>%</span></p>
 							<p>des utilisateurs pensent comme vous, ils ne savent pas. </p>
 						</div>
 					</div>
@@ -446,10 +446,15 @@ section {
 	position: absolute;
 	bottom: 0;
 	right: 0;
-	font-family: 'Akira';
+	font-family: 'Strong-concrete';
 	padding: 3px;
 	font-size: 1.125rem;
 	letter-spacing: 1px;
+}
+
+.chart p span {
+	font-family: 'Akira';
+	margin-left: 5px;
 }
 
 .chart-yes {
@@ -506,8 +511,13 @@ section {
 }
 
 .big-data .number {
-	font-family: 'Akira';
+	font-family: 'Strong-concrete';
 	font-size: 6rem;
+}
+
+.big-data .number span {
+	font-family: 'Akira';
+	margin-left: 20px;
 }
 
 section:first-of-type {

@@ -38,7 +38,7 @@
 						<div class="chart-pp--user"></div>
 						<div class="chart-trust chart-trust--pp">
 							<div class="trust-explication">
-								<p>51 %</p>
+								<p>51 <span>%</span></p>
 								<p>La population fait confiance à 51% des médias de la presse papier. Votre consommation est elle de XX %. </p>
 							</div>
 						</div>
@@ -51,7 +51,7 @@
 						<div class="chart-rs--user"></div>
 						<div class="chart-trust chart-trust--rs">
 							<div class="trust-explication">
-								<p>19 %</p>
+								<p>19 <span>%</span></p>
 								<p>La population fait confiance à 19% des médias des réseaux sociaux. Votre consommation est elle de XX %. </p>
 							</div>
 						</div>
@@ -64,7 +64,7 @@
 						<div class="chart-pw--user"></div>
 						<div class="chart-trust chart-trust--pw">
 							<div class="trust-explication">
-								<p>35 %</p>
+								<p>35 <span>%</span></p>
 								<p>La population fait confiance à 35% des médias de la presse numérique. Votre consommation est elle de XX %. </p>
 							</div>
 						</div>
@@ -77,7 +77,7 @@
 						<div class="chart-radio--user"></div>
 						<div class="chart-trust chart-trust--radio">
 							<div class="trust-explication">
-								<p>58 %</p>
+								<p>58 <span>%</span></p>
 								<p>La population fait confiance à 58% des médias radiophonique. <br> Votre consommation est elle de XX %. </p>
 							</div>
 						</div>
@@ -90,7 +90,7 @@
 						<div class="chart-tv--user"></div>
 						<div class="chart-trust chart-trust--tv">
 							<div class="trust-explication">
-								<p>51 %</p>
+								<p>51 <span>%</span></p>
 								<p>La population fait confiance à 51% des médias télévisuel. Votre consommation est elle de XX %. </p>
 							</div>
 						</div>
@@ -354,6 +354,10 @@ section {
 	font-size: 2rem;
 	border-bottom: solid var(--black);
 	margin: 0;
+}
+
+.trust-explication p:first-of-type span {
+	font-family: 'Akira';
 }
 
 .trust-explication p:last-of-type {
