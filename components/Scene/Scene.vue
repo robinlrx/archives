@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100vw; height: 100vh; position: relative">
+  <div class="canvas-container">
     <div ref="white_fade" class="white-fade" style="
         width: 100vw;
         height: 100vh;
@@ -57,14 +57,19 @@ export default {
         }, 2000)
       }, 240000) // 4 min = 240000
     },
-    loadModels() {
-      this.scene.initModels()
-    },
   },
 }
 </script>
 
 <style >
+.canvas-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.5s ease
+}
+
 .white-fade {
   transition: opacity 0.8s ease;
   opacity: 0

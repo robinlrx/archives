@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LoadingScreen @launch="lauchExperience" @loadModels="loadModels" />
+    <LoadingScreen @wakeUpCutscene="lauchExperience" @loadModels="loadModels" />
     <Focus />
     <Cross />
     <GUI />
@@ -34,7 +34,8 @@ export default {
       this.$refs.scene.scene.wakeUpCutscene()
     },
     loadModels() {
-      this.$refs.scene.loadModels()
+      this.$refs.scene.scene.initManager()
+      this.$refs.scene.scene.initModels()
     },
   },
 }

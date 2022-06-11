@@ -25,7 +25,6 @@ class SceneInit {
     this.isZoomed = false
     this.currentAction = undefined
 
-    this.followTarget = false
     this.init()
     this.update()
     this.bindEvents()
@@ -33,7 +32,6 @@ class SceneInit {
 
   init() {
     this.initScene()
-    this.initManager()
     this.initLights()
     this.initCamera()
     this.initRenderer()
@@ -158,15 +156,18 @@ class SceneInit {
   }
 
   initManager() {
-    // const currentPercent = 0
+    const currentPercent = 0
 
     this.loadDiv = document.querySelector('.loaderScreen')
     this.loadModels = this.loadDiv.querySelector('.loaderScreen__load')
-    this.progressBar = this.loadDiv.querySelector('.loaderScreen__progressBar')
     this.manager = new THREE.LoadingManager()
 
     this.manager.onProgress = (url, itemsLoaded, itemsTotal) => {
-      this.progressBar.style.width = Math.floor(itemsLoaded / itemsTotal) * 100
+      if (document.querySelector('.loaderScreen__progressBar'))
+        document.querySelector('.loaderScreen__progressBar').style.width = `${
+          Math.floor((itemsLoaded / itemsTotal) * 100) +
+          Math.floor((1 / itemsTotal) * currentPercent)
+        }%`
       // this.loadDiv.querySelector('.start-button').style.backgroundPosition = `${
       //   100 - (itemsLoaded / itemsTotal) * 100
       // }% 50%`
@@ -179,34 +180,11 @@ class SceneInit {
       //   }, 2000)
       // }
       if (itemsTotal === itemsLoaded) {
-        setTimeout(() => {}, 5000)
+        setTimeout(() => {
+          document.querySelector('.wakeUpButton').classList.add('active-button')
+        }, 4000)
       }
     }
-    // this.manager.onProgress = (url, itemsLoaded, itemsTotal) => {
-    // if (Math.floor(itemsLoaded / itemsTotal) * 100 === 100) {
-    //   this.isLoaded = true
-    //   this.progressBar.style.width = '23%'
-    //   setTimeout(() => {
-    //     this.progressBar.style.width = '47%'
-    //     setTimeout(() => {
-    //       this.progressBar.style.width = '75%'
-    //       setTimeout(() => {
-    //         this.progressBar.style.width = '100%'
-    //         setTimeout(() => {
-    //           this.loadDiv
-    //             .querySelector('.loaderScreen__progressBar')
-    //             .classList.add('none-opacity')
-    //           setTimeout(() => {
-    //             this.loadDiv
-    //               .querySelector('.loaderScreen__progressBar')
-    //               .remove()
-    //             document.querySelector('.startButton').style.display = 'block'
-    //           }, 2000)
-    //         }, 500)
-    //       }, 2000)
-    //     }, 1000)
-    //   }, 2003)
-    // }
 
     // if (itemsTotal === itemsLoaded) {
     //   setTimeout(() => {
@@ -237,7 +215,7 @@ class SceneInit {
     )
     this.camera.position.x = 0
     this.camera.position.y = 10
-    this.camera.position.z = -14
+    this.camera.position.z = -15
     this.camera.rotation.x = -0.9
     // this.camera.position.x = 0
     // this.camera.position.y = 12
@@ -297,38 +275,24 @@ class SceneInit {
     this.controls.pointerSpeed = 0.5
     this.controls.smooth = true
     // this.controls.smoothspeed = 0.95
-    // const blocker = document.getElementById('blocker')
+    const blocker = document.getElementById('tuto-container')
 
-    // this.controls.addEventListener('lock', () => {
-    //   instructions.style.display = 'none'
-    //   blocker.style.display = 'none'
-    // })
+    this.controls.addEventListener('lock', () => {
+      blocker.style.display = 'none'
+    })
 
-    // this.controls.addEventListener('unlock', () => {
-    //   blocker.style.display = 'block'
-    //   instructions.style.display = ''
-    // })
+    this.controls.addEventListener('unlock', () => {
+      blocker.style.display = 'block'
+    })
     this.scene.add(this.controls.getObject())
   }
 
   wakeUpCutscene() {
-    // const sphere = new THREE.SphereGeometry()
-    // const object = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial(0xff0000))
-    // this.cameraTarget = new THREE.BoxHelper(object, 0xffff00)
-    // this.scene.add(this.cameraTarget)
-    // const geometry = new THREE.BoxGeometry(1, 1, 1)
-    // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
-    // this.cameraTarget = new THREE.Mesh(geometry, material)
-    // this.cameraTarget.name = 'cameraTarget'
-    // this.cameraTarget.position.set(0, 12, -7)
-    // this.followTarget = !this.followTarget
-    // this.scene.add(this.cameraTarget)
-
     this.wakeUpCutsceneTL = gsap.timeline()
     this.wakeUpCutsceneTL.to(this.camera.position, {
       x: 0,
       y: 11,
-      z: -14,
+      z: -15,
       duration: 0.6,
       delay: 1.8,
       ease: Power3,
@@ -337,7 +301,7 @@ class SceneInit {
       this.camera.rotation,
       {
         x: 0.16,
-        duration: 0.7,
+        duration: 0.6,
         ease: Power3,
       },
       '<'
@@ -355,7 +319,7 @@ class SceneInit {
       this.camera.rotation,
       {
         x: 0.16,
-        y: 1.08,
+        y: 0.230,
         duration: 0.6,
         ease: Power3,
       },
@@ -365,7 +329,7 @@ class SceneInit {
       this.camera.rotation,
       {
         x: 0.16,
-        y: -1.42,
+        y: -0.350,
         duration: 0.6,
         ease: Power4,
       },
@@ -437,10 +401,6 @@ class SceneInit {
   update() {
     requestAnimationFrame(() => this.update())
 
-    if (this.followTarget) {
-      this.camera.lookAt(this.cameraTarget)
-    }
-
     // const time = this.clock.getElapsedTime()
 
     // this.camera.position.y += Math.sin(time*100) * 2
@@ -469,33 +429,6 @@ class SceneInit {
       }
     } else {
       document.removeEventListener('wheel', this.zoomCamera)
-    }
-  }
-
-  // const outlineMaterial1 = new THREE.MeshBasicMaterial({
-  //   color: 0xff0000,
-  //   side: THREE.BackSide
-  // })
-  // const outlineMesh1 = new THREE.Mesh(
-  //   intersect.geometry,
-  //   outlineMaterial1
-  // )
-  // outlineMesh1.position.set(intersect.position)
-  // outlineMesh1.scale.multiplyScalar(1.05)
-  // this.outlineMesh1.add(outlineMesh1)
-  // console.log(outlineMesh1)
-  // console.log(intersect)
-  // intersects[0].object.parent.material.color.set(0xff0000)
-
-  add(model) {
-    this.scene.add(model)
-  }
-
-  remove(objName) {
-    const object = this.scene.getObjectByName(objName)
-
-    if (object) {
-      this.scene.remove(object)
     }
   }
 

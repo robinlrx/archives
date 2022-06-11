@@ -1,40 +1,82 @@
 <template>
-  <div id="blocker">
-    <div id="instructions">
-      <p style="font-size: 36px">Click to play</p>
-      <p>
-        Move: WASD<br />
-        Jump: SPACE<br />
-        Look: MOUSE
-      </p>
+  <transition name="fade">
+
+    <div v-if="showTuto" id="tuto-container">
+      <div id="mouse-container" ref="mouseContainer">
+      </div>
+      <div id="text-container" ref="textContainer">
+      </div>
+      <img src="images/vignette.png" />
+
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
-export default {name: "GUI"}
+import lottie from 'lottie-web';
+
+export default {
+  name: "GUI", data() {
+    return { showTuto: true }
+  }, mounted() {
+    this.tutoLottie = lottie.loadAnimation({
+      container: this.$refs.mouseContainer,
+      renderer: 'svg',
+      loop: false,
+      autoplay: true,
+      path: 'lotties/tuto.json'
+    });
+    this.tutoTextLottie = lottie.loadAnimation({
+      container: this.$refs.textContainer,
+      renderer: 'svg',
+      loop: false,
+      autoplay: true,
+      path: 'lotties/tuto_text.json'
+    });
+    this.tutoLottie.addEventListener("complete", () => {
+      this.showTuto = false
+    })
+  }
+}
 </script>
 
-<style>
-#blocker {
+<style scope>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .8s ease
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0
+}
+
+#tuto-container {
   position: absolute;
-  opacity:0;
+  opacity: 1;
+  z-index: 5;
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-#instructions {
+#mouse-container {
+  max-width: 18%;
+}
+
+#text-container {
+  max-width: 18%;
+  position: fixed;
+  bottom: 12%;
+}
+
+img {
   width: 100%;
   height: 100%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  text-align: center;
-  font-size: 14px;
-  cursor: pointer;
+  position: fixed
 }
 </style>
