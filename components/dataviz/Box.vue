@@ -54,6 +54,7 @@ export default {
 	/* width: 70%; */
 	border: solid var(--black);
 	/* padding: 30px; */
+	/* background-color: var(--cream); */
 }
 
 .box .onglet {

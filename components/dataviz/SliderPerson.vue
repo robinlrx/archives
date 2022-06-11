@@ -14,7 +14,7 @@
 						<img src="images/jacques.png" alt="" class="personnage">
 						<figure class="bio">
 							<blockquote>
-								<p class="citation">Quelqu'un dont j'ai prouvé l'innocence vient d'être condamné à une peine qu'il ne mérite pas. C'est le 100e anniversaire de l'affaire Dreyfus. Il y a 100 ans, on condamnait >un jeune officier qui avait le tort d'être juif, <span>aujourd'hui on condamne un jardinier qui a le tort d'être maghrébin</span></p>
+								<p class="citation">Quelqu'un dont j'ai prouvé l'innocence vient d'être condamné à une peine qu'il ne mérite pas. C'est le 100e anniversaire de l'affaire Dreyfus. Il y a 100 ans, on condamnait un jeune officier qui avait le tort d'être juif, <span>aujourd'hui on condamne un jardinier qui a le tort d'être maghrébin</span></p>
 							</blockquote>
 							<figcaption>
 								<p class="nom">Jacques Vergès</p>

@@ -121,7 +121,7 @@ section {
 	align-items: center; */
 	/* border: solid red; */
 	/* height: 500px; */
-	margin-bottom: 100px;
+	margin-bottom: 200px;
 	/* overflow: hidden; */
 }
 

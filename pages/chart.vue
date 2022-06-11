@@ -40,7 +40,7 @@
 
 							<div class="bottom-content">
 
-								<Box addclass="legend-container reveal-1" width="50%" icon="i" title="Légendes" icon-background="black" icon-color="#FCFCF5">
+								<Box addclass="legend-container reveal-1" width="50%" icon="i" title="Légende" icon-background="black" icon-color="#FCFCF5">
 									<LegendItem pictolegend="transparent" name="Oui" />
 									<LegendItem pictolegend="black" name="Non" />
 									<LegendItem pictolegend="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px )" name="Indécis" />
@@ -99,7 +99,7 @@
 				</div>
 			</Box>
 			<!-- legend box -->
-			<Box addclass="legend-container legend-container--pie reveal-1" width="500px" icon="i" title="Légendes" icon-background="black" icon-color="#FCFCF5">
+			<Box addclass="legend-container legend-container--pie reveal-1" width="500px" icon="i" title="Légende" icon-background="black" icon-color="#FCFCF5">
 				<LegendItem pictolegend="transparent" name="Journal Télévisé" />
 				<LegendItem pictolegend="var(--black)" name="Photo" />
 				<LegendItem pictolegend="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px );" name="Presse Web" />
@@ -562,7 +562,7 @@ section:first-of-type {
 	margin: 0 auto;
 	margin-bottom: 10%;
 	width: 80%;
-	border: solid red;
+	/* border: solid red; */
 }
 
 .pie-wrapper {
