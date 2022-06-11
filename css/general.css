@@ -2,11 +2,12 @@
 	--black: #000000;
 	--white: #ffffff;
 	--cream: #F1EFE5;
+	--cream-lime: rgb(241, 239, 229, 0.6);
 	--green: #649F8E;
 	--green-lime: rgba(100, 159, 142, 0.6);
 	--orange: #FA9C67;
 	--orange-lime: rgba(250, 156, 103, 0.6);
-	--grey: #E3E3DD;
+	--grey: rgba(0, 0, 0, 0.15);
 }
 
 body {

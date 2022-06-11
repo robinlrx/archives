@@ -1,6 +1,6 @@
 <template>
-	<section>
-		<Box title="Et l’opinion publique dans tout ça :" width="850px">
+	<section class="media-section">
+		<Box title="Et l’opinion publique dans tout ça :" width="850px" addclass="media-info">
 
 			<div class='media-container'>
 				<h2 class="text-bold">Avez-vous consulté des<br> <span>médias de confiance ?</span></h2>
@@ -14,18 +14,64 @@
 
 		</Box>
 
-		<Box width="500px" icon-background="var(--black)" icon-color="var(--cream)" icon="i" title="Légendes">
+		<Box width="500px" icon-background="var(--black)" icon-color="var(--cream)" icon="i" title="Légende" addclass="media-legend">
 			<div class="picto-wrapper">
 				<div class="picto-group">
-					<LegendItem pictolegend="url('images/picto-pp.svg'), var(--black)" boldname="Presse <br>Papier" name="Journal/Photo <br>d’archive" pictoheight="80px" pictowidth="80px" />
-					<LegendItem pictolegend="url('images/picto-rs.svg'), var(--black)" boldname="Réseau <br>Social" pictoheight="80px" pictowidth="80px" />
-					<LegendItem pictolegend="url('images/picto-pw.svg'), var(--black)" boldname="Presse <br>Web" pictoheight="80px" pictowidth="80px" />
+					<LegendItem pictolegend="url('images/picto-pp.svg'), var(--black)" boldname="Presse <br>Papier" name="Journal/Photo <br>d’archive" pictoheight="60px" pictowidth="60px" />
+					<LegendItem pictolegend="url('images/picto-rs.svg'), var(--black)" boldname="Réseau <br>Social" pictoheight="60px" pictowidth="60px" />
+					<LegendItem pictolegend="url('images/picto-pw.svg'), var(--black)" boldname="Presse <br>Web" pictoheight="60px" pictowidth="60px" />
 				</div>
 				<div class="picto-group">
-					<LegendItem pictolegend="url('images/picto-tv.svg'), var(--black)" boldname="TV" name="Journal Télévisé/<br>Interview/film/<br>Documentaire" pictoheight="80px" pictowidth="80px" />
-					<LegendItem pictolegend="url('images/picto-radio.svg'), var(--black)" boldname="Radio" pictoheight="80px" pictowidth="80px" />
-					<LegendItem pictolegend="var(--green)" boldname="Taux de <br>confiance" pictoheight="80px" pictowidth="80px" />
+					<LegendItem pictolegend="url('images/picto-tv.svg'), var(--black)" boldname="TV" name="Journal Télévisé/<br>Interview/film/<br>Documentaire" pictoheight="60px" pictowidth="60px" />
+					<LegendItem pictolegend="url('images/picto-radio.svg'), var(--black)" boldname="Radio" pictoheight="60px" pictowidth="60px" />
+					<LegendItem pictolegend="var(--green)" boldname="Taux de <br>confiance" pictoheight="60px" pictowidth="60px" />
 				</div>
+			</div>
+		</Box>
+
+		<Box width="700px" icon-background="var(--black)" icon-color="var(--cream)" icon="☰" title="Voila à qui vous avez fait confiance :" addclass="media-dataviz">
+			<div class="chart-wrapper">
+
+				<div class="chart-meida-wrapper">
+					<LegendItem pictolegend="url('images/picto-pp.svg'), var(--black)" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
+					<div class="chart-meida-wrapper--item">
+						<div class="chart-pp--user"></div>
+						<div class="chart-trust chart-trust--pp"></div>
+					</div>
+				</div>
+
+				<div class="chart-meida-wrapper">
+					<LegendItem pictolegend="url('images/picto-rs.svg'), var(--black)" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
+					<div class="chart-meida-wrapper--item">
+						<div class="chart-rs--user"></div>
+						<div class="chart-trust chart-trust--rs"></div>
+					</div>
+				</div>
+
+				<div class="chart-meida-wrapper">
+					<LegendItem pictolegend="url('images/picto-pw.svg'), var(--black)" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
+					<div class="chart-meida-wrapper--item">
+						<div class="chart-pw--user"></div>
+						<div class="chart-trust chart-trust--pw"></div>
+					</div>
+				</div>
+
+				<div class="chart-meida-wrapper">
+					<LegendItem pictolegend="url('images/picto-radio.svg'), var(--black)" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
+					<div class="chart-meida-wrapper--item">
+						<div class="chart-radio--user"></div>
+						<div class="chart-trust chart-trust--radio"></div>
+					</div>
+				</div>
+
+				<div class="chart-meida-wrapper">
+					<LegendItem pictolegend="url('images/picto-tv.svg'), var(--black)" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
+					<div class="chart-meida-wrapper--item">
+						<div class="chart-tv--user"></div>
+						<div class="chart-trust chart-trust--tv"></div>
+					</div>
+				</div>
+
 			</div>
 		</Box>
 	</section>
@@ -48,12 +94,44 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Almarai:wght@700&display=swap');
 
 section {
-	margin-bottom: 200px;
-	border: solid blue;
+	padding-bottom: 200px;
+	/* border: solid blue; */
+	position: relative;
+	width: 80%;
+	margin: 0 auto;
+	height: 700px;
+	background-image: url('../../static/images/fond-media.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.media-info {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
+.media-legend {
+	position: absolute;
+	top: 40%;
+	left: 3%;
+	z-index: 3;
+	background-color: var(--cream-lime);
+}
+
+.media-dataviz {
+	position: absolute;
+	top: 25%;
+	left: 43%;
+	z-index: 2;
+	height: 450px;
+	background-color: var(--cream-lime);
 }
 
 .media-container {
-	padding: 30px;
+	padding: 40px;
 }
 
 .media-container h2 {
@@ -112,6 +190,102 @@ section {
 	align-items: flex-start;
 	width: 50%;
 	/* border: solid red; */
+}
+
+/* chart */
+
+.chart-wrapper {
+	padding: 30px;
+	padding-right: 60px;
+	/* display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: column; */
+	/* height: 100%; */
+	/* border: solid red; */
+}
+
+.legend-override.legend-item {
+	margin: 0;
+}
+
+.chart-meida-wrapper {
+	width: 100%;
+	height: 40px;
+	border: solid var(--black);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 10px 8px 0px var(--grey);
+	margin-bottom: 30px;
+}
+
+.chart-trust {
+	height: 100%;
+	background-color: var(--green);
+	border: solid var(--black);
+	position: relative;
+	margin-left: auto;
+	bottom: 30px;
+	right: -30px;
+	box-shadow: 10px 8px 0px var(--grey);
+}
+
+.chart-meida-wrapper--item {
+	width: 100%;
+	height: 100%;
+	background-color: var(--black);
+}
+
+.chart-pp--user {
+	width: 20%; /* localhost nb media = nb percent */
+	height: 100%;
+	background-color: var(--cream);
+}
+
+
+.chart-trust--pp {
+	width: 51%;
+}
+
+.chart-rs--user {
+	width: 40%; /* localhost nb media = nb percent */
+	height: 100%;
+	background-color: var(--cream);
+}
+
+.chart-trust--rs {
+	width: 19%;
+}
+
+.chart-pw--user {
+	width: 60%; /* localhost nb media = nb percent */
+	height: 100%;
+	background-color: var(--cream);
+}
+
+.chart-trust--pw {
+	width: 35%;
+}
+
+.chart-radio--user {
+	width: 20%; /* localhost nb media = nb percent */
+	height: 100%;
+	background-color: var(--cream);
+}
+
+.chart-trust--radio {
+	width: 58%;
+}
+
+.chart-tv--user {
+	width: 30%; /* localhost nb media = nb percent */
+	height: 100%;
+	background-color: var(--cream);
+}
+
+.chart-trust--tv {
+	width: 51%;
 }
 
 

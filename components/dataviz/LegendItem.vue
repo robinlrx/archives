@@ -1,6 +1,6 @@
 <template>
 	<div class="legend-item">
-		<div class="picto" :style="{background: pictolegend, width: pictowidth, height: pictoheight}"></div>
+		<div class="picto" :style="{background: pictolegend, width: pictowidth, height: pictoheight, marginRight: marginright}"></div>
 		<div>
 			<p class="bold-name" v-html="boldname"></p>
 			<p class="name" v-html="name"></p>
@@ -36,6 +36,11 @@ export default {
 			type: String,
 			required: true,
 			default: undefined,
+		},
+		marginright: {
+			type: String,
+			required: false,
+			default: "20px",
 		}
 	}
 }
@@ -67,7 +72,6 @@ p {
 
 .picto {
 	border: solid var(--black);
-	margin-right: 20px;
 	background-size: 80% 80% !important;
 	background-repeat: no-repeat !important;
 	background-position: center !important;
