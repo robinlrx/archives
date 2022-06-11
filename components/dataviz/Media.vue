@@ -36,7 +36,12 @@
 					<LegendItem pictolegend="url('images/picto-pp.svg'), var(--black)" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
 					<div class="chart-meida-wrapper--item">
 						<div class="chart-pp--user"></div>
-						<div class="chart-trust chart-trust--pp"></div>
+						<div class="chart-trust chart-trust--pp">
+							<div class="trust-explication">
+								<p>51 %</p>
+								<p>La population fait confiance à 51% des médias de la presse papier. Votre consommation est elle de XX %. </p>
+							</div>
+						</div>
 					</div>
 				</div>
 
@@ -44,7 +49,12 @@
 					<LegendItem pictolegend="url('images/picto-rs.svg'), var(--black)" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
 					<div class="chart-meida-wrapper--item">
 						<div class="chart-rs--user"></div>
-						<div class="chart-trust chart-trust--rs"></div>
+						<div class="chart-trust chart-trust--rs">
+							<div class="trust-explication">
+								<p>19 %</p>
+								<p>La population fait confiance à 19% des médias des réseaux sociaux. Votre consommation est elle de XX %. </p>
+							</div>
+						</div>
 					</div>
 				</div>
 
@@ -52,7 +62,12 @@
 					<LegendItem pictolegend="url('images/picto-pw.svg'), var(--black)" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
 					<div class="chart-meida-wrapper--item">
 						<div class="chart-pw--user"></div>
-						<div class="chart-trust chart-trust--pw"></div>
+						<div class="chart-trust chart-trust--pw">
+							<div class="trust-explication">
+								<p>35 %</p>
+								<p>La population fait confiance à 35% des médias de la presse numérique. Votre consommation est elle de XX %. </p>
+							</div>
+						</div>
 					</div>
 				</div>
 
@@ -60,7 +75,12 @@
 					<LegendItem pictolegend="url('images/picto-radio.svg'), var(--black)" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
 					<div class="chart-meida-wrapper--item">
 						<div class="chart-radio--user"></div>
-						<div class="chart-trust chart-trust--radio"></div>
+						<div class="chart-trust chart-trust--radio">
+							<div class="trust-explication">
+								<p>58 %</p>
+								<p>La population fait confiance à 58% des médias radiophonique. <br> Votre consommation est elle de XX %. </p>
+							</div>
+						</div>
 					</div>
 				</div>
 
@@ -68,7 +88,12 @@
 					<LegendItem pictolegend="url('images/picto-tv.svg'), var(--black)" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
 					<div class="chart-meida-wrapper--item">
 						<div class="chart-tv--user"></div>
-						<div class="chart-trust chart-trust--tv"></div>
+						<div class="chart-trust chart-trust--tv">
+							<div class="trust-explication">
+								<p>51 %</p>
+								<p>La population fait confiance à 51% des médias télévisuel. Votre consommation est elle de XX %. </p>
+							</div>
+						</div>
 					</div>
 				</div>
 
@@ -85,6 +110,23 @@ export default {
 	components: {
 		Box,
 		LegendItem
+	},
+	mounted() {
+		const chartTrust = this.$el.getElementsByClassName('chart-trust')
+		console.log(chartTrust);
+		Array.from(chartTrust).forEach(element => {
+			const trustExplication = element.querySelector('.trust-explication')
+
+			element.addEventListener('mouseover', () => {
+				// console.log(element)
+				console.log(trustExplication)
+				trustExplication.classList.add('active')
+			})
+
+			element.addEventListener('mouseleave', () => {
+				trustExplication.classList.remove('active')
+			})
+		});
 	}
 }
 </script>
@@ -286,6 +328,48 @@ section {
 
 .chart-trust--tv {
 	width: 51%;
+}
+
+.trust-explication {
+	width: 330px;
+	height: 130px;
+	background-color: var(--cream);
+	box-shadow: 10px 8px 0px var(--black);
+	padding: 15px 10px ;
+	border: solid var(--black);
+	position: absolute;
+	bottom: 50%;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.2s ease-in-out;
+}
+
+.trust-explication.active {
+	opacity: 1;
+	visibility: visible
+}
+
+.trust-explication p:first-of-type {
+	font-family: 'Strong-concrete';
+	font-size: 2rem;
+	border-bottom: solid var(--black);
+	margin: 0;
+}
+
+.trust-explication p:last-of-type {
+	font-family: 'Georgia-bold';
+}
+
+.chart-trust--pp .trust-explication, .chart-trust--radio .trust-explication, .chart-trust--tv .trust-explication {
+	left: 5%;
+}
+
+.chart-trust--rs .trust-explication {
+	right: 9%;
+}
+
+.chart-trust--pw .trust-explication {
+	right: 2%;
 }
 
 
