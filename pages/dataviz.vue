@@ -1,10 +1,10 @@
 <template>
 	<section class="question body-light">
-		<h2>Pensez-vous qu’Omar Raddad est le meutrier inspecteur ?</h2>
-		<div>
-			<button ref="yes" @click='updateDocument(yes), stockValue(yes)'>OUI</button>
-			<button ref="no" @click='updateDocument(no), stockValue(no)'>NON</button>
-			<button ref="jsp" @click='updateDocument(jsp), stockValue(jsp)'>NE SAIS PAS</button>
+		<h2>Alors inpecteurs, pensez-vous que <br> Omar Raddad est le meutrier ?</h2>
+		<div class="button-group">
+			<button ref="yes" @click='updateDocument(yes), stockValue(yes)'>Oui</button>
+			<button ref="jsp" @click='updateDocument(jsp), stockValue(jsp)'>Indécis</button>
+			<button ref="no" @click='updateDocument(no), stockValue(no)'>Non</button>
 		</div>
 	</section>
 </template>
@@ -66,10 +66,16 @@ section {
 	width: 100%;
 	height: 100vh;
 	font-family: 'Georgia-regular';
+	background-image: url('../static/images/fond-question.png');
+	background-color: var(--black);
+	background-size: cover;
+	background-position: center;
+	color: var(--cream);
 }
 
 h2 {
-	font-size: 2rem;
+	font-size: 1.5rem;
+	text-align: center;
 }
 
 section div {
@@ -80,13 +86,21 @@ section div {
 
 button {
 	outline: none;
-	width: 200px;
-	height: 100px;
-	border: solid var(--black) 3px;
-	background-color: var(--cream);
+	color: var(--cream);
+	border: solid 1px transparent;
+	background-color: transparent;
 	cursor: pointer;
 	margin: 10px;
 	font-family: 'Strong-concrete';
-	font-size: 2rem;
+	font-size: 1rem;
+}
+
+.button-group:hover button{
+	opacity: 0.2;
+}
+
+.button-group:hover button:hover {
+	border-bottom: solid 1px var(--cream);
+	opacity: 1;
 }
 </style>
