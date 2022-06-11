@@ -41,9 +41,9 @@
 							<div class="bottom-content">
 
 								<Box addclass="legend-container reveal-1" width="50%" icon="i" title="Légendes" icon-background="black" icon-color="#FCFCF5">
-									<LegendItem pictocolor="transparent" name="Oui" />
-									<LegendItem pictocolor="black" name="Non" />
-									<LegendItem pictocolor="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px )" name="Indécis" />
+									<LegendItem pictolegend="transparent" name="Oui" />
+									<LegendItem pictolegend="black" name="Non" />
+									<LegendItem pictolegend="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px )" name="Indécis" />
 								</Box>
 
 								<div class="big-data">
@@ -100,15 +100,15 @@
 			</Box>
 			<!-- legend box -->
 			<Box addclass="legend-container legend-container--pie reveal-1" width="500px" icon="i" title="Légendes" icon-background="black" icon-color="#FCFCF5">
-				<LegendItem pictocolor="transparent" name="Journal Télévisé" />
-				<LegendItem pictocolor="var(--black)" name="Photo" />
-				<LegendItem pictocolor="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px );" name="Presse Web" />
-				<LegendItem pictocolor="var(--green)" name="Documentaire" />
-				<LegendItem pictocolor="#B0B0AC" name="Film" />
-				<LegendItem pictocolor="#554726" name="Radio" />
-				<LegendItem pictocolor="#A8A185" name="Réseau social" />
-				<LegendItem pictocolor="#B8D4BE" name="Interview" />
-				<LegendItem pictocolor="url('images/pie-cross.png')" name="Presse papier" />
+				<LegendItem pictolegend="transparent" name="Journal Télévisé" />
+				<LegendItem pictolegend="var(--black)" name="Photo" />
+				<LegendItem pictolegend="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px );" name="Presse Web" />
+				<LegendItem pictolegend="var(--green)" name="Documentaire" />
+				<LegendItem pictolegend="#B0B0AC" name="Film" />
+				<LegendItem pictolegend="#554726" name="Radio" />
+				<LegendItem pictolegend="#A8A185" name="Réseau social" />
+				<LegendItem pictolegend="#B8D4BE" name="Interview" />
+				<LegendItem pictolegend="url('images/pie-cross.png')" name="Presse papier" />
 			</Box>
 		</section>
 		<Frise />

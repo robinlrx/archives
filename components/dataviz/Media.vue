@@ -7,21 +7,38 @@
 				<div class="separator separator-2"></div>
 				<p>L’Union européenne de radio-télévision, alliance de médias de service public, a étudié la confiance dans les médias dans son rapport Trust in Media 201817. Elle y constate qu’il devient de plus <span> en plus difficile de maintenir un haut niveau de confiance, du fait notamment de l’essor de la désinformation.</span></p>
 				<div class="link">
-					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ic" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="m12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path></svg>
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ic" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="m12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path></svg>
 					<a href="https://rm.coe.int/prems-077520-fra-2018-nex-media-new-regulation-txt-a4-web/16809efcca" target="_blank">En lire plus sur le sujet</a>
 				</div>
 			</div>
 
+		</Box>
+
+		<Box width="500px" icon-background="var(--black)" icon-color="var(--cream)" icon="i" title="Légendes">
+			<div class="picto-wrapper">
+				<div class="picto-group">
+					<LegendItem pictolegend="url('images/picto-pp.svg'), var(--black)" boldname="Presse <br>Papier" name="Journal/Photo <br>d’archive" pictoheight="80px" pictowidth="80px" />
+					<LegendItem pictolegend="url('images/picto-rs.svg'), var(--black)" boldname="Réseau <br>Social" pictoheight="80px" pictowidth="80px" />
+					<LegendItem pictolegend="url('images/picto-pw.svg'), var(--black)" boldname="Presse <br>Web" pictoheight="80px" pictowidth="80px" />
+				</div>
+				<div class="picto-group">
+					<LegendItem pictolegend="url('images/picto-tv.svg'), var(--black)" boldname="TV" name="Journal Télévisé/<br>Interview/film/<br>Documentaire" pictoheight="80px" pictowidth="80px" />
+					<LegendItem pictolegend="url('images/picto-radio.svg'), var(--black)" boldname="Radio" pictoheight="80px" pictowidth="80px" />
+					<LegendItem pictolegend="var(--green)" boldname="Taux de <br>confiance" pictoheight="80px" pictowidth="80px" />
+				</div>
+			</div>
 		</Box>
 	</section>
 </template>
 
 <script>
 import Box from './Box.vue';
+import LegendItem from './LegendItem.vue';
 export default {
 	name: 'Media',
 	components: {
-		Box
+		Box,
+		LegendItem
 	}
 }
 </script>
@@ -32,6 +49,7 @@ export default {
 
 section {
 	margin-bottom: 200px;
+	border: solid blue;
 }
 
 .media-container {
@@ -79,6 +97,21 @@ section {
 
 .link a:hover {
 	background-position-x: calc(100% + 100px), 0;
+}
+
+/* legende */
+.picto-wrapper {
+	display: flex;
+	padding: 10px;
+}
+
+.picto-group {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	width: 50%;
+	/* border: solid red; */
 }
 
 
