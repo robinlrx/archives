@@ -67,7 +67,7 @@ export default {
   height: 100vh;
   position: relative;
   opacity: 0;
-  transition: opacity 0.5s ease
+  transition: opacity 0.5s ease, filter 0.8s ease
 }
 
 .white-fade {

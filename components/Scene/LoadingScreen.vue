@@ -48,6 +48,8 @@
 
 <script>
 // import lottie from 'lottie-web';
+import { Howl } from 'howler';
+
 
 export default {
   name: 'LoadingScreen',
@@ -70,37 +72,13 @@ export default {
       }
     });
     this.$refs.videoTransition.src = this.supportsHEVCAlpha() ? 'videos/intro_transition.mov' : 'videos/intro_transition.webm';
-
-    // this.startButtonAnim = lottie.loadAnimation({
-    //   container: this.$refs.startButton, // the dom element that will contain the animation
-    //   renderer: 'svg',
-    //   loop: false,
-    //   autoplay: false,
-    //   path: 'lotties/start_button.json' // the path to the animation json
-    // });
+    this.transitionVoiceOver = new Howl({
+      src: ['sounds/intro_transition_voice.wav'],
+      html5: true
+    });
 
   },
   methods: {
-    start() {
-      // this.startButtonAnimTransition = lottie.loadAnimation({
-      //   container: this.$refs.startButtonTransition, // the dom element that will contain the animation
-      //   renderer: 'svg',
-      //   loop: false,
-      //   autoplay: false,
-      //   path: 'lotties/start_button_transition.json' // the path to the animation json
-      // });
-      // this.startButtonAnimTransition.play()
-      // this.$refs.startButton.remove()
-      this.$refs.videoTransition.play()
-      document.querySelector('.focus').style.opacity = 1
-      this.$emit('wakeUpCutscene')
-
-      this.$refs.videoTransition.onended = () => {
-        this.$refs.loaderScreen.remove()
-      }
-
-      // this.$emit('launch')
-    },
     playVideo() {
       this.$refs.video.play()
       this.$refs.logoClick.remove()
@@ -108,7 +86,6 @@ export default {
 
       this.$refs.video.addEventListener('timeupdate', () => {
         if (this.$refs.video.currentTime >= 10 && !this.displayButton) {
-          // this.startButtonAnim.play()
           this.displayButton = true
           this.$emit('loadModels')
         }
@@ -117,6 +94,17 @@ export default {
       this.$refs.video.onended = () => {
         this.$refs.video.remove()
         document.querySelector(".canvas-container").style.opacity = "1"
+      }
+    },
+    start() {
+      this.$refs.videoTransition.play()
+
+      this.transitionVoiceOver.play();
+      document.querySelector('.focus').style.opacity = 1
+      this.$emit('wakeUpCutscene')
+
+      this.$refs.videoTransition.onended = () => {
+        this.$refs.loaderScreen.remove()
       }
     },
     supportsHEVCAlpha() {

@@ -1,6 +1,5 @@
 <template>
   <transition name="fade">
-
     <div v-if="showTuto" id="tuto-container">
       <div id="mouse-container" ref="mouseContainer">
       </div>
@@ -17,7 +16,7 @@ import lottie from 'lottie-web';
 
 export default {
   name: "GUI", data() {
-    return { showTuto: true }
+    return { showTuto: false }
   }, mounted() {
     this.tutoLottie = lottie.loadAnimation({
       container: this.$refs.mouseContainer,
@@ -35,9 +34,20 @@ export default {
     });
     this.tutoLottie.addEventListener("complete", () => {
       this.showTuto = false
+      document.querySelector(".canvas-container").style.filter = "blur(0px);"
+
     })
+  },
+  methods: {
+    playAnim() {
+      this.showTuto = true
+      this.tutoLottie.play()
+      this.tutoTextLottie.play()
+      document.querySelector(".canvas-container").style.filter = "blur(4px);"
+    }
   }
 }
+
 </script>
 
 <style scope>
@@ -53,7 +63,6 @@ export default {
 
 #tuto-container {
   position: absolute;
-  opacity: 1;
   z-index: 5;
   width: 100%;
   height: 100%;

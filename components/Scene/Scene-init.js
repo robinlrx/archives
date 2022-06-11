@@ -6,7 +6,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js'
 
-import { gsap, Power3, Power4 } from 'gsap'
+import { gsap, Power3 } from 'gsap'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js'
 import { CustomOutlinePass } from './shaders/CustomOutlinePass.js'
 import Model from './Model'
@@ -36,14 +36,25 @@ class SceneInit {
     this.initCamera()
     this.initRenderer()
     this.setControls()
-    this.initModels()
     this.initAudio()
+    // this.initModels()
     this.root.appendChild(this.canvas)
   }
 
   initAudio() {
     this.listener = new THREE.AudioListener()
     this.camera.add(this.listener)
+  }
+
+  initBackgroundNoise() {
+    const backgroundNoise = new THREE.Audio(this.listener)
+    const backgroundNoiseLoader = new THREE.AudioLoader()
+    backgroundNoiseLoader.load('sounds/BACKGROUND_NOISE.mp3', (buffer) => {
+      backgroundNoise.setBuffer(buffer)
+      backgroundNoise.setLoop(true)
+      backgroundNoise.setVolume(0.5)
+      backgroundNoise.play()
+    })
   }
 
   radioAction = () => {
@@ -168,30 +179,13 @@ class SceneInit {
           Math.floor((itemsLoaded / itemsTotal) * 100) +
           Math.floor((1 / itemsTotal) * currentPercent)
         }%`
-      // this.loadDiv.querySelector('.start-button').style.backgroundPosition = `${
-      //   100 - (itemsLoaded / itemsTotal) * 100
-      // }% 50%`
-      // if (itemsTotal === itemsLoaded) {
-      //   setTimeout(() => {
-      //     this.loadDiv.querySelector('.start-button').style.boxShadow =
-      //       '10px 8px 0px #e0ecd229'
-      //     this.loadDiv.querySelector('.start-button').style.borderColor =
-      //       'black'
-      //   }, 2000)
-      // }
+
       if (itemsTotal === itemsLoaded) {
         setTimeout(() => {
           document.querySelector('.wakeUpButton').classList.add('active-button')
-        }, 4000)
+        }, 1200)
       }
     }
-
-    // if (itemsTotal === itemsLoaded) {
-    //   setTimeout(() => {
-    //     this.wakeUpCutscene()
-    //   }, 1000)
-    // }
-    // }
   }
 
   initLights() {
@@ -215,7 +209,7 @@ class SceneInit {
     )
     this.camera.position.x = 0
     this.camera.position.y = 10
-    this.camera.position.z = -15
+    this.camera.position.z = -11
     this.camera.rotation.x = -0.9
     // this.camera.position.x = 0
     // this.camera.position.y = 12
@@ -285,57 +279,6 @@ class SceneInit {
       blocker.style.display = 'block'
     })
     this.scene.add(this.controls.getObject())
-  }
-
-  wakeUpCutscene() {
-    this.wakeUpCutsceneTL = gsap.timeline()
-    this.wakeUpCutsceneTL.to(this.camera.position, {
-      x: 0,
-      y: 11,
-      z: -15,
-      duration: 0.6,
-      delay: 1.8,
-      ease: Power3,
-    })
-    this.wakeUpCutsceneTL.to(
-      this.camera.rotation,
-      {
-        x: 0.16,
-        duration: 0.6,
-        ease: Power3,
-      },
-      '<'
-    )
-    this.wakeUpCutsceneTL.to(
-      this.camera.rotation,
-      {
-        x: 0.18,
-        duration: 0.3,
-        ease: Power3,
-      },
-      '>'
-    )
-    this.wakeUpCutsceneTL.to(
-      this.camera.rotation,
-      {
-        x: 0.16,
-        y: 0.230,
-        duration: 0.6,
-        ease: Power3,
-      },
-      '>-0.1'
-    )
-    this.wakeUpCutsceneTL.to(
-      this.camera.rotation,
-      {
-        x: 0.16,
-        y: -0.350,
-        duration: 0.6,
-        ease: Power4,
-      },
-      '>0.1'
-    )
-    this.wakeUpCutsceneTL.play()
   }
 
   playMedias() {
