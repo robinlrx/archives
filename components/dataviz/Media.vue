@@ -271,6 +271,7 @@ section {
 	bottom: 30px;
 	right: -30px;
 	box-shadow: 10px 8px 0px var(--grey);
+	cursor: pointer;
 }
 
 .chart-meida-wrapper--item {
