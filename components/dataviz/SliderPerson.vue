@@ -72,7 +72,7 @@
 import Splide from '@splidejs/splide';
 import '@splidejs/splide/dist/css/splide.min.css';
 export default {
-	name: 'Slider',
+	name: 'SliderPerson',
 	mounted() {
 		const splide = new Splide( '#slider2', {
 			classes: {

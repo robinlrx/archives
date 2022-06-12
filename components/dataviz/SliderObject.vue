@@ -36,7 +36,7 @@
 import Splide from '@splidejs/splide';
 import '@splidejs/splide/dist/css/splide.min.css';
 export default {
-	name: 'Slider',
+	name: 'SliderObject',
 	mounted() {
 		const splide = new Splide( '#slider1', {
 			classes: {
@@ -77,6 +77,7 @@ export default {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+	overflow: hidden;
 }
 
 .object {

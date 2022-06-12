@@ -84,7 +84,9 @@
 
 			</div>
 		</section>
+
 		<SliderObject />
+
 		<section class="section-pie">
 			<!-- chart box -->
 			<Box addclass="reveal-1" title="Votre couverture de terrain !" width="900px" >
@@ -112,6 +114,7 @@
 				<LegendItem pictolegend="url('images/pie-cross.png')" name="Presse papier" />
 			</Box>
 		</section>
+
 		<Frise />
 		<Media />
 		<SliderPerson />
