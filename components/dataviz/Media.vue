@@ -133,7 +133,6 @@ export default {
 
 <style scoped>
 @import '../../css/general.css';
-@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@700&display=swap');
 
 section {
 	padding-bottom: 200px;
@@ -193,30 +192,6 @@ section {
 .media-container p span {
 	text-decoration: underline 3px var(--green-lime);
 	text-decoration-skip-ink: none;
-}
-
-.link {
-	display: flex;
-	/* justify-content: center; */
-	align-items: center;
-}
-
-.link a {
-	font-family: 'Almarai', sans-serif;
-	color: var(--black);
-	text-decoration: none;
-	margin-left: 10px;
-	background-image: linear-gradient(90deg, var(--cream), var(--cream)), linear-gradient(90deg, var(--black), var(--black));
-	background-size: 100px 1.5px, 100% 1.5px;
-	background-repeat: no-repeat;
-	background-position-x: calc(100px * -1), 0;
-	background-position-y: 100%;
-	transition: background-position-x 0.8s ease;
-
-}
-
-.link a:hover {
-	background-position-x: calc(100% + 100px), 0;
 }
 
 /* legende */

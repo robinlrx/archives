@@ -118,6 +118,7 @@
 		<Frise />
 		<Media />
 		<SliderPerson />
+		<Search />
 	</div>
 </template>
 
@@ -132,6 +133,7 @@ import SliderPerson from '../components/dataviz/SliderPerson.vue';
 import SliderObject from '../components/dataviz/SliderObject.vue';
 import LegendItem from '../components/dataviz/LegendItem.vue';
 import Media from '../components/dataviz/Media.vue';
+import Search from '../components/dataviz/Search.vue';
 // gsap.registerPlugin(ScrollTrigger);
 
 export default {
@@ -142,7 +144,8 @@ export default {
 		SliderPerson,
 		SliderObject,
 		LegendItem,
-		Media
+		Media,
+		Search
 	},
 	data() {
 		return {
@@ -304,6 +307,7 @@ export default {
 	background-image: url('../static/images/fond-dataviz.png');
 	background-size: 240% 100%; /* cover */
 	background-position: center;
+	padding-bottom: 20%;
 }
 
 .fond {

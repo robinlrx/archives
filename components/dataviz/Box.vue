@@ -21,7 +21,7 @@ export default {
 		title: {
 			type: String,
 			required: false,
-			default: "Alors monsieur l'enquêteur ?"
+			default: "Alors, inspecteur D. Chevrai, observons vos résultats..."
 		},
 		icon: {
 			type: String,
