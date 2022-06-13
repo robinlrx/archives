@@ -19,6 +19,7 @@ class SceneInit {
     this.background = 0x000
     this.raycaster = new THREE.Raycaster()
     this.cameraDefaultPosition = new THREE.Vector3(0, 12, -5)
+    this.clock = new THREE.Clock()
 
     this.enabledRaycast = false
     this.isLoaded = false
@@ -68,6 +69,7 @@ class SceneInit {
   initModels() {
     this.targetableObjects = new THREE.Object3D()
     this.objectsList = []
+    this.animationMixers = []
     const matcapTexture = new THREE.TextureLoader().load(
       'textures/7A7A7A_D0D0D0_BCBCBC_B4B4B4-512px.png'
     )
@@ -79,12 +81,35 @@ class SceneInit {
     // })
 
     this.office = new Model({
-      src: 'scene/scene',
+      src: 'scene',
       loadingManager: this.manager,
     })
     this.office.container.position.set(0, 6, -30)
     this.office.container.rotation.y = Math.PI
+    this.animationMixers.push(this.office.mixer)
+
     this.scene.add(this.office.container)
+
+    this.fan = new Model({
+      src: 'fan',
+      loadingManager: this.manager,
+    })
+    this.fan.container.position.set(0, 6, -30)
+    this.fan.container.rotation.y = Math.PI
+    this.animationMixers.push(this.fan.mixer)
+    this.scene.add(this.fan.container)
+
+    this.radio = new Model({
+      src: 'radio',
+      loadingManager: this.manager,
+        audioSrc: 'videos/VideoJT.mp4',
+        audioVolume: 2,
+        listener: this.listener,
+    })
+    this.radio.container.position.set(0, 6, -30)
+    this.radio.container.rotation.y = Math.PI
+    this.scene.add(this.radio.container)
+    this.targetableObjects.add(this.radio.container)
 
     // this.radio = new Model({
     //   src: 'radio',
@@ -175,10 +200,13 @@ class SceneInit {
 
     this.manager.onProgress = (url, itemsLoaded, itemsTotal) => {
       if (document.querySelector('.loaderScreen__progressBar'))
-        document.querySelector('.loaderScreen__progressBar').style.width = `${
-          Math.floor((itemsLoaded / itemsTotal) * 100) +
-          Math.floor((1 / itemsTotal) * currentPercent)
-        }%`
+        document.querySelector(
+          '.loaderScreen__progressBar'
+        ).style.backgroundColor = '#F1EFE5'
+      document.querySelector('.loaderScreen__progressBar').style.width = `${
+        Math.floor((itemsLoaded / itemsTotal) * 100) +
+        Math.floor((1 / itemsTotal) * currentPercent)
+      }%`
 
       if (itemsTotal === itemsLoaded) {
         setTimeout(() => {
@@ -202,7 +230,7 @@ class SceneInit {
 
   initCamera() {
     this.camera = new THREE.PerspectiveCamera(
-      65,
+      35,
       window.innerWidth / window.innerHeight,
       1,
       1000
@@ -269,25 +297,24 @@ class SceneInit {
     this.controls.pointerSpeed = 0.5
     this.controls.smooth = true
     // this.controls.smoothspeed = 0.95
-    const blocker = document.getElementById('tuto-container')
+    // const blocker = document.getElementById('tuto-container')
 
-    this.controls.addEventListener('lock', () => {
-      blocker.style.display = 'none'
-    })
+    // blocker.addEventListener('click', () => this.controls.lock())
 
-    this.controls.addEventListener('unlock', () => {
-      blocker.style.display = 'block'
-    })
+    // this.controls.addEventListener('lock', () => {
+    //   blocker.style.display = 'none'
+    // })
+
+    // this.controls.addEventListener('unlock', () => {
+    //   blocker.style.display = 'block'
+    // })
     this.scene.add(this.controls.getObject())
   }
 
   playMedias() {
     setTimeout(() => {
-      this.loadDiv.style.opacity = 0
-      setTimeout(() => {
-        this.loadDiv.remove()
-      }, 550)
-    }, 1000)
+      this.controls.lock()
+    }, 3000)
     this.objectsList.forEach((element) => {
       if (element.sound) {
         element.sound.play()
@@ -344,11 +371,12 @@ class SceneInit {
   update() {
     requestAnimationFrame(() => this.update())
 
-    // const time = this.clock.getElapsedTime()
-
-    // this.camera.position.y += Math.sin(time*100) * 2
-
-    // this.renderer.render(this.scene, this.camera)
+    // const delta = this.clock.getDelta()
+    // if (this.animationMixers) {
+    //   this.animationMixers.forEach((mixer) => {
+    //     mixer.update(delta)
+    //   })
+    // }
 
     this.composer.render()
 

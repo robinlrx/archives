@@ -3,7 +3,7 @@
     <LoadingScreen @wakeUpCutscene="lauchExperience" @loadModels="loadModels" />
     <Focus />
     <Cross />
-    <GUI ref="tuto" />
+    <GUI ref="tuto" @tutoEnded="tutoEnded" />
     <Scene :isLaunched="isLaunched" ref="scene" />
   </div>
 </template>
@@ -46,16 +46,29 @@ export default {
       this.wakeUpCutsceneTL.to(camera.position, {
         x: 0,
         y: 11,
-        z: -10,
-        duration: 0.6,
-        delay: 1.8,
+        z: -9,
+        duration: 1,
+        delay: 0.6,
         ease: Power3,
       })
+      this.wakeUpCutsceneTL.to(camera, {
+        fov: 65,
+        duration: 1.5,
+        ease: Power3,
+        onUpdate: () => {
+          camera.updateProjectionMatrix()
+        },
+        onComplete: () => {
+          document.querySelector(".canvas-container").style.filter = "blur(0px)"
+        }
+      }, '<'
+      )
+
       this.wakeUpCutsceneTL.to(
         camera.rotation,
         {
           x: 0.16,
-          duration: 0.6,
+          duration: 0.8,
           ease: Power3,
         },
         '<'
@@ -64,7 +77,7 @@ export default {
         camera.rotation,
         {
           x: 0.18,
-          duration: 0.3,
+          duration: 0.4,
           ease: Power3,
         },
         '>'
@@ -77,7 +90,7 @@ export default {
           duration: 0.6,
           ease: Power3,
         },
-        '>-0.1'
+        '>'
       )
       this.wakeUpCutsceneTL.to(
         camera.rotation,
@@ -88,6 +101,7 @@ export default {
           ease: Power3,
           onComplete: () => {
             this.$refs.tuto.playAnim()
+            document.querySelector(".canvas-container").style.opacity = "1"
           }
         },
         '>0.1',
@@ -97,8 +111,8 @@ export default {
         {
           x: 0,
           y: 11,
-          z: -7,
-          duration: 1,
+          z: -8,
+          duration: 1.3,
           ease: Power3,
         },
         '>'
@@ -114,6 +128,9 @@ export default {
         '<',
       )
       this.wakeUpCutsceneTL.play()
+    },
+    tutoEnded() {
+      this.$refs.scene.scene.playMedias()
     }
   },
 }

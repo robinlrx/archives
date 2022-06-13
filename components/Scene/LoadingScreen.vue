@@ -1,49 +1,42 @@
 <template>
-  <div>
-    <div class="loaderScreen" ref="loaderScreen">
-      <transition name="fade">
-        <section v-if="showCursor" id="component--mouse" ref="componentMouse">
-          <svg width="48" height="52" viewBox="0 0 48 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <mask id="mask0_2552_4331" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="48"
-              height="52">
-              <path d="M0 8.75L8.75 0H48V51.5H0V8.75Z" fill="#5C5C5C" />
-            </mask>
-            <g mask="url(#mask0_2552_4331)">
-              <path
-                d="M27.1205 28.5483L26.2576 29.4159L18.4241 50.0678L4.93986 6.18265L46.9231 20.9136L27.1205 28.5483Z"
-                fill="#EAF2D3" stroke="black" stroke-width="3" stroke-linejoin="bevel" />
-              <path d="M27.2502 29.2498L20.0002 21.9998" stroke="black" stroke-width="3" />
-            </g>
-          </svg>
+  <div class="loaderScreen" ref="loaderScreen">
+    <transition name="fade">
+      <section v-if="showCursor" id="component--mouse" ref="componentMouse">
+        <svg width="48" height="52" viewBox="0 0 48 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <mask id="mask0_2552_4331" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="48"
+            height="52">
+            <path d="M0 8.75L8.75 0H48V51.5H0V8.75Z" fill="#5C5C5C" />
+          </mask>
+          <g mask="url(#mask0_2552_4331)">
+            <path d="M27.1205 28.5483L26.2576 29.4159L18.4241 50.0678L4.93986 6.18265L46.9231 20.9136L27.1205 28.5483Z"
+              fill="#EAF2D3" stroke="black" stroke-width="3" stroke-linejoin="bevel" />
+            <path d="M27.2502 29.2498L20.0002 21.9998" stroke="black" stroke-width="3" />
+          </g>
+        </svg>
 
-        </section>
-      </transition>
+      </section>
+    </transition>
 
-      <div class="button-container" v-if="displayButton" @click="start">
-        <div class="wakeUpButton" ref="wakeUpButton">SE RéVEILLER</div>
-        <div class="loaderScreen__progressBar">
-        </div>
-      </div>
-
-
-      <!-- <div class="start-button" @click="start" ref="startButton">
-      </div>
-      <div class="start-button start-button-transition" ref="startButtonTransition">
-      </div> -->
-
-
-      <div class="logo-container" ref="logoClick">
-        <img src="images/intro_logo.png" @click="playVideo" />
-      </div>
-
-      <div class="intro-container" ref="intro_container">
-        <video ref="video" src="videos/intro.mp4"></video>
-        <video ref="videoTransition" style="display:none">
-
-        </video>
+    <div class="button-container" ref="buttonContainer" v-if="displayButton" @click="start">
+      <div class="wakeUpButton" ref="wakeUpButton">SE RéVEILLER</div>
+      <div class="loaderScreen__progressBar">
       </div>
     </div>
+
+
+    <div class="logo-container" ref="logoClick">
+      <img src="images/intro_logo.png" @click="playVideo" />
+    </div>
+
+    <div class="intro-container" ref="intro_container">
+      <video ref="video" src="videos/intro.mp4"></video>
+      <video ref="videoTransition" style="display:none">
+
+      </video>
+    </div>
   </div>
+  </transition>
+
 </template>
 
 <script>
@@ -54,7 +47,7 @@ import { Howl } from 'howler';
 export default {
   name: 'LoadingScreen',
   data() {
-    return { displayButton: false, showCursor: false }
+    return { displayButton: false, showCursor: false, cutscenePlaying: false }
   },
   mounted() {
 
@@ -93,16 +86,18 @@ export default {
       })
       this.$refs.video.onended = () => {
         this.$refs.video.remove()
-        document.querySelector(".canvas-container").style.opacity = "1"
+        document.querySelector(".canvas-container").style.opacity = "0.8"
       }
     },
     start() {
       this.$refs.videoTransition.play()
-
+      this.$refs.videoTransition.addEventListener('timeupdate', () => {
+        if (this.$refs.videoTransition.currentTime >= 1 && !this.cutscenePlaying) {
+          this.cutscenePlaying = true
+          this.$emit('wakeUpCutscene')
+        }
+      })
       this.transitionVoiceOver.play();
-      document.querySelector('.focus').style.opacity = 1
-      this.$emit('wakeUpCutscene')
-
       this.$refs.videoTransition.onended = () => {
         this.$refs.loaderScreen.remove()
       }
@@ -223,6 +218,7 @@ export default {
   flex-wrap: wrap;
   text-align: center;
   width: 18%;
+  transition: opacity 0.8s ease;
   animation: buttonContainerSlide 2s ease both;
 }
 
@@ -260,9 +256,9 @@ export default {
 
 .loaderScreen__progressBar {
   width: 1%;
-  transition: width 1s 2s ease;
+  transition: width 1s 2s ease, background-color 1s 2s ease;
   height: 2px;
-  background-color: #F1EFE5;
+  background-color: transparent;
   margin-top: 5px
 }
 </style>

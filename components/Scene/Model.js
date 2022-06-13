@@ -80,6 +80,12 @@ export default class Model {
         callback(gltf.scene)
       }
 
+      if (gltf.animations) {
+        this.mixer = new THREE.AnimationMixer(gltf.scene)
+        gltf.animations.forEach((clip) => {
+          this.mixer.clipAction(clip).play()
+        })
+      }
       gltf.scene.traverse((child) => {
         child.objectName = this.src
 
