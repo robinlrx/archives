@@ -74,7 +74,7 @@ section {
 }
 
 h2 {
-	font-size: 1.5rem;
+	font-size: 1.375rem;
 	text-align: center;
 }
 

@@ -456,7 +456,6 @@ section {
 }
 
 .chart p span {
-	font-family: 'Akira';
 	margin-left: 5px;
 }
 
@@ -519,7 +518,6 @@ section {
 }
 
 .big-data .number span {
-	font-family: 'Akira';
 	margin-left: 20px;
 }
 

@@ -48,15 +48,6 @@ body {
 
 }
 
-@font-face {
-	font-family: 'Akira';
-	src: url('../static/fonts/akira_expanded.woff2') format('woff2'),
-		url('../static/fonts/akira_expanded.woff') format('woff');
-	font-weight: bold;
-	font-style: normal;
-
-}
-
 [class*=reveal-] {
 	opacity: 0;
 	transform: translateY(30px)

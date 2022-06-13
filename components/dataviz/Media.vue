@@ -357,10 +357,6 @@ section {
 	margin: 0;
 }
 
-.trust-explication p:first-of-type span {
-	font-family: 'Akira';
-}
-
 .trust-explication p:last-of-type {
 	font-family: 'Georgia-bold';
 }
