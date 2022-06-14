@@ -10,40 +10,42 @@
 				</div>
 				<div class="timeline"></div>
 				<img src="images/timeline-data.svg" alt="" class="timeline-img">
-				<!-- 1995 -->
-				<!-- eslint-disable-next-line vue/no-lone-template -->
-				<span>
-					<Card v-show="showCard" title="Photo" date="1991" picto="images/picto-pp.svg" url="https://www.police-scientifique.com/omar-raddad/le-blocage-de-porte" left="5.6%"/>
+
+				<!-- eslint-disable-next-line vue/no-unused-vars  v-show="showCard"-->
+				<span v-for="(item, index) in cardData" :key="item.id">
+					<Card v-show="showCard(item.id)" :title="item.title" :date="item.date" :picto="item.picto" :url="item.url" :left="item.left"/> 
 				</span>
-				
-				<Card v-show="showCard" title="Sources multiples" date="1995"  picto="images/picto-tv.svg" left="15.8%"/>
+				<!-- 1995 -->
+				<!-- <Card v-show="showCard" title="Photo" date="1991" picto="images/picto-pp.svg" url="https://www.police-scientifique.com/omar-raddad/le-blocage-de-porte" left="5.6%"/> -->			
+				<!-- <Card v-show="showCard" title="Sources multiples" date="1995" picto="images/picto-tv.svg" left="15.8%"/> -->
 				<!-- 2001 -->
-				<Card v-show="showCard" title="Le Monde" date="2001" picto="images/picto-pp.svg" left="31.5%"/>
-				<Card v-show="showCard" title="Le Parisien" date="2001" url="https://www.leparisien.fr/faits-divers/un-temoin-cle-pret-a-se-soumettre-au-test-adn-22-02-2001-2001975981.php" picto="images/picto-pw.svg" left="33.2%"/>
+				<!-- <Card v-show="showCard" title="Le Monde" date="2001" picto="images/picto-pp.svg" left="31.5%"/> -->
+				<!-- <Card v-show="showCard" title="Le Parisien" date="2001" url="https://www.leparisien.fr/faits-divers/un-temoin-cle-pret-a-se-soumettre-au-test-adn-22-02-2001-2001975981.php" picto="images/picto-pw.svg" left="33.2%"/> -->
 				<!-- 2008 -->
-				<Card v-show="showCard" title="France Inter" date="2008" url="https://podcasts.apple.com/fr/podcast/2-omar-raddad-lhistoire-secr%C3%A8te/id1465111348?i=1000441988790" left="49.7%"/>
+				<!-- <Card v-show="showCard" title="France Inter" date="2008" url="https://podcasts.apple.com/fr/podcast/2-omar-raddad-lhistoire-secr%C3%A8te/id1465111348?i=1000441988790" left="49.7%"/> -->
 				<!-- 2011 -->
-				<Card v-show="showCard" title="Omar m'a tuer" date="2011" picto="images/picto-tv.svg" left="57.5%"/>
-				<Card v-show="showCard" title="Souces multiples" date="2011" picto="images/picto-tv.svg" left="59.2%"/>
+				<!-- <Card v-show="showCard" title="Omar m'a tuer" date="2011" picto="images/picto-tv.svg" left="57.5%"/> -->
+				<!-- <Card v-show="showCard" title="Souces multiples" date="2011" picto="images/picto-tv.svg" left="59.2%"/> -->
 				<!-- 2019 -->
-				<Card v-show="showCard" title="Les voix du crimes" date="2019" url="https://www.radiofrance.fr/franceinter/podcasts/affaires-sensibles/affaires-sensibles-du-jeudi-02-septembre-2021-3608970" left="78.1%"/>
-				<Card v-show="showCard" title="Souces multiples" date="2019" picto="images/picto-tv.svg" left="80%"/>
+				<!-- <Card v-show="showCard" title="Les voix du crimes" date="2019" url="https://www.radiofrance.fr/franceinter/podcasts/affaires-sensibles/affaires-sensibles-du-jeudi-02-septembre-2021-3608970" left="78.1%"/> -->
+				<!-- <Card v-show="showCard" title="Souces multiples" date="2019" picto="images/picto-tv.svg" left="80%"/> -->
 				<!-- 2021 -->
-				<Card v-show="showCard" title="La Dépêche du Midi" date="2021" picto="images/picto-pp.svg" left="83.5%"/>
-				<Card v-show="showCard" title="Le Monde" date="2021" url="https://www.lemonde.fr/societe/article/2021/12/17/condamnation-d-omar-raddad-un-complement-d-information-qui-pourrait-mener-a-une-saisine-de-la-cour-de-revision_6106379_3224.html" picto="images/picto-pp.svg" left="85%"/>
-				<Card v-show="showCard" title="France Culture" date="2021" left="86%"/>
-				<Card v-show="showCard" title="France Culture" date="2021" url="https://www.radiofrance.fr/franceculture" left="87.2%"/>
-				<Card v-show="showCard" title="L'intégrale" date="2021" url="https://www.rtl.fr/actu/justice-faits-divers/omar-raddad-l-espoir-d-un-nouveau-proces-7900106692" left="88.45%"/>
-				<Card v-show="showCard" title="Twitter" date="2021" picto="images/picto-rs.svg" left="89.9%"/>
+				<!-- <Card v-show="showCard" title="La Dépêche du Midi" date="2021" picto="images/picto-pp.svg" left="83.5%"/> -->
+				<!-- <Card v-show="showCard" title="Le Monde" date="2021" url="https://www.lemonde.fr/societe/article/2021/12/17/condamnation-d-omar-raddad-un-complement-d-information-qui-pourrait-mener-a-une-saisine-de-la-cour-de-revision_6106379_3224.html" picto="images/picto-pp.svg" left="85%"/> -->
+				<!-- <Card v-show="showCard" title="France Culture" date="2021" left="86%"/> -->
+				<!-- <Card v-show="showCard" title="France Culture" date="2021" url="https://www.radiofrance.fr/franceculture" left="87.2%"/> -->
+				<!-- <Card v-show="showCard" title="L'intégrale" date="2021" url="https://www.rtl.fr/actu/justice-faits-divers/omar-raddad-l-espoir-d-un-nouveau-proces-7900106692" left="88.45%"/> -->
+				<!-- <Card v-show="showCard" title="Twitter" date="2021" picto="images/picto-rs.svg" left="89.9%"/> -->
 				<!-- 2022 -->
-				<Card v-show="showCard" title="Le Point" date="2022" url="https://www.ccme.org.ma/images/stories/Le_Point_Omar_Raddad.pdf" picto="images/picto-pp.svg" left="91.5%"/>
-				<Card v-show="showCard" title="Reddit" date="2022" url="https://www.reddit.com/r/UnresolvedMysteries/comments/79cjcz/omar_ma_tuer_who_killed_ghislaine_marchal/" picto="images/picto-rs.svg" left="93%"/>
+				<!-- <Card v-show="showCard" title="Le Point" date="2022" url="https://www.ccme.org.ma/images/stories/Le_Point_Omar_Raddad.pdf" picto="images/picto-pp.svg" left="91.5%"/> -->
+				<!-- <Card v-show="showCard" title="Reddit" date="2022" url="https://www.reddit.com/r/UnresolvedMysteries/comments/79cjcz/omar_ma_tuer_who_killed_ghislaine_marchal/" picto="images/picto-rs.svg" left="93%"/> -->
 			</div>
 		</Box>
 	</section>
 </template>
 
 <script>
+import cardJson from '../../static/json/card.json';
 import Box from './Box.vue';
 import Card from './Card.vue';
 export default {
@@ -54,8 +56,44 @@ export default {
 	},
 	data() {
 		return {
-			showCard: true // localStorage.getItem("mediaX") : true or false
+			// showCard: true, // localStorage.getItem("cardMediaX") : true or false
+			// showCardUser: [
+			// 	{true}
+			// ],
+			cardData: cardJson.cardData,
+			showCard: (x) =>  {
+				if(process.client) return JSON.parse( localStorage.getItem(`cardMedia${x}`) );
+			}
 		}
+	},
+	mounted() {
+		this.setCardLocalStorage()
+	},
+	methods: {
+		setCardLocalStorage() {
+			localStorage.setItem('cardMedia1', true)
+			localStorage.setItem('cardMedia2', true)
+			localStorage.setItem('cardMedia3', true)
+			localStorage.setItem('cardMedia4', true)
+			localStorage.setItem('cardMedia5', true)
+			localStorage.setItem('cardMedia6', true)
+			localStorage.setItem('cardMedia7', true)
+			localStorage.setItem('cardMedia8', true)
+			localStorage.setItem('cardMedia9', true)
+			localStorage.setItem('cardMedia10', true)
+			localStorage.setItem('cardMedia11', true)
+			localStorage.setItem('cardMedia12', true)
+			localStorage.setItem('cardMedia13', true)
+			localStorage.setItem('cardMedia14', true)
+			localStorage.setItem('cardMedia15', true)
+			localStorage.setItem('cardMedia16', true)
+			localStorage.setItem('cardMedia17', true)
+			localStorage.setItem('cardMedia18', true)
+		},
+		// getCardLocalStorage(x) {
+		// 	return JSON.parse( localStorage.getItem(`cardMedia${x}`) );
+			
+		// }
 	}
 }
 </script>
