@@ -1,8 +1,8 @@
 <template>
-	<div class="card" :style="{left: left}" @click="showCard()">
+	<div class="card" :style="{left: left}">
 		<div class="dot">
 			<img src="images/active-dot.svg" alt="" class="line-dot">
-			<div class="point" :class="{ active: isActive }"></div>
+			<div class="point" :class="{ active: isActive }" @click="showCard()"></div>
 			<div class="trait" :class="{ active: isActive }"></div>
 		</div>
 		<div class="card-content" :class="{ active: isActive }">
@@ -93,6 +93,8 @@ export default {
 	height: 40px;
 	background-color: var(--black);
 	opacity: 0;
+	visibility: hidden;
+	transition: all 0.2s ease-in-out;
 }
 
 .point, .line-dot {
@@ -109,6 +111,7 @@ export default {
 	z-index: 2;
 	position: absolute;
 	top: 0;
+	cursor: pointer;
 }
 
 .card-content {
@@ -121,6 +124,9 @@ export default {
 	justify-content: center;
 	align-items: center;
 	opacity: 0;
+	visibility: hidden;
+	transition: all 0.2s ease-in-out;
+	display: none;
 }
 
 .card-content img {
@@ -158,5 +164,10 @@ export default {
 
 .trait.active, .card-content.active {
 	opacity: 1;
+	visibility: visible;
+}
+
+.card-content.active {
+	display: flex;
 }
 </style>

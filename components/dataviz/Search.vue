@@ -13,7 +13,7 @@
 
 				<!-- eslint-disable-next-line vue/no-unused-vars  v-show="showCard"-->
 				<span v-for="(item, index) in cardData" :key="item.id">
-					<Card v-show="showCard(item.id)" :title="item.title" :date="item.date" :picto="item.picto" :url="item.url" :left="item.left"/> 
+					<Card v-show="showCard(item.id)" :title="item.title" :date="item.date" :picto="item.picto" :url="item.url" :left="item.left" @click.native="increment()"/> 
 				</span>
 				<!-- 1995 -->
 				<!-- <Card v-show="showCard" title="Photo" date="1991" picto="images/picto-pp.svg" url="https://www.police-scientifique.com/omar-raddad/le-blocage-de-porte" left="5.6%"/> -->			
@@ -67,33 +67,19 @@ export default {
 		}
 	},
 	mounted() {
-		this.setCardLocalStorage()
+		// this.setCardLocalStorage()
+		localStorage.setItem('incremennt', 0)
 	},
 	methods: {
-		setCardLocalStorage() {
-			localStorage.setItem('cardMedia1', true)
-			localStorage.setItem('cardMedia2', true)
-			localStorage.setItem('cardMedia3', true)
-			localStorage.setItem('cardMedia4', true)
-			localStorage.setItem('cardMedia5', true)
-			localStorage.setItem('cardMedia6', true)
-			localStorage.setItem('cardMedia7', true)
-			localStorage.setItem('cardMedia8', true)
-			localStorage.setItem('cardMedia9', true)
-			localStorage.setItem('cardMedia10', true)
-			localStorage.setItem('cardMedia11', true)
-			localStorage.setItem('cardMedia12', true)
-			localStorage.setItem('cardMedia13', true)
-			localStorage.setItem('cardMedia14', true)
-			localStorage.setItem('cardMedia15', true)
-			localStorage.setItem('cardMedia16', true)
-			localStorage.setItem('cardMedia17', true)
-			localStorage.setItem('cardMedia18', true)
-		},
 		// getCardLocalStorage(x) {
 		// 	return JSON.parse( localStorage.getItem(`cardMedia${x}`) );
 			
 		// }
+		increment() {
+			let incremennt = parseInt(localStorage.getItem("incremennt"));
+			localStorage.setItem("incremennt", ++incremennt);
+			console.log(incremennt);
+		}
 	}
 }
 </script>

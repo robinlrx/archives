@@ -48,11 +48,12 @@
 								</Box>
 
 								<div class="big-data">
-									<span v-if="data1 === 'yes'" class="reveal-1">
+									<!-- enlever process.client && à la fin -->
+									<span v-if="questionMeurtrier === 'yes'" class="reveal-1">
 										<p class="number">{{yesPourcentage}}<span>%</span></p>
 										<p>des utilisateurs pensent comme vous, qu'Omar Raddad à bel et bien tué Ghislaine Marshal.</p>
 									</span>
-									<span v-else-if="data1 === 'no'" class="reveal-1">
+									<span v-else-if="questionMeurtrier === 'no'" class="reveal-1">
 										<p class="number">{{noPourcentage}}<span>%</span></p>
 										<p>des utilisateurs pensent comme vous, qu'Omar Raddad n'a pas tué Ghislaine Marshal.</p>
 									</span>
@@ -119,6 +120,11 @@
 		<Media />
 		<SliderPerson />
 		<Search />
+		<section class="replay-section">
+			<p>Découvrez les autres enquêtes <br>disponibles sur Archive :</p>
+			<div class="separator"></div>
+			<button	class="restart text-bold" @click="restart()">NOUVELLE ENQUêTE</button>
+		</section>
 	</div>
 </template>
 
@@ -154,7 +160,8 @@ export default {
 			jspPourcentage: undefined,
 			showDataviz: false,
 			counter: 0,
-			// data1: localStorage.getItem("data1")
+			questionMeurtrier: () => { if(process.client) return localStorage.getItem("questionMeurtrier") }, // enlever function lors deploy
+			// questionMeurtrier: localStorage.getItem("questionMeurtrier")
 		}
 	},
 	mounted() {
@@ -291,6 +298,10 @@ export default {
 				},
 				// plugins: [shadowPlugin]
 			});
+		},
+		restart() {
+			localStorage.clear()
+			this.$nuxt.$router.push('/')
 		}
 	},
 }
@@ -307,7 +318,7 @@ export default {
 	background-image: url('../static/images/fond-dataviz.png');
 	background-size: 240% 100%; /* cover */
 	background-position: center;
-	padding-bottom: 20%;
+	padding-bottom: 5%;
 }
 
 .fond {
@@ -624,5 +635,40 @@ section:first-of-type {
 	z-index: 2;
 	right: 5%;
 	background-color: var(--cream);
+}
+
+.replay-section {
+	margin-top: 250px;
+	/* border: solid red; */
+}
+
+.replay-section p {
+	font-family: 'Georgia-bold';
+	text-align: center;
+	font-size: 1.2rem;
+}
+
+.replay-section .separator {
+	width: 30%;
+	margin: 25px 0;
+}
+
+.restart {
+	box-shadow: 7px 5px 0px var(--black);
+	width: 500px;
+	height: 80px;
+	color: var(--black);
+	background-color: var(--cream);
+	border: solid var(--black);
+	outline: none;
+	transition: all ease 0.5s;
+	font-size: 2rem;
+	cursor: pointer;
+}
+
+.restart:hover {
+	border: solid var(--cream);
+	color: var(--cream);
+	background-color: var(--black);
 }
 </style> 

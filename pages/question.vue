@@ -25,6 +25,9 @@ export default {
 			jsp: 'jsp'
 		}
 	},
+	mounted() {
+		this.setCardLocalStorage()
+	},
 	methods: {
 
 		async updateDocument(documentField) {
@@ -43,8 +46,29 @@ export default {
 		},
 
 		stockValue(val) {
-			localStorage.setItem('data1', val)
-			console.log(localStorage.getItem('data1'))
+			localStorage.setItem('questionMeurtrier', val)
+			console.log(localStorage.getItem('questionMeurtrier'))
+		},
+
+		setCardLocalStorage() {
+			localStorage.setItem('cardMedia1', true)
+			localStorage.setItem('cardMedia2', true)
+			localStorage.setItem('cardMedia3', true)
+			localStorage.setItem('cardMedia4', true)
+			localStorage.setItem('cardMedia5', true)
+			localStorage.setItem('cardMedia6', true)
+			localStorage.setItem('cardMedia7', true)
+			localStorage.setItem('cardMedia8', true)
+			localStorage.setItem('cardMedia9', true)
+			localStorage.setItem('cardMedia10', true)
+			localStorage.setItem('cardMedia11', true)
+			localStorage.setItem('cardMedia12', true)
+			localStorage.setItem('cardMedia13', true)
+			localStorage.setItem('cardMedia14', true)
+			localStorage.setItem('cardMedia15', true)
+			localStorage.setItem('cardMedia16', true)
+			localStorage.setItem('cardMedia17', true)
+			localStorage.setItem('cardMedia18', true)
 		}
 	}
 }
