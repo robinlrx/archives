@@ -12,7 +12,7 @@
 			</div>
 			<div class="card-text">
 				<p class="card-title">{{title}}</p>
-				<div class="link">
+				<div v-if="url !== undifined" class="link">
 					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ic" width="18" height="18" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="m12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path></svg>
 					<a :href="url" target="_blank">Lien</a>
 				</div>
@@ -27,7 +27,7 @@ export default {
 	props: {
 		picto: {
 			type: String,
-			required: true,
+			required: false,
 			default: "/images/picto-radio.svg"
 		},
 		date: {
@@ -37,17 +37,17 @@ export default {
 		},
 		title: {
 			type: String,
-			required: false,
-			default: "La Dépêche du Midi"
+			required: true,
+			default: "Titre"
 		},
 		url: {
 			type: String,
 			required: false,
-			default: "#"
+			default: undefined
 		},
 		left: {
 			type: String,
-			required: false,
+			required: true,
 			default: undefined
 		}
 	}
@@ -133,6 +133,7 @@ export default {
 .card-title {
 	margin-top: 0px;
 	font-size: 0.9rem;
+	height: 50px;
 }
 
 .link {
