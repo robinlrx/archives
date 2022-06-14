@@ -1,11 +1,11 @@
 <template>
-	<div class="card" :style="{left: left}">
+	<div class="card" :style="{left: left}" @click="showCard()">
 		<div class="dot">
 			<img src="images/active-dot.svg" alt="" class="line-dot">
-			<div class="point"></div>
-			<div class="trait"></div>
+			<div class="point" :class="{ active: isActive }"></div>
+			<div class="trait" :class="{ active: isActive }"></div>
 		</div>
-		<div class="card-content">
+		<div class="card-content" :class="{ active: isActive }">
 			<img :src="picto" alt="">
 			<div class="date">
 				<p class="text-bold">{{date}}</p>
@@ -50,6 +50,16 @@ export default {
 			required: true,
 			default: undefined
 		}
+	},
+	data() {
+		return {
+			isActive: false
+		}
+	},
+	methods: {
+		showCard() {
+			this.isActive = !this.isActive;
+		}
 	}
 }
 </script>
@@ -67,7 +77,7 @@ export default {
 	justify-content: center;
 	align-items: center;
 	position: absolute;
-	top: 75.7%;
+	top: 74.5%;
 }
 
 .card .dot {
@@ -82,6 +92,7 @@ export default {
 	width: 2px;
 	height: 40px;
 	background-color: var(--black);
+	opacity: 0;
 }
 
 .point, .line-dot {
@@ -109,6 +120,7 @@ export default {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	opacity: 0;
 }
 
 .card-content img {
@@ -138,5 +150,13 @@ export default {
 
 .link {
 	font-size: 0.9rem;
+}
+
+.point.active {
+	opacity: 0;
+}
+
+.trait.active, .card-content.active {
+	opacity: 1;
 }
 </style>
