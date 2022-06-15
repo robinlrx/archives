@@ -13,7 +13,7 @@
 
 				<!-- eslint-disable-next-line vue/no-unused-vars -->
 				<span v-for="(item, index) in cardData" :key="item.id">
-					<Card v-show="showCard(item.id)" :title="item.title" :date="item.date" :picto="item.picto" :url="item.url" :left="item.left" @click.native="increment()"/> 
+					<Card v-show="showCard(item.id)" :title="item.title" :date="item.date" :picto="require(`~/assets/images/${item.picto}`)" :url="item.url" :left="item.left" @click.native="increment()"/> 
 				</span>
 			</div>
 		</Box>
