@@ -121,9 +121,20 @@
 		<SliderPerson />
 		<Search />
 		<section class="replay-section">
-			<p>Découvrez les autres enquêtes <br>disponibles sur Archive :</p>
+			<p class="replay-discover">Découvrez les autres enquêtes <br>disponibles sur Archive :</p>
 			<div class="separator"></div>
 			<button	class="restart text-bold" @click="restart()">NOUVELLE ENQUêTE</button>
+			<div class="info-container">
+				<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" class="info" @click="showPopup()">
+					<circle cx="18" cy="18" r="17" stroke="black" stroke-width="2" />
+					<path d="M21.0365 8.97839C21.0365 9.4127 20.9571 9.99 20.7982 10.7103C20.6499 11.42 20.4592 12.2569 20.2262 13.2208C20.0037 14.1318 19.7495 15.2705 19.4635 16.637C19.1775 17.9929 18.8756 19.6718 18.5578 21.6738H17.3343C17.0166 19.6506 16.7147 17.9664 16.4287 16.6211C16.1427 15.2758 15.8884 14.1477 15.666 13.2367C15.4647 12.3999 15.2793 11.5842 15.1099 10.7898C14.9404 9.98471 14.8556 9.38092 14.8556 8.97839C14.8556 8.16275 15.1575 7.46892 15.7613 6.89691C16.3651 6.31431 17.0907 6.023 17.9381 6.023C18.775 6.023 19.5006 6.31431 20.115 6.89691C20.7293 7.46892 21.0365 8.16275 21.0365 8.97839ZM21.0047 26.5359C21.0047 27.341 20.6976 28.0348 20.0832 28.6174C19.4794 29.1894 18.7697 29.4754 17.954 29.4754C17.1278 29.4754 16.4075 29.1894 15.7931 28.6174C15.1893 28.0348 14.8874 27.341 14.8874 26.5359C14.8874 25.7309 15.1893 25.0371 15.7931 24.4545C16.4075 23.8613 17.1278 23.5647 17.954 23.5647C18.7697 23.5647 19.4794 23.8613 20.0832 24.4545C20.6976 25.0371 21.0047 25.7309 21.0047 26.5359Z" fill="black"/>
+				</svg>
+				<div class="popup" :class="{ active: isPopupActive }">
+					<p>A propos</p>
+					<p class="popup-text popup-text--first">Fini de travailler Inspecteur D.<br> Chevrai, votre temps est imparti !</p>
+					<p class="popup-text">En revanche durant l’expérience, nous en avons profité pour collecter quelques informations sur vous... Du moins sur vos habitudes, réflexes en matière de consommation de médias. Vous retrouverez sur cette page, une analyse comparée de vos résultats.</p>
+				</div>
+			</div>
 		</section>
 	</div>
 </template>
@@ -161,7 +172,8 @@ export default {
 			showDataviz: false,
 			counter: 0,
 			questionMeurtrier: () => { if(process.client) return localStorage.getItem("questionMeurtrier") }, // enlever function lors deploy
-			// questionMeurtrier: localStorage.getItem("questionMeurtrier")
+			// questionMeurtrier: localStorage.getItem("questionMeurtrier"),
+			isPopupActive: false
 		}
 	},
 	mounted() {
@@ -196,21 +208,7 @@ export default {
 			}
 		},
 		showElements() {
-			// const showTL = gsap.timeline()
 			this.showDataviz = true
-			// showTL.fromTo('header', { opacity: 0 }, { opacity: 1, duration: 1, delay: 1 })
-			// showTL.fromTo('section', { opacity: 0, y: 400}, { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: Power1.easeIn} )
-			// showTL.to('.logo-big', { rotate: 720, scale: 2, duration: 0.5} )
-			// showTL.fromTo('.case', { opacity: 0, }, { opacity: 1, duration: 1} )
-			// showTL.fromTo('.stats', { opacity: 0, }, { opacity: 1, duration: 1} )
-			// showTL.fromTo('.dataviz', { width: 0, opacity: 0 }, { width: 'auto', opacity: 1, duration: 1, ease: Power1.easeIn} )
-
-			// if showElements() is in fetchDocument()
-			// showTL.fromTo('.dataviz .chart-yes', { width: 0, opacity: 0 }, { width: `${this.yesPourcentage}%`, opacity: 1, duration: 0.5, ease: Power1.easeInOut} )
-			// showTL.fromTo('.dataviz .chart-no', { width: 0, opacity: 0 }, { width: `${this.noPourcentage}%`, opacity: 1, duration: 0.5, ease: Power1.easeInOut} )
-			// showTL.fromTo('.dataviz .chart-jsp', { width: 0, opacity: 0 }, { width: `${this.jspPourcentage}%`, opacity: 1, duration: 0.5, ease: Power1.easeInOut} )
-
-			// return showTL
 
 			const ratio = 0.1; // 10%
 			const options = {
@@ -299,9 +297,14 @@ export default {
 				// plugins: [shadowPlugin]
 			});
 		},
+
 		restart() {
 			localStorage.clear()
 			this.$nuxt.$router.push('/')
+		},
+
+		showPopup() {
+			this.isPopupActive = !this.isPopupActive
 		}
 	},
 }
@@ -565,7 +568,7 @@ section:first-of-type {
 	border-right: solid 3px var(--cream);
 } 
 
-.no-box p:first-of-type, .yes-box p:first-of-type {
+.no-box p:first-of-type, .yes-box p:first-of-type, .popup  p:first-of-type {
 	font-family: 'Strong-concrete';
 	font-size: 3rem;
 	width: 100%;
@@ -585,7 +588,7 @@ section:first-of-type {
 	margin-left: 30px;
 }
 
-.yes-box p:first-of-type {
+.yes-box p:first-of-type, .popup p:first-of-type {
 	border-bottom: solid var(--black);
 }
 
@@ -642,7 +645,7 @@ section:first-of-type {
 	/* border: solid red; */
 }
 
-.replay-section p {
+.replay-discover {
 	font-family: 'Georgia-bold';
 	text-align: center;
 	font-size: 1.2rem;
@@ -671,4 +674,59 @@ section:first-of-type {
 	color: var(--cream);
 	background-color: var(--black);
 }
+
+.info-container {
+	/* border: solid yellow; */
+	margin-top: 150px;
+	align-self: flex-end;
+	position: relative;
+	margin-right: 50px;
+}
+
+.info {
+	position: relative;
+	z-index: 3;
+}
+
+.info:hover {
+	stroke: var(--cream);
+	fill: var(--black);
+	color: var(--black);
+	cursor: pointer;
+}
+
+.info:hover path {
+	fill: var(--cream);
+}
+
+.popup {
+	width: 300px;
+	padding: 40px ;
+	border: solid var(--black);
+	margin-left: 30px;
+	box-shadow: 10px 8px 0px var(--black);
+	position: absolute;
+	bottom: -4%;
+	right: -9%;
+	visibility: hidden;
+	opacity: 0;
+	transition: all ease 0.3s;
+
+}
+
+.popup.active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.popup-text {
+	font-family: 'Almarai', sans-serif;
+	font-weight: 400;
+	text-align: justify;
+}
+
+.popup-text--first {
+	margin-bottom: 20px;
+}
+
 </style> 

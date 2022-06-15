@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&display=swap');
 
 :root {
 	--black: #000000;
@@ -124,6 +124,7 @@ body {
 
 .link a {
 	font-family: 'Almarai', sans-serif;
+	font-weight: 700;
 	color: var(--black);
 	text-decoration: none;
 	margin-left: 10px;

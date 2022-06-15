@@ -145,6 +145,7 @@ export default {
 	align-self: start;
 	margin-left: 5px;
 	font-family: 'Almarai', sans-serif;
+	font-weight: 700;
 	padding: 10px 0;
 }
 
