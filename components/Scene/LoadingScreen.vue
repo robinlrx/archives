@@ -91,6 +91,9 @@ export default {
     },
     start() {
       this.$refs.videoTransition.play()
+      document.querySelector(".button-container").classList.add("button-container-transition")
+      document.querySelector("#component--mouse").classList.add("cursor-container-transition")
+
       this.$refs.videoTransition.addEventListener('timeupdate', () => {
         if (this.$refs.videoTransition.currentTime >= 1 && !this.cutscenePlaying) {
           this.cutscenePlaying = true
@@ -222,6 +225,11 @@ export default {
   animation: buttonContainerSlide 2s ease both;
 }
 
+.button-container-transition {
+  animation: buttonContainerSlideOff 1s ease both;
+
+}
+
 @keyframes buttonContainerSlide {
   from {
     transform: translateY(-100%);
@@ -231,6 +239,33 @@ export default {
   to {
     transform: translateY(0%);
     opacity: 1
+  }
+}
+
+@keyframes buttonContainerSlideOff {
+  from {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(100%);
+    opacity: 0
+  }
+}
+
+.cursor-container-transition {
+  animation: cursorSlideOff 0.5s ease both;
+
+}
+
+@keyframes cursorSlideOff {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0
   }
 }
 

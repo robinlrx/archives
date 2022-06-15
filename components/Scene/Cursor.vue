@@ -16,23 +16,28 @@ export default { name: "Cross" }
   justify-content: center;
   align-items: center;
   position: fixed;
-  z-index: 2;
+  z-index: 3;
   pointer-events: none;
-  opacity: 0
-
+  transition: opacity 0.5s ease;
+  opacity: 0;
 }
 
 .cursor-circle {
   height: 10px;
   width: 10px;
-  background-color: #ffffff;
   border-radius: 50%;
   transition: all 0.4s ease;
+  background-color: #ffffff;
+  border: 1px solid #000000b5;
+
+
 }
 
 .cursor-circle-focus {
   height: 25px;
   width: 25px;
+  background-color: transparent;
+  border: 3px solid white;
   transition: all 0.4s ease;
 }
 </style>

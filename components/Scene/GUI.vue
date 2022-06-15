@@ -1,5 +1,5 @@
 <template>
-  <div id="tuto-container" ref="introContainer">
+  <div id="tuto-container" ref="introContainer" class="active">
     <div id="mouse-container" ref="mouseContainer">
     </div>
     <div id="text-container" ref="textContainer">
@@ -30,6 +30,7 @@ export default {
 
     this.tutoLottie.addEventListener("complete", () => {
       this.$refs.introContainer.style.opacity = 0
+      this.$refs.introContainer.classList.remove("active")
       this.$emit("tutoEnded")
       document.querySelector(".canvas-container").style.filter = "blur(0px)"
       setTimeout(() => {

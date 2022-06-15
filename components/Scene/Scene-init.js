@@ -21,7 +21,7 @@ class SceneInit {
     this.cameraDefaultPosition = new THREE.Vector3(0, 12, -5)
     this.clock = new THREE.Clock()
 
-    this.enabledRaycast = false
+    this.enabledRaycast = true
     this.isLoaded = false
     this.isZoomed = false
     this.currentAction = undefined
@@ -53,7 +53,7 @@ class SceneInit {
     backgroundNoiseLoader.load('sounds/BACKGROUND_NOISE.mp3', (buffer) => {
       backgroundNoise.setBuffer(buffer)
       backgroundNoise.setLoop(true)
-      backgroundNoise.setVolume(0.5)
+      backgroundNoise.setVolume(0.3)
       backgroundNoise.play()
     })
   }
@@ -81,35 +81,33 @@ class SceneInit {
     // })
 
     this.office = new Model({
-      src: 'scene',
+      scene: this.scene,
+      src: 'office',
       loadingManager: this.manager,
     })
-    this.office.container.position.set(0, 6, -30)
-    this.office.container.rotation.y = Math.PI
     this.animationMixers.push(this.office.mixer)
-
     this.scene.add(this.office.container)
 
     this.fan = new Model({
+      scene: this.scene,
       src: 'fan',
       loadingManager: this.manager,
     })
-    this.fan.container.position.set(0, 6, -30)
-    this.fan.container.rotation.y = Math.PI
     this.animationMixers.push(this.fan.mixer)
     this.scene.add(this.fan.container)
 
     this.radio = new Model({
+      scene: this.scene,
       src: 'radio',
       loadingManager: this.manager,
-        audioSrc: 'videos/VideoJT.mp4',
-        audioVolume: 2,
-        listener: this.listener,
+      audioSrc: 'sounds/radio/extrait1/1.mp3',
+      audioVolume: 2,
+      listener: this.listener,
+      action: this.radioAction,
     })
-    this.radio.container.position.set(0, 6, -30)
-    this.radio.container.rotation.y = Math.PI
-    this.scene.add(this.radio.container)
+    this.objectsList.push(this.radio)
     this.targetableObjects.add(this.radio.container)
+    this.scene.add(this.targetableObjects)
 
     // this.radio = new Model({
     //   src: 'radio',
@@ -184,7 +182,6 @@ class SceneInit {
     // this.targetableObjects.add(this.TV5.container)
 
     // this.objectsList.push(this.TV5)
-    this.scene.add(this.targetableObjects)
   }
 
   initScene() {
@@ -209,6 +206,7 @@ class SceneInit {
       }%`
 
       if (itemsTotal === itemsLoaded) {
+        this.isLoaded = true
         setTimeout(() => {
           document.querySelector('.wakeUpButton').classList.add('active-button')
         }, 1200)
@@ -219,13 +217,13 @@ class SceneInit {
   initLights() {
     const ambient = new THREE.AmbientLight(0xffffff, 1)
     this.scene.add(ambient)
-    const pointLight = new THREE.PointLight(0x00ffab, 1, 100)
-    pointLight.position.set(10, 10, 10)
-    this.scene.add(pointLight)
+    // const pointLight = new THREE.PointLight(0x00ffab, 1, 100)
+    // pointLight.position.set(10, 10, 10)
+    // this.scene.add(pointLight)
 
-    const sphereSize = 1
-    const pointLightHelper = new THREE.PointLightHelper(pointLight, sphereSize)
-    this.scene.add(pointLightHelper)
+    // const sphereSize = 1
+    // const pointLightHelper = new THREE.PointLightHelper(pointLight, sphereSize)
+    // this.scene.add(pointLightHelper)
   }
 
   initCamera() {
@@ -294,20 +292,23 @@ class SceneInit {
       this.camera,
       this.renderer.domElement
     )
-    this.controls.pointerSpeed = 0.5
+    this.controls.pointerSpeed = 0.25
     this.controls.smooth = true
-    // this.controls.smoothspeed = 0.95
-    // const blocker = document.getElementById('tuto-container')
+    const blocker = document.getElementById('tuto-container')
 
-    // blocker.addEventListener('click', () => this.controls.lock())
+    blocker.addEventListener('click', () => this.controls.lock())
 
-    // this.controls.addEventListener('lock', () => {
-    //   blocker.style.display = 'none'
-    // })
+    this.controls.addEventListener('lock', () => {
+      if (blocker.getAttribute('class') !== 'active') {
+        blocker.style.display = 'none'
+        blocker.style.opacity = '0'
+      }
+    })
 
-    // this.controls.addEventListener('unlock', () => {
-    //   blocker.style.display = 'block'
-    // })
+    this.controls.addEventListener('unlock', () => {
+      blocker.style.display = 'block'
+      blocker.style.opacity = '1'
+    })
     this.scene.add(this.controls.getObject())
   }
 
@@ -389,17 +390,24 @@ class SceneInit {
       )
 
       if (intersects.length > 0) {
+        document
+          .querySelector('.cursor-circle')
+          .classList.add('cursor-circle-focus')
         const intersect = intersects[0].object
 
         const wholeObject = this.objectsList.find(
           (element) => element.src === intersect.objectName
         )
+        console.log(intersect.objectName)
 
         this.currentAction = wholeObject.action
-        document.addEventListener('wheel', this.zoomCamera(wholeObject))
+        document.addEventListener('wheel', this.zoomCamera)
+      } else {
+        document
+          .querySelector('.cursor-circle')
+          .classList.remove('cursor-circle-focus')
+        document.removeEventListener('wheel', this.zoomCamera)
       }
-    } else {
-      document.removeEventListener('wheel', this.zoomCamera)
     }
   }
 

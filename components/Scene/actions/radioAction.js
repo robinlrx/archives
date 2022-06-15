@@ -1,33 +1,84 @@
-// import { gsap, Power3 } from 'gsap'
+import { gsap, Power3 } from 'gsap'
+import * as THREE from 'three'
 
-export const currentRadioClip = 'sounds/radio/extrait1/1.mp3'
+const radioClipsList = [
+  'sounds/radio/extrait1/1.mp3',
+  'sounds/radio/extrait2/1.mp3',
+  'sounds/radio/extrait3/1.mp3',
+  'sounds/radio/extrait4/1.mp3',
+  'sounds/radio/extrait5/1.mp3',
+  'sounds/radio/extrait1/2.mp3',
+  'sounds/radio/extrait2/2.mp3',
+  'sounds/radio/extrait3/2.mp3',
+  'sounds/radio/extrait4/2.mp3',
+  'sounds/radio/extrait5/2.mp3',
+  'sounds/radio/extrait1/3.mp3',
+  'sounds/radio/extrait2/3.mp3',
+  'sounds/radio/extrait3/3.mp3',
+  'sounds/radio/extrait4/3.mp3',
+  'sounds/radio/extrait5/3.mp3',
+]
+
+const aiguillePositions = [
+  0.68, 0.58, 0.29, 0.01, -0.22, 0.68, 0.58, 0.29, 0.01, -0.22, 0.68, 0.58,
+  0.29, 0.01, -0.22,
+]
+
+const wheelRotation = [
+  0, 0.6, 2.4, 3.5, 4.9, 0, 0.6, 2.4, 3.5, 4.9, 0, 0.6, 2.4, 3.5, 4.9,
+]
+let index = 0
+let currentAiguillePosition = new THREE.Vector3(
+  aiguillePositions[index],
+  0.6,
+  -0.67
+)
+let currentWheelRotation = new THREE.Vector3(0, 0, wheelRotation[index])
+let currentRadioClip = radioClipsList[index]
+
 export function initRadio() {}
 
 export function changeFrequence(radio) {
-  // const aiguille = radio.container.getObjectByName('Aiguille')
+  if (index === radioClipsList.length) {
+    index = 0
+  } else index++
 
-  // gsap.to(aiguille.position, {
-  //   z: 30,
-  //   duration: 1,
-  //   ease: Power3,
-  //   onUpdate: () => {
-  //     this.controls.getObject().updateProjectionMatrix()
-  //   },
-  //   onComplete: () => {
-  //     this.isZoomed = true
-  //     window.addEventListener('click', this.currentAction)
-  //   }
-  // })
+  currentAiguillePosition = new THREE.Vector3(
+    aiguillePositions[index],
+    0.6,
+    -0.67
+  )
+  currentWheelRotation = new THREE.Vector3(0, 0, wheelRotation[index])
+
+  currentRadioClip = radioClipsList[index]
+  console.log(currentAiguillePosition)
+  console.log(currentRadioClip)
+
+  const aiguille = radio.container.getObjectByName('Aiguille')
+  const wheel = radio.container.getObjectByName('Wheel_2')
 
   radio.sound.stop()
   radio.sound.setLoop(false)
-  console.log(radio.sound)
 
   radio.audioLoader.load(`sounds/radio/transition-radio.mp3`, (buffer) => {
     radio.sound.setBuffer(buffer)
     radio.sound.play()
-    radio.sound.onEnded = function () {
-      console.log('aaaa')
+
+    gsap.to(aiguille.position, {
+      x: currentAiguillePosition.x,
+      y: currentAiguillePosition.y,
+      z: currentAiguillePosition.z,
+      duration: 0.5,
+      ease: Power3,
+    })
+    gsap.to(wheel.rotation, {
+      x: currentWheelRotation.x,
+      y: currentWheelRotation.y,
+      z: currentWheelRotation.z,
+      duration: 0.5,
+      ease: Power3,
+    })
+    radio.sound.onEnded = () => {
       radio.sound.stop()
       radio.audioLoader.load(`${currentRadioClip}`, (buffer) => {
         radio.sound.setBuffer(buffer)

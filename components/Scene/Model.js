@@ -105,6 +105,8 @@ export default class Model {
       //   this.scene.add(gltf.scene)
       if (this.audioSrc) this.initSound(gltf.scene.children[0])
       this.container.add(gltf.scene)
+      this.container.position.set(0, 6, -30)
+      this.container.rotation.y = Math.PI
     })
   }
 }

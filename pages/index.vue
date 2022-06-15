@@ -130,6 +130,7 @@ export default {
       this.wakeUpCutsceneTL.play()
     },
     tutoEnded() {
+      document.querySelector(".cursor").style.opacity = "1"
       this.$refs.scene.scene.playMedias()
     }
   },
