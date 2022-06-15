@@ -46,7 +46,7 @@ export default {
 			type: 'loop',
 			direction: 'ttb', // slider direction
 			paginationDirection: 'ttb', // dot placement
-			height: '600px',
+			height: '400px',
 			focus: 'center',
 			autoHeight: true,
 		});
