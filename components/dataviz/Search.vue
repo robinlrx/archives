@@ -18,6 +18,7 @@
 			</div>
 		</Box>
 		<div class="box-shadow reveal-1"></div>
+		<img src="~/assets/images/line-search.svg" alt="" class="line-date">
 	</section>
 </template>
 
@@ -125,6 +126,12 @@ export default {
 	z-index: 0;
 	top: 10%;
 	right: 10%;
+}
+
+.line-date {
+	position: absolute;
+	z-index: 3;
+	top: 24%;
 }
 
 </style>
