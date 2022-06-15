@@ -111,8 +111,9 @@ export default {
 
 .timeline-img {
 	position: absolute;
-	top: 22%;
+	top: 62%;
 	width: 96%;
+	height: 100px;
 }
 
 .box-shadow {
