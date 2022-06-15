@@ -128,14 +128,16 @@ section {
 .frise {
 	position: relative;
 	z-index: 1;
+	width: 100%;
 }
 
 .frise-perso {
 	position: absolute;
 	z-index: 0;
-	top: -30%;
+	top: -20%;
 	left: 10%;
 	width: 90%;
+	height: 300px;
 }
 
 .date-wrapper {
