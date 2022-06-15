@@ -1,8 +1,16 @@
+/* jshint sub:true */
 import * as THREE from 'three'
+
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
+import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js'
 
 import { gsap, Power3 } from 'gsap'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js'
+import { CustomOutlinePass } from './shaders/CustomOutlinePass.js'
 import Model from './Model'
+import { changeFrequence } from './actions/radioAction'
 
 class SceneInit {
   constructor({ rootEl }) {
@@ -11,9 +19,13 @@ class SceneInit {
     this.background = 0x000
     this.raycaster = new THREE.Raycaster()
     this.cameraDefaultPosition = new THREE.Vector3(0, 12, -5)
+    this.clock = new THREE.Clock()
+
     this.enabledRaycast = true
+    this.isLoaded = false
     this.isZoomed = false
     this.currentAction = undefined
+
     this.init()
     this.update()
     this.bindEvents()
@@ -21,14 +33,12 @@ class SceneInit {
 
   init() {
     this.initScene()
-    this.initManager()
     this.initLights()
     this.initCamera()
     this.initRenderer()
     this.setControls()
-    // this.setRaycast()
     this.initAudio()
-    this.initModels()
+    // this.initModels()
     this.root.appendChild(this.canvas)
   }
 
@@ -37,8 +47,19 @@ class SceneInit {
     this.camera.add(this.listener)
   }
 
+  initBackgroundNoise() {
+    const backgroundNoise = new THREE.Audio(this.listener)
+    const backgroundNoiseLoader = new THREE.AudioLoader()
+    backgroundNoiseLoader.load('sounds/BACKGROUND_NOISE.mp3', (buffer) => {
+      backgroundNoise.setBuffer(buffer)
+      backgroundNoise.setLoop(true)
+      backgroundNoise.setVolume(0.3)
+      backgroundNoise.play()
+    })
+  }
+
   radioAction = () => {
-    console.log(this)
+    changeFrequence(this.radio)
   }
 
   TV1Action() {
@@ -48,43 +69,119 @@ class SceneInit {
   initModels() {
     this.targetableObjects = new THREE.Object3D()
     this.objectsList = []
+    this.animationMixers = []
     const matcapTexture = new THREE.TextureLoader().load(
       'textures/7A7A7A_D0D0D0_BCBCBC_B4B4B4-512px.png'
     )
     matcapTexture.encoding = THREE.sRGBEncoding
 
-    const previewMaterial = new THREE.MeshMatcapMaterial({
-      matcap: matcapTexture,
-      side: THREE.DoubleSide
+    // const previewMaterial = new THREE.MeshMatcapMaterial({
+    //   matcap: matcapTexture,
+    //   side: THREE.DoubleSide,
+    // })
+
+    this.office = new Model({
+      scene: this.scene,
+      src: 'office',
+      loadingManager: this.manager,
     })
+    this.animationMixers.push(this.office.mixer)
+    this.scene.add(this.office.container)
+
+    this.fan = new Model({
+      scene: this.scene,
+      src: 'fan',
+      loadingManager: this.manager,
+    })
+    this.animationMixers.push(this.fan.mixer)
+    this.scene.add(this.fan.container)
+
     this.radio = new Model({
+      scene: this.scene,
       src: 'radio',
       loadingManager: this.manager,
-      material: previewMaterial,
-      action: this.radioAction
+      audioSrc: 'sounds/radio/extrait1/1.mp3',
+      audioVolume: 2,
+      listener: this.listener,
+      action: this.radioAction,
     })
     this.objectsList.push(this.radio)
     this.targetableObjects.add(this.radio.container)
-    this.office = new Model({
-      src: 'office',
-      loadingManager: this.manager,
-      material: previewMaterial
-    })
-    this.scene.add(this.office.container)
-    this.TV1 = new Model({
-      src: 'TV1',
-      loadingManager: this.manager,
-      audioSrc: 'videos/france2-proces.mp4',
-      audioVolume: 3,
-      listener: this.listener,
-      videoSrc: 'videos/france2-proces.mp4',
-      videoContainer: 'Screen',
-      material: previewMaterial,
-      action: this.TV1Action
-    })
-    this.objectsList.push(this.TV1)
-    this.targetableObjects.add(this.TV1.container)
     this.scene.add(this.targetableObjects)
+
+    // this.radio = new Model({
+    //   src: 'radio',
+    //   loadingManager: this.manager,
+    //   audioSrc: 'videos/VideoJT.mp4',
+    //   audioVolume: 2,
+    //   listener: this.listener,
+    //   action: this.radioAction,
+    // })
+    // this.objectsList.push(this.radio)
+    // this.targetableObjects.add(this.radio.container)
+    // console.log(this.radio.container)
+    // this.TV1 = new Model({
+    //   src: 'TV1',
+    //   loadingManager: this.manager,
+    //   audioSrc: 'videos/VideoJT.mp4',
+    //   audioVolume: 2,
+    //   listener: this.listener,
+    //   videoSrc: 'videos/VideoJT.mp4',
+    //   videoContainer: 'Screen',
+    //   material: previewMaterial,
+    //   action: this.TV1Action
+    // })
+    // this.objectsList.push(this.TV1)
+    // this.targetableObjects.add(this.TV1.container)
+    // this.TV2 = new Model({
+    //   src: 'TV2',
+    //   loadingManager: this.manager,
+    //   audioSrc: 'videos/VideoInterview1.mp4',
+    //   audioVolume: 2,
+    //   listener: this.listener,
+    //   videoSrc: 'videos/VideoInterview1.mp4',
+    //   videoContainer: 'Screen',
+    //   material: previewMaterial
+    // })
+    // this.objectsList.push(this.TV2)
+    // this.targetableObjects.add(this.TV2.container)
+    // this.TV3 = new Model({
+    //   src: 'TV3',
+    //   loadingManager: this.manager,
+    //   audioSrc: 'videos/VideoInterview2.mp4',
+    //   audioVolume: 1,
+    //   listener: this.listener,
+    //   videoSrc: 'videos/VideoInterview2.mp4',
+    //   videoContainer: 'Screen3',
+    //   material: previewMaterial
+    // })
+    // this.targetableObjects.add(this.TV3.container)
+    // this.objectsList.push(this.TV3)
+    // this.TV4 = new Model({
+    //   src: 'TV4',
+    //   loadingManager: this.manager,
+    //   audioSrc: 'videos/Documentaire.mp4',
+    //   audioVolume: 1,
+    //   listener: this.listener,
+    //   videoSrc: 'videos/Documentaire.mp4',
+    //   videoContainer: 'Screen2',
+    //   material: previewMaterial
+    // })
+    // this.targetableObjects.add(this.TV4.container)
+    // this.objectsList.push(this.TV4)
+    // this.TV5 = new Model({
+    //   src: 'TV5',
+    //   loadingManager: this.manager,
+    //   audioSrc: 'videos/VideoInterview2.mp4',
+    //   audioVolume: 1,
+    //   listener: this.listener,
+    //   videoSrc: 'videos/VideoInterview2.mp4',
+    //   videoContainer: 'Screen5',
+    //   material: previewMaterial
+    // })
+    // this.targetableObjects.add(this.TV5.container)
+
+    // this.objectsList.push(this.TV5)
   }
 
   initScene() {
@@ -96,39 +193,53 @@ class SceneInit {
 
     this.loadDiv = document.querySelector('.loaderScreen')
     this.loadModels = this.loadDiv.querySelector('.loaderScreen__load')
-    this.progressBar = this.loadDiv.querySelectorAll('.loaderScreen__progress')
     this.manager = new THREE.LoadingManager()
 
     this.manager.onProgress = (url, itemsLoaded, itemsTotal) => {
-      this.progressBar.forEach((el) => {
-        el.style.width = this.loadModels.innerHTML = `${
-          Math.floor((itemsLoaded / itemsTotal) * 100) +
-          Math.floor((1 / itemsTotal) * currentPercent)
-        }%`
-      })
+      if (document.querySelector('.loaderScreen__progressBar'))
+        document.querySelector(
+          '.loaderScreen__progressBar'
+        ).style.backgroundColor = '#F1EFE5'
+      document.querySelector('.loaderScreen__progressBar').style.width = `${
+        Math.floor((itemsLoaded / itemsTotal) * 100) +
+        Math.floor((1 / itemsTotal) * currentPercent)
+      }%`
+
       if (itemsTotal === itemsLoaded) {
+        this.isLoaded = true
         setTimeout(() => {
-          this.loadModels.style.opacity = 0
-        }, 1000)
+          document.querySelector('.wakeUpButton').classList.add('active-button')
+        }, 1200)
       }
     }
   }
 
   initLights() {
-    const ambient = new THREE.AmbientLight(0xffffff, 0.9)
+    const ambient = new THREE.AmbientLight(0xffffff, 1)
     this.scene.add(ambient)
+    // const pointLight = new THREE.PointLight(0x00ffab, 1, 100)
+    // pointLight.position.set(10, 10, 10)
+    // this.scene.add(pointLight)
+
+    // const sphereSize = 1
+    // const pointLightHelper = new THREE.PointLightHelper(pointLight, sphereSize)
+    // this.scene.add(pointLightHelper)
   }
 
   initCamera() {
     this.camera = new THREE.PerspectiveCamera(
-      65,
+      35,
       window.innerWidth / window.innerHeight,
       1,
       1000
     )
     this.camera.position.x = 0
-    this.camera.position.y = 12
-    this.camera.position.z = -5
+    this.camera.position.y = 10
+    this.camera.position.z = -11
+    this.camera.rotation.x = -0.9
+    // this.camera.position.x = 0
+    // this.camera.position.y = 12
+    // this.camera.position.z = -5
 
     this.camera.updateProjectionMatrix()
   }
@@ -140,6 +251,40 @@ class SceneInit {
     this.renderer.setSize(window.innerWidth, window.innerHeight)
     this.renderer.setClearColor(this.background, 1)
     this.canvas = this.renderer.domElement
+
+    // Set up post processing
+    // Create a render target that holds a depthTexture so we can use it in the outline pass
+    // See: https://threejs.org/docs/index.html#api/en/renderers/WebGLRenderTarget.depthBuffer
+    const depthTexture = new THREE.DepthTexture()
+    const renderTarget = new THREE.WebGLRenderTarget(
+      window.innerWidth,
+      window.innerHeight,
+      {
+        depthBuffer: true,
+      }
+    )
+    renderTarget.depthTexture = depthTexture
+
+    // Initial render pass.
+    this.composer = new EffectComposer(this.renderer, renderTarget)
+    const pass = new RenderPass(this.scene, this.camera)
+    this.composer.addPass(pass)
+
+    // Outline pass.
+    const customOutline = new CustomOutlinePass(
+      new THREE.Vector2(window.innerWidth, window.innerHeight),
+      this.scene,
+      this.camera
+    )
+    this.composer.addPass(customOutline)
+
+    // Antialias pass.
+    const effectFXAA = new ShaderPass(FXAAShader)
+    effectFXAA.uniforms.resolution.value.set(
+      1 / window.innerWidth,
+      1 / window.innerHeight
+    )
+    this.composer.addPass(effectFXAA)
   }
 
   setControls() {
@@ -147,43 +292,47 @@ class SceneInit {
       this.camera,
       this.renderer.domElement
     )
-    this.controls.pointerSpeed = 0.15
+    this.controls.pointerSpeed = 0.25
     this.controls.smooth = true
-    // this.controls.smoothspeed = 0.95
-    // const blocker = document.getElementById('blocker')
+    const blocker = document.getElementById('tuto-container')
 
-    // this.controls.addEventListener('lock', () => {
-    //   instructions.style.display = 'none'
-    //   blocker.style.display = 'none'
-    // })
+    blocker.addEventListener('click', () => this.controls.lock())
 
-    // this.controls.addEventListener('unlock', () => {
-    //   blocker.style.display = 'block'
-    //   instructions.style.display = ''
-    // })
+    this.controls.addEventListener('lock', () => {
+      if (blocker.getAttribute('class') !== 'active') {
+        blocker.style.display = 'none'
+        blocker.style.opacity = '0'
+      }
+    })
+
+    this.controls.addEventListener('unlock', () => {
+      blocker.style.display = 'block'
+      blocker.style.opacity = '1'
+    })
     this.scene.add(this.controls.getObject())
   }
 
-  render() {
-    this.camera.lookAt(this.scene.position)
-
-    this.renderer.render(this.scene, this.camera)
-  }
-
   playMedias() {
-    this.controls.lock()
     setTimeout(() => {
-      this.loadDiv.style.opacity = 0
-      setTimeout(() => {
-        this.loadDiv.remove()
-      }, 550)
-    }, 1000)
+      this.controls.lock()
+    }, 3000)
     this.objectsList.forEach((element) => {
       if (element.sound) {
         element.sound.play()
       }
       if (element.video) {
         element.video.play()
+      }
+    })
+  }
+
+  stopMedias() {
+    this.objectsList.forEach((element) => {
+      if (element.sound) {
+        element.sound.stop()
+      }
+      if (element.video) {
+        element.video.pause()
       }
     })
   }
@@ -202,7 +351,7 @@ class SceneInit {
         onComplete: () => {
           this.isZoomed = true
           window.addEventListener('click', this.currentAction)
-        }
+        },
       })
     } else if (event.deltaY > 0 && this.isZoomed) {
       document.querySelector('.focus').style.opacity = 0
@@ -215,7 +364,7 @@ class SceneInit {
         onComplete: () => {
           this.isZoomed = false
           window.removeEventListener('click', this.currentAction)
-        }
+        },
       })
     }
   }
@@ -223,9 +372,16 @@ class SceneInit {
   update() {
     requestAnimationFrame(() => this.update())
 
-    this.renderer.render(this.scene, this.camera)
+    // const delta = this.clock.getDelta()
+    // if (this.animationMixers) {
+    //   this.animationMixers.forEach((mixer) => {
+    //     mixer.update(delta)
+    //   })
+    // }
 
-    if (this.enabledRaycast) {
+    this.composer.render()
+
+    if (this.enabledRaycast && this.isLoaded) {
       this.raycaster.setFromCamera(new THREE.Vector2(), this.camera)
 
       // calculate objects intersecting the picking ray
@@ -234,96 +390,24 @@ class SceneInit {
       )
 
       if (intersects.length > 0) {
+        document
+          .querySelector('.cursor-circle')
+          .classList.add('cursor-circle-focus')
         const intersect = intersects[0].object
 
         const wholeObject = this.objectsList.find(
           (element) => element.src === intersect.objectName
         )
+        console.log(intersect.objectName)
 
         this.currentAction = wholeObject.action
-
-        // const outlineMaterial = new THREE.MeshBasicMaterial({
-        //   color: 0xff0000,
-        //   side: THREE.FrontSide
-        // })
-        // if (!this.scene.getObjectByName('Outline')) {
-        //   const outline = new THREE.Group()
-        //   outline.name = 'Outline'
-
-        //   wholeObject.children[0].traverse((child) => {
-        //     if (child.isMesh) {
-        //       const mesh = child.clone()
-        //       mesh.material = outlineMaterial
-        //       mesh.scale.multiplyScalar(1.01)
-
-        //       outline.add(mesh)
-        //     }
-        //   })
-        //   console.log(outline)
-        //   this.scene.add(outline)
-
-        // console.log(wholeObject.children[0])
-        // const outlineMesh = wholeObject.children[0].clone()
-        // if (outlineMesh.getObjectByName('PositionalAudio'))
-        //   this.remove(outlineMesh.getObjectByName('PositionalAudio'))
-        // outlineMesh.scale.multiplyScalar(1.05)
-        // outlineMesh.name = 'Outline'
-        // this.scene.add(outlineMesh)
         document.addEventListener('wheel', this.zoomCamera)
+      } else {
+        document
+          .querySelector('.cursor-circle')
+          .classList.remove('cursor-circle-focus')
+        document.removeEventListener('wheel', this.zoomCamera)
       }
-
-      // mesh.material = outlineMaterial1
-      // mesh.scale.multiplyScalar(1.05)
-
-      // const outlineMaterial1 = new THREE.MeshBasicMaterial({
-      //   color: 0xff0000,
-      //   side: THREE.BackSide
-      // })
-      // const outlineMesh1 = new THREE.Mesh(
-      //   intersect.geometry.clone().geometry,
-      //   outlineMaterial1
-      // )
-      // outlineMesh1.position.set(
-      //   intersect.position.x,
-      //   intersect.position.y,
-      //   intersect.position.z
-      // )
-      // outlineMesh1.scale.multiplyScalar(1.05)
-      // wholeObject.add(mesh)
-
-      // console.log(outlineMesh1)
-    } else {
-      if (this.scene.getObjectByName('Outline')) {
-        this.scene.remove(this.scene.getObjectByName('Outline'))
-      }
-      document.removeEventListener('wheel', this.zoomCamera)
-    }
-  }
-
-  // const outlineMaterial1 = new THREE.MeshBasicMaterial({
-  //   color: 0xff0000,
-  //   side: THREE.BackSide
-  // })
-  // const outlineMesh1 = new THREE.Mesh(
-  //   intersect.geometry,
-  //   outlineMaterial1
-  // )
-  // outlineMesh1.position.set(intersect.position)
-  // outlineMesh1.scale.multiplyScalar(1.05)
-  // this.outlineMesh1.add(outlineMesh1)
-  // console.log(outlineMesh1)
-  // console.log(intersect)
-  // intersects[0].object.parent.material.color.set(0xff0000)
-
-  add(model) {
-    this.scene.add(model)
-  }
-
-  remove(objName) {
-    const object = this.scene.getObjectByName(objName)
-
-    if (object) {
-      this.scene.remove(object)
     }
   }
 

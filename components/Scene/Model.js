@@ -14,7 +14,7 @@ export default class Model {
     material,
     videoContainer,
     videoSrc,
-    action
+    action,
   }) {
     this.src = src
     this.audioSrc = audioSrc
@@ -38,8 +38,8 @@ export default class Model {
   initSound(target) {
     this.sound = new THREE.PositionalAudio(this.listener)
     this.sound.name = 'PositionalAudio'
-    const audioLoader = new THREE.AudioLoader()
-    audioLoader.load(`${this.audioSrc}`, (buffer) => {
+    this.audioLoader = new THREE.AudioLoader()
+    this.audioLoader.load(`${this.audioSrc}`, (buffer) => {
       this.sound.setLoop(true)
       this.sound.setBuffer(buffer)
       this.sound.setVolume(this.audioVolume)
@@ -59,7 +59,7 @@ export default class Model {
     texture.format = THREE.RGBAFormat
     const videoMaterial = new THREE.MeshStandardMaterial({
       map: texture,
-      side: THREE.DoubleSide
+      side: THREE.DoubleSide,
     })
     target.material = videoMaterial
     texture.flipY = false
@@ -80,8 +80,20 @@ export default class Model {
         callback(gltf.scene)
       }
 
+      if (gltf.animations) {
+        this.mixer = new THREE.AnimationMixer(gltf.scene)
+        gltf.animations.forEach((clip) => {
+          this.mixer.clipAction(clip).play()
+        })
+      }
       gltf.scene.traverse((child) => {
         child.objectName = this.src
+
+        if (child.isMesh) {
+          child.material.side = THREE.DoubleSide
+          child.castShadow = true
+          child.receiveShadow = true
+        }
         if (this.videoSrc && child.name === this.videoContainer) {
           this.initVideoTexture(child)
         }
@@ -93,6 +105,8 @@ export default class Model {
       //   this.scene.add(gltf.scene)
       if (this.audioSrc) this.initSound(gltf.scene.children[0])
       this.container.add(gltf.scene)
+      this.container.position.set(0, 6, -30)
+      this.container.rotation.y = Math.PI
     })
   }
 }

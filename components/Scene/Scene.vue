@@ -1,5 +1,17 @@
 <template>
-  <div ref="container" class="scene coverdiv"></div>
+  <div class="canvas-container">
+    <div ref="white_fade" class="white-fade" style="
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        background-color: #fcfcf5;
+        z-index: 10;
+        transform: opacity 0.8s ease;
+        opacity: 0;
+        pointer-events: none;
+      "></div>
+    <div ref="container" class="scene coverdiv"></div>
+  </div>
 </template>
 
 <script>
@@ -15,14 +27,15 @@ export default {
     return {
       models: ['tasse'],
       objects: [],
+      pageTransition: false,
     }
   },
   watch: {
     isLaunched() {
-		if (this.isLaunched) {
-			this.scene.playMedias()
-			this.timeUp()
-		}
+      if (this.isLaunched) {
+        this.scene.playMedias()
+        this.timeUp()
+      }
     },
   },
   created() {
@@ -35,15 +48,32 @@ export default {
     this.scene = SceneInit({ rootEl: this.$refs.container })
   },
   methods: {
-	timeUp() {
-		setTimeout(() => {
-			console.log('fin du temps')
-			this.$nuxt.$router.push('/dataviz')
-		}, 240000); // 4 min
-	}
+    timeUp() {
+      setTimeout(() => {
+        this.$refs.white_fade.style.opacity = 1
+        setTimeout(() => {
+          this.scene.stopMedias()
+          this.$nuxt.$router.push('/dataviz')
+        }, 2000)
+      }, 240000) // 4 min = 240000
+    },
   },
 }
 </script>
 
-<style scoped>
+<style >
+.canvas-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.5s ease, filter 0.8s ease;
+  filter: blur(8px);
+  z-index: 2;
+}
+
+.white-fade {
+  transition: opacity 0.8s ease;
+  opacity: 0
+}
 </style>
