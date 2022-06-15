@@ -11,7 +11,7 @@
 		<div class="splide__track">
 				<div class="splide__list">
 					<div class="splide__slide">
-						<img src="images/jacques.png" alt="" class="personnage">
+						<img src="~/assets/images/jacques.png" alt="" class="personnage">
 						<figure class="bio">
 							<blockquote>
 								<p class="citation">Quelqu'un dont j'ai prouvé l'innocence vient d'être condamné à une peine qu'il ne mérite pas. C'est le 100e anniversaire de l'affaire Dreyfus. Il y a 100 ans, on condamnait un jeune officier qui avait le tort d'être juif, <span>aujourd'hui on condamne un jardinier qui a le tort d'être maghrébin</span></p>
@@ -24,7 +24,7 @@
 						</figure>
 					</div>
 					<div class="splide__slide">
-						<img src="images/omar-2.png" alt="" class="personnage">
+						<img src="~/assets/images/omar-2.png" alt="" class="personnage">
 						<figure class="bio">
 							<blockquote>
 								<p class="citation">C’était terrifiant de voir les portes se refermer sur moi, mais je restais encore confiant. La justice française ne pouvait continuer à se tromper indéfiniment. Le juge allait comprendre son erreur, appeler la prison et donner l'ordre de me faire sortir immédiatement. Ce ne fut pas le cas. Je n'ai quitté la prison que 7 ans, 2 mois et 8 jours plus tard...</p>
@@ -37,7 +37,7 @@
 						</figure>
 					</div>
 					<div class="splide__slide">
-						<img src="images/sylvie.png" alt="" class="personnage">
+						<img src="~/assets/images/sylvie.png" alt="" class="personnage">
 						<figure class="bio">
 							<blockquote>
 								<p class="citation">Il s'agit d'une des plus grandes erreurs judiciaires du XXe siècle que nous allons rectifier grâce à la Cour de révision</p>
@@ -50,7 +50,7 @@
 						</figure>
 					</div>
 					<div class="splide__slide">
-						<img src="images/henri.png" alt="" class="personnage">
+						<img src="~/assets/images/henri.png" alt="" class="personnage">
 						<figure class="bio">
 							<blockquote>
 								<p class="citation">Omar Raddad est coupable. Il faut bien convenir que ce constat est une stricte vérité judiciaire puisque l'accusé désigné en lettres de sang s'il a bénéficié d'une grâce présidentielle partielle, n'a jamais obtenu la révision de son procès. Omar Raddad coupable !</p>

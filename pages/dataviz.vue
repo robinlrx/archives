@@ -2,20 +2,20 @@
 	<div v-show="showDataviz" class="body-light">
 		<!-- <img src="/images/fond-dataviz.png" alt="" class="fond"> -->
 		<header class="reveal-1">
-			<img src="/images/logo.svg" alt="" class="logo">
-			<img src="/images/icone.svg" alt="" class="icone">
+			<img src="~/assets/images/logo.svg" alt="" class="logo">
+			<img src="~/assets/images/icone.svg" alt="" class="icone">
 		</header>
 		<section>
 			<div class="container">
 				<div class="separator reveal-1"></div>
-				<img src="/images/logo.svg" alt="" class="logo-big reveal-1">
+				<img src="~/assets/images/logo.svg" alt="" class="logo-big reveal-1">
 				<div class="separator reveal-1"></div>
 				<div class="content">
 					<!-- left side -->
 					<div class="case">
 						<p class='text-bold date reveal-1'>19<br>91</p>
 						<!-- <div class="separator"></div> -->
-						<img src="/images/omar.png" alt="" class="omar reveal-1">
+						<img src="~/assets/images/omar.png" alt="" class="omar reveal-1">
 						<!-- <div class="separator"></div> -->
 						<p class="resume reveal-1">L’affaire Omar Raddad commence avec le meurtre de Ghislaine Marshal en 1991, dans sa propre villa. “OMAR M’A TUER” est inscrit en lettres de sang sur 2 surfaces, ce qui mène à l’arrestation d’Omar Raddad.</p>
 					</div>
@@ -112,7 +112,7 @@
 				<LegendItem pictolegend="#554726" name="Radio" />
 				<LegendItem pictolegend="#A8A185" name="Réseau social" />
 				<LegendItem pictolegend="#B8D4BE" name="Interview" />
-				<LegendItem pictolegend="url('images/pie-cross.png')" name="Presse papier" />
+				<LegendItem pictolegend="url('~/assets/images/pie-cross.png')" name="Presse papier" />
 			</Box>
 		</section>
 
@@ -318,7 +318,7 @@ export default {
 
 .body-light {
 	background-color: var(--cream);
-	background-image: url('../static/images/fond-dataviz.png');
+	background-image: url('~/assets/images/fond-dataviz.png');
 	background-size: 240% 100%; /* cover */
 	background-position: center;
 	padding-bottom: 5%;

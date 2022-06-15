@@ -1,13 +1,13 @@
 <template>
 	<section class="reveal-1">
-		<img src="images/frise-graph.png" alt="" class="frise">
-		<img src="images/frise-perso.png" alt="" class="frise-perso">
+		<img src="~/assets/images/frise-graph.png" alt="" class="frise">
+		<img src="~/assets/images/frise-perso.png" alt="" class="frise-perso">
 		<div class="date-wrapper">
 
 			<div class="date-item date-item-1">
 				<div class="dot">
 					<div class="point"></div>
-					<img src="images/active-dot.svg" alt="" class="line-dot">
+					<img src="~/assets/images/active-dot.svg" alt="" class="line-dot">
 					<div class="timeline"></div>
 				</div>
 				<div class="date">
@@ -30,14 +30,14 @@
 				<div class="dot">
 					<div class="timeline"></div>
 					<div class="point point-bottom"></div>
-					<img src="images/active-dot.svg" alt="" class="line-dot line-dot--bottom">
+					<img src="~/assets/images/active-dot.svg" alt="" class="line-dot line-dot--bottom">
 				</div>
 			</div>
 
 			<div class="date-item date-item-3">
 				<div class="dot">
 					<div class="point"></div>
-					<img src="images/active-dot.svg" alt="" class="line-dot">
+					<img src="~/assets/images/active-dot.svg" alt="" class="line-dot">
 					<div class="timeline"></div>
 				</div>
 				<div class="date">
@@ -60,14 +60,14 @@
 				<div class="dot">
 					<div class="timeline"></div>
 					<div class="point point-bottom"></div>
-					<img src="images/active-dot.svg" alt="" class="line-dot line-dot--bottom">
+					<img src="~/assets/images/active-dot.svg" alt="" class="line-dot line-dot--bottom">
 				</div>
 			</div>
 
 			<div class="date-item date-item-5">
 				<div class="dot">
 					<div class="point"></div>
-					<img src="images/active-dot.svg" alt="" class="line-dot">
+					<img src="~/assets/images/active-dot.svg" alt="" class="line-dot">
 					<div class="timeline"></div>
 				</div>
 				<div class="date">

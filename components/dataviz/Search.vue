@@ -9,7 +9,7 @@
 					<p><span>Ces cinq dernières années, la confiance dans internet a fortement</span> baissé dans la plus grande partie de l’Europe. Lorsque les médias traditionnels inspirent moins la confiance, cela s’explique souvent par le degré d’indépendance dont ils semblent jouir et par la présence plus ou moins forte des médias de service public.</p>
 				</div>
 				<div class="timeline"></div>
-				<img src="images/timeline-data.svg" alt="" class="timeline-img">
+				<img src="~/assets/images/timeline-data.svg" alt="" class="timeline-img">
 
 				<!-- eslint-disable-next-line vue/no-unused-vars -->
 				<span v-for="(item, index) in cardData" :key="item.id">

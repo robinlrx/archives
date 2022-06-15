@@ -1,7 +1,7 @@
 <template>
 	<div class="card" :style="{left: left}">
 		<div class="dot">
-			<img src="images/active-dot.svg" alt="" class="line-dot">
+			<img src="~/assets/images/active-dot.svg" alt="" class="line-dot">
 			<div class="point" :class="{ active: isActive }" @click="showCard()"></div>
 			<div class="trait" :class="{ active: isActive }"></div>
 		</div>
@@ -28,7 +28,7 @@ export default {
 		picto: {
 			type: String,
 			required: false,
-			default: "/images/picto-radio.svg"
+			default: "~/assets/images/picto-radio.svg"
 		},
 		date: {
 			type: String,

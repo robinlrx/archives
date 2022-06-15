@@ -90,7 +90,7 @@ section {
 	width: 100%;
 	height: 100vh;
 	font-family: 'Georgia-regular';
-	background-image: url('../static/images/fond-question.png');
+	background-image: url('~/assets/images/fond-question.png');
 	background-color: var(--black);
 	background-size: cover;
 	background-position: center;

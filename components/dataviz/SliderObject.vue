@@ -11,19 +11,19 @@
 		<div class="splide__track">
 				<div class="splide__list">
 					<div class="splide__slide">
-						<img src="images/france.png" alt="" class="object">
+						<img src="~/assets/images/france.png" alt="" class="object">
 						<p class="fact">Guislaine Marchal partageait son temps entre sa résidence principale, en Suisse, et <span>sa villa La Chamade, qu'elle avait fait construire dans le sud de la France, sur les hauteurs de Mougins.</span> Une villa bien entretenue par des emploiyés de maison dont fait partie Omar Raddad, le jardinier.</p>
 					</div>
 					<div class="splide__slide">
-						<img src="images/phone.png" alt="" class="object">
+						<img src="~/assets/images/phone.png" alt="" class="object">
 						<p class="fact">Le dimanche 23 juin 1991 vers 11 h 48, Ghislaine Marchal, sortant juste de la douche, est au téléphone avec son amie Erika S. Son amie vient déjeuner le lendemain lundi. Ghislaine Marchal se dit pressée car elle doit se préparer pour aller déjeuner chez ses amis, M et Mme K. à 13 h. C’est la dernière fois que l’un de ses proches entendra sa voix.</p>
 					</div>
 					<div class="splide__slide">
-						<img src="images/billets.png" alt="" class="object">
+						<img src="~/assets/images/billets.png" alt="" class="object">
 						<p class="fact">Le lundi 24 juin, Erika S. arrive vers 11 h 30 comme convenu. Elle sonne, insiste, en vain. Alertée par Mmes Erika S. et Colette K., une troisième amie, Francine P., fait dépêcher sur place un employé de la compagnie de gardiennage en début d’après-midi. <span>La maison, sombre et silencieuse, on retrouve des bijoux, un sac à main ouvert mais nulle trace de la propriétaire.</span></p>
 					</div>
 					<div class="splide__slide">
-						<img src="images/sang.png" alt="" class="object">
+						<img src="~/assets/images/sang.png" alt="" class="object">
 						<p class="fact">Dans la chaufferie, au fond de la cave, Ghislaine Marchal est allongée de tout son long, face contre terre, vêtue de son seul peignoir de bain ensanglanté. <span>Sur le côté gauche du couloir, « OMAR M'A TUER » est inscrit en lettres de sang bien formées</span>, à 1 m du sol, sur une porte blanche fermée à clé menant à une cave à vin.</p>
 					</div>
 				</div>
