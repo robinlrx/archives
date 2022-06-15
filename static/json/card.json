@@ -1,0 +1,141 @@
+{
+	"cardData": [
+		{
+			"id": 1,
+			"title": "Photo",
+			"date": "1991",
+			"picto": "picto-pp.svg",
+			"url": "https://www.police-scientifique.com/omar-raddad/le-blocage-de-porte",
+			"left": "5.6%"
+		},
+		{
+			"id": 2,
+			"title": "Sources multiples",
+			"date": "1995",
+			"picto": "picto-tv.svg",
+			"url": null,
+			"left": "15.8%"
+		},
+		{
+			"id": 3,
+			"title": "Le Monde",
+			"date": "2001",
+			"picto": "picto-pp.svg",
+			"url": null,
+			"left": "31.5%"
+		},
+		{
+			"id": 4,
+			"title": "Le Parisien",
+			"date": "2001",
+			"picto": "picto-pw.svg",
+			"url": "https://www.leparisien.fr/faits-divers/un-temoin-cle-pret-a-se-soumettre-au-test-adn-22-02-2001-2001975981.php",
+			"left": "33.2%"
+		},
+		{
+			"id": 5,
+			"title": "France Inter",
+			"date": "2008",
+			"picto": "picto-radio.svg",
+			"url": "https://podcasts.apple.com/fr/podcast/2-omar-raddad-lhistoire-secr%C3%A8te/id1465111348?i=1000441988790",
+			"left": "49.7%"
+		},
+		{
+			"id": 6,
+			"title": "Omar m'a tuer",
+			"date": "2011",
+			"picto": "picto-tv.svg",
+			"url": null,
+			"left": "57.5%"
+		},
+		{
+			"id": 7,
+			"title": "Souces multiples",
+			"date": "2011",
+			"picto": "picto-tv.svg",
+			"url": null,
+			"left": "59.2%"
+		},
+		{
+			"id": 8,
+			"title": "Les voix du crimes",
+			"date": "2019",
+			"picto": "picto-radio.svg",
+			"url": "https://www.radiofrance.fr/franceinter/podcasts/affaires-sensibles/affaires-sensibles-du-jeudi-02-septembre-2021-3608970",
+			"left": "78.1%"
+		},
+		{
+			"id": 9,
+			"title": "Souces multiples",
+			"date": "2019",
+			"picto": "picto-tv.svg",
+			"url": null,
+			"left": "80%"
+		},
+		{
+			"id": 10,
+			"title": "La Dépêche du Midi",
+			"date": "2021",
+			"picto": "picto-pp.svg",
+			"url": null,
+			"left": "83.5%"
+		},
+		{
+			"id": 11,
+			"title": "Le Monde",
+			"date": "2021",
+			"picto": "picto-pp.svg",
+			"url": "https://www.lemonde.fr/societe/article/2021/12/17/condamnation-d-omar-raddad-un-complement-d-information-qui-pourrait-mener-a-une-saisine-de-la-cour-de-revision_6106379_3224.html",
+			"left": "85%"
+		},
+		{
+			"id": 12,
+			"title": "France Culture",
+			"date": "2021",
+			"picto": "picto-radio.svg",
+			"url": null,
+			"left": "86%"
+		},
+		{
+			"id": 13,
+			"title": "France Culture",
+			"date": "2021",
+			"picto": "picto-radio.svg",
+			"url": "https://www.radiofrance.fr/franceculture",
+			"left": "87.2%"
+		},
+		{
+			"id": 14,
+			"title": "L'intégrale",
+			"date": "2021",
+			"picto": "picto-radio.svg",
+			"url": "https://www.rtl.fr/actu/justice-faits-divers/omar-raddad-l-espoir-d-un-nouveau-proces-7900106692",
+			"left": "88.45%"
+		},
+		{
+			"id": 15,
+			"title": "Twitter",
+			"date": "2021",
+			"picto": "picto-rs.svg",
+			"url": null,
+			"left": "89.9%"
+		},
+		{
+			"id": 16,
+			"title": "Le Point",
+			"date": "2022",
+			"picto": "picto-pp.svg",
+			"url": "https://www.ccme.org.ma/images/stories/Le_Point_Omar_Raddad.pdf",
+			"left": "91.5%"
+		},
+		{
+			"id": 18,
+			"title": "Reddit",
+			"date": "2022",
+			"picto": "picto-rs.svg",
+			"url": "https://www.reddit.com/r/UnresolvedMysteries/comments/79cjcz/omar_ma_tuer_who_killed_ghislaine_marchal/",
+			"left": "93%"
+		}
+			
+	]
+}

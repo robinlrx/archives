@@ -1,6 +1,6 @@
 <template>
   <div class="focus">
-    <img src="images/vignette.png" />
+    <img src="~/assets/images/vignette.png" />
   </div>
 </template>
 

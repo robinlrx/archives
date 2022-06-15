@@ -1,14 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&display=swap');
+
 :root {
 	--black: #000000;
 	--white: #ffffff;
-	--cream: #FCFCF5;
+	--cream: #F1EFE5;
+	--cream-lime: rgb(241, 239, 229, 0.6);
 	--green: #649F8E;
+	--green-lime: rgba(100, 159, 142, 0.6);
+	--orange: #FA9C67;
+	--orange-lime: rgba(250, 156, 103, 0.6);
+	--grey: rgba(0, 0, 0, 0.15);
 }
 
 body {
-	margin: 0;
-	background-color: #FCFCF5;
+	margin: 0
 }
+
+/* .body-light {
+	background-color: var(--cream);
+	background-image: url('../static/images/fond-dataviz.png');
+	background-size: cover;
+	background-position: -10%;
+} */
 
 @font-face {
 	font-family: 'Strong-concrete';
@@ -37,11 +50,93 @@ body {
 
 }
 
-@font-face {
-	font-family: 'Akira';
-	src: url('../static/fonts/akira_expanded.woff2') format('woff2'),
-		url('../static/fonts/akira_expanded.woff') format('woff');
-	font-weight: bold;
-	font-style: normal;
+[class*=reveal-] {
+	opacity: 0;
+	transform: translateY(30px)
+}
 
+.reveal-visible {
+	opacity: 1;
+	transform: translateY(0);
+	transition: 1s cubic-bezier(0.83, 0, 0, 1)
+}
+
+.reveal-1 {
+	transition-delay: 0.5s
+}
+
+.page-dot {
+	background-color: var(--black);
+	opacity: 1;
+	width: 15px;
+	height: 15px;
+	margin: 10px 0
+}
+
+.page-dot.is-active {
+	background-image: url('~/assets/images/active-dot.svg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.splide__arrow {
+	background-color: transparent;
+}
+
+.slide-arrows svg {
+	fill: var(--black);
+	width: 20px;
+	height: 20px;
+}
+
+.splide__pagination--on-left {
+	right: auto;
+}
+
+.text-bold {
+	font-family: 'Strong-concrete';
+	text-transform: uppercase;
+	margin: 0;
+}
+
+.text-bold span {
+	font-size: 2rem;
+}
+
+.separator {
+	width: 1200px;
+	/* width: 100%; */
+	height: 2px;
+	background-color: var(--black);
+	margin: 10px 0;
+}
+
+.separator-2 {
+	width: 50%;
+}
+
+.link {
+	display: flex;
+	/* justify-content: center; */
+	align-items: center;
+}
+
+.link a {
+	font-family: 'Almarai', sans-serif;
+	font-weight: 700;
+	color: var(--black);
+	text-decoration: none;
+	margin-left: 10px;
+	background-image: linear-gradient(90deg, var(--cream), var(--cream)), linear-gradient(90deg, var(--black), var(--black));
+	background-size: 100px 1.5px, 100% 1.5px;
+	background-repeat: no-repeat;
+	background-position-x: calc(100px * -1), 0;
+	background-position-y: 100%;
+	transition: background-position-x 0.8s ease;
+
+}
+
+.link a:hover {
+	background-position-x: calc(100% + 100px), 0;
 }
