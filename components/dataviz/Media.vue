@@ -1,6 +1,6 @@
 <template>
 	<section class="media-section">
-		<Box title="Et l’opinion publique dans tout ça :" width="850px" addclass="media-info">
+		<Box title="Et l’opinion publique dans tout ça :" width="850px" addclass="media-info reveal-1">
 
 			<div class='media-container'>
 				<h2 class="text-bold">Avez-vous consulté des<br> <span>médias de confiance ?</span></h2>
@@ -14,7 +14,7 @@
 
 		</Box>
 
-		<Box width="500px" icon-background="var(--black)" icon-color="var(--cream)" icon="i" title="Légende" addclass="media-legend">
+		<Box width="500px" icon-background="var(--black)" icon-color="var(--cream)" icon="i" title="Légende" addclass="media-legend reveal-1">
 			<div class="picto-wrapper">
 				<div class="picto-group">
 					<LegendItem pictolegend="url('images/picto-pp.svg'), var(--black)" boldname="Presse <br>Papier" name="Journal/Photo <br>d’archive" pictoheight="60px" pictowidth="60px" />
@@ -29,7 +29,7 @@
 			</div>
 		</Box>
 
-		<Box width="700px" icon-background="var(--black)" icon-color="var(--cream)" icon="☰" title="Voila à quoi vous avez fait confiance :" addclass="media-dataviz">
+		<Box width="700px" icon-background="var(--black)" icon-color="var(--cream)" icon="☰" title="Voila à quoi vous avez fait confiance :" addclass="media-dataviz reveal-1">
 			<div class="chart-wrapper">
 
 				<div class="chart-meida-wrapper">
