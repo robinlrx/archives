@@ -106,13 +106,13 @@
 			<Box addclass="legend-container legend-container--pie reveal-1" width="500px" icon="i" title="Légende" icon-background="black" icon-color="#FCFCF5">
 				<LegendItem pictolegend="transparent" name="Journal Télévisé" />
 				<LegendItem pictolegend="var(--black)" name="Photo" />
-				<LegendItem pictolegend="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px );" name="Presse Web" />
+				<LegendItem pictolegend="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px )" name="Presse Web" />
 				<LegendItem pictolegend="var(--green)" name="Documentaire" />
 				<LegendItem pictolegend="#B0B0AC" name="Film" />
 				<LegendItem pictolegend="#554726" name="Radio" />
 				<LegendItem pictolegend="#A8A185" name="Réseau social" />
 				<LegendItem pictolegend="#B8D4BE" name="Interview" />
-				<LegendItem pictolegend="url('~/assets/images/pie-cross.png')" name="Presse papier" />
+				<LegendItem :pictolegend="`url(${require('~/assets/images/pie-cross.png')})`" name="Presse papier" />
 			</Box>
 		</section>
 

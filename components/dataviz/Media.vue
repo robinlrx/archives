@@ -17,13 +17,13 @@
 		<Box width="500px" icon-background="var(--black)" icon-color="var(--cream)" icon="i" title="Légende" addclass="media-legend reveal-1">
 			<div class="picto-wrapper">
 				<div class="picto-group">
-					<LegendItem pictolegend="url('~/assets/images/picto-pp.svg'), var(--black)" boldname="Presse <br>Papier" name="Journal/Photo <br>d’archive" pictoheight="60px" pictowidth="60px" />
-					<LegendItem pictolegend="url('~/assets/images/picto-rs.svg'), var(--black)" boldname="Réseau <br>Social" pictoheight="60px" pictowidth="60px" />
-					<LegendItem pictolegend="url('~/assets/images/picto-pw.svg'), var(--black)" boldname="Presse <br>Web" pictoheight="60px" pictowidth="60px" />
+					<LegendItem :pictolegend="`url(${require('~/assets/images/picto-pp.svg')}), var(--black)`" boldname="Presse <br>Papier" name="Journal/Photo <br>d’archive" pictoheight="60px" pictowidth="60px" />
+					<LegendItem :pictolegend="`url(${require('~/assets/images/picto-rs.svg')}), var(--black)`" boldname="Réseau <br>Social" pictoheight="60px" pictowidth="60px" />
+					<LegendItem :pictolegend="`url(${require('~/assets/images/picto-pw.svg')}), var(--black)`" boldname="Presse <br>Web" pictoheight="60px" pictowidth="60px" />
 				</div>
 				<div class="picto-group">
-					<LegendItem pictolegend="url('~/assets/images/picto-tv.svg'), var(--black)" boldname="TV" name="Journal Télévisé/<br>Interview/film/<br>Documentaire" pictoheight="60px" pictowidth="60px" />
-					<LegendItem pictolegend="url('~/assets/images/picto-radio.svg'), var(--black)" boldname="Radio" pictoheight="60px" pictowidth="60px" />
+					<LegendItem :pictolegend="`url(${require('~/assets/images/picto-tv.svg')}), var(--black)`" boldname="TV" name="Journal Télévisé/<br>Interview/film/<br>Documentaire" pictoheight="60px" pictowidth="60px" />
+					<LegendItem :pictolegend="`url(${require('~/assets/images/picto-radio.svg')}), var(--black)`" boldname="Radio" pictoheight="60px" pictowidth="60px" />
 					<LegendItem pictolegend="var(--green)" boldname="Taux de <br>confiance" pictoheight="60px" pictowidth="60px" />
 				</div>
 			</div>
@@ -33,7 +33,7 @@
 			<div class="chart-wrapper">
 
 				<div class="chart-meida-wrapper">
-					<LegendItem pictolegend="url('~/assets/images/picto-pp.svg'), var(--black)" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
+					<LegendItem :pictolegend="`url(${require('~/assets/images/picto-pp.svg')}), var(--black)`" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
 					<div class="chart-meida-wrapper--item">
 						<div class="chart-pp--user"></div>
 						<div class="chart-trust chart-trust--pp">
@@ -46,7 +46,7 @@
 				</div>
 
 				<div class="chart-meida-wrapper">
-					<LegendItem pictolegend="url('~/assets/images/picto-rs.svg'), var(--black)" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
+					<LegendItem :pictolegend="`url(${require('~/assets/images/picto-rs.svg')}), var(--black)`" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
 					<div class="chart-meida-wrapper--item">
 						<div class="chart-rs--user"></div>
 						<div class="chart-trust chart-trust--rs">
@@ -59,7 +59,7 @@
 				</div>
 
 				<div class="chart-meida-wrapper">
-					<LegendItem pictolegend="url('~/assets/images/picto-pw.svg'), var(--black)" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
+					<LegendItem :pictolegend="`url(${require('~/assets/images/picto-pw.svg')}), var(--black)`" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
 					<div class="chart-meida-wrapper--item">
 						<div class="chart-pw--user"></div>
 						<div class="chart-trust chart-trust--pw">
@@ -72,7 +72,7 @@
 				</div>
 
 				<div class="chart-meida-wrapper">
-					<LegendItem pictolegend="url('~/assets/images/picto-radio.svg'), var(--black)" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
+					<LegendItem :pictolegend="`url(${require('~/assets/images/picto-radio.svg')}), var(--black)`" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
 					<div class="chart-meida-wrapper--item">
 						<div class="chart-radio--user"></div>
 						<div class="chart-trust chart-trust--radio">
@@ -85,7 +85,7 @@
 				</div>
 
 				<div class="chart-meida-wrapper">
-					<LegendItem pictolegend="url('~/assets/images/picto-tv.svg'), var(--black)" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
+					<LegendItem :pictolegend="`url(${require('~/assets/images/picto-tv.svg')}), var(--black)`" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
 					<div class="chart-meida-wrapper--item">
 						<div class="chart-tv--user"></div>
 						<div class="chart-trust chart-trust--tv">
