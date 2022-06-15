@@ -352,6 +352,7 @@ p {
 header .logo {
 	margin-left: 20px;
 	width: 200px;
+	filter: invert(1);
 }
 
 header .icone {
@@ -383,6 +384,7 @@ section {
 	width: 50%;
 	margin-bottom: 3%;
 	margin-top: 3%;
+	filter: invert(1);
 }
 
 .content {

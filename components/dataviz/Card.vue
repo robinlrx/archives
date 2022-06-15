@@ -94,7 +94,7 @@ export default {
 	background-color: var(--black);
 	opacity: 0;
 	visibility: hidden;
-	transition: all 0.2s ease-in-out;
+	transition: all 0.4s ease-in-out;
 }
 
 .point, .line-dot {
@@ -125,7 +125,7 @@ export default {
 	align-items: center;
 	opacity: 0;
 	visibility: hidden;
-	transition: all 0.2s ease-in-out;
+	transition: all 0.4s ease-in-out;
 	display: none;
 }
 

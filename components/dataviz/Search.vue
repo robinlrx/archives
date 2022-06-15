@@ -132,6 +132,7 @@ export default {
 	position: absolute;
 	z-index: 3;
 	top: 24%;
+	pointer-events: none;
 }
 
 </style>

@@ -4,7 +4,7 @@
     </div>
     <div id="text-container" ref="textContainer">
     </div>
-    <img src="images/vignette.png" />
+    <img src="~/assets/images/vignette.png" />
   </div>
 </template>
 
@@ -50,7 +50,7 @@ export default {
 
 </script>
 
-<style scope>
+<style scoped>
 #tuto-container {
   position: fixed;
   top: 0;
