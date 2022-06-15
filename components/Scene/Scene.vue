@@ -1,9 +1,6 @@
 <template>
-  <div style="width: 100vw; height: 100vh; position: relative">
-    <div
-      ref="white_fade"
-      class="white-fade"
-      style="
+  <div class="canvas-container">
+    <div ref="white_fade" class="white-fade" style="
         width: 100vw;
         height: 100vh;
         position: absolute;
@@ -12,8 +9,7 @@
         transform: opacity 0.8s ease;
         opacity: 0;
         pointer-events: none;
-      "
-    ></div>
+      "></div>
     <div ref="container" class="scene coverdiv"></div>
   </div>
 </template>
@@ -66,7 +62,18 @@ export default {
 </script>
 
 <style >
+.canvas-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.5s ease, filter 0.8s ease;
+  filter: blur(8px);
+  z-index: 2;
+}
+
 .white-fade {
   transition: opacity 0.8s ease;
+  opacity: 0
 }
 </style>
