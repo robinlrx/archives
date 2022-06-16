@@ -203,7 +203,7 @@ class SceneInit {
 		scene1: this.scene,
 		scene2: this.scene2,
 		camera: this.camera.position,
-		website: 'https://robinleroux.fr',
+		website: 'iframe/internet.html',
 		videoContainer: 'PC-2-Screen',
 		action: this.PC2Action,
 	})
@@ -396,7 +396,7 @@ class SceneInit {
 	this.renderer2.domElement.style.position = 'absolute';
 	// this.renderer2.domElement.style.zIndex = 5;
 	this.renderer2.domElement.style.top = 0;
-	document.body.appendChild( this.renderer2.domElement );
+	this.root.appendChild( this.renderer2.domElement );
 
   }
 

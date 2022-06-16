@@ -116,32 +116,6 @@ export default class Model {
 
   }
 
-  initImage(target) {
-
-	const texture = new THREE.TextureLoader();
-	const imageTexture = texture.load(this.website);
-	// create the plane mesh
-	const material = new THREE.MeshStandardMaterial({
-		side: THREE.DoubleSide,
-		map: imageTexture
-	});
-	// const geometry = new THREE.PlaneGeometry();
-	// const planeMesh = new THREE.Mesh( geometry, material );
-	// planeMesh.name = 'meshTV';
-	// planeMesh.position.copy( target.position );
-	// planeMesh.rotation.copy( target.rotation );
-	// planeMesh.scale.copy( target.scale );
-	// target.material = imageTexture
-    imageTexture.flipY = false
-    // this.website = target.material.map.image
-	target.material = material
-	// add it to the WebGL scene
-	// target.add(planeMesh);
-
-	console.log('image ta mere')
-
-  }
-
   loadModel(callback) {
     const dracoLoader = new DRACOLoader()
 
