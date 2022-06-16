@@ -93,7 +93,7 @@ export default class Model {
 		`<iframe id="iframe" src=${this.website} width="1000px" height=500px" frameborder="0">`,
 		'</iframe>',
 	  ].join('\n');
-	const div = document.createElement('div.iframeoui');
+	const div = document.createElement('div');
 	div.innerHTML = html;
 	// create the object3d for this element
 	const cssObject = new CSS3DObject( div );
