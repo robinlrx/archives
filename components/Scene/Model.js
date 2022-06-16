@@ -2,6 +2,7 @@ import * as THREE from 'three'
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
+import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer'
 
 export default class Model {
   constructor({
@@ -15,6 +16,10 @@ export default class Model {
     videoContainer,
     videoSrc,
     action,
+	scene2,
+	scene1,
+	website,
+	camera
   }) {
     this.src = src
     this.audioSrc = audioSrc
@@ -28,6 +33,10 @@ export default class Model {
     this.container = new THREE.Object3D()
     this.container.name = this.src
     this.action = action
+	this.scene2 = scene2
+	this.scene1 = scene1
+	this.website = website
+	this.camera = camera
     this.init()
   }
 
@@ -66,6 +75,73 @@ export default class Model {
     this.video = target.material.map.image
   }
 
+  initIframe(target) {
+
+	// create the plane mesh
+	const material = new THREE.MeshBasicMaterial({side: THREE.DoubleSide, color: 0x049ef4});
+	const geometry = new THREE.PlaneGeometry();
+	const planeMesh = new THREE.Mesh( geometry, material );
+	planeMesh.name = 'meshTV';
+	planeMesh.position.copy( target.position );
+	planeMesh.rotation.copy( target.rotation );
+	planeMesh.scale.copy( target.scale );
+	target.material = material
+	// add it to the WebGL scene
+	this.scene1.add(planeMesh);
+
+	const html = [
+		`<iframe id="iframe" src=${this.website} width="1000px" height=500px" frameborder="0">`,
+		'</iframe>',
+	  ].join('\n');
+	const div = document.createElement('div.iframeoui');
+	div.innerHTML = html;
+	// create the object3d for this element
+	const cssObject = new CSS3DObject( div );
+	cssObject.name = 'iframeTV';
+	cssObject.flipY = false;
+	// we reference the same position and rotation 
+	cssObject.rotation.copy(  target.parent.rotation );
+	cssObject.quaternion.copy(  target.parent.quaternion );
+	cssObject.position.copy( target.parent.position );
+	cssObject.scale.copy(  target.parent.scale );
+	cssObject.lookAt(this.camera)
+	console.log(cssObject.position)
+	// add it to the css scene
+	this.scene2.add(cssObject);
+	cssObject.element.onclick = function() {
+		console.log("element clicked!");
+	}
+
+	console.log('iframe ta mere')
+
+  }
+
+  initImage(target) {
+
+	const texture = new THREE.TextureLoader();
+	const imageTexture = texture.load(this.website);
+	// create the plane mesh
+	const material = new THREE.MeshStandardMaterial({
+		side: THREE.DoubleSide,
+		map: imageTexture
+	});
+	// const geometry = new THREE.PlaneGeometry();
+	// const planeMesh = new THREE.Mesh( geometry, material );
+	// planeMesh.name = 'meshTV';
+	// planeMesh.position.copy( target.position );
+	// planeMesh.rotation.copy( target.rotation );
+	// planeMesh.scale.copy( target.scale );
+	// target.material = imageTexture
+    imageTexture.flipY = false
+    // this.website = target.material.map.image
+	target.material = material
+	// add it to the WebGL scene
+	// target.add(planeMesh);
+
+	console.log('image ta mere')
+
+  }
+
   loadModel(callback) {
     const dracoLoader = new DRACOLoader()
 
@@ -75,7 +151,7 @@ export default class Model {
     const loader = new GLTFLoader(this.loadingManager)
     loader.setDRACOLoader(dracoLoader)
 
-    loader.load(`models/${this.src}.glb`, (gltf) => {
+    loader.load(`models/${this.src}.gltf`, (gltf) => {
       if (typeof callback === 'function') {
         callback(gltf.scene)
       }
@@ -97,6 +173,10 @@ export default class Model {
         if (this.videoSrc && child.name === this.videoContainer) {
           this.initVideoTexture(child)
         }
+		if (this.scene1 && this.scene2 && this.camera && child.name === this.videoContainer) {
+			this.initIframe(child)
+			console.log(child);
+		}
         if (this.material && child.name !== this.videoContainer) {
           child.material = this.material
         }

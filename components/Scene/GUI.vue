@@ -33,9 +33,9 @@ export default {
       this.$refs.introContainer.classList.remove("active")
       this.$emit("tutoEnded")
       document.querySelector(".canvas-container").style.filter = "blur(0px)"
-      setTimeout(() => {
-        this.$refs.introContainer.style.display = "none"
-      }, 1500);
+    //   setTimeout(() => {
+    //     this.$refs.introContainer.style.display = "none"
+    //   }, 1500);
     })
   },
   methods: {

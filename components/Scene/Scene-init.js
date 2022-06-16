@@ -8,6 +8,8 @@ import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js'
 
 import { gsap, Power3 } from 'gsap'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js'
+// import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js'
+import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import { CustomOutlinePass } from './shaders/CustomOutlinePass.js'
 import Model from './Model'
 import { changeFrequence } from './actions/radioAction'
@@ -64,6 +66,21 @@ class SceneInit {
 
   TV1Action() {
     console.log('sale con')
+  }
+
+  PC2Action() {
+	// this.controls.unlock();
+	console.log('hahahahaha')
+	// const iframe = document.getElementById('iframe');
+	// console.log('iframe:', iframe)
+	// const a = iframe.contentWindow;
+   	// console.log(a);
+  	// a.scrollBy(0, 100);
+	// iframe.scrollBy(0, 100);
+	document.addEventListener('dblclick', () => {
+		// this.controls.lock();
+		console.log('yess man')
+	});
   }
 
   initModels() {
@@ -180,6 +197,20 @@ class SceneInit {
     this.objectsList.push(this.TV6)
     this.targetableObjects.add(this.TV6.container)
 
+	this.PC2 = new Model({
+		src: 'PC-2',
+		loadingManager: this.manager,
+		scene1: this.scene,
+		scene2: this.scene2,
+		camera: this.camera.position,
+		website: 'https://robinleroux.fr',
+		videoContainer: 'PC-2-Screen',
+		action: this.PC2Action,
+	})
+	this.objectsList.push(this.PC2)
+	this.targetableObjects.add(this.PC2.container)
+	console.log('this.PC2', this.PC2)
+
     this.scene.add(this.targetableObjects)
     // this.radio = new Model({
     //   src: 'radio',
@@ -258,6 +289,7 @@ class SceneInit {
 
   initScene() {
     this.scene = new THREE.Scene()
+	this.scene2 = new THREE.Scene();
   }
 
   initManager() {
@@ -357,6 +389,15 @@ class SceneInit {
       1 / window.innerHeight
     )
     this.composer.addPass(effectFXAA)
+
+	// init renderer2 for iframe and scene2
+	this.renderer2 = new CSS3DRenderer();
+	this.renderer2.setSize( window.innerWidth, window.innerHeight );
+	this.renderer2.domElement.style.position = 'absolute';
+	// this.renderer2.domElement.style.zIndex = 5;
+	this.renderer2.domElement.style.top = 0;
+	document.body.appendChild( this.renderer2.domElement );
+
   }
 
   setControls() {
@@ -382,6 +423,9 @@ class SceneInit {
       blocker.style.opacity = '1'
     })
     this.scene.add(this.controls.getObject())
+
+	// control2 for scene2
+	// this.controls2 = new TrackballControls( this.camera, this.renderer2.domElement );
   }
 
   playMedias() {
@@ -456,6 +500,8 @@ class SceneInit {
     if (this.enabledRaycast && this.isLoaded) {
       this.raycaster.setFromCamera(new THREE.Vector2(), this.camera)
 
+	  this.renderer2.render( this.scene2, this.camera );
+
       // calculate objects intersecting the picking ray
       const intersects = this.raycaster.intersectObjects(
         this.targetableObjects.children
@@ -486,6 +532,7 @@ class SceneInit {
   onResize() {
     this.camera.aspect = window.innerWidth / window.innerHeight
     this.renderer.setSize(window.innerWidth, window.innerHeight)
+	this.renderer2.setSize(window.innerWidth, window.innerHeight)
     this.camera.updateProjectionMatrix()
   }
 
