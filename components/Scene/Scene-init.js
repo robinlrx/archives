@@ -311,6 +311,13 @@ class SceneInit {
 
       if (itemsTotal === itemsLoaded) {
         this.isLoaded = true
+		// init renderer2 for iframe and scene2
+		this.renderer2 = new CSS3DRenderer();
+		this.renderer2.setSize( window.innerWidth, window.innerHeight );
+		this.renderer2.domElement.style.position = 'absolute';
+		// this.renderer2.domElement.style.zIndex = 5;
+		this.renderer2.domElement.style.top = 0;
+		this.root.appendChild( this.renderer2.domElement );
         setTimeout(() => {
           document.querySelector('.wakeUpButton').classList.add('active-button')
         }, 1200)
@@ -391,12 +398,12 @@ class SceneInit {
     this.composer.addPass(effectFXAA)
 
 	// init renderer2 for iframe and scene2
-	this.renderer2 = new CSS3DRenderer();
-	this.renderer2.setSize( window.innerWidth, window.innerHeight );
-	this.renderer2.domElement.style.position = 'absolute';
-	// this.renderer2.domElement.style.zIndex = 5;
-	this.renderer2.domElement.style.top = 0;
-	this.root.appendChild( this.renderer2.domElement );
+	// this.renderer2 = new CSS3DRenderer();
+	// this.renderer2.setSize( window.innerWidth, window.innerHeight );
+	// this.renderer2.domElement.style.position = 'absolute';
+	// // this.renderer2.domElement.style.zIndex = 5;
+	// this.renderer2.domElement.style.top = 0;
+	// this.root.appendChild( this.renderer2.domElement );
 
   }
 
