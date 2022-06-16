@@ -203,7 +203,8 @@ class SceneInit {
 		scene1: this.scene,
 		scene2: this.scene2,
 		camera: this.camera.position,
-		website: 'iframe/internet.html',
+		// website: 'iframe/internet.html',
+		website: 'https://robinleroux.fr',
 		videoContainer: 'PC-2-Screen',
 		action: this.PC2Action,
 	})
