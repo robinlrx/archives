@@ -101,14 +101,86 @@ class SceneInit {
       src: 'radio',
       loadingManager: this.manager,
       audioSrc: 'sounds/radio/extrait1/1.mp3',
-      audioVolume: 2,
+      audioVolume: 1,
       listener: this.listener,
       action: this.radioAction,
     })
     this.objectsList.push(this.radio)
     this.targetableObjects.add(this.radio.container)
-    this.scene.add(this.targetableObjects)
 
+    this.TV1 = new Model({
+      src: 'TV-1',
+      loadingManager: this.manager,
+      audioSrc: 'videos/VideoJT.mp4',
+      audioVolume: 2,
+      listener: this.listener,
+      videoSrc: 'videos/VideoJT.mp4',
+      videoContainer: 'TV-1-Screen',
+    })
+    this.objectsList.push(this.TV1)
+    this.targetableObjects.add(this.TV1.container)
+
+    this.TV2 = new Model({
+      src: 'TV-2',
+      loadingManager: this.manager,
+      audioSrc: 'videos/VideoInterview1.mp4',
+      audioVolume: 2,
+      listener: this.listener,
+      videoSrc: 'videos/VideoInterview1.mp4',
+      videoContainer: 'TV-2-Screen',
+    })
+    this.objectsList.push(this.TV2)
+    this.targetableObjects.add(this.TV2.container)
+
+    this.TV3 = new Model({
+      src: 'TV-3',
+      loadingManager: this.manager,
+      audioSrc: 'videos/VideoInterview2.mp4',
+      audioVolume: 2,
+      listener: this.listener,
+      videoSrc: 'videos/VideoInterview2.mp4',
+      videoContainer: 'TV-3-Screen',
+    })
+    this.objectsList.push(this.TV3)
+    this.targetableObjects.add(this.TV3.container)
+
+    this.TV4 = new Model({
+      src: 'TV-4',
+      loadingManager: this.manager,
+      audioSrc: 'videos/france2-proces.mp4',
+      audioVolume: 2,
+      listener: this.listener,
+      videoSrc: 'videos/france2-proces.mp4',
+      videoContainer: 'TV-4-Screen',
+    })
+    this.objectsList.push(this.TV4)
+    this.targetableObjects.add(this.TV4.container)
+
+    this.TV5 = new Model({
+      src: 'TV-5',
+      loadingManager: this.manager,
+      audioSrc: 'videos/france2-lucet.mp4',
+      audioVolume: 2,
+      listener: this.listener,
+      videoSrc: 'videos/france2-lucet.mp4',
+      videoContainer: 'TV-5-Screen',
+    })
+    this.objectsList.push(this.TV5)
+    this.targetableObjects.add(this.TV5.container)
+
+    this.TV6 = new Model({
+      src: 'TV-6',
+      loadingManager: this.manager,
+      audioSrc: 'videos/Documentaire.mp4',
+      audioVolume: 2,
+      listener: this.listener,
+      videoSrc: 'videos/Documentaire.mp4',
+      videoContainer: 'TV-6-Screen',
+    })
+    this.objectsList.push(this.TV6)
+    this.targetableObjects.add(this.TV6.container)
+
+    this.scene.add(this.targetableObjects)
     // this.radio = new Model({
     //   src: 'radio',
     //   loadingManager: this.manager,
@@ -217,13 +289,13 @@ class SceneInit {
   initLights() {
     const ambient = new THREE.AmbientLight(0xffffff, 1)
     this.scene.add(ambient)
-    // const pointLight = new THREE.PointLight(0x00ffab, 1, 100)
-    // pointLight.position.set(10, 10, 10)
-    // this.scene.add(pointLight)
+    const pointLight = new THREE.PointLight(0x00ffab, 1, 100)
+    pointLight.position.set(10, 10, 10)
+    this.scene.add(pointLight)
 
-    // const sphereSize = 1
-    // const pointLightHelper = new THREE.PointLightHelper(pointLight, sphereSize)
-    // this.scene.add(pointLightHelper)
+    const sphereSize = 1
+    const pointLightHelper = new THREE.PointLightHelper(pointLight, sphereSize)
+    this.scene.add(pointLightHelper)
   }
 
   initCamera() {

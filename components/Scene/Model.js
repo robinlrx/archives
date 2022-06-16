@@ -75,7 +75,7 @@ export default class Model {
     const loader = new GLTFLoader(this.loadingManager)
     loader.setDRACOLoader(dracoLoader)
 
-    loader.load(`models/${this.src}.gltf`, (gltf) => {
+    loader.load(`models/${this.src}.glb`, (gltf) => {
       if (typeof callback === 'function') {
         callback(gltf.scene)
       }
