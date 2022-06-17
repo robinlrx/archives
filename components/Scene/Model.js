@@ -14,7 +14,10 @@ export default class Model {
     material,
     videoContainer,
     videoSrc,
+    camPos,
     action,
+    index,
+    isNotPositional,
   }) {
     this.src = src
     this.audioSrc = audioSrc
@@ -27,7 +30,10 @@ export default class Model {
     this.videoSrc = videoSrc
     this.container = new THREE.Object3D()
     this.container.name = this.src
+    this.camPos = camPos
     this.action = action
+    this.index = index
+    this.isNotPositional = isNotPositional
     this.init()
   }
 
@@ -36,14 +42,15 @@ export default class Model {
   }
 
   initSound(target) {
-    this.sound = new THREE.PositionalAudio(this.listener)
+    if (this.isNotPositional) this.sound = new THREE.Audio(this.listener)
+    else this.sound = new THREE.PositionalAudio(this.listener)
     this.sound.name = 'PositionalAudio'
     this.audioLoader = new THREE.AudioLoader()
     this.audioLoader.load(`${this.audioSrc}`, (buffer) => {
+      if (!this.isNotPositional) this.sound.setRefDistance(this.audioDistance)
       this.sound.setLoop(true)
       this.sound.setBuffer(buffer)
       this.sound.setVolume(this.audioVolume)
-      this.sound.setRefDistance(this.audioDistance)
     })
     target.add(this.sound)
   }
@@ -75,7 +82,7 @@ export default class Model {
     const loader = new GLTFLoader(this.loadingManager)
     loader.setDRACOLoader(dracoLoader)
 
-    loader.load(`models/${this.src}.glb`, (gltf) => {
+    loader.load(`models/${this.src}.gltf`, (gltf) => {
       if (typeof callback === 'function') {
         callback(gltf.scene)
       }

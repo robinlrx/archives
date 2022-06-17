@@ -29,8 +29,8 @@
 		</div>
 
 		<div class="intro-container" ref="intro_container">
-			<video ref="video" src="videos/intro.mp4"></video>
-			<video ref="videoTransition" style="display:none">
+			<video ref="video" src="videos/intro.mp4" preload></video>
+			<video ref="videoTransition" preload style="display:none">
 
 			</video>
 		</div>
@@ -222,7 +222,7 @@ export default {
 .button-container {
 	position: fixed;
 	z-index: 2;
-	bottom: 300px;
+	bottom: 32%;
 	display: flex;
 	align-items: center;
 	justify-content: center;

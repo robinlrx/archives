@@ -11,6 +11,7 @@ import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockCont
 import { CustomOutlinePass } from './shaders/CustomOutlinePass.js'
 import Model from './Model'
 import { changeFrequence } from './actions/radioAction'
+import { phoneSound } from './actions/phoneAction'
 
 class SceneInit {
   constructor({ rootEl }) {
@@ -18,13 +19,16 @@ class SceneInit {
     this.root = rootEl
     this.background = 0x000
     this.raycaster = new THREE.Raycaster()
-    this.cameraDefaultPosition = new THREE.Vector3(0, 12, -5)
+    this.cameraDefaultPosition = new THREE.Vector3(0, 10, -11)
     this.clock = new THREE.Clock()
 
     this.enabledRaycast = true
+    this.isPhoneSpeaking = false
+
     this.isLoaded = false
     this.isZoomed = false
     this.currentAction = undefined
+    this.currentTarget = undefined
 
     this.init()
     this.update()
@@ -48,13 +52,13 @@ class SceneInit {
   }
 
   initBackgroundNoise() {
-    const backgroundNoise = new THREE.Audio(this.listener)
+    this.backgroundNoise = new THREE.Audio(this.listener)
     const backgroundNoiseLoader = new THREE.AudioLoader()
     backgroundNoiseLoader.load('sounds/BACKGROUND_NOISE.mp3', (buffer) => {
-      backgroundNoise.setBuffer(buffer)
-      backgroundNoise.setLoop(true)
-      backgroundNoise.setVolume(0.3)
-      backgroundNoise.play()
+      this.backgroundNoise.setBuffer(buffer)
+      this.backgroundNoise.setLoop(true)
+      this.backgroundNoise.setVolume(0.3)
+      this.backgroundNoise.play()
     })
   }
 
@@ -62,23 +66,32 @@ class SceneInit {
     changeFrequence(this.radio)
   }
 
-  TV1Action() {
-    console.log('sale con')
+  TVSwitch = () => {
+    const nextTV = this.TVs[Math.round(Math.random() * this.TVs.length)]
+    if (nextTV.index === this.currentTarget.index) this.TVSwitch()
+    else if (nextTV.camPos) {
+      gsap.to(this.camera.position, {
+        x: nextTV.camPos.x,
+        y: nextTV.camPos.y,
+        z: nextTV.camPos.z,
+        duration: 1,
+        ease: Power3,
+        onComplete: () => {
+          this.currentTarget = nextTV
+        },
+      })
+    }
   }
 
   initModels() {
     this.targetableObjects = new THREE.Object3D()
     this.objectsList = []
+    this.TVs = []
     this.animationMixers = []
     const matcapTexture = new THREE.TextureLoader().load(
       'textures/7A7A7A_D0D0D0_BCBCBC_B4B4B4-512px.png'
     )
     matcapTexture.encoding = THREE.sRGBEncoding
-
-    // const previewMaterial = new THREE.MeshMatcapMaterial({
-    //   matcap: matcapTexture,
-    //   side: THREE.DoubleSide,
-    // })
 
     this.office = new Model({
       scene: this.scene,
@@ -96,12 +109,24 @@ class SceneInit {
     this.animationMixers.push(this.fan.mixer)
     this.scene.add(this.fan.container)
 
+    this.phone = new Model({
+      scene: this.scene,
+      src: 'phone',
+      loadingManager: this.manager,
+      audioSrc: 'sounds/radio/extrait1/1.mp3',
+      audioVolume: 2,
+      isNotPositional: true,
+      autoPlay: false,
+      listener: this.listener,
+    })
+    this.scene.add(this.phone.container)
+
     this.radio = new Model({
       scene: this.scene,
       src: 'radio',
       loadingManager: this.manager,
       audioSrc: 'sounds/radio/extrait1/1.mp3',
-      audioVolume: 1,
+      audioVolume: 2,
       listener: this.listener,
       action: this.radioAction,
     })
@@ -111,149 +136,114 @@ class SceneInit {
     this.TV1 = new Model({
       src: 'TV-1',
       loadingManager: this.manager,
-      audioSrc: 'videos/VideoJT.mp4',
+      audioSrc: 'videos/TV/Film.mp4',
       audioVolume: 2,
       listener: this.listener,
-      videoSrc: 'videos/VideoJT.mp4',
+      videoSrc: 'videos/TV/Film.mp4',
       videoContainer: 'TV-1-Screen',
+      camPos: new THREE.Vector3(8, 5, 20),
+      action: this.TVSwitch,
+      index: 1,
     })
     this.objectsList.push(this.TV1)
+    this.TVs.push(this.TV1)
     this.targetableObjects.add(this.TV1.container)
 
     this.TV2 = new Model({
       src: 'TV-2',
       loadingManager: this.manager,
-      audioSrc: 'videos/VideoInterview1.mp4',
+      audioSrc: 'videos/TV/Interview1.mp4',
       audioVolume: 2,
       listener: this.listener,
-      videoSrc: 'videos/VideoInterview1.mp4',
+      videoSrc: 'videos/TV/Interview1.mp4',
       videoContainer: 'TV-2-Screen',
+      camPos: new THREE.Vector3(11, 3, 5),
+      action: this.TVSwitch,
+      index: 2,
     })
     this.objectsList.push(this.TV2)
+    this.TVs.push(this.TV2)
     this.targetableObjects.add(this.TV2.container)
 
     this.TV3 = new Model({
       src: 'TV-3',
       loadingManager: this.manager,
-      audioSrc: 'videos/VideoInterview2.mp4',
+      audioSrc: 'videos/TV/Divers.mp4',
       audioVolume: 2,
       listener: this.listener,
-      videoSrc: 'videos/VideoInterview2.mp4',
+      videoSrc: 'videos/TV/Divers.mp4',
       videoContainer: 'TV-3-Screen',
+      camPos: new THREE.Vector3(13, 5, -6),
+      action: this.TVSwitch,
+      index: 3,
     })
     this.objectsList.push(this.TV3)
+    this.TVs.push(this.TV3)
     this.targetableObjects.add(this.TV3.container)
 
     this.TV4 = new Model({
       src: 'TV-4',
       loadingManager: this.manager,
-      audioSrc: 'videos/france2-proces.mp4',
+      audioSrc: 'videos/TV/JT.mp4',
       audioVolume: 2,
       listener: this.listener,
-      videoSrc: 'videos/france2-proces.mp4',
+      videoSrc: 'videos/TV/JT.mp4',
       videoContainer: 'TV-4-Screen',
+      camPos: new THREE.Vector3(10, 14.7, 15),
+      action: this.TVSwitch,
+      index: 4,
     })
     this.objectsList.push(this.TV4)
+    this.TVs.push(this.TV4)
     this.targetableObjects.add(this.TV4.container)
 
     this.TV5 = new Model({
       src: 'TV-5',
       loadingManager: this.manager,
-      audioSrc: 'videos/france2-lucet.mp4',
+      audioSrc: 'videos/TV/Interview2.mp4',
       audioVolume: 2,
       listener: this.listener,
-      videoSrc: 'videos/france2-lucet.mp4',
+      videoSrc: 'videos/TV/Interview2.mp4',
       videoContainer: 'TV-5-Screen',
+      camPos: new THREE.Vector3(17, 12, 5),
+
+      action: this.TVSwitch,
+      index: 5,
     })
     this.objectsList.push(this.TV5)
+    this.TVs.push(this.TV5)
     this.targetableObjects.add(this.TV5.container)
 
     this.TV6 = new Model({
       src: 'TV-6',
       loadingManager: this.manager,
-      audioSrc: 'videos/Documentaire.mp4',
+      audioSrc: 'videos/TV/Documentaire.mp4',
       audioVolume: 2,
       listener: this.listener,
-      videoSrc: 'videos/Documentaire.mp4',
+      videoSrc: 'videos/TV/Documentaire.mp4',
       videoContainer: 'TV-6-Screen',
+      camPos: new THREE.Vector3(15, 16, -3),
+
+      action: this.TVSwitch,
+      index: 6,
     })
     this.objectsList.push(this.TV6)
+    this.TVs.push(this.TV6)
     this.targetableObjects.add(this.TV6.container)
 
-    this.scene.add(this.targetableObjects)
-    // this.radio = new Model({
-    //   src: 'radio',
-    //   loadingManager: this.manager,
-    //   audioSrc: 'videos/VideoJT.mp4',
-    //   audioVolume: 2,
-    //   listener: this.listener,
-    //   action: this.radioAction,
-    // })
-    // this.objectsList.push(this.radio)
-    // this.targetableObjects.add(this.radio.container)
-    // console.log(this.radio.container)
-    // this.TV1 = new Model({
-    //   src: 'TV1',
-    //   loadingManager: this.manager,
-    //   audioSrc: 'videos/VideoJT.mp4',
-    //   audioVolume: 2,
-    //   listener: this.listener,
-    //   videoSrc: 'videos/VideoJT.mp4',
-    //   videoContainer: 'Screen',
-    //   material: previewMaterial,
-    //   action: this.TV1Action
-    // })
-    // this.objectsList.push(this.TV1)
-    // this.targetableObjects.add(this.TV1.container)
-    // this.TV2 = new Model({
-    //   src: 'TV2',
-    //   loadingManager: this.manager,
-    //   audioSrc: 'videos/VideoInterview1.mp4',
-    //   audioVolume: 2,
-    //   listener: this.listener,
-    //   videoSrc: 'videos/VideoInterview1.mp4',
-    //   videoContainer: 'Screen',
-    //   material: previewMaterial
-    // })
-    // this.objectsList.push(this.TV2)
-    // this.targetableObjects.add(this.TV2.container)
-    // this.TV3 = new Model({
-    //   src: 'TV3',
-    //   loadingManager: this.manager,
-    //   audioSrc: 'videos/VideoInterview2.mp4',
-    //   audioVolume: 1,
-    //   listener: this.listener,
-    //   videoSrc: 'videos/VideoInterview2.mp4',
-    //   videoContainer: 'Screen3',
-    //   material: previewMaterial
-    // })
-    // this.targetableObjects.add(this.TV3.container)
-    // this.objectsList.push(this.TV3)
-    // this.TV4 = new Model({
-    //   src: 'TV4',
-    //   loadingManager: this.manager,
-    //   audioSrc: 'videos/Documentaire.mp4',
-    //   audioVolume: 1,
-    //   listener: this.listener,
-    //   videoSrc: 'videos/Documentaire.mp4',
-    //   videoContainer: 'Screen2',
-    //   material: previewMaterial
-    // })
-    // this.targetableObjects.add(this.TV4.container)
-    // this.objectsList.push(this.TV4)
-    // this.TV5 = new Model({
-    //   src: 'TV5',
-    //   loadingManager: this.manager,
-    //   audioSrc: 'videos/VideoInterview2.mp4',
-    //   audioVolume: 1,
-    //   listener: this.listener,
-    //   videoSrc: 'videos/VideoInterview2.mp4',
-    //   videoContainer: 'Screen5',
-    //   material: previewMaterial
-    // })
-    // this.targetableObjects.add(this.TV5.container)
+    this.PC1 = new Model({
+      src: 'PC-1',
+      loadingManager: this.manager,
+    })
+    this.scene.add(this.PC1.container)
 
-    // this.objectsList.push(this.TV5)
+    this.PC2 = new Model({
+      src: 'PC-2',
+      loadingManager: this.manager,
+    })
+    this.scene.add(this.PC2.container)
+
+    this.scene.add(this.targetableObjects)
   }
 
   initScene() {
@@ -279,6 +269,7 @@ class SceneInit {
 
       if (itemsTotal === itemsLoaded) {
         this.isLoaded = true
+        this.clock.start()
         setTimeout(() => {
           document.querySelector('.wakeUpButton').classList.add('active-button')
         }, 1200)
@@ -287,15 +278,15 @@ class SceneInit {
   }
 
   initLights() {
-    const ambient = new THREE.AmbientLight(0xffffff, 1)
+    const ambient = new THREE.AmbientLight(0xffffff, 0.9)
     this.scene.add(ambient)
-    const pointLight = new THREE.PointLight(0x00ffab, 1, 100)
+    const pointLight = new THREE.PointLight(0x00ffab, 0.4, 100)
     pointLight.position.set(10, 10, 10)
     this.scene.add(pointLight)
 
-    const sphereSize = 1
-    const pointLightHelper = new THREE.PointLightHelper(pointLight, sphereSize)
-    this.scene.add(pointLightHelper)
+    // const sphereSize = 1
+    // const pointLightHelper = new THREE.PointLightHelper(pointLight, sphereSize)
+    // this.scene.add(pointLightHelper)
   }
 
   initCamera() {
@@ -309,9 +300,6 @@ class SceneInit {
     this.camera.position.y = 10
     this.camera.position.z = -11
     this.camera.rotation.x = -0.9
-    // this.camera.position.x = 0
-    // this.camera.position.y = 12
-    // this.camera.position.z = -5
 
     this.camera.updateProjectionMatrix()
   }
@@ -384,18 +372,30 @@ class SceneInit {
     this.scene.add(this.controls.getObject())
   }
 
-  playMedias() {
+  playMedias = () => {
     setTimeout(() => {
       this.controls.lock()
     }, 3000)
     this.objectsList.forEach((element) => {
-      if (element.sound) {
+      if (element.sound && element.autoPlay !== false) {
         element.sound.play()
       }
-      if (element.video) {
+      if (element.video && element.autoPlay !== false) {
         element.video.play()
       }
     })
+    setTimeout(() => {
+      phoneSound(this.phone, 0)
+    }, 60000)
+    setTimeout(() => {
+      phoneSound(this.phone, 1)
+    }, 120000)
+    setTimeout(() => {
+      phoneSound(this.phone, 2)
+    }, 150000)
+    setTimeout(() => {
+      phoneSound(this.phone, 3)
+    }, 180000)
   }
 
   stopMedias() {
@@ -407,78 +407,111 @@ class SceneInit {
         element.video.pause()
       }
     })
+    this.backgroundNoise.stop()
   }
 
   zoomCamera = () => {
     if (event.deltaY < 0 && !this.isZoomed) {
       document.querySelector('.focus').style.opacity = 1
 
-      gsap.to(this.camera, {
-        fov: 30,
-        duration: 1,
-        ease: Power3,
-        onUpdate: () => {
-          this.controls.getObject().updateProjectionMatrix()
-        },
-        onComplete: () => {
-          this.isZoomed = true
-          window.addEventListener('click', this.currentAction)
-        },
-      })
+      if (this.currentTarget.camPos !== undefined) {
+        gsap.to(this.camera.position, {
+          x: this.currentTarget.camPos.x,
+          y: this.currentTarget.camPos.y,
+          z: this.currentTarget.camPos.z,
+          duration: 1,
+          ease: Power3,
+          onComplete: () => {
+            this.isZoomed = true
+            this.TVIndex = this.currentTarget.tvIndex
+            window.addEventListener('click', this.currentAction)
+          },
+        })
+      } else {
+        gsap.to(this.camera, {
+          fov: 30,
+          duration: 1,
+          ease: Power3,
+          onUpdate: () => {
+            this.controls.getObject().updateProjectionMatrix()
+          },
+          onComplete: () => {
+            this.isZoomed = true
+            window.addEventListener('click', this.currentAction)
+          },
+        })
+      }
     } else if (event.deltaY > 0 && this.isZoomed) {
+      if (this.currentTarget.camPos !== undefined) {
+        gsap.to(this.camera.position, {
+          x: this.cameraDefaultPosition.x,
+          y: this.cameraDefaultPosition.y,
+          z: this.cameraDefaultPosition.z,
+          duration: 1,
+          onComplete: () => {
+            this.isZoomed = false
+            window.removeEventListener('click', this.currentAction)
+          },
+        })
+      } else {
+        gsap.to(this.camera, {
+          fov: 65,
+          duration: 1,
+          onUpdate: () => {
+            this.controls.getObject().updateProjectionMatrix()
+          },
+          onComplete: () => {
+            this.isZoomed = false
+            window.removeEventListener('click', this.currentAction)
+          },
+        })
+      }
       document.querySelector('.focus').style.opacity = 0
-      gsap.to(this.camera, {
-        fov: 65,
-        duration: 1,
-        onUpdate: () => {
-          this.controls.getObject().updateProjectionMatrix()
-        },
-        onComplete: () => {
-          this.isZoomed = false
-          window.removeEventListener('click', this.currentAction)
-        },
-      })
     }
   }
 
   update() {
     requestAnimationFrame(() => this.update())
 
-    // const delta = this.clock.getDelta()
-    // if (this.animationMixers) {
-    //   this.animationMixers.forEach((mixer) => {
-    //     mixer.update(delta)
-    //   })
-    // }
-
     this.composer.render()
 
-    if (this.enabledRaycast && this.isLoaded) {
-      this.raycaster.setFromCamera(new THREE.Vector2(), this.camera)
+    if (this.isLoaded) {
+      const delta = this.clock.getDelta()
+      this.fan.mixer.update(delta)
 
-      // calculate objects intersecting the picking ray
-      const intersects = this.raycaster.intersectObjects(
-        this.targetableObjects.children
-      )
+      // if (this.animationMixers) {
+      //   this.animationMixers.forEach((mixer) => {
+      //     mixer.update(delta)
+      //   })
+      // }
 
-      if (intersects.length > 0) {
-        document
-          .querySelector('.cursor-circle')
-          .classList.add('cursor-circle-focus')
-        const intersect = intersects[0].object
+      if (this.enabledRaycast) {
+        this.raycaster.setFromCamera(new THREE.Vector2(), this.camera)
 
-        const wholeObject = this.objectsList.find(
-          (element) => element.src === intersect.objectName
+        const intersects = this.raycaster.intersectObjects(
+          this.targetableObjects.children
         )
-        console.log(intersect.objectName)
 
-        this.currentAction = wholeObject.action
-        document.addEventListener('wheel', this.zoomCamera)
-      } else {
-        document
-          .querySelector('.cursor-circle')
-          .classList.remove('cursor-circle-focus')
-        document.removeEventListener('wheel', this.zoomCamera)
+        if (intersects.length > 0) {
+          document
+            .querySelector('.cursor-circle')
+            .classList.add('cursor-circle-focus')
+          const intersect = intersects[0].object
+
+          const wholeObject = this.objectsList.find(
+            (element) => element.src === intersect.objectName
+          )
+
+          this.currentAction = wholeObject.action
+          this.currentTarget = wholeObject
+
+          document.addEventListener('wheel', this.zoomCamera)
+        } else {
+          document
+            .querySelector('.cursor-circle')
+            .classList.remove('cursor-circle-focus')
+          document.removeEventListener('wheel', this.zoomCamera)
+        }
       }
     }
   }
