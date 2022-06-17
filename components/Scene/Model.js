@@ -2,7 +2,7 @@ import * as THREE from 'three'
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
-import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer'
+// import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer'
 
 export default class Model {
   constructor({
@@ -75,44 +75,61 @@ export default class Model {
     this.video = target.material.map.image
   }
 
-  initIframe(target) {
+//   initIframe(target) {
 
+// 	// create the plane mesh
+// 	const material = new THREE.MeshBasicMaterial({side: THREE.DoubleSide, color: 0x049ef4});
+// 	const geometry = new THREE.PlaneGeometry();
+// 	const planeMesh = new THREE.Mesh( geometry, material );
+// 	planeMesh.name = 'meshTV';
+// 	planeMesh.position.copy( target.position );
+// 	planeMesh.rotation.copy( target.rotation );
+// 	planeMesh.scale.copy( target.scale );
+// 	// target.material = material
+// 	// add it to the WebGL scene
+// 	target.parent.add(planeMesh);
+
+// 	const html = [
+// 		`<iframe id="iframe" src=${this.website} width="1000px" height=500px" frameborder="0">`,
+// 		'</iframe>',
+// 	  ].join('\n');
+// 	const div = document.createElement('div');
+// 	div.innerHTML = html;
+// 	// create the object3d for this element
+// 	const cssObject = new CSS3DObject( div );
+// 	cssObject.name = 'iframeTV';
+// 	cssObject.flipY = false;
+// 	// we reference the same position and rotation 
+// 	cssObject.rotation.copy(  planeMesh.rotation );
+// 	// cssObject.quaternion.copy(  planeMesh.quaternion );
+// 	cssObject.position.copy( planeMesh.position );
+// 	cssObject.scale.copy( planeMesh.scale );
+// 	cssObject.lookAt(this.camera)
+// 	console.log(cssObject.position)
+// 	// add it to the css scene
+// 	this.scene2.add(cssObject);
+// 	cssObject.element.onclick = function() {
+// 		console.log("element clicked!");
+// 	}
+
+// 	console.log('iframe ta mere')
+
+//   }
+
+initImage(target) {
+
+	const texture = new THREE.TextureLoader();
+	const imageTexture = texture.load(this.website);
 	// create the plane mesh
-	const material = new THREE.MeshBasicMaterial({side: THREE.DoubleSide, color: 0x049ef4});
-	const geometry = new THREE.PlaneGeometry();
-	const planeMesh = new THREE.Mesh( geometry, material );
-	planeMesh.name = 'meshTV';
-	planeMesh.position.copy( target.position );
-	planeMesh.rotation.copy( target.rotation );
-	planeMesh.scale.copy( target.scale );
-	// target.material = material
-	// add it to the WebGL scene
-	target.parent.add(planeMesh);
+	const material = new THREE.MeshStandardMaterial({
+		side: THREE.DoubleSide,
+		map: imageTexture
+	});
+    imageTexture.flipY = false
+	target.material = material
+	imageTexture.needsUpdate = true;
 
-	const html = [
-		`<iframe id="iframe" src=${this.website} width="1000px" height=500px" frameborder="0">`,
-		'</iframe>',
-	  ].join('\n');
-	const div = document.createElement('div');
-	div.innerHTML = html;
-	// create the object3d for this element
-	const cssObject = new CSS3DObject( div );
-	cssObject.name = 'iframeTV';
-	cssObject.flipY = false;
-	// we reference the same position and rotation 
-	cssObject.rotation.copy(  planeMesh.rotation );
-	// cssObject.quaternion.copy(  planeMesh.quaternion );
-	cssObject.position.copy( planeMesh.position );
-	cssObject.scale.copy( planeMesh.scale );
-	cssObject.lookAt(this.camera)
-	console.log(cssObject.position)
-	// add it to the css scene
-	this.scene2.add(cssObject);
-	cssObject.element.onclick = function() {
-		console.log("element clicked!");
-	}
-
-	console.log('iframe ta mere')
+	console.log('image ta mere')
 
   }
 
@@ -147,8 +164,12 @@ export default class Model {
         if (this.videoSrc && child.name === this.videoContainer) {
           this.initVideoTexture(child)
         }
-		if (this.scene1 && this.scene2 && this.camera && child.name === this.videoContainer) {
-			this.initIframe(child)
+		// if (this.scene1 && this.scene2 && this.camera && child.name === this.videoContainer) {
+		// 	this.initIframe(child)
+		// 	console.log(child);
+		// }
+		if (this.website && child.name === this.videoContainer) {
+			this.initImage(child)
 			console.log(child);
 		}
         if (this.material && child.name !== this.videoContainer) {
