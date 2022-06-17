@@ -81,6 +81,7 @@ class SceneInit {
 		// this.controls.lock();
 		console.log('yess man')
 	});
+	
   }
 
   initModels() {
@@ -204,7 +205,7 @@ class SceneInit {
 		scene2: this.scene2,
 		camera: this.camera.position,
 		// website: 'iframe/internet.html',
-		website: 'https://robinleroux.fr',
+		website: 'https://www.youtube.com/embed/o_jWNAh_aQA',
 		videoContainer: 'PC-2-Screen',
 		action: this.PC2Action,
 	})

@@ -85,9 +85,9 @@ export default class Model {
 	planeMesh.position.copy( target.position );
 	planeMesh.rotation.copy( target.rotation );
 	planeMesh.scale.copy( target.scale );
-	target.material = material
+	// target.material = material
 	// add it to the WebGL scene
-	this.scene1.add(planeMesh);
+	target.parent.add(planeMesh);
 
 	const html = [
 		`<iframe id="iframe" src=${this.website} width="1000px" height=500px" frameborder="0">`,
@@ -100,10 +100,10 @@ export default class Model {
 	cssObject.name = 'iframeTV';
 	cssObject.flipY = false;
 	// we reference the same position and rotation 
-	cssObject.rotation.copy(  target.parent.rotation );
-	cssObject.quaternion.copy(  target.parent.quaternion );
-	cssObject.position.copy( target.parent.position );
-	cssObject.scale.copy(  target.parent.scale );
+	cssObject.rotation.copy(  planeMesh.rotation );
+	// cssObject.quaternion.copy(  planeMesh.quaternion );
+	cssObject.position.copy( planeMesh.position );
+	cssObject.scale.copy( planeMesh.scale );
 	cssObject.lookAt(this.camera)
 	console.log(cssObject.position)
 	// add it to the css scene
