@@ -71,18 +71,13 @@ class SceneInit {
   PC2Action = () => {
 	// this.controls.unlock();
 	console.log('hahahahaha')
-	// const iframe = document.getElementById('iframe');
-	// console.log('iframe:', iframe)
-	// const a = iframe.contentWindow;
-   	// console.log(a);
-  	// a.scrollBy(0, 100);
-	// iframe.scrollBy(0, 100);
 	this.website = 'iframe/twitter-3.png'
-	document.addEventListener('dblclick', () => {
-		// this.controls.lock();
-		console.log('yess man')
-	});
 	
+	// setImage de Model.js ou tu incremente un index de tableau que tu return a Model.js
+	// tab 
+
+
+	this.PC2.changeImage('iframe/twitter-3.png')
   }
 
   initModels() {

@@ -37,6 +37,7 @@ export default class Model {
 	this.scene1 = scene1
 	this.website = website
 	this.camera = camera
+	this.indexImage = 0
     this.init()
   }
 
@@ -117,7 +118,6 @@ export default class Model {
 //   }
 
 initImage(target) {
-
 	const texture = new THREE.TextureLoader();
 	const imageTexture = texture.load(this.website);
 	// create the plane mesh
@@ -128,9 +128,22 @@ initImage(target) {
     imageTexture.flipY = false
 	target.material = material
 	imageTexture.needsUpdate = true;
+}
+
+changeImage(newImageTexture) {
+	const nbImage = 2;	
+	this.indexImage = this.indexImage < nbImage ? this.indexImage + 1 : 0;
+
+	// this.websites[this.indexImage]
+	const map = new THREE.TextureLoader().load(newImageTexture);
+	map.flipY = false;
+	this.material = new THREE.MeshStandardMaterial({
+	 	side: THREE.DoubleSide,
+	 	map: this.website
+	 });
+	 map.needsUpdate = true;
 
 	console.log('image ta mere')
-
   }
 
   loadModel(callback) {
@@ -154,6 +167,7 @@ initImage(target) {
         })
       }
       gltf.scene.traverse((child) => {
+		this.child = child;
         child.objectName = this.src
 
         if (child.isMesh) {
@@ -169,8 +183,7 @@ initImage(target) {
 		// 	console.log(child);
 		// }
 		if (this.website && child.name === this.videoContainer) {
-			this.initImage(child)
-			console.log(child);
+			this.initImage(child);
 		}
         if (this.material && child.name !== this.videoContainer) {
           child.material = this.material
