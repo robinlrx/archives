@@ -11,6 +11,7 @@ import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockCont
 import { CustomOutlinePass } from './shaders/CustomOutlinePass.js'
 import Model from './Model'
 import { changeFrequence } from './actions/radioAction'
+import { incrementTV } from './actions/localStorageAction'
 
 class SceneInit {
   constructor({ rootEl }) {
@@ -40,6 +41,7 @@ class SceneInit {
     this.initAudio()
     // this.initModels()
     this.root.appendChild(this.canvas)
+	localStorage.setItem('incremenntTV', 0)
   }
 
   initAudio() {
@@ -62,8 +64,10 @@ class SceneInit {
     changeFrequence(this.radio)
   }
 
-  TV1Action() {
+  TV1Action = () =>  {
     console.log('sale con')
+	localStorage.setItem('TV source', 1)
+	incrementTV()
   }
 
   initModels() {
@@ -116,6 +120,7 @@ class SceneInit {
       listener: this.listener,
       videoSrc: 'videos/VideoJT.mp4',
       videoContainer: 'TV-1-Screen',
+	  action: this.TV1Action,
     })
     this.objectsList.push(this.TV1)
     this.targetableObjects.add(this.TV1.container)
