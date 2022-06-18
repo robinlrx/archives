@@ -174,7 +174,7 @@ figcaption p {
 .profession {
 	font-family: 'Georgia-bold';
 	padding-bottom: 10px;
-	border-bottom: solid var(--black);
+	border-bottom: solid 2px var(--black);
 	width: 300px;
 	margin: 5px 0;
 	font-size: 1.125rem;

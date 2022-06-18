@@ -14,10 +14,11 @@
 					<!-- left side -->
 					<div class="case">
 						<p class='text-bold date reveal-1'>19<br>91</p>
-						<!-- <div class="separator"></div> -->
+						<div class="line-case"></div>
 						<img src="~/assets/images/omar.png" alt="" class="omar reveal-1">
-						<!-- <div class="separator"></div> -->
+						<div class="line-case"></div>
 						<p class="resume reveal-1">L’affaire Omar Raddad commence avec le meurtre de Ghislaine Marshal en 1991, dans sa propre villa. “OMAR M’A TUER” est inscrit en lettres de sang sur 2 surfaces, ce qui mène à l’arrestation d’Omar Raddad.</p>
+						<div class="line-case"></div>
 					</div>
 					<!-- right side -->
 					<Box addclass="reveal-1 stats">
@@ -42,9 +43,11 @@
 							<div class="bottom-content">
 
 								<Box addclass="legend-container reveal-1" width="50%" icon="i" title="Légende" icon-background="black" icon-color="#FCFCF5">
-									<LegendItem pictolegend="var(--green)" name="Oui" />
-									<LegendItem pictolegend="black" name="Non" />
-									<LegendItem pictolegend="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px )" name="Indécis" />
+									<div class="legend-group">
+										<LegendItem pictolegend="var(--green)" name="Oui" />
+										<LegendItem pictolegend="black" name="Non" />
+										<LegendItem pictolegend="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px )" name="Indécis" />
+									</div>
 								</Box>
 
 								<div class="big-data">
@@ -90,9 +93,9 @@
 
 		<section class="section-pie">
 			<!-- chart box -->
-			<Box addclass="reveal-1" title="Votre couverture de terrain !" width="900px" >
+			<Box addclass="reveal-1" title="Votre couverture de terrain :" width="900px" >
 				<div class="pie-wrapper">
-					<h2 class="text-bold reveal-1"><span>Combien</span> de médias<br>avez-vous consulté ?</h2>
+					<h2 class="text-bold reveal-1"><span>Combien</span>avez-vous<br>consulté de médias ?</h2>
 					<div class="pie-content">
 						<canvas id="myChart" class="pie reveal-1"></canvas>
 						<div class="big-data reveal-1">
@@ -171,8 +174,8 @@ export default {
 			jspPourcentage: undefined,
 			showDataviz: false,
 			counter: 0,
-			// questionMeurtrier: () => { if(process.client) return localStorage.getItem("questionMeurtrier") }, // enlever function lors deploy
-			questionMeurtrier: localStorage.getItem("questionMeurtrier"),
+			questionMeurtrier: () => { if(process.client) return localStorage.getItem("questionMeurtrier") }, // enlever function lors deploy
+			// questionMeurtrier: localStorage.getItem("questionMeurtrier"),
 			isPopupActive: false
 		}
 	},
@@ -416,28 +419,34 @@ section {
 	align-items: center;
 	/* width: 20%; */
 	width: 300px;
-	border-bottom: solid 2.5px var(--black);
+	/* border-bottom: solid 2.5px var(--black); */
 }
 
 .case .omar {
-	width: 100%;
+	width: 90%;
 	height: 40%;
 	padding: 15px 0;
-	border-bottom: solid 2.5px var(--black);
-	border-top: solid 2.5px var(--black);
+	/* border-bottom: solid 2.5px var(--black);
+	border-top: solid 2.5px var(--black); */
 }
 
 .case .resume {
-	padding: 15px 0;
+	padding: 15px;
 	text-align: justify;
 	font-family: 'Georgia-regular';
 	/* background-color: red; */
 }
 
 .date {
-	font-size: 6rem;
+	font-size: 6.5rem;
 	margin: 0;
 	justify-self: baseline;
+}
+
+.line-case {
+	width: 100%;
+	background-color: var(--black);
+	padding: 1px;
 }
 
 /* data 1 */
@@ -473,7 +482,7 @@ section {
 	bottom: 0;
 	right: 0;
 	font-family: 'Strong-concrete';
-	padding: 3px;
+	padding: 0px;
 	font-size: 1.125rem;
 	letter-spacing: 1px;
 }
@@ -507,7 +516,7 @@ section {
 .chart-jsp p {
 	color: var(--black);
 	background-color: var(--cream);
-	padding: 3px;
+	padding: 1.5px;
 	border-top: solid var(--black);
 	border-left: solid var(--black);
 }
@@ -519,8 +528,12 @@ section {
 
 .legend-container {
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-start;
 	flex-direction: column;
+}
+
+.legend-group {
+	padding: 15px 0px;
 }
 
 .big-data {

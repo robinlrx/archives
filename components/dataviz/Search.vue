@@ -82,7 +82,7 @@ export default {
 }
 
 .text-bold span:last-of-type {
-	font-size: 2.5rem;
+	font-size: 3.5rem;
 }
 
 .text-container {
@@ -124,8 +124,9 @@ export default {
 	box-shadow: 10px 8px 0px var(--black);
 	position: absolute;
 	z-index: 0;
-	top: 10%;
-	right: 10%;
+	/* top: 10%;
+	right: 10%; */
+	transform: translate(5%, 7%);
 }
 
 .line-date {

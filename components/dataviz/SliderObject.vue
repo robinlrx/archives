@@ -81,7 +81,7 @@ export default {
 }
 
 .object {
-	width: 350px;
+	width: 400px;
 	height: 80%;
 }
 
