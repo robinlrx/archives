@@ -11,7 +11,7 @@ import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockCont
 import { CustomOutlinePass } from './shaders/CustomOutlinePass.js'
 import Model from './Model'
 import { changeFrequence } from './actions/radioAction'
-import { incrementTV } from './actions/localStorageAction'
+import { initLocalData, incrementMedia } from './actions/localStorageAction'
 
 class SceneInit {
   constructor({ rootEl }) {
@@ -30,6 +30,8 @@ class SceneInit {
     this.init()
     this.update()
     this.bindEvents()
+	// localhost dataviz
+	this.countRadio = 0
   }
 
   init() {
@@ -41,7 +43,8 @@ class SceneInit {
     this.initAudio()
     // this.initModels()
     this.root.appendChild(this.canvas)
-	localStorage.setItem('incremenntTV', 0)
+	// localStorage.setItem('incremenntTV', 0)
+	initLocalData()
   }
 
   initAudio() {
@@ -62,12 +65,45 @@ class SceneInit {
 
   radioAction = () => {
     changeFrequence(this.radio)
+	incrementMedia('Radio')
+	this.countRadio = ++this.countRadio
+	// when at least 2 extract ar listened
+ 	if(this.countRadio === 6) localStorage.setItem('cardMedia5', true) // extrait 1
+	if(this.countRadio === 7) localStorage.setItem('cardMedia8', true) // extrait 2
+	if(this.countRadio === 8) localStorage.setItem('cardMedia12', true) // extrait 3
+	if(this.countRadio === 9) localStorage.setItem('cardMedia13', true) // extrait 4
+	if(this.countRadio === 10) localStorage.setItem('cardMedia14', true) // extrait 5
   }
 
   TV1Action = () =>  {
     console.log('sale con')
-	localStorage.setItem('TV source', 1)
-	incrementTV()
+	incrementMedia('TV')
+	localStorage.setItem('cardMedia2', true)
+  }
+
+  TV2Action = () =>  {
+	incrementMedia('TV')
+	localStorage.setItem('cardMedia6', true)
+  }
+
+  TV3Action = () =>  {
+	incrementMedia('TV')
+	localStorage.setItem('cardMedia7', true)
+  }
+
+  TV4Action = () =>  {
+	incrementMedia('TV')
+	localStorage.setItem('cardMedia9', true)
+  }
+
+  TV5Action = () =>  {
+	incrementMedia('TV')
+	localStorage.setItem('cardMedia6', true)
+  }
+
+  TV6Action = () =>  {
+	incrementMedia('TV')
+	localStorage.setItem('cardMedia7', true)
   }
 
   initModels() {
@@ -133,6 +169,7 @@ class SceneInit {
       listener: this.listener,
       videoSrc: 'videos/VideoInterview1.mp4',
       videoContainer: 'TV-2-Screen',
+	  action: this.TV2Action
     })
     this.objectsList.push(this.TV2)
     this.targetableObjects.add(this.TV2.container)
@@ -145,6 +182,7 @@ class SceneInit {
       listener: this.listener,
       videoSrc: 'videos/VideoInterview2.mp4',
       videoContainer: 'TV-3-Screen',
+	  action: this.TV3Action
     })
     this.objectsList.push(this.TV3)
     this.targetableObjects.add(this.TV3.container)
@@ -157,6 +195,7 @@ class SceneInit {
       listener: this.listener,
       videoSrc: 'videos/france2-proces.mp4',
       videoContainer: 'TV-4-Screen',
+	  action: this.TV4Action
     })
     this.objectsList.push(this.TV4)
     this.targetableObjects.add(this.TV4.container)
@@ -169,6 +208,7 @@ class SceneInit {
       listener: this.listener,
       videoSrc: 'videos/france2-lucet.mp4',
       videoContainer: 'TV-5-Screen',
+	  action: this.TV5Action
     })
     this.objectsList.push(this.TV5)
     this.targetableObjects.add(this.TV5.container)
@@ -181,6 +221,7 @@ class SceneInit {
       listener: this.listener,
       videoSrc: 'videos/Documentaire.mp4',
       videoContainer: 'TV-6-Screen',
+	  action: this.TV6Action
     })
     this.objectsList.push(this.TV6)
     this.targetableObjects.add(this.TV6.container)

@@ -171,8 +171,8 @@ export default {
 			jspPourcentage: undefined,
 			showDataviz: false,
 			counter: 0,
-			questionMeurtrier: () => { if(process.client) return localStorage.getItem("questionMeurtrier") }, // enlever function lors deploy
-			// questionMeurtrier: localStorage.getItem("questionMeurtrier"),
+			// questionMeurtrier: () => { if(process.client) return localStorage.getItem("questionMeurtrier") }, // enlever function lors deploy
+			questionMeurtrier: localStorage.getItem("questionMeurtrier"),
 			isPopupActive: false
 		}
 	},

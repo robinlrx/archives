@@ -138,7 +138,7 @@ figure {
 }
 
 .citation::before {
-	content: url('/images/virgule-top.png');
+	content: url('~/assets/images/virgule-top.png');
 	position: absolute;
 	z-index: -1;
 	top: -100px;
@@ -146,7 +146,7 @@ figure {
 }
 
 .citation::after {
-	content: url('/images/virgule-bottom.png');
+	content: url('~/assets/images/virgule-bottom.png');
 	position: absolute;
 	z-index: -1;
 	bottom: -50px;
