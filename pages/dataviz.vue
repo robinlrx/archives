@@ -95,7 +95,7 @@
 			<!-- chart box -->
 			<Box addclass="reveal-1" title="Votre couverture de terrain :" width="900px" >
 				<div class="pie-wrapper">
-					<h2 class="text-bold reveal-1"><span>Combien</span>avez-vous<br>consulté de médias ?</h2>
+					<h2 class="text-bold reveal-1"><span>Combien</span> de médias<br>avez-vous consulté ?</h2>
 					<div class="pie-content">
 						<canvas id="myChart" class="pie reveal-1"></canvas>
 						<div class="big-data reveal-1">
