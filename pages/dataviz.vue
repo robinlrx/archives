@@ -253,7 +253,7 @@ export default {
 					labels: ['Journal Télévisé', 'Photo', 'Presse web', 'Documentaire', 'Film', 'Radio', 'RS', 'Interview', 'Presse papier'],
 					datasets: [{
 						label: '# of Votes',
-						data: [12, 19, 30, 5, 2, 3, 10, 5, 8],
+						data: [25, 19, 0, 5, 2, 3, 0, 5, 8],
 						backgroundColor: [
 							'#FCFCF5',
 							'#000000',
