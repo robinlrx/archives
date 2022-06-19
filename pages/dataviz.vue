@@ -100,7 +100,7 @@
 						<canvas id="myChart" class="pie reveal-1"></canvas>
 						<div class="big-data reveal-1">
 							<p class="number">{{jspPourcentage}}<span>%</span></p>
-							<p>des utilisateurs pensent comme vous, ils ne savent pas. </p>
+							<p>des utilisateurs ont choisit comme vous le JT comme média de prédilection. </p>
 						</div>
 					</div>
 				</div>
