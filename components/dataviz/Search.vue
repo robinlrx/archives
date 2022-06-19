@@ -13,7 +13,7 @@
 
 				<!-- eslint-disable-next-line vue/no-unused-vars -->
 				<span v-for="(item, index) in cardData" :key="item.id">
-					<Card v-show="showCard(item.id)" :title="item.title" :date="item.date" :picto="require(`~/assets/images/${item.picto}`)" :url="item.url" :left="item.left" @click.native="increment()"/> 
+					<Card v-show="showCard(item.id)" :title="item.title" :date="item.date" :picto="require(`~/assets/images/${item.picto}`)" :url="item.url" :left="item.left"/> 
 				</span>
 			</div>
 		</Box>
@@ -46,18 +46,18 @@ export default {
 	},
 	mounted() {
 		// this.setCardLocalStorage()
-		localStorage.setItem('incremennt', 0)
+		// localStorage.setItem('incremennt', 0)
 	},
 	methods: {
 		// getCardLocalStorage(x) {
 		// 	return JSON.parse( localStorage.getItem(`cardMedia${x}`) );
 			
 		// }
-		increment() {
-			let incremennt = parseInt(localStorage.getItem("incremennt"));
-			localStorage.setItem("incremennt", ++incremennt);
-			console.log(incremennt);
-		}
+		// increment() {
+		// 	let incremennt = parseInt(localStorage.getItem("incremennt"));
+		// 	localStorage.setItem("incremennt", ++incremennt);
+		// 	console.log(incremennt);
+		// }
 	}
 }
 </script>
@@ -82,7 +82,7 @@ export default {
 }
 
 .text-bold span:last-of-type {
-	font-size: 2.5rem;
+	font-size: 3.5rem;
 }
 
 .text-container {
@@ -124,8 +124,9 @@ export default {
 	box-shadow: 10px 8px 0px var(--black);
 	position: absolute;
 	z-index: 0;
-	top: 10%;
-	right: 10%;
+	/* top: 10%;
+	right: 10%; */
+	transform: translate(5%, 7%);
 }
 
 .line-date {

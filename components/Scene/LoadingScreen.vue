@@ -3,11 +3,14 @@
 		<transition name="fade">
 			<section v-if="showCursor" id="component--mouse" ref="componentMouse">
 				<svg width="48" height="52" viewBox="0 0 48 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<mask id="mask0_2552_4331" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="52">
+					<mask id="mask0_2552_4331" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="48"
+						height="52">
 						<path d="M0 8.75L8.75 0H48V51.5H0V8.75Z" fill="#5C5C5C" />
 					</mask>
 					<g mask="url(#mask0_2552_4331)">
-						<path d="M27.1205 28.5483L26.2576 29.4159L18.4241 50.0678L4.93986 6.18265L46.9231 20.9136L27.1205 28.5483Z" fill="#EAF2D3" stroke="black" stroke-width="3" stroke-linejoin="bevel" />
+						<path
+							d="M27.1205 28.5483L26.2576 29.4159L18.4241 50.0678L4.93986 6.18265L46.9231 20.9136L27.1205 28.5483Z"
+							fill="#EAF2D3" stroke="black" stroke-width="3" stroke-linejoin="bevel" />
 						<path d="M27.2502 29.2498L20.0002 21.9998" stroke="black" stroke-width="3" />
 					</g>
 				</svg>
@@ -144,11 +147,13 @@ export default {
 	height: 30px;
 	width: 30px;
 	pointer-events: none;
+
 	/* opacity: 0;
   transition: opacity .5s; */
 }
 
 .loaderScreen {
+	font-family: 'Strong-concrete';
 	position: fixed;
 	z-index: 5;
 	top: 0;
