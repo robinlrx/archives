@@ -53,7 +53,7 @@ export default {
         this.$refs.white_fade.style.opacity = 1
         setTimeout(() => {
           this.scene.stopMedias()
-          this.$nuxt.$router.push('/dataviz')
+          this.$nuxt.$router.push('/question')
         }, 2000)
       }, 240000) // 4 min = 240000
     },
