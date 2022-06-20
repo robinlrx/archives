@@ -119,6 +119,7 @@ class SceneInit {
         ease: Power4,
         onComplete: () => {
           this.isHolding = true
+		  incrementMedia('PP')
         },
       })
     } else {
