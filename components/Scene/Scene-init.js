@@ -525,10 +525,9 @@ class SceneInit {
       }
     })
     setTimeout(() => {
-      this.endCutscene()
-      // phoneSound(this.phone, 0)
+      phoneSound(this.phone, 0)
       // this.animatedPhone = true
-    }, 10000)
+    }, 60000)
     setTimeout(() => {
       phoneSound(this.phone, 1)
     }, 120000)
