@@ -1,0 +1,114 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.8.19",
+        "version" : "2.0"
+    },
+    "extensionsUsed" : [
+        "KHR_draco_mesh_compression"
+    ],
+    "extensionsRequired" : [
+        "KHR_draco_mesh_compression"
+    ],
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "NewsTarget",
+            "rotation" : [
+                0,
+                0,
+                0.42718976736068726,
+                0.9041619896888733
+            ],
+            "scale" : [
+                13.388653755187988,
+                13.388653755187988,
+                17.154878616333008
+            ],
+            "translation" : [
+                29.744483947753906,
+                -3.578432559967041,
+                -42.842063903808594
+            ]
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "NewsTarget",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 0,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 3,
+                    "mode" : 4
+                }
+            ]
+        }
+    ],
+    "accessors" : [
+        {
+            "componentType" : 5126,
+            "count" : 4,
+            "max" : [
+                1.5136691331863403,
+                0.29466524720191956,
+                1
+            ],
+            "min" : [
+                -1,
+                0,
+                -1
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 4,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 4,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5123,
+            "count" : 6,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 181,
+            "byteOffset" : 0
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 184,
+            "uri" : "data:application/octet-stream;base64,RFJBQ08CAgEBAAAABAICAgAAAR//ARH/ARH/ARED/wAAAAAAAQAAAQAJAwAAAgEBCQMAAQMBAwkCAAICAQEBAA4DARAnARABIAMA3I8AAACk6AAA8FS0APw7AAAAAAAA/z8AAAAAgL8AAAAAAACAv/TfIEAOAAMBAAoDATAbARADAByCyQEA/wMAAP8BAAAKAQEBAAMDASABIAMA8IOmAAAAAAD/DwAAAAAAAAAAAAAAAIA/DAAAAA=="
+        }
+    ]
+}
