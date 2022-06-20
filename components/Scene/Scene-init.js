@@ -8,7 +8,9 @@ import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js'
 
 import { gsap, Power3, Power4 } from 'gsap'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js'
-// import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer'
+
+import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer'
+
 import { CustomOutlinePass } from './shaders/CustomOutlinePass.js'
 
 import Model from './Model'
@@ -75,17 +77,18 @@ class SceneInit {
 
   radioAction = () => {
     changeFrequence(this.radio)
-	incrementMedia('Radio')
-	this.countRadio = ++this.countRadio
-	// when at least 2 extract ar listened
- 	if(this.countRadio === 6) localStorage.setItem('cardMedia12', true) // extrait 1
-	if(this.countRadio === 7) localStorage.setItem('cardMedia13', true) // extrait 2
-	if(this.countRadio === 8) localStorage.setItem('cardMedia14', true) // extrait 3
-	if(this.countRadio === 9) localStorage.setItem('cardMedia8', true) // extrait 4
-	if(this.countRadio === 10) localStorage.setItem('cardMedia5', true) // extrait 5
+    incrementMedia('Radio')
+    this.countRadio = ++this.countRadio
+    // when at least 2 extract ar listened
+    if (this.countRadio === 6) localStorage.setItem('cardMedia12', true) // extrait 1
+    if (this.countRadio === 7) localStorage.setItem('cardMedia13', true) // extrait 2
+    if (this.countRadio === 8) localStorage.setItem('cardMedia14', true) // extrait 3
+    if (this.countRadio === 9) localStorage.setItem('cardMedia8', true) // extrait 4
+    if (this.countRadio === 10) localStorage.setItem('cardMedia5', true) // extrait 5
   }
 
   TVSwitch = () => {
+    incrementMedia('TV')
     const nextTV = this.TVs[Math.round(Math.random() * this.TVs.length)]
     if (nextTV.index === this.currentTarget.index) this.TVSwitch()
     else if (nextTV.camPos) {
@@ -96,6 +99,8 @@ class SceneInit {
         duration: 1,
         ease: Power3,
         onComplete: () => {
+          if (nextTV.card) localStorage.setItem(nextTV.card, true)
+
           this.currentTarget = nextTV
           this.objectsList.forEach((element) => {
             if (element.sound && element.src !== this.currentTarget.src) {
@@ -118,8 +123,11 @@ class SceneInit {
         duration: 0.6,
         ease: Power4,
         onComplete: () => {
+          console.log(this.currentTarget)
+          if (this.currentTarget.card)
+            localStorage.setItem(this.currentTarget.card, true)
           this.isHolding = true
-		  incrementMedia('PP')
+          incrementMedia('PP')
         },
       })
     } else {
@@ -146,34 +154,26 @@ class SceneInit {
     }
   }
 
-  TV1Action = () => {
-    incrementMedia('TV')
-    localStorage.setItem('cardMedia2', true)
-  }
+  endCutscene = () => {
+    phoneSound(this.phone, 3)
+    gsap.to(this.camera.rotation, {
+      x: -0.31,
+      y: -0.99,
+      z: -0.265,
+      duration: 1.2,
+      delay: 0.3,
+      ease: Power3,
+      onComplete: () => {
+        document.querySelector('.canvas-container').style.opacity = 0
 
-  TV2Action = () => {
-    incrementMedia('TV')
-    localStorage.setItem('cardMedia6', true)
-  }
+        setTimeout(() => {
+          // this.$nuxt.$router.push('/question')
+          window.location.href = '/question'
 
-  TV3Action = () => {
-    incrementMedia('TV')
-    localStorage.setItem('cardMedia7', true)
-  }
-
-  TV4Action = () => {
-    incrementMedia('TV')
-    localStorage.setItem('cardMedia9', true)
-  }
-
-  TV5Action = () => {
-    incrementMedia('TV')
-    localStorage.setItem('cardMedia6', true)
-  }
-
-  TV6Action = () => {
-    incrementMedia('TV')
-    localStorage.setItem('cardMedia7', true)
+          this.stopMedias()
+        }, 12000)
+      },
+    })
   }
 
   initModels() {
@@ -249,6 +249,7 @@ class SceneInit {
       camPos: new THREE.Vector3(8, 5, 20),
       action: this.TVSwitch,
       index: 1,
+      card: 'cardMedia6',
     })
     this.objectsList.push(this.TV1)
     this.TVs.push(this.TV1)
@@ -265,6 +266,7 @@ class SceneInit {
       camPos: new THREE.Vector3(11, 3, 5),
       action: this.TVSwitch,
       index: 2,
+      card: 'cardMedia7',
     })
     this.objectsList.push(this.TV2)
     this.TVs.push(this.TV2)
@@ -281,6 +283,7 @@ class SceneInit {
       camPos: new THREE.Vector3(13, 5, -6),
       action: this.TVSwitch,
       index: 3,
+      card: 'cardMedia7',
     })
     this.objectsList.push(this.TV3)
     this.TVs.push(this.TV3)
@@ -297,6 +300,7 @@ class SceneInit {
       camPos: new THREE.Vector3(10, 14.7, 15),
       action: this.TVSwitch,
       index: 4,
+      card: 'cardMedia2',
     })
     this.objectsList.push(this.TV4)
     this.TVs.push(this.TV4)
@@ -311,7 +315,7 @@ class SceneInit {
       videoSrc: 'videos/TV/Interview2.mp4',
       videoContainer: 'TV-5-Screen',
       camPos: new THREE.Vector3(17, 12, 5),
-
+      card: 'cardMedia7',
       action: this.TVSwitch,
       index: 5,
     })
@@ -330,6 +334,7 @@ class SceneInit {
       camPos: new THREE.Vector3(15, 16, -3),
       action: this.TVSwitch,
       index: 6,
+      card: 'cardMedia9',
     })
     this.objectsList.push(this.TV6)
     this.TVs.push(this.TV6)
@@ -357,7 +362,6 @@ class SceneInit {
       src: 'PC-1',
       videoContainer: 'PC-1-Screen',
       loadingManager: this.manager,
-      website: 'iframe/reddit-1.png',
     })
 
     this.objectsList.push(this.PC1)
@@ -381,7 +385,8 @@ class SceneInit {
 
   initScene() {
     this.scene = new THREE.Scene()
-    // this.scene2 = new THREE.Scene()
+
+    this.scene2 = new THREE.Scene()
   }
 
   initManager() {
@@ -412,7 +417,7 @@ class SceneInit {
   }
 
   initLights() {
-    const ambient = new THREE.AmbientLight(0xffffff, 0.6)
+    const ambient = new THREE.AmbientLight(0xffffff, 0.8)
     this.scene.add(ambient)
     const pointLight = new THREE.PointLight(0x00ffab, 0.4, 100)
     pointLight.position.set(10, 10, 10)
@@ -425,7 +430,7 @@ class SceneInit {
 
   initCamera() {
     this.camera = new THREE.PerspectiveCamera(
-      35,
+      65,
       window.innerWidth / window.innerHeight,
       1,
       1000
@@ -437,17 +442,8 @@ class SceneInit {
 
     this.camera.updateProjectionMatrix()
 
-    // const geometry = new THREE.BoxGeometry(5, 5, 5)
-
-    // const material = new THREE.MeshBasicMaterial({
-    //   color: 0x00ff00,
-    //   transparent: true,
-    //   opacity: 0,
-    // })
     this.holdObject = new THREE.Object3D()
     this.holdObject.position.set(0, 0, -4)
-    // this.holdObject.visible = false
-
     this.scene.add(this.holdObject)
     this.holdObject.parent = this.camera
   }
@@ -495,12 +491,12 @@ class SceneInit {
     this.composer.addPass(effectFXAA)
 
     // init renderer2 for iframe and scene2
-    // this.renderer2 = new CSS3DRenderer()
-    // this.renderer2.setSize(window.innerWidth, window.innerHeight)
-    // this.renderer2.domElement.style.position = 'absolute'
-    // this.renderer2.domElement.style.zIndex = 5
-    // this.renderer2.domElement.style.top = 0
-    // this.root.appendChild(this.renderer2.domElement)
+    this.renderer2 = new CSS3DRenderer()
+    this.renderer2.setSize(window.innerWidth, window.innerHeight)
+    this.renderer2.domElement.style.position = 'absolute'
+    this.renderer2.domElement.style.zIndex = 5
+    this.renderer2.domElement.style.top = 0
+    this.root.appendChild(this.renderer2.domElement)
   }
 
   setControls() {
@@ -551,15 +547,7 @@ class SceneInit {
       phoneSound(this.phone, 2)
     }, 150000)
     setTimeout(() => {
-      phoneSound(this.phone, 3)
-
-      setTimeout(() => {
-        // this.$nuxt.$router.push('/question')
-        window.location.href = '/question'
-        document.querySelector('.canvas-container').style.opacity = 0
-
-        this.stopMedias()
-      }, 12000)
+      this.endCutscene()
     }, 170000) // 4 min = 240000
   }
 
@@ -667,7 +655,7 @@ class SceneInit {
 
     this.composer.render()
 
-    // this.renderer2.render(this.scene2, this.camera)
+    this.renderer2.render(this.scene2, this.camera)
 
     if (this.isLoaded) {
       const delta = this.threeClock.getDelta()
