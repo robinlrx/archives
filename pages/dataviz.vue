@@ -14,10 +14,11 @@
 					<!-- left side -->
 					<div class="case">
 						<p class='text-bold date reveal-1'>19<br>91</p>
-						<!-- <div class="separator"></div> -->
+						<div class="line-case"></div>
 						<img src="~/assets/images/omar.png" alt="" class="omar reveal-1">
-						<!-- <div class="separator"></div> -->
+						<div class="line-case"></div>
 						<p class="resume reveal-1">L’affaire Omar Raddad commence avec le meurtre de Ghislaine Marshal en 1991, dans sa propre villa. “OMAR M’A TUER” est inscrit en lettres de sang sur 2 surfaces, ce qui mène à l’arrestation d’Omar Raddad.</p>
+						<div class="line-case"></div>
 					</div>
 					<!-- right side -->
 					<Box addclass="reveal-1 stats">
@@ -42,9 +43,11 @@
 							<div class="bottom-content">
 
 								<Box addclass="legend-container reveal-1" width="50%" icon="i" title="Légende" icon-background="black" icon-color="#FCFCF5">
-									<LegendItem pictolegend="transparent" name="Oui" />
-									<LegendItem pictolegend="black" name="Non" />
-									<LegendItem pictolegend="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px )" name="Indécis" />
+									<div class="legend-group">
+										<LegendItem pictolegend="var(--green)" name="Oui" />
+										<LegendItem pictolegend="black" name="Non" />
+										<LegendItem pictolegend="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px )" name="Indécis" />
+									</div>
 								</Box>
 
 								<div class="big-data">
@@ -90,14 +93,14 @@
 
 		<section class="section-pie">
 			<!-- chart box -->
-			<Box addclass="reveal-1" title="Votre couverture de terrain !" width="900px" >
+			<Box addclass="reveal-1" title="Votre couverture de terrain :" width="900px" >
 				<div class="pie-wrapper">
 					<h2 class="text-bold reveal-1"><span>Combien</span> de médias<br>avez-vous consulté ?</h2>
 					<div class="pie-content">
 						<canvas id="myChart" class="pie reveal-1"></canvas>
 						<div class="big-data reveal-1">
 							<p class="number">{{jspPourcentage}}<span>%</span></p>
-							<p>des utilisateurs pensent comme vous, ils ne savent pas. </p>
+							<p>des utilisateurs ont choisit comme vous le JT comme média de prédilection. </p>
 						</div>
 					</div>
 				</div>
@@ -125,13 +128,13 @@
 			<div class="separator reveal-1"></div>
 			<button	class="restart text-bold reveal-1" @click="restart()">NOUVELLE ENQUêTE</button>
 			<div class="info-container reveal-1">
-				<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" class="info" @click="showPopup()">
+				<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" class="info" @mouseenter="showPopup()" @mouseleave="unshowPopup()">
 					<circle cx="18" cy="18" r="17" stroke="black" stroke-width="2" />
 					<path d="M21.0365 8.97839C21.0365 9.4127 20.9571 9.99 20.7982 10.7103C20.6499 11.42 20.4592 12.2569 20.2262 13.2208C20.0037 14.1318 19.7495 15.2705 19.4635 16.637C19.1775 17.9929 18.8756 19.6718 18.5578 21.6738H17.3343C17.0166 19.6506 16.7147 17.9664 16.4287 16.6211C16.1427 15.2758 15.8884 14.1477 15.666 13.2367C15.4647 12.3999 15.2793 11.5842 15.1099 10.7898C14.9404 9.98471 14.8556 9.38092 14.8556 8.97839C14.8556 8.16275 15.1575 7.46892 15.7613 6.89691C16.3651 6.31431 17.0907 6.023 17.9381 6.023C18.775 6.023 19.5006 6.31431 20.115 6.89691C20.7293 7.46892 21.0365 8.16275 21.0365 8.97839ZM21.0047 26.5359C21.0047 27.341 20.6976 28.0348 20.0832 28.6174C19.4794 29.1894 18.7697 29.4754 17.954 29.4754C17.1278 29.4754 16.4075 29.1894 15.7931 28.6174C15.1893 28.0348 14.8874 27.341 14.8874 26.5359C14.8874 25.7309 15.1893 25.0371 15.7931 24.4545C16.4075 23.8613 17.1278 23.5647 17.954 23.5647C18.7697 23.5647 19.4794 23.8613 20.0832 24.4545C20.6976 25.0371 21.0047 25.7309 21.0047 26.5359Z" fill="black"/>
 				</svg>
 				<div class="popup" :class="{ active: isPopupActive }">
 					<p>A propos</p>
-					<p class="popup-text popup-text--first">Fini de travailler Inspecteur D.<br> Chevrai, votre temps est imparti !</p>
+					<p class="popup-text popup-text--first">Fini de travailler Inspecteur <br>D. Chevrai, votre temps est imparti !</p>
 					<p class="popup-text">En revanche durant l’expérience, nous en avons profité pour collecter quelques informations sur vous... Du moins sur vos habitudes, réflexes en matière de consommation de médias. Vous retrouverez sur cette page, une analyse comparée de vos résultats.</p>
 				</div>
 			</div>
@@ -171,8 +174,8 @@ export default {
 			jspPourcentage: undefined,
 			showDataviz: false,
 			counter: 0,
-			questionMeurtrier: () => { if(process.client) return localStorage.getItem("questionMeurtrier") }, // enlever function lors deploy
-			// questionMeurtrier: localStorage.getItem("questionMeurtrier"),
+			// questionMeurtrier: () => { if(process.client) return localStorage.getItem("questionMeurtrier") }, // enlever function lors deploy
+			questionMeurtrier: localStorage.getItem("questionMeurtrier"),
 			isPopupActive: false
 		}
 	},
@@ -250,7 +253,7 @@ export default {
 					labels: ['Journal Télévisé', 'Photo', 'Presse web', 'Documentaire', 'Film', 'Radio', 'RS', 'Interview', 'Presse papier'],
 					datasets: [{
 						label: '# of Votes',
-						data: [12, 19, 30, 5, 2, 3, 10, 5, 8],
+						data: [25, 19, 0, 5, 2, 3, 0, 5, 8],
 						backgroundColor: [
 							'#FCFCF5',
 							'#000000',
@@ -304,6 +307,9 @@ export default {
 		},
 
 		showPopup() {
+			this.isPopupActive = !this.isPopupActive
+		},
+		unshowPopup() {
 			this.isPopupActive = !this.isPopupActive
 		}
 	},
@@ -413,28 +419,34 @@ section {
 	align-items: center;
 	/* width: 20%; */
 	width: 300px;
-	border-bottom: solid 2.5px var(--black);
+	/* border-bottom: solid 2.5px var(--black); */
 }
 
 .case .omar {
-	width: 100%;
+	width: 90%;
 	height: 40%;
 	padding: 15px 0;
-	border-bottom: solid 2.5px var(--black);
-	border-top: solid 2.5px var(--black);
+	/* border-bottom: solid 2.5px var(--black);
+	border-top: solid 2.5px var(--black); */
 }
 
 .case .resume {
-	padding: 15px 0;
+	padding: 15px;
 	text-align: justify;
 	font-family: 'Georgia-regular';
 	/* background-color: red; */
 }
 
 .date {
-	font-size: 6rem;
+	font-size: 6.5rem;
 	margin: 0;
 	justify-self: baseline;
+}
+
+.line-case {
+	width: 100%;
+	background-color: var(--black);
+	padding: 1px;
 }
 
 /* data 1 */
@@ -470,7 +482,7 @@ section {
 	bottom: 0;
 	right: 0;
 	font-family: 'Strong-concrete';
-	padding: 3px;
+	padding: 0px;
 	font-size: 1.125rem;
 	letter-spacing: 1px;
 }
@@ -480,7 +492,7 @@ section {
 }
 
 .chart-yes {
-	background-color: transparent;
+	background-color: var(--green);
 }
 
 .chart-yes p {
@@ -504,7 +516,7 @@ section {
 .chart-jsp p {
 	color: var(--black);
 	background-color: var(--cream);
-	padding: 3px;
+	padding: 1.5px;
 	border-top: solid var(--black);
 	border-left: solid var(--black);
 }
@@ -516,8 +528,12 @@ section {
 
 .legend-container {
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-start;
 	flex-direction: column;
+}
+
+.legend-group {
+	padding: 15px 0px;
 }
 
 .big-data {
@@ -688,6 +704,7 @@ section:first-of-type {
 .info {
 	position: relative;
 	z-index: 3;
+	margin: 5px;
 }
 
 .info:hover {

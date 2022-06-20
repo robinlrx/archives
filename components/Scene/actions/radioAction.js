@@ -84,7 +84,8 @@ export function changeFrequence(radio) {
         radio.sound.play()
 
         radio.sound.onEnded = () => {
-          changeFrequence(radio)
+          console.log("''azazz")
+          this.changeFrequence(radio)
         }
       })
     }

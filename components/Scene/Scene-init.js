@@ -12,6 +12,7 @@ import { CustomOutlinePass } from './shaders/CustomOutlinePass.js'
 import Model from './Model'
 import { changeFrequence } from './actions/radioAction'
 import { phoneSound } from './actions/phoneAction'
+import { initLocalData, incrementMedia } from './actions/localStorageAction'
 
 class SceneInit {
   constructor({ rootEl }) {
@@ -37,6 +38,8 @@ class SceneInit {
     this.init()
     this.update()
     this.bindEvents()
+    // localhost dataviz
+    this.countRadio = 0
   }
 
   init() {
@@ -48,6 +51,8 @@ class SceneInit {
     this.initAudio()
     // this.initModels()
     this.root.appendChild(this.canvas)
+    // localStorage.setItem('incremenntTV', 0)
+    initLocalData()
   }
 
   initAudio() {
@@ -68,6 +73,14 @@ class SceneInit {
 
   radioAction = () => {
     changeFrequence(this.radio)
+    incrementMedia('Radio')
+    this.countRadio = ++this.countRadio
+    // when at least 2 extract ar listened
+    if (this.countRadio === 6) localStorage.setItem('cardMedia5', true) // extrait 1
+    if (this.countRadio === 7) localStorage.setItem('cardMedia8', true) // extrait 2
+    if (this.countRadio === 8) localStorage.setItem('cardMedia12', true) // extrait 3
+    if (this.countRadio === 9) localStorage.setItem('cardMedia13', true) // extrait 4
+    if (this.countRadio === 10) localStorage.setItem('cardMedia14', true) // extrait 5
   }
 
   TVSwitch = () => {
@@ -138,6 +151,37 @@ class SceneInit {
     }
   }
 
+  TV1Action = () => {
+    console.log('sale con')
+    incrementMedia('TV')
+    localStorage.setItem('cardMedia2', true)
+  }
+
+  TV2Action = () => {
+    incrementMedia('TV')
+    localStorage.setItem('cardMedia6', true)
+  }
+
+  TV3Action = () => {
+    incrementMedia('TV')
+    localStorage.setItem('cardMedia7', true)
+  }
+
+  TV4Action = () => {
+    incrementMedia('TV')
+    localStorage.setItem('cardMedia9', true)
+  }
+
+  TV5Action = () => {
+    incrementMedia('TV')
+    localStorage.setItem('cardMedia6', true)
+  }
+
+  TV6Action = () => {
+    incrementMedia('TV')
+    localStorage.setItem('cardMedia7', true)
+  }
+
   initModels() {
     this.targetableObjects = new THREE.Object3D()
     this.objectsList = []
@@ -180,7 +224,7 @@ class SceneInit {
       scene: this.scene,
       src: 'phone',
       loadingManager: this.manager,
-      audioSrc: 'sounds/radio/extrait1/1.mp3',
+      audioSrc: 'sounds/phone/phone1.mp3',
       audioVolume: 1,
       isNotPositional: true,
       autoPlay: false,
@@ -364,9 +408,9 @@ class SceneInit {
   initLights() {
     const ambient = new THREE.AmbientLight(0xffffff, 0.9)
     this.scene.add(ambient)
-    const pointLight = new THREE.PointLight(0x00ffab, 0.4, 100)
-    pointLight.position.set(10, 10, 10)
-    this.scene.add(pointLight)
+    // const pointLight = new THREE.PointLight(0x00ffab, 0.4, 100)
+    // pointLight.position.set(10, 10, 10)
+    // this.scene.add(pointLight)
 
     // const sphereSize = 1
     // const pointLightHelper = new THREE.PointLightHelper(pointLight, sphereSize)
@@ -493,6 +537,17 @@ class SceneInit {
     setTimeout(() => {
       phoneSound(this.phone, 2)
     }, 150000)
+    setTimeout(() => {
+      phoneSound(this.phone, 3)
+
+      document.querySelector('.canvas-container').style.opacity = 0
+
+      setTimeout(() => {
+        // this.$nuxt.$router.push('/question')
+        window.location.href = '/question'
+        this.stopMedias()
+      }, 6000)
+    }, 170000) // 4 min = 240000
   }
 
   stopMedias() {
@@ -524,12 +579,12 @@ class SceneInit {
   }
 
   zoomCamera = () => {
+    console.log(event.deltaY)
     if (event.deltaY < 0 && !this.isZoomed) {
       if (this.currentTarget.src === 'newsTarget') this.papersInspection = true
 
       document.querySelector('.focus').style.opacity = 1
-
-      this.lowVolume(this.currentTarget)
+      if (!this.papersInspection) this.lowVolume(this.currentTarget)
 
       if (this.currentTarget.camPos !== undefined) {
         gsap.to(this.camera.position, {
@@ -544,7 +599,7 @@ class SceneInit {
             window.addEventListener('click', this.currentAction)
           },
         })
-      } else {
+      } else if (!this.papersInspection) {
         gsap.to(this.camera, {
           fov: 30,
           duration: 1,
@@ -561,8 +616,10 @@ class SceneInit {
     } else if (event.deltaY > 0 && this.isZoomed) {
       this.highVolume(this.currentTarget)
 
-      if (this.currentTarget.src === 'newsTarget') this.papersInspection = false
-      if (this.currentTarget.camPos !== undefined) {
+      if (
+        this.currentTarget.camPos !== undefined ||
+        this.camera.position.x !== this.cameraDefaultPosition.x
+      ) {
         gsap.to(this.camera.position, {
           x: this.cameraDefaultPosition.x,
           y: this.cameraDefaultPosition.y,
@@ -570,11 +627,12 @@ class SceneInit {
           duration: 1,
           onComplete: () => {
             this.isZoomed = false
+            this.papersInspection = false
             window.removeEventListener('click', this.currentAction)
             this.currentAction = undefined
           },
         })
-      } else {
+      } else if (!this.papersInspection) {
         gsap.to(this.camera, {
           fov: 65,
           duration: 1,
@@ -650,7 +708,8 @@ class SceneInit {
           document
             .querySelector('.cursor-circle')
             .classList.remove('cursor-circle-focus')
-          document.removeEventListener('wheel', this.zoomCamera)
+          if (!this.papersInspection)
+            document.removeEventListener('wheel', this.zoomCamera)
         }
       }
     }
