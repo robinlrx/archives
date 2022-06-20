@@ -188,7 +188,7 @@ class SceneInit {
 
     this.office = new Model({
       scene: this.scene,
-      src: 'office',
+      src: 'office/office',
       loadingManager: this.manager,
     })
     this.animationMixers.push(this.office.mixer)
@@ -213,6 +213,15 @@ class SceneInit {
     })
     this.animationMixers.push(this.clock.mixer)
     this.scene.add(this.clock.container)
+
+    this.cat = new Model({
+      scene: this.scene,
+      src: 'cat',
+      loadingManager: this.manager,
+      listener: this.listener,
+    })
+    this.animationMixers.push(this.cat.mixer)
+    this.scene.add(this.cat.container)
 
     this.phone = new Model({
       scene: this.scene,
@@ -661,16 +670,11 @@ class SceneInit {
       const delta = this.threeClock.getDelta()
       this.fan.mixer.update(delta)
       this.clock.mixer.update(delta)
+      this.cat.mixer.update(delta)
 
       if (this.animatedPhone) {
         this.phone.mixer.update(delta)
       }
-
-      // if (this.animationMixers) {
-      //   this.animationMixers.forEach((mixer) => {
-      //     mixer.update(delta)
-      //   })
-      // }
 
       if (this.enabledRaycast) {
         this.raycaster.setFromCamera(new THREE.Vector2(), this.camera)
