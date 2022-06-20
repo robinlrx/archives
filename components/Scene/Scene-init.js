@@ -6,7 +6,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js'
 
-import { gsap, Power3 } from 'gsap'
+import { gsap, Power3, Power4 } from 'gsap'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js'
 import { CustomOutlinePass } from './shaders/CustomOutlinePass.js'
 import Model from './Model'
@@ -20,15 +20,19 @@ class SceneInit {
     this.background = 0x000
     this.raycaster = new THREE.Raycaster()
     this.cameraDefaultPosition = new THREE.Vector3(0, 10, -11)
-    this.clock = new THREE.Clock()
+    this.threeClock = new THREE.Clock()
 
     this.enabledRaycast = true
     this.isPhoneSpeaking = false
+    this.animatedPhone = false
+    this.endingAnimation = false
 
     this.isLoaded = false
     this.isZoomed = false
     this.currentAction = undefined
     this.currentTarget = undefined
+
+    this.isHolding = false
 
     this.init()
     this.update()
@@ -78,6 +82,57 @@ class SceneInit {
         ease: Power3,
         onComplete: () => {
           this.currentTarget = nextTV
+          this.objectsList.forEach((element) => {
+            if (element.sound && element.src !== this.currentTarget.src) {
+              element.sound.setVolume(0.3)
+            }
+          })
+          this.currentTarget.sound.setVolume(this.currentTarget.audioVolume)
+        },
+      })
+    }
+  }
+
+  holdPapers = () => {
+    if (!this.isHolding && this.holdObject.children.length === 0) {
+      console.log('non')
+
+      this.holdObject.attach(this.currentTarget)
+      gsap.to(this.currentTarget.position, {
+        x: this.holdObject.position.x,
+        y: this.holdObject.position.y,
+        z: this.holdObject.position.z,
+        duration: 0.6,
+        ease: Power4,
+        onComplete: () => {
+          this.isHolding = true
+        },
+      })
+      // this.camera.attach(this.currentTarget)
+      // console.log(this.camera)
+      // console.log(this.currentTarget)
+      // this.isHolding = true
+    } else {
+      console.log('oui')
+
+      const news = this.holdObject.children[0]
+      this.newspapers.container.attach(news)
+      gsap.to(news.quaternion, {
+        x: news.defaultRotation.x,
+        y: news.defaultRotation.y,
+        z: news.defaultRotation.z,
+        w: news.defaultRotation.w,
+        duration: 0.7,
+        ease: Power3,
+      })
+      gsap.to(news.position, {
+        x: news.defaultPosition.x,
+        y: news.defaultPosition.y,
+        z: news.defaultPosition.z,
+        duration: 0.7,
+        ease: Power3,
+        onComplete: () => {
+          this.isHolding = false
         },
       })
     }
@@ -105,16 +160,28 @@ class SceneInit {
       scene: this.scene,
       src: 'fan',
       loadingManager: this.manager,
+      audioSrc: 'sounds/fan.ogg',
+      audioVolume: 3,
+      listener: this.listener,
     })
     this.animationMixers.push(this.fan.mixer)
     this.scene.add(this.fan.container)
+
+    this.clock = new Model({
+      scene: this.scene,
+      src: 'clock',
+      loadingManager: this.manager,
+      listener: this.listener,
+    })
+    this.animationMixers.push(this.clock.mixer)
+    this.scene.add(this.clock.container)
 
     this.phone = new Model({
       scene: this.scene,
       src: 'phone',
       loadingManager: this.manager,
       audioSrc: 'sounds/radio/extrait1/1.mp3',
-      audioVolume: 2,
+      audioVolume: 1,
       isNotPositional: true,
       autoPlay: false,
       listener: this.listener,
@@ -223,13 +290,30 @@ class SceneInit {
       videoSrc: 'videos/TV/Documentaire.mp4',
       videoContainer: 'TV-6-Screen',
       camPos: new THREE.Vector3(15, 16, -3),
-
       action: this.TVSwitch,
       index: 6,
     })
     this.objectsList.push(this.TV6)
     this.TVs.push(this.TV6)
     this.targetableObjects.add(this.TV6.container)
+
+    this.newsTarget = new Model({
+      src: 'newsTarget',
+      loadingManager: this.manager,
+      camPos: new THREE.Vector3(-13, 7, 12),
+      action: this.holdPapers,
+    })
+    this.newsTarget.container.visible = false
+    this.objectsList.push(this.newsTarget)
+    this.targetableObjects.add(this.newsTarget.container)
+
+    this.newspapers = new Model({
+      src: 'newspapers',
+      loadingManager: this.manager,
+      addDefaultPosition: true,
+    })
+    this.objectsList.push(this.newspapers)
+    this.targetableObjects.add(this.newspapers.container)
 
     this.PC1 = new Model({
       src: 'PC-1',
@@ -258,20 +342,20 @@ class SceneInit {
     this.manager = new THREE.LoadingManager()
 
     this.manager.onProgress = (url, itemsLoaded, itemsTotal) => {
-      if (document.querySelector('.loaderScreen__progressBar'))
+      if (document.querySelector('.loaderScreen__progressBar')) {
         document.querySelector(
           '.loaderScreen__progressBar'
         ).style.backgroundColor = '#F1EFE5'
-      document.querySelector('.loaderScreen__progressBar').style.width = `${
-        Math.floor((itemsLoaded / itemsTotal) * 100) +
-        Math.floor((1 / itemsTotal) * currentPercent)
-      }%`
+        document.querySelector('.loaderScreen__progressBar').style.width = `${
+          Math.floor((itemsLoaded / itemsTotal) * 100) +
+          Math.floor((1 / itemsTotal) * currentPercent)
+        }%`
+      }
 
       if (itemsTotal === itemsLoaded) {
-        this.isLoaded = true
-        this.clock.start()
+        this.threeClock.start()
         setTimeout(() => {
-          document.querySelector('.wakeUpButton').classList.add('active-button')
+          this.isLoaded = true
         }, 1200)
       }
     }
@@ -302,6 +386,20 @@ class SceneInit {
     this.camera.rotation.x = -0.9
 
     this.camera.updateProjectionMatrix()
+
+    // const geometry = new THREE.BoxGeometry(5, 5, 5)
+
+    // const material = new THREE.MeshBasicMaterial({
+    //   color: 0x00ff00,
+    //   transparent: true,
+    //   opacity: 0,
+    // })
+    this.holdObject = new THREE.Object3D()
+    this.holdObject.position.set(0, 0, -4)
+    // this.holdObject.visible = false
+
+    this.scene.add(this.holdObject)
+    this.holdObject.parent = this.camera
   }
 
   initRenderer() {
@@ -386,16 +484,15 @@ class SceneInit {
     })
     setTimeout(() => {
       phoneSound(this.phone, 0)
-    }, 60000)
+      this.animatedPhone = true
+      this.endingAnimation = true
+    }, 15000)
     setTimeout(() => {
       phoneSound(this.phone, 1)
     }, 120000)
     setTimeout(() => {
       phoneSound(this.phone, 2)
     }, 150000)
-    setTimeout(() => {
-      phoneSound(this.phone, 3)
-    }, 180000)
   }
 
   stopMedias() {
@@ -410,9 +507,29 @@ class SceneInit {
     this.backgroundNoise.stop()
   }
 
+  lowVolume = (target) => {
+    this.objectsList.forEach((element) => {
+      if (element.sound && element.src !== target.src) {
+        element.sound.setVolume(0.3)
+      }
+    })
+  }
+
+  highVolume = () => {
+    this.objectsList.forEach((element) => {
+      if (element.sound) {
+        element.sound.setVolume(element.audioVolume)
+      }
+    })
+  }
+
   zoomCamera = () => {
     if (event.deltaY < 0 && !this.isZoomed) {
+      if (this.currentTarget.src === 'newsTarget') this.papersInspection = true
+
       document.querySelector('.focus').style.opacity = 1
+
+      this.lowVolume(this.currentTarget)
 
       if (this.currentTarget.camPos !== undefined) {
         gsap.to(this.camera.position, {
@@ -442,6 +559,9 @@ class SceneInit {
         })
       }
     } else if (event.deltaY > 0 && this.isZoomed) {
+      this.highVolume(this.currentTarget)
+
+      if (this.currentTarget.src === 'newsTarget') this.papersInspection = false
       if (this.currentTarget.camPos !== undefined) {
         gsap.to(this.camera.position, {
           x: this.cameraDefaultPosition.x,
@@ -451,6 +571,7 @@ class SceneInit {
           onComplete: () => {
             this.isZoomed = false
             window.removeEventListener('click', this.currentAction)
+            this.currentAction = undefined
           },
         })
       } else {
@@ -463,6 +584,7 @@ class SceneInit {
           onComplete: () => {
             this.isZoomed = false
             window.removeEventListener('click', this.currentAction)
+            this.currentAction = undefined
           },
         })
       }
@@ -475,9 +597,18 @@ class SceneInit {
 
     this.composer.render()
 
+    // if (this.endingAnimation) {
+    //   this.camera.lookAt(this.phone.container.children[0].children[]0.position)
+    // }
+
     if (this.isLoaded) {
-      const delta = this.clock.getDelta()
+      const delta = this.threeClock.getDelta()
       this.fan.mixer.update(delta)
+      this.clock.mixer.update(delta)
+
+      if (this.animatedPhone) {
+        this.phone.mixer.update(delta)
+      }
 
       // if (this.animationMixers) {
       //   this.animationMixers.forEach((mixer) => {
@@ -488,9 +619,16 @@ class SceneInit {
       if (this.enabledRaycast) {
         this.raycaster.setFromCamera(new THREE.Vector2(), this.camera)
 
-        const intersects = this.raycaster.intersectObjects(
-          this.targetableObjects.children
-        )
+        let intersects = []
+        if (this.papersInspection) {
+          intersects = this.raycaster.intersectObjects(
+            this.newspapers.container.children
+          )
+        } else {
+          intersects = this.raycaster.intersectObjects(
+            this.targetableObjects.children
+          )
+        }
 
         if (intersects.length > 0) {
           document
@@ -502,8 +640,10 @@ class SceneInit {
             (element) => element.src === intersect.objectName
           )
 
-          this.currentAction = wholeObject.action
-          this.currentTarget = wholeObject
+          if (this.papersInspection) this.currentTarget = intersect
+          else this.currentTarget = wholeObject
+
+          if (wholeObject.action) this.currentAction = wholeObject.action
 
           document.addEventListener('wheel', this.zoomCamera)
         } else {

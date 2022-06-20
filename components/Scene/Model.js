@@ -18,6 +18,7 @@ export default class Model {
     action,
     index,
     isNotPositional,
+    addDefaultPosition,
   }) {
     this.src = src
     this.audioSrc = audioSrc
@@ -34,6 +35,7 @@ export default class Model {
     this.action = action
     this.index = index
     this.isNotPositional = isNotPositional
+    this.addDefaultPosition = addDefaultPosition
     this.init()
   }
 
@@ -96,6 +98,12 @@ export default class Model {
       gltf.scene.traverse((child) => {
         child.objectName = this.src
 
+        if (this.addDefaultPosition) {
+          child.defaultPosition = child.getWorldPosition(new THREE.Vector3())
+          child.defaultRotation = child.getWorldQuaternion(
+            new THREE.Quaternion()
+          )
+        }
         if (child.isMesh) {
           child.material.side = THREE.DoubleSide
           child.castShadow = true

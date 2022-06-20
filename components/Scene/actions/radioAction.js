@@ -79,8 +79,13 @@ export function changeFrequence(radio) {
     radio.sound.onEnded = () => {
       radio.sound.stop()
       radio.audioLoader.load(`${currentRadioClip}`, (buffer) => {
+        radio.sound.setLoop(false)
         radio.sound.setBuffer(buffer)
         radio.sound.play()
+
+        radio.sound.onEnded = () => {
+          changeFrequence(radio)
+        }
       })
     }
   })

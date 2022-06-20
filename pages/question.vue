@@ -34,12 +34,12 @@ export default {
 			const ref = this.$fire.firestore.collection('dataviz').doc('meurtrier')
 			const increment = this.$fireModule.firestore.FieldValue.increment(1)
 			try {
-			await ref.update({
-				[`${documentField}`]: increment
+				await ref.update({
+					[`${documentField}`]: increment
 				})
-				.then(() => {
-					this.$nuxt.$router.push('/dataviz') 
-				})
+					.then(() => {
+						this.$nuxt.$router.push('/dataviz')
+					})
 			} catch (e) {
 				return Promise.reject(e)
 			}
@@ -77,11 +77,10 @@ export default {
 </script>
 
 <style>
-	@import '../css/general.css';
+@import '../css/general.css';
 </style>
 
 <style scoped>
-
 section {
 	display: flex;
 	justify-content: center;
@@ -95,17 +94,43 @@ section {
 	background-size: cover;
 	background-position: center;
 	color: var(--cream);
+	animation: fadeIn 1s 0.2s ease both
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes slideIn {
+	from {
+		opacity: 0;
+		transform: translateY(20%);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0%);
+
+	}
 }
 
 h2 {
 	font-size: 1.375rem;
 	text-align: center;
+	animation: slideIn 0.8s 0.4s ease both
 }
 
 section div {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	animation: slideIn 0.8s 0.4s ease both
 }
 
 button {
@@ -119,7 +144,7 @@ button {
 	font-size: 1rem;
 }
 
-.button-group:hover button{
+.button-group:hover button {
 	opacity: 0.2;
 }
 

@@ -73,18 +73,20 @@ export default {
 	methods: {
 		playVideo() {
 			this.$refs.video.play()
+			this.$emit('loadModels')
+
 			this.$refs.logoClick.remove()
 			this.$refs.videoTransition.style.display = 'block'
 
 			this.$refs.video.addEventListener('timeupdate', () => {
 				if (this.$refs.video.currentTime >= 10 && !this.displayButton) {
 					this.displayButton = true
-					this.$emit('loadModels')
 				}
 			})
 			this.$refs.video.onended = () => {
 				this.$refs.video.remove()
-				document.querySelector('.canvas-container').style.opacity = '0.8'
+				document.querySelector('.wakeUpButton').classList.add('active-button')
+				document.querySelector('.canvas-container').style.opacity = '1'
 			}
 		},
 		start() {
@@ -228,7 +230,7 @@ export default {
 	justify-content: center;
 	flex-wrap: wrap;
 	text-align: center;
-	width: 18%;
+	width: auto;
 	transition: opacity 0.8s ease;
 	animation: buttonContainerSlide 2s ease both;
 }

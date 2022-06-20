@@ -68,7 +68,7 @@ export default {
   position: relative;
   opacity: 0;
   transition: opacity 0.5s ease, filter 0.8s ease;
-  filter: blur(8px);
+  filter: blur(0px);
   z-index: 2;
 }
 
