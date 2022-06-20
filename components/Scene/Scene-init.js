@@ -16,7 +16,7 @@ import { CustomOutlinePass } from './shaders/CustomOutlinePass.js'
 import Model from './Model'
 import { changeFrequence } from './actions/radioAction'
 import { phoneSound } from './actions/phoneAction'
-import { initLocalData, incrementMedia } from './actions/localStorageAction'
+import { initLocalData, incrementMedia, incrementPieMedia } from './actions/localStorageAction'
 
 class SceneInit {
   constructor({ rootEl }) {
@@ -78,6 +78,7 @@ class SceneInit {
   radioAction = () => {
     changeFrequence(this.radio)
     incrementMedia('Radio')
+	incrementPieMedia('Radio')
     this.countRadio = ++this.countRadio
     // when at least 2 extract ar listened
     if (this.countRadio === 6) localStorage.setItem('cardMedia12', true) // extrait 1
@@ -100,6 +101,7 @@ class SceneInit {
         ease: Power3,
         onComplete: () => {
           if (nextTV.card) localStorage.setItem(nextTV.card, true)
+          if (nextTV.pieMedia) incrementPieMedia(nextTV.pieMedia)
 
           this.currentTarget = nextTV
           this.objectsList.forEach((element) => {
@@ -126,6 +128,8 @@ class SceneInit {
           console.log(this.currentTarget)
           if (this.currentTarget.card)
             localStorage.setItem(this.currentTarget.card, true)
+          if (this.currentTarget.pieMedia)
+		  incrementPieMedia(this.currentTarget.pieMedia)
           this.isHolding = true
           incrementMedia('PP')
         },
@@ -250,6 +254,7 @@ class SceneInit {
       action: this.TVSwitch,
       index: 1,
       card: 'cardMedia6',
+	  pieMedia: 'Film'
     })
     this.objectsList.push(this.TV1)
     this.TVs.push(this.TV1)
@@ -267,6 +272,7 @@ class SceneInit {
       action: this.TVSwitch,
       index: 2,
       card: 'cardMedia7',
+	  pieMedia: 'Interview'
     })
     this.objectsList.push(this.TV2)
     this.TVs.push(this.TV2)
@@ -284,6 +290,7 @@ class SceneInit {
       action: this.TVSwitch,
       index: 3,
       card: 'cardMedia7',
+	  pieMedia: 'Docu'
     })
     this.objectsList.push(this.TV3)
     this.TVs.push(this.TV3)
@@ -301,6 +308,7 @@ class SceneInit {
       action: this.TVSwitch,
       index: 4,
       card: 'cardMedia2',
+	  pieMedia: 'JT'
     })
     this.objectsList.push(this.TV4)
     this.TVs.push(this.TV4)
@@ -318,6 +326,7 @@ class SceneInit {
       card: 'cardMedia7',
       action: this.TVSwitch,
       index: 5,
+	  pieMedia: 'Interview'
     })
     this.objectsList.push(this.TV5)
     this.TVs.push(this.TV5)
@@ -335,6 +344,7 @@ class SceneInit {
       action: this.TVSwitch,
       index: 6,
       card: 'cardMedia9',
+	  pieMedia: 'Docu'
     })
     this.objectsList.push(this.TV6)
     this.TVs.push(this.TV6)

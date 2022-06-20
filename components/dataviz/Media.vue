@@ -39,7 +39,8 @@
 						<div class="chart-trust chart-trust--pp">
 							<div class="trust-explication">
 								<p>51 <span>%</span></p>
-								<p>La population fait confiance à 51% des médias de la presse papier. Votre consommation est elle de XX %. </p>
+								<p v-if="dataPP > 100">La population fait confiance à 19% des médias des réseaux sociaux. Votre consommation est elle de 100 %. </p>
+								<p v-else>La population fait confiance à 19% des médias des réseaux sociaux. Votre consommation est elle de {{dataPP}} %. </p>
 							</div>
 						</div>
 					</div>
@@ -52,8 +53,7 @@
 						<div class="chart-trust chart-trust--rs">
 							<div class="trust-explication">
 								<p>19 <span>%</span></p>
-								<p v-if="dataPP > 100">La population fait confiance à 19% des médias des réseaux sociaux. Votre consommation est elle de 100 %. </p>
-								<p v-else>La population fait confiance à 19% des médias des réseaux sociaux. Votre consommation est elle de {{dataPP}} %. </p>
+								<p>La population fait confiance à 19% des médias des réseaux sociaux. Votre consommation est elle de XX %. </p>
 							</div>
 						</div>
 					</div>
@@ -116,11 +116,11 @@ export default {
 	},
 	data() {
 		return {
-			dataTV: 100 / 6 * parseInt(localStorage.getItem('incremenntTV')), // 6 tv
-			dataRS: localStorage.getItem('incremenntRS'), // réseau social
-			dataPW: localStorage.getItem('incremenntPW'), // presse web
-			dataRadio: 100 / 15 * parseInt(localStorage.getItem('incremenntRadio')), // 15 piste radio
-			dataPP:  100 / 18 * localStorage.getItem('incremenntPP'), // presse papier
+			dataTV: (100 / 6 * parseInt(localStorage.getItem('incremenntTV'))).toFixed(0), // 6 tv
+			dataRS: (100 - localStorage.getItem('incremenntRS')).toFixed(0), // réseau social
+			dataPW: (100 - localStorage.getItem('incremenntPW')).toFixed(0), // presse web
+			dataRadio: (100 / 15 * parseInt(localStorage.getItem('incremenntRadio'))).toFixed(0), // 15 piste radio
+			dataPP: (100 / 18 * localStorage.getItem('incremenntPP')).toFixed(0), // presse papier
 		}
 	},
 	mounted() {
