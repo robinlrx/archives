@@ -39,7 +39,8 @@
 						<div class="chart-trust chart-trust--pp">
 							<div class="trust-explication">
 								<p>51 <span>%</span></p>
-								<p>La population fait confiance à 51% des médias de la presse papier. Votre consommation est elle de XX %. </p>
+								<p v-if="dataPP > 100">La population fait confiance à 19% des médias des réseaux sociaux. Votre consommation est elle de 100 %. </p>
+								<p v-else>La population fait confiance à 19% des médias des réseaux sociaux. Votre consommation est elle de {{dataPP}} %. </p>
 							</div>
 						</div>
 					</div>
@@ -52,8 +53,7 @@
 						<div class="chart-trust chart-trust--rs">
 							<div class="trust-explication">
 								<p>19 <span>%</span></p>
-								<p v-if="dataPP > 100">La population fait confiance à 19% des médias des réseaux sociaux. Votre consommation est elle de 100 %. </p>
-								<p v-else>La population fait confiance à 19% des médias des réseaux sociaux. Votre consommation est elle de {{dataPP}} %. </p>
+								<p>La population fait confiance à 19% des médias des réseaux sociaux. Votre consommation est elle de XX %. </p>
 							</div>
 						</div>
 					</div>

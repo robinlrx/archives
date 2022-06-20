@@ -112,7 +112,7 @@ export default {
 
 .timeline-img {
 	position: absolute;
-	top: 62%;
+	top: 64%;
 	width: 96%;
 	height: 100px;
 }

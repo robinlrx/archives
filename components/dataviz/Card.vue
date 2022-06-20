@@ -77,7 +77,7 @@ export default {
 	justify-content: center;
 	align-items: center;
 	position: absolute;
-	top: 74.5%;
+	top: 76.7%;
 }
 
 .card .dot {
