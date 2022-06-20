@@ -8,7 +8,9 @@ import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js'
 
 import { gsap, Power3, Power4 } from 'gsap'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js'
+// import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer'
 import { CustomOutlinePass } from './shaders/CustomOutlinePass.js'
+
 import Model from './Model'
 import { changeFrequence } from './actions/radioAction'
 import { phoneSound } from './actions/phoneAction'
@@ -144,7 +146,6 @@ class SceneInit {
   }
 
   TV1Action = () => {
-    console.log('sale con')
     incrementMedia('TV')
     localStorage.setItem('cardMedia2', true)
   }
@@ -229,7 +230,7 @@ class SceneInit {
       src: 'radio',
       loadingManager: this.manager,
       audioSrc: 'sounds/radio/extrait1/1.mp3',
-      audioVolume: 2,
+      audioVolume: 3,
       listener: this.listener,
       action: this.radioAction,
     })
@@ -353,21 +354,33 @@ class SceneInit {
 
     this.PC1 = new Model({
       src: 'PC-1',
+      videoContainer: 'PC-1-Screen',
       loadingManager: this.manager,
+      website: 'iframe/reddit-1.png',
     })
-    this.scene.add(this.PC1.container)
+
+    this.objectsList.push(this.PC1)
+    this.targetableObjects.add(this.PC1.container)
 
     this.PC2 = new Model({
       src: 'PC-2',
+      videoContainer: 'PC-2-Screen',
       loadingManager: this.manager,
+      // // scene1: this.scene,
+      // // scene2: this.scene2,
+      // // camera: this.camera.position,
+      // website: 'iframe/internet.html',
+      website: 'iframe/twitter-2.png',
     })
-    this.scene.add(this.PC2.container)
+    this.objectsList.push(this.PC2)
+    this.targetableObjects.add(this.PC2.container)
 
     this.scene.add(this.targetableObjects)
   }
 
   initScene() {
     this.scene = new THREE.Scene()
+    // this.scene2 = new THREE.Scene()
   }
 
   initManager() {
@@ -398,11 +411,11 @@ class SceneInit {
   }
 
   initLights() {
-    const ambient = new THREE.AmbientLight(0xffffff, 0.9)
+    const ambient = new THREE.AmbientLight(0xffffff, 0.6)
     this.scene.add(ambient)
-    // const pointLight = new THREE.PointLight(0x00ffab, 0.4, 100)
-    // pointLight.position.set(10, 10, 10)
-    // this.scene.add(pointLight)
+    const pointLight = new THREE.PointLight(0x00ffab, 0.4, 100)
+    pointLight.position.set(10, 10, 10)
+    this.scene.add(pointLight)
 
     // const sphereSize = 1
     // const pointLightHelper = new THREE.PointLightHelper(pointLight, sphereSize)
@@ -479,6 +492,14 @@ class SceneInit {
       1 / window.innerHeight
     )
     this.composer.addPass(effectFXAA)
+
+    // init renderer2 for iframe and scene2
+    // this.renderer2 = new CSS3DRenderer()
+    // this.renderer2.setSize(window.innerWidth, window.innerHeight)
+    // this.renderer2.domElement.style.position = 'absolute'
+    // this.renderer2.domElement.style.zIndex = 5
+    // this.renderer2.domElement.style.top = 0
+    // this.root.appendChild(this.renderer2.domElement)
   }
 
   setControls() {
@@ -520,9 +541,8 @@ class SceneInit {
     })
     setTimeout(() => {
       phoneSound(this.phone, 0)
-      this.animatedPhone = true
-      this.endingAnimation = true
-    }, 15000)
+      // this.animatedPhone = true
+    }, 60000)
     setTimeout(() => {
       phoneSound(this.phone, 1)
     }, 120000)
@@ -646,9 +666,7 @@ class SceneInit {
 
     this.composer.render()
 
-    // if (this.endingAnimation) {
-    //   this.camera.lookAt(this.phone.container.children[0].children[]0.position)
-    // }
+    // this.renderer2.render(this.scene2, this.camera)
 
     if (this.isLoaded) {
       const delta = this.threeClock.getDelta()
