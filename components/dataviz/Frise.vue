@@ -24,7 +24,7 @@
 					<p class="explication">Le 2 février 1994, Omar Raddad alors défendu par Me Jacques Vergès, est déclaré coupable du meurtre de Ghislaine Marchal.</p>
 				</div>
 				<div class="date">
-					<p>1995</p>
+					<p>1994</p>
 					<div class="line"></div>
 				</div>
 				<div class="dot">

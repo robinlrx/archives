@@ -74,11 +74,12 @@
 				<div class="chart-meida-wrapper">
 					<LegendItem :pictolegend="`url(${require('~/assets/images/picto-radio.svg')}), var(--black)`" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
 					<div class="chart-meida-wrapper--item">
-						<div class="chart-radio--user"></div>
+						<div class="chart-radio--user" :style="{width: dataRadio > 100 ? '100%' : `${dataRadio}%`}"></div>
 						<div class="chart-trust chart-trust--radio">
 							<div class="trust-explication">
 								<p>58 <span>%</span></p>
-								<p>La population fait confiance à 58% des médias radiophonique. <br> Votre consommation est elle de XX %. </p>
+								<p v-if="dataRadio > 100">La population fait confiance à 58% des médias radiophonique. <br> Votre consommation est elle de 100 %. </p>
+								<p v-else>La population fait confiance à 58% des médias radiophonique. <br> Votre consommation est elle de {{dataRadio}} %. </p>
 							</div>
 						</div>
 					</div>
@@ -87,11 +88,12 @@
 				<div class="chart-meida-wrapper">
 					<LegendItem :pictolegend="`url(${require('~/assets/images/picto-tv.svg')}), var(--black)`" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
 					<div class="chart-meida-wrapper--item">
-						<div class="chart-tv--user"></div>
+						<div class="chart-tv--user" :style="{width: dataTV > 100 ? '100%' : `${dataTV}%`}"></div>
 						<div class="chart-trust chart-trust--tv">
 							<div class="trust-explication">
 								<p>51 <span>%</span></p>
-								<p>La population fait confiance à 51% des médias télévisuel. Votre consommation est elle de XX %. </p>
+								<p v-if="dataTV > 100">La population fait confiance à 51% des médias télévisuel. Votre consommation est elle de 100 %. </p>
+								<p v-else>La population fait confiance à 51% des médias télévisuel. Votre consommation est elle de {{dataTV}} %. </p>
 							</div>
 						</div>
 					</div>
@@ -110,6 +112,15 @@ export default {
 	components: {
 		Box,
 		LegendItem
+	},
+	data() {
+		return {
+			dataTV: 100 / 6 * parseInt(localStorage.getItem('incremenntTV')), // 6 tv
+			dataRS: localStorage.getItem('incremenntRS'), // réseau social
+			dataPW: localStorage.getItem('incremenntPW'), // presse web
+			dataRadio: 100 / 15 * parseInt(localStorage.getItem('incremenntRadio')), // 15 piste radio
+			dataPP:  localStorage.getItem('incremenntPP'), // presse papier
+		}
 	},
 	mounted() {
 		const chartTrust = this.$el.getElementsByClassName('chart-trust')
@@ -287,7 +298,7 @@ section {
 }
 
 .chart-radio--user {
-	width: 20%; /* localhost nb media = nb percent */
+	/* width: 20%; localhost nb media = nb percent */
 	height: 100%;
 	background-color: var(--cream);
 }
@@ -297,7 +308,7 @@ section {
 }
 
 .chart-tv--user {
-	width: 30%; /* localhost nb media = nb percent */
+	/* width: 30%; localhost nb media = nb percent */
 	height: 100%;
 	background-color: var(--cream);
 }
