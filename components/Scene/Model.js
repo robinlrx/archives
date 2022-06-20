@@ -25,7 +25,7 @@ export default class Model {
     scene1,
     website,
     camera,
-	card
+    card,
   }) {
     this.src = src
     this.audioSrc = audioSrc
@@ -47,7 +47,7 @@ export default class Model {
     this.scene1 = scene1
     this.website = website
     this.camera = camera
-	this.card = card
+    this.card = card
     this.init()
   }
 
@@ -177,6 +177,12 @@ export default class Model {
           child.castShadow = true
           child.receiveShadow = true
         }
+        if (child.name === 'journal014') child.card = 'cardMedia1'
+        if (child.name === 'journal015') child.card = 'cardMedia3'
+        if (child.name === 'journal007') child.card = 'cardMedia10'
+        if (child.name === 'journal016') child.card = 'cardMedia16'
+        if (child.name === 'journal017') child.card = 'cardMedia16'
+
         if (this.videoSrc && child.name === this.videoContainer) {
           this.initVideoTexture(child)
         }

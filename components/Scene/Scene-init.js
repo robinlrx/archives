@@ -77,17 +77,18 @@ class SceneInit {
 
   radioAction = () => {
     changeFrequence(this.radio)
-	incrementMedia('Radio')
-	this.countRadio = ++this.countRadio
-	// when at least 2 extract ar listened
- 	if(this.countRadio === 6) localStorage.setItem('cardMedia12', true) // extrait 1
-	if(this.countRadio === 7) localStorage.setItem('cardMedia13', true) // extrait 2
-	if(this.countRadio === 8) localStorage.setItem('cardMedia14', true) // extrait 3
-	if(this.countRadio === 9) localStorage.setItem('cardMedia8', true) // extrait 4
-	if(this.countRadio === 10) localStorage.setItem('cardMedia5', true) // extrait 5
+    incrementMedia('Radio')
+    this.countRadio = ++this.countRadio
+    // when at least 2 extract ar listened
+    if (this.countRadio === 6) localStorage.setItem('cardMedia12', true) // extrait 1
+    if (this.countRadio === 7) localStorage.setItem('cardMedia13', true) // extrait 2
+    if (this.countRadio === 8) localStorage.setItem('cardMedia14', true) // extrait 3
+    if (this.countRadio === 9) localStorage.setItem('cardMedia8', true) // extrait 4
+    if (this.countRadio === 10) localStorage.setItem('cardMedia5', true) // extrait 5
   }
 
   TVSwitch = () => {
+    incrementMedia('TV')
     const nextTV = this.TVs[Math.round(Math.random() * this.TVs.length)]
     if (nextTV.index === this.currentTarget.index) this.TVSwitch()
     else if (nextTV.camPos) {
@@ -98,6 +99,8 @@ class SceneInit {
         duration: 1,
         ease: Power3,
         onComplete: () => {
+          if (nextTV.card) localStorage.setItem(nextTV.card, true)
+
           this.currentTarget = nextTV
           this.objectsList.forEach((element) => {
             if (element.sound && element.src !== this.currentTarget.src) {
@@ -120,8 +123,11 @@ class SceneInit {
         duration: 0.6,
         ease: Power4,
         onComplete: () => {
+          console.log(this.currentTarget)
+          if (this.currentTarget.card)
+            localStorage.setItem(this.currentTarget.card, true)
           this.isHolding = true
-		  incrementMedia('PP')
+          incrementMedia('PP')
         },
       })
     } else {
@@ -243,6 +249,7 @@ class SceneInit {
       camPos: new THREE.Vector3(8, 5, 20),
       action: this.TVSwitch,
       index: 1,
+      card: 'cardMedia6',
     })
     this.objectsList.push(this.TV1)
     this.TVs.push(this.TV1)
@@ -259,6 +266,7 @@ class SceneInit {
       camPos: new THREE.Vector3(11, 3, 5),
       action: this.TVSwitch,
       index: 2,
+      card: 'cardMedia7',
     })
     this.objectsList.push(this.TV2)
     this.TVs.push(this.TV2)
@@ -275,6 +283,7 @@ class SceneInit {
       camPos: new THREE.Vector3(13, 5, -6),
       action: this.TVSwitch,
       index: 3,
+      card: 'cardMedia7',
     })
     this.objectsList.push(this.TV3)
     this.TVs.push(this.TV3)
@@ -291,6 +300,7 @@ class SceneInit {
       camPos: new THREE.Vector3(10, 14.7, 15),
       action: this.TVSwitch,
       index: 4,
+      card: 'cardMedia2',
     })
     this.objectsList.push(this.TV4)
     this.TVs.push(this.TV4)
@@ -305,7 +315,7 @@ class SceneInit {
       videoSrc: 'videos/TV/Interview2.mp4',
       videoContainer: 'TV-5-Screen',
       camPos: new THREE.Vector3(17, 12, 5),
-
+      card: 'cardMedia7',
       action: this.TVSwitch,
       index: 5,
     })
@@ -324,6 +334,7 @@ class SceneInit {
       camPos: new THREE.Vector3(15, 16, -3),
       action: this.TVSwitch,
       index: 6,
+      card: 'cardMedia9',
     })
     this.objectsList.push(this.TV6)
     this.TVs.push(this.TV6)
@@ -650,8 +661,6 @@ class SceneInit {
       const delta = this.threeClock.getDelta()
       this.fan.mixer.update(delta)
       this.clock.mixer.update(delta)
-
-      console.log(this.camera.rotation)
 
       if (this.animatedPhone) {
         this.phone.mixer.update(delta)
