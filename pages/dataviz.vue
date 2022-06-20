@@ -17,7 +17,9 @@
 						<div class="line-case"></div>
 						<img src="~/assets/images/omar.png" alt="" class="omar reveal-1">
 						<div class="line-case"></div>
-						<p class="resume reveal-1">L’affaire Omar Raddad commence avec le meurtre de Ghislaine Marshal en 1991, dans sa propre villa. “OMAR M’A TUER” est inscrit en lettres de sang sur 2 surfaces, ce qui mène à l’arrestation d’Omar Raddad.</p>
+						<p class="resume reveal-1">L’affaire Omar Raddad commence avec le meurtre de Ghislaine Marshal
+							en 1991, dans sa propre villa. “OMAR M’A TUER” est inscrit en lettres de sang sur 2
+							surfaces, ce qui mène à l’arrestation d’Omar Raddad.</p>
 						<div class="line-case"></div>
 					</div>
 					<!-- right side -->
@@ -29,42 +31,50 @@
 							<p class="reveal-1">Réponse des utilisateurs</p>
 
 							<div class="dataviz-first reveal-1">
-								<div v-show="yesPourcentage != 0" class="chart chart-yes" :style="{ width: `${yesPourcentage}%` }">
-									<p>{{yesPourcentage}}<span>%</span></p>
+								<div v-show="yesPourcentage != 0" class="chart chart-yes"
+									:style="{ width: `${yesPourcentage}%` }">
+									<p>{{ yesPourcentage }}<span>%</span></p>
 								</div>
-								<div v-show="noPourcentage != 0" class="chart chart-no" :style="{ width: `${noPourcentage}%` }">
-									<p>{{noPourcentage}}<span>%</span></p>
+								<div v-show="noPourcentage != 0" class="chart chart-no"
+									:style="{ width: `${noPourcentage}%` }">
+									<p>{{ noPourcentage }}<span>%</span></p>
 								</div>
-								<div v-show="jspPourcentage != 0" class="chart chart-jsp" :style="{ width: `${jspPourcentage}%` }">
-									<p>{{jspPourcentage}}<span>%</span></p>
+								<div v-show="jspPourcentage != 0" class="chart chart-jsp"
+									:style="{ width: `${jspPourcentage}%` }">
+									<p>{{ jspPourcentage }}<span>%</span></p>
 								</div>
 							</div>
 
 							<div class="bottom-content">
 
-								<Box addclass="legend-container reveal-1" width="50%" icon="i" title="Légende" icon-background="black" icon-color="#FCFCF5">
+								<Box addclass="legend-container reveal-1" width="50%" icon="i" title="Légende"
+									icon-background="black" icon-color="#FCFCF5">
 									<div class="legend-group">
 										<LegendItem pictolegend="var(--green)" name="Oui" />
 										<LegendItem pictolegend="black" name="Non" />
-										<LegendItem pictolegend="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px )" name="Indécis" />
+										<LegendItem
+											pictolegend="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px )"
+											name="Indécis" />
 									</div>
 								</Box>
 
 								<div class="big-data">
 									<!-- enlever process.client && à la fin -->
 									<span v-if="questionMeurtrier === 'yes'" class="reveal-1">
-										<p class="number">{{yesPourcentage}}<span>%</span></p>
-										<p>des utilisateurs pensent comme vous, qu'Omar Raddad à bel et bien tué Ghislaine Marshal.</p>
+										<p class="number">{{ yesPourcentage }}<span>%</span></p>
+										<p>des utilisateurs pensent comme vous, qu'Omar Raddad à bel et bien tué
+											Ghislaine Marshal.</p>
 									</span>
 									<span v-else-if="questionMeurtrier === 'no'" class="reveal-1">
-										<p class="number">{{noPourcentage}}<span>%</span></p>
-										<p>des utilisateurs pensent comme vous, qu'Omar Raddad n'a pas tué Ghislaine Marshal.</p>
+										<p class="number">{{ noPourcentage }}<span>%</span></p>
+										<p>des utilisateurs pensent comme vous, qu'Omar Raddad n'a pas tué Ghislaine
+											Marshal.</p>
 									</span>
 									<span v-else class="reveal-1">
-										<p class="number">{{jspPourcentage}}<span>%</span></p>
+										<p class="number">{{ jspPourcentage }}<span>%</span></p>
 										<p>des utilisateurs pensent comme vous, ils ne savent pas. </p>
 									</span>
-									
+
 								</div>
 							</div>
 
@@ -78,7 +88,8 @@
 				<div class="dataviz-first-conclusion">
 					<div class="no-box reveal-1">
 						<p>NON</p>
-						<p>De nombreux indices semblent innocenter Omar, ou incriminer d’autres individus. Par exemple des récentes analyses ADN</p>
+						<p>De nombreux indices semblent innocenter Omar, ou incriminer d’autres individus. Par exemple
+							des récentes analyses ADN</p>
 					</div>
 					<div class="yes-box reveal-1">
 						<p>OUI</p>
@@ -93,23 +104,26 @@
 
 		<section class="section-pie">
 			<!-- chart box -->
-			<Box addclass="reveal-1" title="Votre couverture de terrain :" width="900px" >
+			<Box addclass="reveal-1" title="Votre couverture de terrain :" width="900px">
 				<div class="pie-wrapper">
 					<h2 class="text-bold reveal-1"><span>Combien</span> de médias<br>avez-vous consulté ?</h2>
 					<div class="pie-content">
 						<canvas id="myChart" class="pie reveal-1"></canvas>
 						<div class="big-data reveal-1">
-							<p class="number">{{jspPourcentage}}<span>%</span></p>
+							<p class="number">{{ jspPourcentage }}<span>%</span></p>
 							<p>des utilisateurs ont choisit comme vous le JT comme média de prédilection. </p>
 						</div>
 					</div>
 				</div>
 			</Box>
 			<!-- legend box -->
-			<Box addclass="legend-container legend-container--pie reveal-1" width="500px" icon="i" title="Légende" icon-background="black" icon-color="#FCFCF5">
+			<Box addclass="legend-container legend-container--pie reveal-1" width="500px" icon="i" title="Légende"
+				icon-background="black" icon-color="#FCFCF5">
 				<LegendItem pictolegend="transparent" name="Journal Télévisé" />
 				<LegendItem pictolegend="var(--black)" name="Photo" />
-				<LegendItem pictolegend="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px )" name="Presse Web" />
+				<LegendItem
+					pictolegend="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px )"
+					name="Presse Web" />
 				<LegendItem pictolegend="var(--green)" name="Documentaire" />
 				<LegendItem pictolegend="#B0B0AC" name="Film" />
 				<LegendItem pictolegend="#554726" name="Radio" />
@@ -126,16 +140,22 @@
 		<section class="replay-section">
 			<p class="replay-discover reveal-1">Découvrez les autres enquêtes <br>disponibles sur Archive :</p>
 			<div class="separator reveal-1"></div>
-			<button	class="restart text-bold reveal-1" @click="restart()">NOUVELLE ENQUêTE</button>
+			<button class="restart text-bold reveal-1" @click="restart()">NOUVELLE ENQUêTE</button>
 			<div class="info-container reveal-1">
-				<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" class="info" @mouseenter="showPopup()" @mouseleave="unshowPopup()">
+				<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
+					class="info" @mouseenter="showPopup()" @mouseleave="unshowPopup()">
 					<circle cx="18" cy="18" r="17" stroke="black" stroke-width="2" />
-					<path d="M21.0365 8.97839C21.0365 9.4127 20.9571 9.99 20.7982 10.7103C20.6499 11.42 20.4592 12.2569 20.2262 13.2208C20.0037 14.1318 19.7495 15.2705 19.4635 16.637C19.1775 17.9929 18.8756 19.6718 18.5578 21.6738H17.3343C17.0166 19.6506 16.7147 17.9664 16.4287 16.6211C16.1427 15.2758 15.8884 14.1477 15.666 13.2367C15.4647 12.3999 15.2793 11.5842 15.1099 10.7898C14.9404 9.98471 14.8556 9.38092 14.8556 8.97839C14.8556 8.16275 15.1575 7.46892 15.7613 6.89691C16.3651 6.31431 17.0907 6.023 17.9381 6.023C18.775 6.023 19.5006 6.31431 20.115 6.89691C20.7293 7.46892 21.0365 8.16275 21.0365 8.97839ZM21.0047 26.5359C21.0047 27.341 20.6976 28.0348 20.0832 28.6174C19.4794 29.1894 18.7697 29.4754 17.954 29.4754C17.1278 29.4754 16.4075 29.1894 15.7931 28.6174C15.1893 28.0348 14.8874 27.341 14.8874 26.5359C14.8874 25.7309 15.1893 25.0371 15.7931 24.4545C16.4075 23.8613 17.1278 23.5647 17.954 23.5647C18.7697 23.5647 19.4794 23.8613 20.0832 24.4545C20.6976 25.0371 21.0047 25.7309 21.0047 26.5359Z" fill="black"/>
+					<path
+						d="M21.0365 8.97839C21.0365 9.4127 20.9571 9.99 20.7982 10.7103C20.6499 11.42 20.4592 12.2569 20.2262 13.2208C20.0037 14.1318 19.7495 15.2705 19.4635 16.637C19.1775 17.9929 18.8756 19.6718 18.5578 21.6738H17.3343C17.0166 19.6506 16.7147 17.9664 16.4287 16.6211C16.1427 15.2758 15.8884 14.1477 15.666 13.2367C15.4647 12.3999 15.2793 11.5842 15.1099 10.7898C14.9404 9.98471 14.8556 9.38092 14.8556 8.97839C14.8556 8.16275 15.1575 7.46892 15.7613 6.89691C16.3651 6.31431 17.0907 6.023 17.9381 6.023C18.775 6.023 19.5006 6.31431 20.115 6.89691C20.7293 7.46892 21.0365 8.16275 21.0365 8.97839ZM21.0047 26.5359C21.0047 27.341 20.6976 28.0348 20.0832 28.6174C19.4794 29.1894 18.7697 29.4754 17.954 29.4754C17.1278 29.4754 16.4075 29.1894 15.7931 28.6174C15.1893 28.0348 14.8874 27.341 14.8874 26.5359C14.8874 25.7309 15.1893 25.0371 15.7931 24.4545C16.4075 23.8613 17.1278 23.5647 17.954 23.5647C18.7697 23.5647 19.4794 23.8613 20.0832 24.4545C20.6976 25.0371 21.0047 25.7309 21.0047 26.5359Z"
+						fill="black" />
 				</svg>
 				<div class="popup" :class="{ active: isPopupActive }">
 					<p>A propos</p>
-					<p class="popup-text popup-text--first">Fini de travailler Inspecteur <br>D. Chevrai, votre temps est imparti !</p>
-					<p class="popup-text">En revanche durant l’expérience, nous en avons profité pour collecter quelques informations sur vous... Du moins sur vos habitudes, réflexes en matière de consommation de médias. Vous retrouverez sur cette page, une analyse comparée de vos résultats.</p>
+					<p class="popup-text popup-text--first">Fini de travailler Inspecteur <br>D. Chevrai, votre temps
+						est imparti !</p>
+					<p class="popup-text">En revanche durant l’expérience, nous en avons profité pour collecter quelques
+						informations sur vous... Du moins sur vos habitudes, réflexes en matière de consommation de
+						médias. Vous retrouverez sur cette page, une analyse comparée de vos résultats.</p>
 				</div>
 			</div>
 		</section>
@@ -226,7 +246,7 @@ export default {
 				})
 			};
 			const observer = new IntersectionObserver(callback, options);
-			
+
 			const items = document.querySelectorAll('[class*="reveal-"]')
 			items.forEach(function (item) {
 				observer.observe(item)
@@ -317,15 +337,19 @@ export default {
 </script>
 
 <style>
-	@import '../css/general.css';
+@import '../css/general.css';
 </style>
 
 <style scoped>
+#__layout {
+	background-color: var(--cream) !important
+}
 
 .body-light {
 	background-color: var(--cream);
 	background-image: url('~/assets/images/fond-dataviz.png');
-	background-size: 240% 100%; /* cover */
+	background-size: 240% 100%;
+	/* cover */
 	background-position: center;
 	padding-bottom: 5%;
 }
@@ -363,7 +387,7 @@ header .logo {
 
 header .icone {
 	/* border: solid red; */
-	padding-top: 5px ;
+	padding-top: 5px;
 	margin-right: 20px;
 	margin-left: auto;
 	width: 50px;
@@ -403,7 +427,8 @@ section {
 	margin-top: 50px;
 }
 
-.case, .stats {
+.case,
+.stats {
 	height: 100%;
 }
 
@@ -510,7 +535,7 @@ section {
 }
 
 .chart-jsp {
-	background-image: repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px );
+	background-image: repeating-linear-gradient(-45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px);
 }
 
 .chart-jsp p {
@@ -558,7 +583,7 @@ section {
 }
 
 section:first-of-type {
-	padding-bottom:  10vh;
+	padding-bottom: 10vh;
 }
 
 .dataviz-first-conclusion {
@@ -571,7 +596,8 @@ section:first-of-type {
 	font-family: 'Georgia-bold';
 }
 
-.no-box, .yes-box {
+.no-box,
+.yes-box {
 	box-shadow: 10px 8px 0px var(--black);
 }
 
@@ -581,12 +607,14 @@ section:first-of-type {
 	height: 130px;
 	color: var(--cream);
 	background-color: var(--black);
-	padding: 20px ;
+	padding: 20px;
 	border-bottom: solid 3px var(--cream);
 	border-right: solid 3px var(--cream);
-} 
+}
 
-.no-box p:first-of-type, .yes-box p:first-of-type, .popup  p:first-of-type {
+.no-box p:first-of-type,
+.yes-box p:first-of-type,
+.popup p:first-of-type {
 	font-family: 'Strong-concrete';
 	font-size: 3rem;
 	width: 100%;
@@ -601,12 +629,13 @@ section:first-of-type {
 	height: 130px;
 	/* color: var(--cream); */
 	/* background-color: var(--black); */
-	padding: 20px ;
+	padding: 20px;
 	border: solid var(--black);
 	margin-left: 30px;
 }
 
-.yes-box p:first-of-type, .popup p:first-of-type {
+.yes-box p:first-of-type,
+.popup p:first-of-type {
 	border-bottom: solid var(--black);
 }
 
@@ -720,7 +749,7 @@ section:first-of-type {
 
 .popup {
 	width: 300px;
-	padding: 40px ;
+	padding: 40px;
 	border: solid var(--black);
 	margin-left: 30px;
 	box-shadow: 10px 8px 0px var(--black);
@@ -747,5 +776,4 @@ section:first-of-type {
 .popup-text--first {
 	margin-bottom: 20px;
 }
-
 </style> 

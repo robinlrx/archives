@@ -108,8 +108,6 @@ class SceneInit {
 
   holdPapers = () => {
     if (!this.isHolding && this.holdObject.children.length === 0) {
-      console.log('non')
-
       this.holdObject.attach(this.currentTarget)
       gsap.to(this.currentTarget.position, {
         x: this.holdObject.position.x,
@@ -121,13 +119,7 @@ class SceneInit {
           this.isHolding = true
         },
       })
-      // this.camera.attach(this.currentTarget)
-      // console.log(this.camera)
-      // console.log(this.currentTarget)
-      // this.isHolding = true
     } else {
-      console.log('oui')
-
       const news = this.holdObject.children[0]
       this.newspapers.container.attach(news)
       gsap.to(news.quaternion, {
@@ -540,13 +532,13 @@ class SceneInit {
     setTimeout(() => {
       phoneSound(this.phone, 3)
 
-      document.querySelector('.canvas-container').style.opacity = 0
-
       setTimeout(() => {
         // this.$nuxt.$router.push('/question')
         window.location.href = '/question'
+        document.querySelector('.canvas-container').style.opacity = 0
+
         this.stopMedias()
-      }, 6000)
+      }, 12000)
     }, 170000) // 4 min = 240000
   }
 
@@ -579,7 +571,6 @@ class SceneInit {
   }
 
   zoomCamera = () => {
-    console.log(event.deltaY)
     if (event.deltaY < 0 && !this.isZoomed) {
       if (this.currentTarget.src === 'newsTarget') this.papersInspection = true
 

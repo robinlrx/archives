@@ -38,7 +38,11 @@ export default {
 					[`${documentField}`]: increment
 				})
 					.then(() => {
-						this.$nuxt.$router.push('/dataviz')
+
+						document.querySelector('.question').style.background = "#f1efe5"
+						setTimeout(() => {
+							this.$nuxt.$router.push('/dataviz')
+						}, 1200);
 					})
 			} catch (e) {
 				return Promise.reject(e)
@@ -94,7 +98,8 @@ section {
 	background-size: cover;
 	background-position: center;
 	color: var(--cream);
-	animation: fadeIn 1s 0.2s ease both
+	animation: fadeIn 1s 0.2s ease both;
+	transition: background-color 1s ease
 }
 
 @keyframes fadeIn {
