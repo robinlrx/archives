@@ -25,7 +25,7 @@ export default class Model {
     scene1,
     website,
     camera,
-    card,
+	card
   }) {
     this.src = src
     this.audioSrc = audioSrc
@@ -47,7 +47,7 @@ export default class Model {
     this.scene1 = scene1
     this.website = website
     this.camera = camera
-    this.card = card
+	this.card = card
     this.init()
   }
 

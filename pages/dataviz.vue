@@ -17,9 +17,7 @@
 						<div class="line-case"></div>
 						<img src="~/assets/images/omar.png" alt="" class="omar reveal-1">
 						<div class="line-case"></div>
-						<p class="resume reveal-1">L’affaire Omar Raddad commence avec le meurtre de Ghislaine Marshal
-							en 1991, dans sa propre villa. “OMAR M’A TUER” est inscrit en lettres de sang sur 2
-							surfaces, ce qui mène à l’arrestation d’Omar Raddad.</p>
+						<p class="resume reveal-1">L’affaire Omar Raddad commence avec le meurtre de Ghislaine Marshal en 1991, dans sa propre villa. “OMAR M’A TUER” est inscrit en lettres de sang sur 2 surfaces, ce qui mène à l’arrestation d’Omar Raddad.</p>
 						<div class="line-case"></div>
 					</div>
 					<!-- right side -->
@@ -47,14 +45,11 @@
 
 							<div class="bottom-content">
 
-								<Box addclass="legend-container reveal-1" width="50%" icon="i" title="Légende"
-									icon-background="black" icon-color="#FCFCF5">
+								<Box addclass="legend-container reveal-1" width="50%" icon="i" title="Légende" icon-background="black" icon-color="#FCFCF5">
 									<div class="legend-group">
 										<LegendItem pictolegend="var(--green)" name="Oui" />
 										<LegendItem pictolegend="black" name="Non" />
-										<LegendItem
-											pictolegend="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px )"
-											name="Indécis" />
+										<LegendItem pictolegend="repeating-linear-gradient( -45deg, transparent, transparent 7px, var(--black) 8px, var(--black) 10px )" name="Indécis" />
 									</div>
 								</Box>
 
@@ -88,12 +83,11 @@
 				<div class="dataviz-first-conclusion">
 					<div class="no-box reveal-1">
 						<p>NON</p>
-						<p>De nombreux indices semblent innocenter Omar, ou incriminer d’autres individus. Par exemple
-							des récentes analyses ADN</p>
+						<p>De nombreux indices semblent innocenter Omar, ou incriminer d’autres individus. Notamment la grossière faute de conjugaison dans la phrase écrite avec le sang de Ghislaine Marchal : “Omar m’a tuer”. Plus récemment, des tests ADN sèment aussi le doute, ne présentant pas celui d’Omar. Il est aussi notable qu’Omar a été partiellement gracié par Jacques Chirac en 1996.</p>
 					</div>
 					<div class="yes-box reveal-1">
 						<p>OUI</p>
-						<p>Juger coupable 1994 / L’ecriture en sang / Partiellement gracié mais pas innocenté</p>
+						<p>Omar a été jugé coupable, et plusieurs éléments pointent vers cette conclusion : évidemment, l’inscription “Omar m’a tuer” semble être une preuve accablante. De plus, le déroulement des faits décrit par l’accusation semble tout à fait crédible.</p>
 					</div>
 				</div>
 
@@ -104,13 +98,13 @@
 
 		<section class="section-pie">
 			<!-- chart box -->
-			<Box addclass="reveal-1" title="Votre couverture de terrain :" width="900px">
+			<Box addclass="reveal-1" title="Votre couverture de terrain :" width="900px" >
 				<div class="pie-wrapper">
 					<h2 class="text-bold reveal-1"><span>Combien</span> de médias<br>avez-vous consulté ?</h2>
 					<div class="pie-content">
 						<canvas id="myChart" class="pie reveal-1"></canvas>
 						<div class="big-data reveal-1">
-							<p class="number">{{ jspPourcentage }}<span>%</span></p>
+							<p class="number">{{jspPourcentage}}<span>%</span></p>
 							<p>des utilisateurs ont choisit comme vous le JT comme média de prédilection. </p>
 						</div>
 					</div>
@@ -142,8 +136,7 @@
 			<div class="separator reveal-1"></div>
 			<button class="restart text-bold reveal-1" @click="restart()">NOUVELLE ENQUêTE</button>
 			<div class="info-container reveal-1">
-				<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
-					class="info" @mouseenter="showPopup()" @mouseleave="unshowPopup()">
+				<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" class="info" @mouseenter="showPopup()" @mouseleave="unshowPopup()">
 					<circle cx="18" cy="18" r="17" stroke="black" stroke-width="2" />
 					<path
 						d="M21.0365 8.97839C21.0365 9.4127 20.9571 9.99 20.7982 10.7103C20.6499 11.42 20.4592 12.2569 20.2262 13.2208C20.0037 14.1318 19.7495 15.2705 19.4635 16.637C19.1775 17.9929 18.8756 19.6718 18.5578 21.6738H17.3343C17.0166 19.6506 16.7147 17.9664 16.4287 16.6211C16.1427 15.2758 15.8884 14.1477 15.666 13.2367C15.4647 12.3999 15.2793 11.5842 15.1099 10.7898C14.9404 9.98471 14.8556 9.38092 14.8556 8.97839C14.8556 8.16275 15.1575 7.46892 15.7613 6.89691C16.3651 6.31431 17.0907 6.023 17.9381 6.023C18.775 6.023 19.5006 6.31431 20.115 6.89691C20.7293 7.46892 21.0365 8.16275 21.0365 8.97839ZM21.0047 26.5359C21.0047 27.341 20.6976 28.0348 20.0832 28.6174C19.4794 29.1894 18.7697 29.4754 17.954 29.4754C17.1278 29.4754 16.4075 29.1894 15.7931 28.6174C15.1893 28.0348 14.8874 27.341 14.8874 26.5359C14.8874 25.7309 15.1893 25.0371 15.7931 24.4545C16.4075 23.8613 17.1278 23.5647 17.954 23.5647C18.7697 23.5647 19.4794 23.8613 20.0832 24.4545C20.6976 25.0371 21.0047 25.7309 21.0047 26.5359Z"
@@ -151,11 +144,8 @@
 				</svg>
 				<div class="popup" :class="{ active: isPopupActive }">
 					<p>A propos</p>
-					<p class="popup-text popup-text--first">Fini de travailler Inspecteur <br>D. Chevrai, votre temps
-						est imparti !</p>
-					<p class="popup-text">En revanche durant l’expérience, nous en avons profité pour collecter quelques
-						informations sur vous... Du moins sur vos habitudes, réflexes en matière de consommation de
-						médias. Vous retrouverez sur cette page, une analyse comparée de vos résultats.</p>
+					<p class="popup-text popup-text--first">Fini de travailler Inspecteur <br>D. Chevrai, votre temps est imparti !</p>
+					<p class="popup-text">En revanche durant l’expérience, nous en avons profité pour collecter quelques informations sur vous... Du moins sur vos habitudes, réflexes en matière de consommation de médias. Vous retrouverez sur cette page, une analyse comparée de vos résultats.</p>
 				</div>
 			</div>
 		</section>
@@ -604,7 +594,7 @@ section:first-of-type {
 .no-box {
 	/* width: 70%; */
 	width: 800px;
-	height: 130px;
+	height: 180px;
 	color: var(--cream);
 	background-color: var(--black);
 	padding: 20px;
@@ -625,8 +615,8 @@ section:first-of-type {
 
 .yes-box {
 	/* width: 70%; */
-	width: 400px;
-	height: 130px;
+	width: 450px;
+	height: 180px;
 	/* color: var(--cream); */
 	/* background-color: var(--black); */
 	padding: 20px;
