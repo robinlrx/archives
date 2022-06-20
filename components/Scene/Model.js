@@ -2,7 +2,8 @@ import * as THREE from 'three'
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
-// import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer'
+
+import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer'
 
 export default class Model {
   constructor({
@@ -86,45 +87,48 @@ export default class Model {
     this.video = target.material.map.image
   }
 
-  // initIframe(target) {
-  //   // create the plane mesh
-  //   const material = new THREE.MeshBasicMaterial({
-  //     side: THREE.DoubleSide,
-  //     color: 0x049ef4,
-  //   })
-  //   const geometry = new THREE.PlaneGeometry()
-  //   const planeMesh = new THREE.Mesh(geometry, material)
-  //   planeMesh.name = 'meshTV'
-  //   planeMesh.position.copy(target.position)
-  //   planeMesh.rotation.copy(target.rotation)
-  //   planeMesh.scale.copy(target.scale)
-  //   // target.material = material
-  //   // add it to the WebGL scene
-  //   target.parent.add(planeMesh)
+  initIframe(target) {
+    // create the plane mesh
+    const material = new THREE.MeshBasicMaterial({
+      side: THREE.DoubleSide,
+      color: 0x049ef4,
+    })
+    const geometry = new THREE.PlaneGeometry()
+    const planeMesh = new THREE.Mesh(geometry, material)
+    planeMesh.name = 'meshTV'
+    planeMesh.position.copy(target.getWorldPosition(new THREE.Vector3()))
+    planeMesh.rotation.copy(target.getWorldQuaternion(new THREE.Quaternion()))
+    planeMesh.scale.copy(target.getWorldScale(new THREE.Vector3()))
+    // target.material = material
+    // add it to the WebGL scene
+    target.parent.add(planeMesh)
 
-  //   const html = [
-  //     `<iframe id="iframe" src=${this.website} width="1000px" height=500px" frameborder="0">`,
-  //     '</iframe>',
-  //   ].join('\n')
-  //   const div = document.createElement('div')
-  //   div.innerHTML = html
-  //   // create the object3d for this element
-  //   const cssObject = new CSS3DObject(div)
-  //   cssObject.name = 'iframeTV'
-  //   cssObject.flipY = false
-  //   // we reference the same position and rotation
-  //   cssObject.rotation.copy(planeMesh.rotation)
-  //   // cssObject.quaternion.copy(  planeMesh.quaternion );
-  //   cssObject.position.copy(planeMesh.position)
-  //   cssObject.scale.copy(planeMesh.scale)
-  //   cssObject.lookAt(this.camera)
-  //   console.log(cssObject.position)
-  //   // add it to the css scene
-  //   this.scene2.add(cssObject)
-  //   cssObject.element.onclick = function () {
-  //     console.log('element clicked!')
-  //   }
-  // }
+    const html = [
+      `<iframe id="iframe" src=${this.website} width="1000px" height=500px" frameborder="0">`,
+      '</iframe>',
+    ].join('\n')
+    const div = document.createElement('div')
+    div.innerHTML = html
+    // create the object3d for this element
+    const cssObject = new CSS3DObject(div)
+    cssObject.name = 'iframeTV'
+    cssObject.flipY = false
+    // we reference the same position and rotation
+    // cssObject.quaternion.copy(  planeMesh.quaternion );
+    cssObject.position.copy(planeMesh.getWorldPosition(new THREE.Vector3()))
+    cssObject.quaternion.copy(
+      planeMesh.getWorldQuaternion(new THREE.Quaternion())
+    )
+    cssObject.scale.copy(planeMesh.getWorldScale(new THREE.Vector3()))
+    console.log(cssObject.position)
+    // add it to the css scene
+
+    this.scene2.add(this.CSScontainer)
+
+    cssObject.element.onclick = function () {
+      console.log('element clicked!')
+    }
+  }
 
   initImage(target) {
     const texture = new THREE.TextureLoader()
@@ -186,7 +190,6 @@ export default class Model {
         //   child.name === this.videoContainer
         // ) {
         //   this.initIframe(child)
-        //   console.log(child)
         // }
         if (this.website && child.name === this.videoContainer) {
           this.initImage(child)

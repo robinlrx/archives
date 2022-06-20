@@ -8,7 +8,9 @@ import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js'
 
 import { gsap, Power3, Power4 } from 'gsap'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js'
-// import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer'
+
+import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer'
+
 import { CustomOutlinePass } from './shaders/CustomOutlinePass.js'
 
 import Model from './Model'
@@ -146,34 +148,26 @@ class SceneInit {
     }
   }
 
-  TV1Action = () => {
-    incrementMedia('TV')
-    localStorage.setItem('cardMedia2', true)
-  }
+  endCutscene = () => {
+    phoneSound(this.phone, 3)
+    gsap.to(this.camera.rotation, {
+      x: -0.31,
+      y: -0.99,
+      z: -0.265,
+      duration: 1.2,
+      delay: 0.3,
+      ease: Power3,
+      onComplete: () => {
+        document.querySelector('.canvas-container').style.opacity = 0
 
-  TV2Action = () => {
-    incrementMedia('TV')
-    localStorage.setItem('cardMedia6', true)
-  }
+        setTimeout(() => {
+          // this.$nuxt.$router.push('/question')
+          window.location.href = '/question'
 
-  TV3Action = () => {
-    incrementMedia('TV')
-    localStorage.setItem('cardMedia7', true)
-  }
-
-  TV4Action = () => {
-    incrementMedia('TV')
-    localStorage.setItem('cardMedia9', true)
-  }
-
-  TV5Action = () => {
-    incrementMedia('TV')
-    localStorage.setItem('cardMedia6', true)
-  }
-
-  TV6Action = () => {
-    incrementMedia('TV')
-    localStorage.setItem('cardMedia7', true)
+          this.stopMedias()
+        }, 12000)
+      },
+    })
   }
 
   initModels() {
@@ -357,7 +351,6 @@ class SceneInit {
       src: 'PC-1',
       videoContainer: 'PC-1-Screen',
       loadingManager: this.manager,
-      website: 'iframe/reddit-1.png',
     })
 
     this.objectsList.push(this.PC1)
@@ -381,7 +374,8 @@ class SceneInit {
 
   initScene() {
     this.scene = new THREE.Scene()
-    // this.scene2 = new THREE.Scene()
+
+    this.scene2 = new THREE.Scene()
   }
 
   initManager() {
@@ -412,7 +406,7 @@ class SceneInit {
   }
 
   initLights() {
-    const ambient = new THREE.AmbientLight(0xffffff, 0.6)
+    const ambient = new THREE.AmbientLight(0xffffff, 0.8)
     this.scene.add(ambient)
     const pointLight = new THREE.PointLight(0x00ffab, 0.4, 100)
     pointLight.position.set(10, 10, 10)
@@ -425,7 +419,7 @@ class SceneInit {
 
   initCamera() {
     this.camera = new THREE.PerspectiveCamera(
-      35,
+      65,
       window.innerWidth / window.innerHeight,
       1,
       1000
@@ -437,17 +431,8 @@ class SceneInit {
 
     this.camera.updateProjectionMatrix()
 
-    // const geometry = new THREE.BoxGeometry(5, 5, 5)
-
-    // const material = new THREE.MeshBasicMaterial({
-    //   color: 0x00ff00,
-    //   transparent: true,
-    //   opacity: 0,
-    // })
     this.holdObject = new THREE.Object3D()
     this.holdObject.position.set(0, 0, -4)
-    // this.holdObject.visible = false
-
     this.scene.add(this.holdObject)
     this.holdObject.parent = this.camera
   }
@@ -495,12 +480,12 @@ class SceneInit {
     this.composer.addPass(effectFXAA)
 
     // init renderer2 for iframe and scene2
-    // this.renderer2 = new CSS3DRenderer()
-    // this.renderer2.setSize(window.innerWidth, window.innerHeight)
-    // this.renderer2.domElement.style.position = 'absolute'
-    // this.renderer2.domElement.style.zIndex = 5
-    // this.renderer2.domElement.style.top = 0
-    // this.root.appendChild(this.renderer2.domElement)
+    this.renderer2 = new CSS3DRenderer()
+    this.renderer2.setSize(window.innerWidth, window.innerHeight)
+    this.renderer2.domElement.style.position = 'absolute'
+    this.renderer2.domElement.style.zIndex = 5
+    this.renderer2.domElement.style.top = 0
+    this.root.appendChild(this.renderer2.domElement)
   }
 
   setControls() {
@@ -551,15 +536,7 @@ class SceneInit {
       phoneSound(this.phone, 2)
     }, 150000)
     setTimeout(() => {
-      phoneSound(this.phone, 3)
-
-      setTimeout(() => {
-        // this.$nuxt.$router.push('/question')
-        window.location.href = '/question'
-        document.querySelector('.canvas-container').style.opacity = 0
-
-        this.stopMedias()
-      }, 12000)
+      this.endCutscene()
     }, 170000) // 4 min = 240000
   }
 
@@ -667,12 +644,14 @@ class SceneInit {
 
     this.composer.render()
 
-    // this.renderer2.render(this.scene2, this.camera)
+    this.renderer2.render(this.scene2, this.camera)
 
     if (this.isLoaded) {
       const delta = this.threeClock.getDelta()
       this.fan.mixer.update(delta)
       this.clock.mixer.update(delta)
+
+      console.log(this.camera.rotation)
 
       if (this.animatedPhone) {
         this.phone.mixer.update(delta)
