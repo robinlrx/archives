@@ -78,11 +78,11 @@ class SceneInit {
 	incrementMedia('Radio')
 	this.countRadio = ++this.countRadio
 	// when at least 2 extract ar listened
- 	if(this.countRadio === 6) localStorage.setItem('cardMedia5', true) // extrait 1
-	if(this.countRadio === 7) localStorage.setItem('cardMedia8', true) // extrait 2
-	if(this.countRadio === 8) localStorage.setItem('cardMedia12', true) // extrait 3
-	if(this.countRadio === 9) localStorage.setItem('cardMedia13', true) // extrait 4
-	if(this.countRadio === 10) localStorage.setItem('cardMedia14', true) // extrait 5
+ 	if(this.countRadio === 6) localStorage.setItem('cardMedia12', true) // extrait 1
+	if(this.countRadio === 7) localStorage.setItem('cardMedia13', true) // extrait 2
+	if(this.countRadio === 8) localStorage.setItem('cardMedia14', true) // extrait 3
+	if(this.countRadio === 9) localStorage.setItem('cardMedia8', true) // extrait 4
+	if(this.countRadio === 10) localStorage.setItem('cardMedia5', true) // extrait 5
   }
 
   TVSwitch = () => {

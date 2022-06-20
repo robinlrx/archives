@@ -83,12 +83,11 @@
 				<div class="dataviz-first-conclusion">
 					<div class="no-box reveal-1">
 						<p>NON</p>
-						<p>De nombreux indices semblent innocenter Omar, ou incriminer d’autres individus. Par exemple
-							des récentes analyses ADN</p>
+						<p>De nombreux indices semblent innocenter Omar, ou incriminer d’autres individus. Notamment la grossière faute de conjugaison dans la phrase écrite avec le sang de Ghislaine Marchal : “Omar m’a tuer”. Plus récemment, des tests ADN sèment aussi le doute, ne présentant pas celui d’Omar. Il est aussi notable qu’Omar a été partiellement gracié par Jacques Chirac en 1996.</p>
 					</div>
 					<div class="yes-box reveal-1">
 						<p>OUI</p>
-						<p>Juger coupable 1994 / L’ecriture en sang / Partiellement gracié mais pas innocenté</p>
+						<p>Omar a été jugé coupable, et plusieurs éléments pointent vers cette conclusion : évidemment, l’inscription “Omar m’a tuer” semble être une preuve accablante. De plus, le déroulement des faits décrit par l’accusation semble tout à fait crédible.</p>
 					</div>
 				</div>
 
@@ -595,7 +594,7 @@ section:first-of-type {
 .no-box {
 	/* width: 70%; */
 	width: 800px;
-	height: 130px;
+	height: 180px;
 	color: var(--cream);
 	background-color: var(--black);
 	padding: 20px;
@@ -616,8 +615,8 @@ section:first-of-type {
 
 .yes-box {
 	/* width: 70%; */
-	width: 400px;
-	height: 130px;
+	width: 450px;
+	height: 180px;
 	/* color: var(--cream); */
 	/* background-color: var(--black); */
 	padding: 20px;
