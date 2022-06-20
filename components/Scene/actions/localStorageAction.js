@@ -27,6 +27,15 @@ export const initLocalData = () => {
 	localStorage.setItem('cardMedia18', false)
 
 	// todo data increment pie chart
+	localStorage.setItem('pieJT', 0)
+	localStorage.setItem('piePhoto', 0)
+	localStorage.setItem('piePWeb', 0)
+	localStorage.setItem('pieDocu', 0)
+	localStorage.setItem('pieFilm', 0)
+	localStorage.setItem('pieRadio', 0)
+	localStorage.setItem('pieRS', 0)
+	localStorage.setItem('pieInterview', 0)
+	localStorage.setItem('piePP', 0)
 }
 
 // dataviz media de confiance
@@ -35,4 +44,10 @@ export const incrementMedia = (name) => {
 	// console.log('incremennt:', incremennt)
 	localStorage.setItem(`incremennt${name}`, ++incremennt);
 	// console.log(localStorage.setItem(`incremennt${name}`, incremennt + 1))
+}
+
+// dataviz media de confiance
+export const incrementPieMedia = (name) => {
+	let pieIncremennt = parseInt(localStorage.getItem(`pie${name}`));
+	localStorage.setItem(`pie${name}`, ++pieIncremennt);
 }

@@ -26,6 +26,7 @@ export default class Model {
     website,
     camera,
     card,
+	pieMedia
   }) {
     this.src = src
     this.audioSrc = audioSrc
@@ -48,6 +49,7 @@ export default class Model {
     this.website = website
     this.camera = camera
     this.card = card
+	this.pieMedia = pieMedia
     this.init()
   }
 
@@ -177,11 +179,11 @@ export default class Model {
           child.castShadow = true
           child.receiveShadow = true
         }
-        if (child.name === 'journal014') child.card = 'cardMedia1'
-        if (child.name === 'journal015') child.card = 'cardMedia3'
-        if (child.name === 'journal007') child.card = 'cardMedia10'
-        if (child.name === 'journal016') child.card = 'cardMedia16'
-        if (child.name === 'journal017') child.card = 'cardMedia16'
+        if (child.name === 'journal014') child.card = 'cardMedia1'; child.pieMedia = 'Photo'
+        if (child.name === 'journal015') child.card = 'cardMedia3'; child.pieMedia = 'PP'
+        if (child.name === 'journal007') child.card = 'cardMedia10'; child.pieMedia = 'PP'
+        if (child.name === 'journal016') child.card = 'cardMedia16'; child.pieMedia = 'PP'
+        if (child.name === 'journal017') child.card = 'cardMedia16'; child.pieMedia = 'PP'
 
         if (this.videoSrc && child.name === this.videoContainer) {
           this.initVideoTexture(child)
