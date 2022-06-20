@@ -116,11 +116,11 @@ export default {
 	},
 	data() {
 		return {
-			dataTV: 100 / 6 * parseInt(localStorage.getItem('incremenntTV')), // 6 tv
-			dataRS: localStorage.getItem('incremenntRS'), // réseau social
-			dataPW: localStorage.getItem('incremenntPW'), // presse web
-			dataRadio: 100 / 15 * parseInt(localStorage.getItem('incremenntRadio')), // 15 piste radio
-			dataPP:  100 / 18 * localStorage.getItem('incremenntPP'), // presse papier
+			dataTV: (100 / 6 * parseInt(localStorage.getItem('incremenntTV'))).toFixed(0), // 6 tv
+			dataRS: (100 - localStorage.getItem('incremenntRS')).toFixed(0), // réseau social
+			dataPW: (100 - localStorage.getItem('incremenntPW')).toFixed(0), // presse web
+			dataRadio: (100 / 15 * parseInt(localStorage.getItem('incremenntRadio'))).toFixed(0), // 15 piste radio
+			dataPP: (100 / 18 * localStorage.getItem('incremenntPP')).toFixed(0), // presse papier
 		}
 	},
 	mounted() {
