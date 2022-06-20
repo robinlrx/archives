@@ -9,8 +9,6 @@ import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js'
 import { gsap, Power3, Power4 } from 'gsap'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js'
 
-import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer'
-
 import { CustomOutlinePass } from './shaders/CustomOutlinePass.js'
 
 import Model from './Model'
@@ -39,6 +37,8 @@ class SceneInit {
 
     this.isHolding = false
 
+    this.textureLoader = new THREE.TextureLoader()
+
     this.init()
     this.update()
     this.bindEvents()
@@ -57,6 +57,12 @@ class SceneInit {
     this.root.appendChild(this.canvas)
     // localStorage.setItem('incremenntTV', 0)
     initLocalData()
+
+    document.addEventListener('keypress', () => {
+      if (event.key === 'Enter') {
+        this.endCutscene()
+      }
+    })
   }
 
   initAudio() {
@@ -159,25 +165,49 @@ class SceneInit {
   }
 
   endCutscene = () => {
-    phoneSound(this.phone, 3)
+    this.animatedPhone = true
+
+    this.phone.audioLoader.load(`sounds/phone/phone4.mp3`, (buffer) => {
+      this.phone.sound.setBuffer(buffer)
+      this.phone.sound.setLoop(false)
+      this.phone.sound.play()
+    })
     gsap.to(this.camera.rotation, {
       x: -0.31,
       y: -0.99,
       z: -0.265,
       duration: 1.2,
-      delay: 0.3,
+      delay: 0.1,
       ease: Power3,
       onComplete: () => {
-        document.querySelector('.canvas-container').style.opacity = 0
-
         setTimeout(() => {
-          // this.$nuxt.$router.push('/question')
-          window.location.href = '/question'
+          document.querySelector('.canvas-container').style.opacity = 0
+          setTimeout(() => {
+            // this.$nuxt.$router.push('/question')
+            window.location.href = '/question'
 
-          this.stopMedias()
-        }, 12000)
+            this.stopMedias()
+          }, 3000)
+        }, 5000)
       },
     })
+  }
+
+  PC1Switch = () => {
+    if (this.PC1Index === this.PC1Images.length - 1) {
+      this.PC1Index = 0
+    } else this.PC1Index++
+
+    this.PC1.container.getObjectByName('PC-1-Screen').material.map =
+      this.PC1Images[this.PC1Index]
+  }
+
+  PC2Switch = () => {
+    if (this.PC2Index === this.PC2Images.length - 1) {
+      this.PC2Index = 0
+    } else this.PC2Index++
+    this.PC2.container.getObjectByName('PC-2-Screen').material.map =
+      this.PC2Images[this.PC2Index]
   }
 
   initModels() {
@@ -192,7 +222,7 @@ class SceneInit {
 
     this.office = new Model({
       scene: this.scene,
-      src: 'office',
+      src: 'office/office',
       loadingManager: this.manager,
     })
     this.animationMixers.push(this.office.mixer)
@@ -217,6 +247,15 @@ class SceneInit {
     })
     this.animationMixers.push(this.clock.mixer)
     this.scene.add(this.clock.container)
+
+    this.cat = new Model({
+      scene: this.scene,
+      src: 'cat',
+      loadingManager: this.manager,
+      listener: this.listener,
+    })
+    this.animationMixers.push(this.cat.mixer)
+    this.scene.add(this.cat.container)
 
     this.phone = new Model({
       scene: this.scene,
@@ -368,10 +407,46 @@ class SceneInit {
     this.objectsList.push(this.newspapers)
     this.targetableObjects.add(this.newspapers.container)
 
+    const texture1 = this.textureLoader.load('iframe/Reddit_01.gif')
+    const texture2 = this.textureLoader.load('iframe/Reddit_02.gif')
+    const texture3 = this.textureLoader.load('iframe/Reddit_03.gif')
+    const texture4 = this.textureLoader.load('iframe/Reddit_04.gif')
+    const texture5 = this.textureLoader.load('iframe/Reddit_05.png')
+
+    this.PC1Images = [texture1, texture2, texture3, texture4, texture5]
+
+    this.PC1Images.forEach((element) => {
+      element.flipY = false
+    })
+
+    const textureDeux1 = this.textureLoader.load('iframe/Twitter_01.png')
+    const textureDeux2 = this.textureLoader.load('iframe/Twitter_02.png')
+    const textureDeux3 = this.textureLoader.load('iframe/Twitter_03.png')
+    const textureDeux4 = this.textureLoader.load('iframe/Twitter_04.png')
+    const textureDeux5 = this.textureLoader.load('iframe/Twitter_05.png')
+
+    this.PC2Images = [
+      textureDeux1,
+      textureDeux2,
+      textureDeux3,
+      textureDeux4,
+      textureDeux5,
+    ]
+
+    this.PC2Images.forEach((element) => {
+      element.flipY = false
+    })
+
+
+    this.PC1Index = 0
+    this.PC2Index = 0
+
     this.PC1 = new Model({
       src: 'PC-1',
       videoContainer: 'PC-1-Screen',
       loadingManager: this.manager,
+      website: this.PC1Images[0],
+      action: this.PC1Switch,
     })
 
     this.objectsList.push(this.PC1)
@@ -381,12 +456,10 @@ class SceneInit {
       src: 'PC-2',
       videoContainer: 'PC-2-Screen',
       loadingManager: this.manager,
-      // // scene1: this.scene,
-      // // scene2: this.scene2,
-      // // camera: this.camera.position,
-      // website: 'iframe/internet.html',
-      website: 'iframe/twitter-2.png',
+      website: this.PC2Images[0],
+      action: this.PC2Switch,
     })
+
     this.objectsList.push(this.PC2)
     this.targetableObjects.add(this.PC2.container)
 
@@ -395,8 +468,6 @@ class SceneInit {
 
   initScene() {
     this.scene = new THREE.Scene()
-
-    this.scene2 = new THREE.Scene()
   }
 
   initManager() {
@@ -427,7 +498,7 @@ class SceneInit {
   }
 
   initLights() {
-    const ambient = new THREE.AmbientLight(0xffffff, 0.8)
+    const ambient = new THREE.AmbientLight(0xffffff, 0.7)
     this.scene.add(ambient)
     const pointLight = new THREE.PointLight(0x00ffab, 0.4, 100)
     pointLight.position.set(10, 10, 10)
@@ -499,14 +570,6 @@ class SceneInit {
       1 / window.innerHeight
     )
     this.composer.addPass(effectFXAA)
-
-    // init renderer2 for iframe and scene2
-    this.renderer2 = new CSS3DRenderer()
-    this.renderer2.setSize(window.innerWidth, window.innerHeight)
-    this.renderer2.domElement.style.position = 'absolute'
-    this.renderer2.domElement.style.zIndex = 5
-    this.renderer2.domElement.style.top = 0
-    this.root.appendChild(this.renderer2.domElement)
   }
 
   setControls() {
@@ -665,22 +728,15 @@ class SceneInit {
 
     this.composer.render()
 
-    this.renderer2.render(this.scene2, this.camera)
-
     if (this.isLoaded) {
       const delta = this.threeClock.getDelta()
       this.fan.mixer.update(delta)
       this.clock.mixer.update(delta)
+      this.cat.mixer.update(delta)
 
       if (this.animatedPhone) {
         this.phone.mixer.update(delta)
       }
-
-      // if (this.animationMixers) {
-      //   this.animationMixers.forEach((mixer) => {
-      //     mixer.update(delta)
-      //   })
-      // }
 
       if (this.enabledRaycast) {
         this.raycaster.setFromCamera(new THREE.Vector2(), this.camera)

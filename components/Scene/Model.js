@@ -3,8 +3,6 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 
-import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer'
-
 export default class Model {
   constructor({
     src,
@@ -89,60 +87,18 @@ export default class Model {
     this.video = target.material.map.image
   }
 
-  initIframe(target) {
-    // create the plane mesh
-    const material = new THREE.MeshBasicMaterial({
-      side: THREE.DoubleSide,
-      color: 0x049ef4,
-    })
-    const geometry = new THREE.PlaneGeometry()
-    const planeMesh = new THREE.Mesh(geometry, material)
-    planeMesh.name = 'meshTV'
-    planeMesh.position.copy(target.getWorldPosition(new THREE.Vector3()))
-    planeMesh.rotation.copy(target.getWorldQuaternion(new THREE.Quaternion()))
-    planeMesh.scale.copy(target.getWorldScale(new THREE.Vector3()))
-    // target.material = material
-    // add it to the WebGL scene
-    target.parent.add(planeMesh)
-
-    const html = [
-      `<iframe id="iframe" src=${this.website} width="1000px" height=500px" frameborder="0">`,
-      '</iframe>',
-    ].join('\n')
-    const div = document.createElement('div')
-    div.innerHTML = html
-    // create the object3d for this element
-    const cssObject = new CSS3DObject(div)
-    cssObject.name = 'iframeTV'
-    cssObject.flipY = false
-    // we reference the same position and rotation
-    // cssObject.quaternion.copy(  planeMesh.quaternion );
-    cssObject.position.copy(planeMesh.getWorldPosition(new THREE.Vector3()))
-    cssObject.quaternion.copy(
-      planeMesh.getWorldQuaternion(new THREE.Quaternion())
-    )
-    cssObject.scale.copy(planeMesh.getWorldScale(new THREE.Vector3()))
-    console.log(cssObject.position)
-    // add it to the css scene
-
-    this.scene2.add(this.CSScontainer)
-
-    cssObject.element.onclick = function () {
-      console.log('element clicked!')
-    }
-  }
-
   initImage(target) {
-    const texture = new THREE.TextureLoader()
-    const imageTexture = texture.load(this.website)
+    // const texture = new THREE.TextureLoader()
+    const imageTexture = this.website
     // create the plane mesh
     const material = new THREE.MeshStandardMaterial({
       side: THREE.DoubleSide,
       map: imageTexture,
     })
     imageTexture.flipY = false
-    target.material = material
     imageTexture.needsUpdate = true
+    material.needsUpdate = true
+    target.material = material
   }
 
   loadModel(callback) {
@@ -191,14 +147,7 @@ export default class Model {
         if (this.material && child.name !== this.videoContainer) {
           child.material = this.material
         }
-        // if (
-        //   this.scene1 &&
-        //   this.scene2 &&
-        //   this.camera &&
-        //   child.name === this.videoContainer
-        // ) {
-        //   this.initIframe(child)
-        // }
+
         if (this.website && child.name === this.videoContainer) {
           this.initImage(child)
         }
