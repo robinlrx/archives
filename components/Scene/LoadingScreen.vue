@@ -29,8 +29,8 @@
 		</div>
 
 		<div class="intro-container" ref="intro_container">
-			<video ref="video" src="videos/intro.mp4"></video>
-			<video ref="videoTransition" style="display:none">
+			<video ref="video" src="videos/intro.mp4" preload></video>
+			<video ref="videoTransition" preload style="display:none">
 
 			</video>
 		</div>
@@ -73,18 +73,20 @@ export default {
 	methods: {
 		playVideo() {
 			this.$refs.video.play()
+			this.$emit('loadModels')
+
 			this.$refs.logoClick.remove()
 			this.$refs.videoTransition.style.display = 'block'
 
 			this.$refs.video.addEventListener('timeupdate', () => {
 				if (this.$refs.video.currentTime >= 10 && !this.displayButton) {
 					this.displayButton = true
-					this.$emit('loadModels')
 				}
 			})
 			this.$refs.video.onended = () => {
 				this.$refs.video.remove()
-				document.querySelector('.canvas-container').style.opacity = '0.8'
+				document.querySelector('.wakeUpButton').classList.add('active-button')
+				document.querySelector('.canvas-container').style.opacity = '1'
 			}
 		},
 		start() {
@@ -222,13 +224,13 @@ export default {
 .button-container {
 	position: fixed;
 	z-index: 2;
-	bottom: 300px;
+	bottom: 32%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-wrap: wrap;
 	text-align: center;
-	width: 18%;
+	width: auto;
 	transition: opacity 0.8s ease;
 	animation: buttonContainerSlide 2s ease both;
 }

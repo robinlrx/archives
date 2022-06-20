@@ -51,8 +51,6 @@ export function changeFrequence(radio) {
   currentWheelRotation = new THREE.Vector3(0, 0, wheelRotation[index])
 
   currentRadioClip = radioClipsList[index]
-  console.log(currentAiguillePosition)
-  console.log(currentRadioClip)
 
   const aiguille = radio.container.getObjectByName('Aiguille')
   const wheel = radio.container.getObjectByName('Wheel_2')

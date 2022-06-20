@@ -4,7 +4,7 @@
         width: 100vw;
         height: 100vh;
         position: absolute;
-        background-color: #fcfcf5;
+        background-color: #black;
         z-index: 10;
         transform: opacity 0.8s ease;
         opacity: 0;
@@ -34,7 +34,7 @@ export default {
     isLaunched() {
       if (this.isLaunched) {
         this.scene.playMedias()
-        this.timeUp()
+        // this.timeUp()
       }
     },
   },
@@ -50,12 +50,15 @@ export default {
   methods: {
     timeUp() {
       setTimeout(() => {
-        this.$refs.white_fade.style.opacity = 1
+        document.querySelector(".canvas-container").style.opacity = 0
+        this.scene.endCutscene()
+
         setTimeout(() => {
           this.scene.stopMedias()
-          this.$nuxt.$router.push('/question')
+          // this.$nuxt.$router.push('/question')
+          window.location.href = "/question"
         }, 2000)
-      }, 240000) // 4 min = 240000
+      }, 170000) // 4 min = 240000
     },
   },
 }
@@ -68,7 +71,7 @@ export default {
   position: relative;
   opacity: 0;
   transition: opacity 0.5s ease, filter 0.8s ease;
-  filter: blur(8px);
+  filter: blur(0px);
   z-index: 2;
 }
 

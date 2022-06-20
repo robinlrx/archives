@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		body {
+			margin: 0;
+			overflow: hidden;
+		}
+
+		section {
+			width: 100%;
+			height: 100vh;
+			background-image: url('windows-bg.png');
+			background-size: 100% 100vh;
+			background-position: center center;
+			background-repeat: no-repeat;
+		}
+
+		
+		.wrapper {
+			width: 75%;
+			height: 70%;
+			background-color: black;
+			position: relative;
+			left: 10%;
+			top: 10%;
+		}
+
+		.toolbar {
+			width: 100%;
+			/* position: fixed; */
+			z-index: 2;
+		}
+		
+		.wrapper iframe {
+			width: 100%;
+			overflow-x: hidden;
+			height: 100%;
+			/* position: relative; */
+			/* z-index: 2; */
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<div class="wrapper">
+			<img src="reddit-toolbar.png" alt="toolbar" class="toolbar" id="toolbar">
+			<iframe src="reddit-omar.html" frameborder="0" id="iframe"></iframe>
+		</div>
+	</section>
+</body>
+<script>
+	const toolbar = document.getElementById('toolbar');
+	const iframe = document.getElementById('iframe');
+	toolbar.addEventListener('click', () => {
+		if (toolbar.src.includes('reddit')) {
+			iframe.src = 'twitter.html';
+			toolbar.src = 'twitter-toolbar.png';
+		}
+		else if (toolbar.src.includes('twitter')) {
+			iframe.src = 'reddit-omar.html';
+			toolbar.src = 'reddit-toolbar.png';
+		}
+	});
+</script>
+</html>
