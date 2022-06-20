@@ -52,7 +52,8 @@
 						<div class="chart-trust chart-trust--rs">
 							<div class="trust-explication">
 								<p>19 <span>%</span></p>
-								<p>La population fait confiance à 19% des médias des réseaux sociaux. Votre consommation est elle de XX %. </p>
+								<p v-if="dataPP > 100">La population fait confiance à 19% des médias des réseaux sociaux. Votre consommation est elle de 100 %. </p>
+								<p v-else>La population fait confiance à 19% des médias des réseaux sociaux. Votre consommation est elle de {{dataPP}} %. </p>
 							</div>
 						</div>
 					</div>
@@ -119,7 +120,7 @@ export default {
 			dataRS: localStorage.getItem('incremenntRS'), // réseau social
 			dataPW: localStorage.getItem('incremenntPW'), // presse web
 			dataRadio: 100 / 15 * parseInt(localStorage.getItem('incremenntRadio')), // 15 piste radio
-			dataPP:  localStorage.getItem('incremenntPP'), // presse papier
+			dataPP:  100 / 18 * localStorage.getItem('incremenntPP'), // presse papier
 		}
 	},
 	mounted() {
