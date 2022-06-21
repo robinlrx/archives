@@ -110,7 +110,7 @@
 							</div>
 							<div class="big-data reveal-1">
 								<p class="number">30<span>%</span></p>
-								<p>des utilisateurs ont choisit comme vous le {{maxPieLabel}} comme média de prédilection. </p>
+								<p>des utilisateurs ont choisit comme vous les {{maxPieLabel}} comme média de prédilection. </p>
 							</div>
 						</div>
 					</div>
