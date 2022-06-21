@@ -173,7 +173,7 @@ section {
 	top: 40%;
 	left: 3%;
 	z-index: 3;
-	background-color: var(--cream-lime);
+	background-color: var(--cream);
 }
 
 .media-dataviz {
@@ -182,7 +182,7 @@ section {
 	left: 43%;
 	z-index: 2;
 	height: 450px;
-	background-color: var(--cream-lime);
+	background-color: var(--cream);
 }
 
 .media-container {

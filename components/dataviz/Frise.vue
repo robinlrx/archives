@@ -134,10 +134,10 @@ section {
 .frise-perso {
 	position: absolute;
 	z-index: 0;
-	top: -20%;
+	top: -6.5%;
 	left: 10%;
 	width: 90%;
-	height: 300px;
+	height: 340px;
 }
 
 .date-wrapper {
@@ -253,7 +253,7 @@ section {
 .date-item-2 {
 	width: 250px;
 	/* height: 200px; */
-	bottom: 28%;
+	bottom: 31%;
 	left: 39.5%;
 	/* border: solid pink; */
 }
@@ -269,7 +269,7 @@ section {
 	/* height: 200px; */
 	/* top: -2%; */
 	left: 60.3%;
-	bottom: 28%;
+	bottom: 31%;
 	/* border: solid pink; */
 }
 

@@ -112,7 +112,7 @@ export default {
 
 .timeline-img {
 	position: absolute;
-	top: 64%;
+	top: 65%;
 	width: 96%;
 	height: 100px;
 }
@@ -132,7 +132,7 @@ export default {
 .line-date {
 	position: absolute;
 	z-index: 3;
-	top: 24%;
+	top: 26.6%;
 	pointer-events: none;
 }
 
