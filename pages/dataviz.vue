@@ -104,8 +104,8 @@
 					<div class="pie-content">
 						<canvas id="myChart" class="pie reveal-1"></canvas>
 						<div class="big-data reveal-1">
-							<p class="number">{{jspPourcentage}}<span>%</span></p>
-							<p>des utilisateurs ont choisit comme vous le JT comme média de prédilection. </p>
+							<p ref="pieBiggestVal" class="number">{{maxPieVal}}<span>%</span></p>
+							<p>des utilisateurs ont choisit comme vous le {{maxPieLabel}} comme média de prédilection. </p>
 						</div>
 					</div>
 				</div>
@@ -186,7 +186,9 @@ export default {
 			counter: 0,
 			// questionMeurtrier: () => { if(process.client) return localStorage.getItem("questionMeurtrier") }, // enlever function lors deploy
 			questionMeurtrier: localStorage.getItem("questionMeurtrier"),
-			isPopupActive: false
+			isPopupActive: false,
+			maxPieVal: 0,
+			maxPieLabel: 'Type'
 		}
 	},
 	mounted() {
@@ -260,10 +262,10 @@ export default {
 			const pieChart = new Chart(ctx, {
 				type: 'pie',
 				data: {
-					labels: ['Journal Télévisé', 'Photo', 'Presse web', 'Documentaire', 'Film', 'Radio', 'RS', 'Interview', 'Presse papier'],
+					labels: ['Journaux Télévisés', 'Photos', 'Presses web', 'Documentaires', 'Films', 'Radios', 'Réseaux sociaux', 'Interviews', 'Presses papier'],
 					datasets: [{
-						label: '# of Votes',
-						data: [localStorage.getItem('pieJT'), localStorage.getItem('piePhoto'), localStorage.getItem('piePW'), localStorage.getItem('pieDocu'), localStorage.getItem('pieFilm'), localStorage.getItem('pieRadio'), 0, localStorage.getItem('pieInterview'), localStorage.getItem('piePP')],
+						label: '% of Votes',
+						data: [localStorage.getItem('pieJT'), localStorage.getItem('piePhoto'), localStorage.getItem('piePW'), localStorage.getItem('pieDocu'), localStorage.getItem('pieFilm'), localStorage.getItem('pieRadio'),  localStorage.getItem('pieRS'), localStorage.getItem('pieInterview'), localStorage.getItem('piePP')],
 						backgroundColor: [
 							'#FCFCF5',
 							'#000000',
@@ -276,7 +278,29 @@ export default {
 							pattern.draw('cross', '#FCFCF5', '#000000')
 						],
 						borderColor: ['#000000'],
-						borderWidth: 2
+						borderWidth: 2,
+						tooltip: {
+							callbacks: {
+								label: function(context) {
+									let label = context.label;
+									const value = context.formattedValue;
+
+									if (!label)
+										label = 'Unknown'
+
+									let sum = 0;
+									const dataArr = context.chart.data.datasets[0].data;
+									dataArr.map(data => {
+										sum += Number(data);
+										return sum
+									});
+
+									const percentage = (value * 100 / sum).toFixed(0) + '%';
+									console.log(label + ": " + percentage);
+									return label + ": " + percentage;
+								}
+							}
+						}
 					}]
 				},
 				options: {
@@ -284,6 +308,9 @@ export default {
 					plugins: {
 						legend: {
 							display: false,
+						},
+						labels: {
+							render: 'percentage'
 						}
 					},
 					scales: {
@@ -309,6 +336,29 @@ export default {
 				},
 				// plugins: [shadowPlugin]
 			});
+
+			// get highest value
+			// console.log(pieChart.data.datasets[0].tooltip.data)
+			const dataArray = [...pieChart.data.datasets[0].data]
+			const arrOfNum = dataArray.map(str => {
+				return Number(str);
+			});
+			let sum = 0;
+			// Finding the sum
+			for(let i = 0; i < arrOfNum.length; i++){
+				sum += arrOfNum[i];
+			}
+			// console.log("Sum of the object values is = " + sum);
+			// Finding the average
+			for(let j = 0; j < arrOfNum.length; j++){
+				arrOfNum[j] = (arrOfNum[j]/sum)*100;
+			}
+			// console.log(arrOfNum);
+			this.maxPieVal = Math.max(...arrOfNum).toFixed(0)
+
+			const maxIndex = arrOfNum.indexOf(Math.max(...arrOfNum))
+			console.log('maxIndex:', maxIndex)
+			this.maxPieLabel = pieChart.data.labels[maxIndex]
 		},
 
 		restart() {
