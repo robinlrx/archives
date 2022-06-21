@@ -35,12 +35,12 @@
 				<div class="chart-meida-wrapper">
 					<LegendItem :pictolegend="`url(${require('~/assets/images/picto-pp.svg')}), var(--black)`" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
 					<div class="chart-meida-wrapper--item">
-						<div class="chart-pp--user"></div>
+						<div class="chart-pp--user" :style="{width: dataPP > 100 ? '100%' : `${dataPP}%`}"></div>
 						<div class="chart-trust chart-trust--pp">
 							<div class="trust-explication">
 								<p>51 <span>%</span></p>
-								<p v-if="dataPP > 100">La population fait confiance à 19% des médias des réseaux sociaux. Votre consommation est elle de 100 %. </p>
-								<p v-else>La population fait confiance à 19% des médias des réseaux sociaux. Votre consommation est elle de {{dataPP}} %. </p>
+								<p v-if="dataPP > 100">La population fait confiance à 51% des médias des réseaux sociaux. Votre consommation est elle de 100 %. </p>
+								<p v-else>La population fait confiance à 51% des médias des réseaux sociaux. Votre consommation est elle de {{dataPP}} %. </p>
 							</div>
 						</div>
 					</div>
@@ -49,11 +49,12 @@
 				<div class="chart-meida-wrapper">
 					<LegendItem :pictolegend="`url(${require('~/assets/images/picto-rs.svg')}), var(--black)`" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
 					<div class="chart-meida-wrapper--item">
-						<div class="chart-rs--user"></div>
+						<div class="chart-rs--user" :style="{width: dataRS > 100 ? '100%' : `${dataRS}%`}"></div>
 						<div class="chart-trust chart-trust--rs">
 							<div class="trust-explication">
 								<p>19 <span>%</span></p>
-								<p>La population fait confiance à 19% des médias des réseaux sociaux. Votre consommation est elle de XX %. </p>
+								<p v-if="dataRS > 100">La population fait confiance à 19% des médias télévisuel. Votre consommation est elle de 100 %. </p>
+								<p v-else>La population fait confiance à 19% des médias télévisuel. Votre consommation est elle de {{dataRS}} %. </p>
 							</div>
 						</div>
 					</div>
@@ -62,11 +63,12 @@
 				<div class="chart-meida-wrapper">
 					<LegendItem :pictolegend="`url(${require('~/assets/images/picto-pw.svg')}), var(--black)`" pictoheight="40px" pictowidth="40px" class="legend-override" marginright="0"/>
 					<div class="chart-meida-wrapper--item">
-						<div class="chart-pw--user"></div>
+						<div class="chart-pw--user" :style="{width: dataPW > 100 ? '100%' : `${dataPW}%`}"></div>
 						<div class="chart-trust chart-trust--pw">
 							<div class="trust-explication">
 								<p>35 <span>%</span></p>
-								<p>La population fait confiance à 35% des médias de la presse numérique. Votre consommation est elle de XX %. </p>
+								<p v-if="dataPW > 100">La population fait confiance à 35% des médias télévisuel. Votre consommation est elle de 100 %. </p>
+								<p v-else>La population fait confiance à 35% des médias télévisuel. Votre consommation est elle de {{dataPW}} %. </p>
 							</div>
 						</div>
 					</div>
@@ -268,7 +270,7 @@ section {
 }
 
 .chart-pp--user {
-	width: 20%; /* localhost nb media = nb percent */
+	/* width: 20%; localhost nb media = nb percent */
 	height: 100%;
 	background-color: var(--cream);
 }
@@ -279,7 +281,7 @@ section {
 }
 
 .chart-rs--user {
-	width: 40%; /* localhost nb media = nb percent */
+	/* width: 40%; localhost nb media = nb percent */
 	height: 100%;
 	background-color: var(--cream);
 }
@@ -289,7 +291,7 @@ section {
 }
 
 .chart-pw--user {
-	width: 60%; /* localhost nb media = nb percent */
+	/* width: 60%; localhost nb media = nb percent */
 	height: 100%;
 	background-color: var(--cream);
 }

@@ -194,6 +194,10 @@ class SceneInit {
   }
 
   PC1Switch = () => {
+	incrementMedia('PW')
+	incrementPieMedia('PW')
+	localStorage.setItem('cardMedia4', true)
+	localStorage.setItem('cardMedia11', true)
     if (this.PC1Index === this.PC1Images.length - 1) {
       this.PC1Index = 0
     } else this.PC1Index++
@@ -203,6 +207,10 @@ class SceneInit {
   }
 
   PC2Switch = () => {
+	incrementMedia('RS')
+	incrementPieMedia('RS')
+	localStorage.setItem('cardMedia15', true)
+	localStorage.setItem('cardMedia18', true)
     if (this.PC2Index === this.PC2Images.length - 1) {
       this.PC2Index = 0
     } else this.PC2Index++

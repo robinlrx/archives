@@ -263,7 +263,7 @@ export default {
 					labels: ['Journal Télévisé', 'Photo', 'Presse web', 'Documentaire', 'Film', 'Radio', 'RS', 'Interview', 'Presse papier'],
 					datasets: [{
 						label: '# of Votes',
-						data: [localStorage.getItem('pieJT'), 6, 0, localStorage.getItem('pieDocu'), localStorage.getItem('pieFilm'), localStorage.getItem('pieRadio'), 0, localStorage.getItem('pieInterview'), localStorage.getItem('piePP')],
+						data: [localStorage.getItem('pieJT'), localStorage.getItem('piePhoto'), localStorage.getItem('piePW'), localStorage.getItem('pieDocu'), localStorage.getItem('pieFilm'), localStorage.getItem('pieRadio'), 0, localStorage.getItem('pieInterview'), localStorage.getItem('piePP')],
 						backgroundColor: [
 							'#FCFCF5',
 							'#000000',

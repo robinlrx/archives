@@ -29,7 +29,7 @@ export const initLocalData = () => {
 	// todo data increment pie chart
 	localStorage.setItem('pieJT', 0)
 	localStorage.setItem('piePhoto', 0)
-	localStorage.setItem('piePWeb', 0)
+	localStorage.setItem('piePW', 0)
 	localStorage.setItem('pieDocu', 0)
 	localStorage.setItem('pieFilm', 0)
 	localStorage.setItem('pieRadio', 0)
