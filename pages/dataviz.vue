@@ -103,9 +103,15 @@
 					<h2 class="text-bold reveal-1"><span>Combien</span> de médias<br>avez-vous consulté ?</h2>
 					<div class="pie-content">
 						<canvas id="myChart" class="pie reveal-1"></canvas>
-						<div class="big-data reveal-1">
-							<p ref="pieBiggestVal" class="number">{{maxPieVal}}<span>%</span></p>
-							<p>des utilisateurs ont choisit comme vous le {{maxPieLabel}} comme média de prédilection. </p>
+						<div class="pie-info">
+							<div class="block-pie-detail">
+									<p id="pieUserPercentage"></p>
+									<p id="pieUserText"></p>
+							</div>
+							<div class="big-data reveal-1">
+								<p class="number">30<span>%</span></p>
+								<p>des utilisateurs ont choisit comme vous le {{maxPieLabel}} comme média de prédilection. </p>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -188,7 +194,8 @@ export default {
 			questionMeurtrier: localStorage.getItem("questionMeurtrier"),
 			isPopupActive: false,
 			maxPieVal: 0,
-			maxPieLabel: 'Type'
+			currentPieLabel: 'Type',
+			// currentPieVal: 0
 		}
 	},
 	mounted() {
@@ -295,9 +302,14 @@ export default {
 										return sum
 									});
 
-									const percentage = (value * 100 / sum).toFixed(0) + '%';
+									const percentage = (value * 100 / sum).toFixed(0);
 									console.log(label + ": " + percentage);
-									return label + ": " + percentage;
+									const pieUserPercentage = document.getElementById('pieUserPercentage')
+									pieUserPercentage.innerHTML = `${percentage}%`
+									const pieUserText = document.getElementById('pieUserText')
+									pieUserText.innerHTML = `Vous avez regardé ${percentage}% de ${label}, sur les 3 min que vous disposiez...`
+									return label + ": " + percentage + "%";
+
 								}
 							}
 						}
@@ -354,7 +366,7 @@ export default {
 				arrOfNum[j] = (arrOfNum[j]/sum)*100;
 			}
 			// console.log(arrOfNum);
-			this.maxPieVal = Math.max(...arrOfNum).toFixed(0)
+			// this.maxPieVal = Math.max(...arrOfNum).toFixed(0)
 
 			const maxIndex = arrOfNum.indexOf(Math.max(...arrOfNum))
 			console.log('maxIndex:', maxIndex)
@@ -654,7 +666,8 @@ section:first-of-type {
 
 .no-box p:first-of-type,
 .yes-box p:first-of-type,
-.popup p:first-of-type {
+.popup p:first-of-type,
+.block-pie-detail p:first-of-type {
 	font-family: 'Strong-concrete';
 	font-size: 3rem;
 	width: 100%;
@@ -675,7 +688,8 @@ section:first-of-type {
 }
 
 .yes-box p:first-of-type,
-.popup p:first-of-type {
+.popup p:first-of-type,
+.block-pie-detail p:first-of-type {
 	border-bottom: solid var(--black);
 }
 
@@ -815,5 +829,30 @@ section:first-of-type {
 
 .popup-text--first {
 	margin-bottom: 20px;
+}
+
+.pie-info {
+	width: auto;
+	height: auto;
+	/* border: solid red; */
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: column;
+}
+
+.block-pie-detail {
+	width: 300px;
+	height: 150px;
+	padding: 20px;
+	border: solid var(--black);
+	box-shadow: 10px 8px 0px var(--black);
+	margin-bottom: 30px;
+	font-family: 'Georgia-bold';
+
+}
+
+.pie-info .big-data {
+	width: auto;
 }
 </style> 
