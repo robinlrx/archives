@@ -14,7 +14,11 @@ import { CustomOutlinePass } from './shaders/CustomOutlinePass.js'
 import Model from './Model'
 import { changeFrequence } from './actions/radioAction'
 import { phoneSound } from './actions/phoneAction'
-import { initLocalData, incrementMedia, incrementPieMedia } from './actions/localStorageAction'
+import {
+  initLocalData,
+  incrementMedia,
+  incrementPieMedia,
+} from './actions/localStorageAction'
 
 class SceneInit {
   constructor({ rootEl }) {
@@ -84,7 +88,7 @@ class SceneInit {
   radioAction = () => {
     changeFrequence(this.radio)
     incrementMedia('Radio')
-	incrementPieMedia('Radio')
+    incrementPieMedia('Radio')
     this.countRadio = ++this.countRadio
     // when at least 2 extract ar listened
     if (this.countRadio === 6) localStorage.setItem('cardMedia12', true) // extrait 1
@@ -135,7 +139,7 @@ class SceneInit {
           if (this.currentTarget.card)
             localStorage.setItem(this.currentTarget.card, true)
           if (this.currentTarget.pieMedia)
-		  incrementPieMedia(this.currentTarget.pieMedia)
+            incrementPieMedia(this.currentTarget.pieMedia)
           this.isHolding = true
           incrementMedia('PP')
         },
@@ -180,6 +184,8 @@ class SceneInit {
       delay: 0.1,
       ease: Power3,
       onComplete: () => {
+        this.phone2.container.visible = true
+        this.phone.container.visible = false
         setTimeout(() => {
           document.querySelector('.canvas-container').style.opacity = 0
           setTimeout(() => {
@@ -187,17 +193,17 @@ class SceneInit {
             window.location.href = '/question'
 
             this.stopMedias()
-          }, 3000)
-        }, 5000)
+          }, 1500)
+        }, 6500)
       },
     })
   }
 
   PC1Switch = () => {
-	incrementMedia('PW')
-	incrementPieMedia('PW')
-	localStorage.setItem('cardMedia4', true)
-	localStorage.setItem('cardMedia11', true)
+    incrementMedia('PW')
+    incrementPieMedia('PW')
+    localStorage.setItem('cardMedia4', true)
+    localStorage.setItem('cardMedia11', true)
     if (this.PC1Index === this.PC1Images.length - 1) {
       this.PC1Index = 0
     } else this.PC1Index++
@@ -207,10 +213,10 @@ class SceneInit {
   }
 
   PC2Switch = () => {
-	incrementMedia('RS')
-	incrementPieMedia('RS')
-	localStorage.setItem('cardMedia15', true)
-	localStorage.setItem('cardMedia18', true)
+    incrementMedia('RS')
+    incrementPieMedia('RS')
+    localStorage.setItem('cardMedia15', true)
+    localStorage.setItem('cardMedia18', true)
     if (this.PC2Index === this.PC2Images.length - 1) {
       this.PC2Index = 0
     } else this.PC2Index++
@@ -241,7 +247,7 @@ class SceneInit {
       src: 'fan',
       loadingManager: this.manager,
       audioSrc: 'sounds/fan.ogg',
-      audioVolume: 3,
+      audioVolume: 4,
       listener: this.listener,
     })
     this.animationMixers.push(this.fan.mixer)
@@ -277,6 +283,13 @@ class SceneInit {
     })
     this.scene.add(this.phone.container)
 
+    this.phone2 = new Model({
+      scene: this.scene,
+      src: 'phone2',
+      loadingManager: this.manager,
+    })
+    this.scene.add(this.phone2.container)
+
     this.radio = new Model({
       scene: this.scene,
       src: 'radio',
@@ -301,7 +314,7 @@ class SceneInit {
       action: this.TVSwitch,
       index: 1,
       card: 'cardMedia6',
-	  pieMedia: 'Film'
+      pieMedia: 'Film',
     })
     this.objectsList.push(this.TV1)
     this.TVs.push(this.TV1)
@@ -319,7 +332,7 @@ class SceneInit {
       action: this.TVSwitch,
       index: 2,
       card: 'cardMedia7',
-	  pieMedia: 'Interview'
+      pieMedia: 'Interview',
     })
     this.objectsList.push(this.TV2)
     this.TVs.push(this.TV2)
@@ -337,7 +350,7 @@ class SceneInit {
       action: this.TVSwitch,
       index: 3,
       card: 'cardMedia7',
-	  pieMedia: 'Docu'
+      pieMedia: 'Docu',
     })
     this.objectsList.push(this.TV3)
     this.TVs.push(this.TV3)
@@ -355,7 +368,7 @@ class SceneInit {
       action: this.TVSwitch,
       index: 4,
       card: 'cardMedia2',
-	  pieMedia: 'JT'
+      pieMedia: 'JT',
     })
     this.objectsList.push(this.TV4)
     this.TVs.push(this.TV4)
@@ -373,7 +386,7 @@ class SceneInit {
       card: 'cardMedia7',
       action: this.TVSwitch,
       index: 5,
-	  pieMedia: 'Interview'
+      pieMedia: 'Interview',
     })
     this.objectsList.push(this.TV5)
     this.TVs.push(this.TV5)
@@ -391,7 +404,7 @@ class SceneInit {
       action: this.TVSwitch,
       index: 6,
       card: 'cardMedia9',
-	  pieMedia: 'Docu'
+      pieMedia: 'Docu',
     })
     this.objectsList.push(this.TV6)
     this.TVs.push(this.TV6)
@@ -420,31 +433,39 @@ class SceneInit {
     const texture3 = this.textureLoader.load('iframe/Reddit_03.gif')
     const texture4 = this.textureLoader.load('iframe/Reddit_04.gif')
     const texture5 = this.textureLoader.load('iframe/Reddit_05.png')
+    const texture6 = this.textureLoader.load('iframe/Twitter_01.png')
+    const texture7 = this.textureLoader.load('iframe/Twitter_02.png')
+    const texture8 = this.textureLoader.load('iframe/Twitter_03.png')
+    const texture9 = this.textureLoader.load('iframe/Twitter_04.png')
+    const texture10 = this.textureLoader.load('iframe/Twitter_05.png')
 
-    this.PC1Images = [texture1, texture2, texture3, texture4, texture5]
+    this.PC1Images = [
+      texture1,
+      texture2,
+      texture3,
+      texture4,
+      texture5,
+      texture6,
+      texture7,
+      texture8,
+      texture9,
+      texture10,
+    ]
 
     this.PC1Images.forEach((element) => {
       element.flipY = false
     })
 
-    const textureDeux1 = this.textureLoader.load('iframe/Twitter_01.png')
-    const textureDeux2 = this.textureLoader.load('iframe/Twitter_02.png')
-    const textureDeux3 = this.textureLoader.load('iframe/Twitter_03.png')
-    const textureDeux4 = this.textureLoader.load('iframe/Twitter_04.png')
-    const textureDeux5 = this.textureLoader.load('iframe/Twitter_05.png')
+    const textureDeux1 = this.textureLoader.load('iframe/LeMonde_01.png')
+    const textureDeux2 = this.textureLoader.load('iframe/LeMonde_02.png')
+    const textureDeux3 = this.textureLoader.load('iframe/LeParisien_01.png')
+    const textureDeux4 = this.textureLoader.load('iframe/LeParisien_01.png')
 
-    this.PC2Images = [
-      textureDeux1,
-      textureDeux2,
-      textureDeux3,
-      textureDeux4,
-      textureDeux5,
-    ]
+    this.PC2Images = [textureDeux1, textureDeux2, textureDeux3, textureDeux4]
 
     this.PC2Images.forEach((element) => {
       element.flipY = false
     })
-
 
     this.PC1Index = 0
     this.PC2Index = 0
@@ -500,6 +521,7 @@ class SceneInit {
         this.threeClock.start()
         setTimeout(() => {
           this.isLoaded = true
+          this.phone2.container.visible = false
         }, 1200)
       }
     }
@@ -627,9 +649,6 @@ class SceneInit {
     setTimeout(() => {
       phoneSound(this.phone, 2)
     }, 150000)
-    setTimeout(() => {
-      this.endCutscene()
-    }, 170000) // 4 min = 240000
   }
 
   stopMedias() {
