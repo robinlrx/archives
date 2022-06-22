@@ -52,7 +52,7 @@ class SceneInit {
 
   init() {
     this.initScene()
-    this.initLights()
+    // this.initLights()
     this.initCamera()
     this.initRenderer()
     this.setControls()
@@ -193,8 +193,8 @@ class SceneInit {
             window.location.href = '/question'
 
             this.stopMedias()
-          }, 1500)
-        }, 6500)
+          }, 1000)
+        }, 7500)
       },
     })
   }
@@ -520,6 +520,7 @@ class SceneInit {
       if (itemsTotal === itemsLoaded) {
         this.threeClock.start()
         setTimeout(() => {
+          this.initLights()
           this.isLoaded = true
           this.phone2.container.visible = false
         }, 1200)
@@ -530,13 +531,25 @@ class SceneInit {
   initLights() {
     const ambient = new THREE.AmbientLight(0xffffff, 0.7)
     this.scene.add(ambient)
-    const pointLight = new THREE.PointLight(0x00ffab, 0.4, 100)
-    pointLight.position.set(10, 10, 10)
+
+    const pointLight = new THREE.PointLight(0xf6ff8e, 0.1, 100)
+    pointLight.position.set(17, 12, 5)
+    pointLight.castShadow = true // default false
+
+    pointLight.shadow.mapSize.width = 1024
+    pointLight.shadow.mapSize.height = 1024
+
+    pointLight.shadow.camera.near = 500
+    pointLight.shadow.camera.far = 4000
+    pointLight.shadow.camera.fov = 30
     this.scene.add(pointLight)
 
-    // const sphereSize = 1
-    // const pointLightHelper = new THREE.PointLightHelper(pointLight, sphereSize)
-    // this.scene.add(pointLightHelper)
+    const light = new THREE.SpotLight(0xffa95c, 2)
+    light.penumbra = 1
+    light.position.set(
+      this.scene.getObjectByName('neon').getWorldPosition(new THREE.Vector3())
+    )
+    light.castShadow = true
   }
 
   initCamera() {
