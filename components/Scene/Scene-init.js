@@ -5,6 +5,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js'
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 
 import { gsap, Power3, Power4 } from 'gsap'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js'
@@ -14,7 +15,11 @@ import { CustomOutlinePass } from './shaders/CustomOutlinePass.js'
 import Model from './Model'
 import { changeFrequence } from './actions/radioAction'
 import { phoneSound } from './actions/phoneAction'
-import { initLocalData, incrementMedia, incrementPieMedia } from './actions/localStorageAction'
+import {
+  initLocalData,
+  incrementMedia,
+  incrementPieMedia,
+} from './actions/localStorageAction'
 
 class SceneInit {
   constructor({ rootEl }) {
@@ -48,7 +53,6 @@ class SceneInit {
 
   init() {
     this.initScene()
-    this.initLights()
     this.initCamera()
     this.initRenderer()
     this.setControls()
@@ -84,7 +88,7 @@ class SceneInit {
   radioAction = () => {
     changeFrequence(this.radio)
     incrementMedia('Radio')
-	incrementPieMedia('Radio')
+    incrementPieMedia('Radio')
     this.countRadio = ++this.countRadio
     // when at least 2 extract ar listened
     if (this.countRadio === 6) localStorage.setItem('cardMedia12', true) // extrait 1
@@ -135,7 +139,7 @@ class SceneInit {
           if (this.currentTarget.card)
             localStorage.setItem(this.currentTarget.card, true)
           if (this.currentTarget.pieMedia)
-		  incrementPieMedia(this.currentTarget.pieMedia)
+            incrementPieMedia(this.currentTarget.pieMedia)
           this.isHolding = true
           incrementMedia('PP')
         },
@@ -181,23 +185,28 @@ class SceneInit {
       ease: Power3,
       onComplete: () => {
         setTimeout(() => {
+          this.phone2.container.visible = true
+          this.phone.container.visible = false
+          this.animatedPhone = false
+        }, 3000)
+        setTimeout(() => {
           document.querySelector('.canvas-container').style.opacity = 0
           setTimeout(() => {
             // this.$nuxt.$router.push('/question')
             window.location.href = '/question'
 
             this.stopMedias()
-          }, 3000)
-        }, 5000)
+          }, 1500)
+        }, 6500)
       },
     })
   }
 
   PC1Switch = () => {
-	incrementMedia('PW')
-	incrementPieMedia('PW')
-	localStorage.setItem('cardMedia4', true)
-	localStorage.setItem('cardMedia11', true)
+    incrementMedia('PW')
+    incrementPieMedia('PW')
+    localStorage.setItem('cardMedia4', true)
+    localStorage.setItem('cardMedia11', true)
     if (this.PC1Index === this.PC1Images.length - 1) {
       this.PC1Index = 0
     } else this.PC1Index++
@@ -207,10 +216,10 @@ class SceneInit {
   }
 
   PC2Switch = () => {
-	incrementMedia('RS')
-	incrementPieMedia('RS')
-	localStorage.setItem('cardMedia15', true)
-	localStorage.setItem('cardMedia18', true)
+    incrementMedia('RS')
+    incrementPieMedia('RS')
+    localStorage.setItem('cardMedia15', true)
+    localStorage.setItem('cardMedia18', true)
     if (this.PC2Index === this.PC2Images.length - 1) {
       this.PC2Index = 0
     } else this.PC2Index++
@@ -270,22 +279,30 @@ class SceneInit {
       src: 'phone',
       loadingManager: this.manager,
       audioSrc: 'sounds/phone/phone1.mp3',
-      audioVolume: 1,
+      audioVolume: 1.5,
       isNotPositional: true,
       autoPlay: false,
       listener: this.listener,
     })
     this.scene.add(this.phone.container)
 
+    this.phone2 = new Model({
+      scene: this.scene,
+      src: 'phone2',
+      loadingManager: this.manager,
+    })
+    this.scene.add(this.phone2.container)
+
     this.radio = new Model({
       scene: this.scene,
       src: 'radio',
       loadingManager: this.manager,
       audioSrc: 'sounds/radio/extrait1/1.mp3',
-      audioVolume: 3,
+      audioVolume: 2,
       listener: this.listener,
       action: this.radioAction,
     })
+
     this.objectsList.push(this.radio)
     this.targetableObjects.add(this.radio.container)
 
@@ -301,7 +318,7 @@ class SceneInit {
       action: this.TVSwitch,
       index: 1,
       card: 'cardMedia6',
-	  pieMedia: 'Film'
+      pieMedia: 'Film',
     })
     this.objectsList.push(this.TV1)
     this.TVs.push(this.TV1)
@@ -319,7 +336,7 @@ class SceneInit {
       action: this.TVSwitch,
       index: 2,
       card: 'cardMedia7',
-	  pieMedia: 'Interview'
+      pieMedia: 'Interview',
     })
     this.objectsList.push(this.TV2)
     this.TVs.push(this.TV2)
@@ -337,7 +354,7 @@ class SceneInit {
       action: this.TVSwitch,
       index: 3,
       card: 'cardMedia7',
-	  pieMedia: 'Docu'
+      pieMedia: 'Docu',
     })
     this.objectsList.push(this.TV3)
     this.TVs.push(this.TV3)
@@ -355,7 +372,7 @@ class SceneInit {
       action: this.TVSwitch,
       index: 4,
       card: 'cardMedia2',
-	  pieMedia: 'JT'
+      pieMedia: 'JT',
     })
     this.objectsList.push(this.TV4)
     this.TVs.push(this.TV4)
@@ -373,7 +390,7 @@ class SceneInit {
       card: 'cardMedia7',
       action: this.TVSwitch,
       index: 5,
-	  pieMedia: 'Interview'
+      pieMedia: 'Interview',
     })
     this.objectsList.push(this.TV5)
     this.TVs.push(this.TV5)
@@ -391,7 +408,7 @@ class SceneInit {
       action: this.TVSwitch,
       index: 6,
       card: 'cardMedia9',
-	  pieMedia: 'Docu'
+      pieMedia: 'Docu',
     })
     this.objectsList.push(this.TV6)
     this.TVs.push(this.TV6)
@@ -420,31 +437,39 @@ class SceneInit {
     const texture3 = this.textureLoader.load('iframe/Reddit_03.gif')
     const texture4 = this.textureLoader.load('iframe/Reddit_04.gif')
     const texture5 = this.textureLoader.load('iframe/Reddit_05.png')
+    const texture6 = this.textureLoader.load('iframe/Twitter_01.png')
+    const texture7 = this.textureLoader.load('iframe/Twitter_02.png')
+    const texture8 = this.textureLoader.load('iframe/Twitter_03.png')
+    const texture9 = this.textureLoader.load('iframe/Twitter_04.png')
+    const texture10 = this.textureLoader.load('iframe/Twitter_05.png')
 
-    this.PC1Images = [texture1, texture2, texture3, texture4, texture5]
+    this.PC1Images = [
+      texture1,
+      texture2,
+      texture3,
+      texture4,
+      texture5,
+      texture6,
+      texture7,
+      texture8,
+      texture9,
+      texture10,
+    ]
 
     this.PC1Images.forEach((element) => {
       element.flipY = false
     })
 
-    const textureDeux1 = this.textureLoader.load('iframe/Twitter_01.png')
-    const textureDeux2 = this.textureLoader.load('iframe/Twitter_02.png')
-    const textureDeux3 = this.textureLoader.load('iframe/Twitter_03.png')
-    const textureDeux4 = this.textureLoader.load('iframe/Twitter_04.png')
-    const textureDeux5 = this.textureLoader.load('iframe/Twitter_05.png')
+    const textureDeux1 = this.textureLoader.load('iframe/LeMonde_01.png')
+    const textureDeux2 = this.textureLoader.load('iframe/LeMonde_02.png')
+    const textureDeux3 = this.textureLoader.load('iframe/LeParisien_01.png')
+    const textureDeux4 = this.textureLoader.load('iframe/LeParisien_01.png')
 
-    this.PC2Images = [
-      textureDeux1,
-      textureDeux2,
-      textureDeux3,
-      textureDeux4,
-      textureDeux5,
-    ]
+    this.PC2Images = [textureDeux1, textureDeux2, textureDeux3, textureDeux4]
 
     this.PC2Images.forEach((element) => {
       element.flipY = false
     })
-
 
     this.PC1Index = 0
     this.PC2Index = 0
@@ -498,23 +523,41 @@ class SceneInit {
 
       if (itemsTotal === itemsLoaded) {
         this.threeClock.start()
+        this.phoneRingingTex = this.textureLoader.load(
+          'textures/phoneRinging.png'
+        )
         setTimeout(() => {
           this.isLoaded = true
+          this.phone2.container.visible = false
+          this.initLights()
+
+          this.radio.sound.onEnded = () => {
+            this.radio.sound.stop()
+            this.radioAction()
+            console.log('test')
+          }
         }, 1200)
       }
     }
   }
 
   initLights() {
-    const ambient = new THREE.AmbientLight(0xffffff, 0.7)
+    const ambient = new THREE.HemisphereLight(0xffeeb1, 0x080820, 0.8)
     this.scene.add(ambient)
-    const pointLight = new THREE.PointLight(0x00ffab, 0.4, 100)
-    pointLight.position.set(10, 10, 10)
+    const pointLight = new THREE.PointLight(0x00ffab, 0.5, 50)
+    pointLight.position.set(-19.15, 18, -30)
+    pointLight.castShadow = true // default false
     this.scene.add(pointLight)
 
-    // const sphereSize = 1
-    // const pointLightHelper = new THREE.PointLightHelper(pointLight, sphereSize)
-    // this.scene.add(pointLightHelper)
+    // Set up shadow properties for the light
+    pointLight.shadow.mapSize.width = 512 // default
+    pointLight.shadow.mapSize.height = 512 // default
+    pointLight.shadow.camera.near = 0.5 // default
+    pointLight.shadow.camera.far = 500
+
+    const sphereSize = 2
+    const pointLightHelper = new THREE.PointLightHelper(pointLight, sphereSize)
+    this.scene.add(pointLightHelper)
   }
 
   initCamera() {
@@ -528,6 +571,8 @@ class SceneInit {
     this.camera.position.y = 10
     this.camera.position.z = -11
     this.camera.rotation.x = -0.9
+
+    this.camera.layers.enable(1)
 
     this.camera.updateProjectionMatrix()
 
@@ -544,6 +589,9 @@ class SceneInit {
     this.renderer.setSize(window.innerWidth, window.innerHeight)
     this.renderer.setClearColor(this.background, 1)
     this.canvas = this.renderer.domElement
+
+    this.renderer.shadowMap.enabled = true
+    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
     // Set up post processing
     // Create a render target that holds a depthTexture so we can use it in the outline pass
@@ -570,6 +618,17 @@ class SceneInit {
       this.camera
     )
     this.composer.addPass(customOutline)
+
+    const bloomPass = new UnrealBloomPass(
+      new THREE.Vector2(window.innerWidth, window.innerHeight),
+      1.5,
+      0.4,
+      0.85
+    )
+    bloomPass.threshold = 0.21
+    bloomPass.strength = 1.2
+    bloomPass.radius = 0.55
+    // this.composer.addPass(bloomPass)
 
     // Antialias pass.
     const effectFXAA = new ShaderPass(FXAAShader)
@@ -627,9 +686,7 @@ class SceneInit {
     setTimeout(() => {
       phoneSound(this.phone, 2)
     }, 150000)
-    setTimeout(() => {
-      this.endCutscene()
-    }, 170000) // 4 min = 240000
+    // 4 min = 240000
   }
 
   stopMedias() {
@@ -648,6 +705,8 @@ class SceneInit {
     this.objectsList.forEach((element) => {
       if (element.sound && element.src !== target.src) {
         element.sound.setVolume(0.3)
+      } else if (element.sound && element.src === target.src) {
+        element.sound.setVolume(element.audioVolume + 1)
       }
     })
   }

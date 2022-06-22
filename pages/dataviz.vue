@@ -16,9 +16,9 @@
 						<p class='text-bold date reveal-1'>19<br>91</p>
 						<div class="line-case"></div>
 						<img src="~/assets/images/omar.png" alt="" class="omar reveal-1">
-						<div class="line-case reveal-1"></div>
+						<div class="line-case"></div>
 						<p class="resume reveal-1">L’affaire Omar Raddad commence avec le meurtre de Ghislaine Marshal en 1991, dans sa propre villa. “OMAR M’A TUER” est inscrit en lettres de sang sur 2 surfaces, ce qui mène à l’arrestation d’Omar Raddad.</p>
-						<div class="line-case reveal-1"></div>
+						<div class="line-case"></div>
 					</div>
 					<!-- right side -->
 					<Box addclass="reveal-1 stats">
@@ -577,7 +577,7 @@ section:first-of-type {
 }
 
 .dataviz-first-conclusion {
-	width: 1250px;
+	width: 100%;
 	/* border: solid red; */
 	display: flex;
 	justify-content: center;
